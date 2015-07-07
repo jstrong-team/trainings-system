@@ -6,8 +6,19 @@
 html, body {
 	height: 100%;
 }
+
+.navBarBackground{
+	background-color:#032539;
+	opacity: 0.9;
+}
+.navBarText{
+	color:white;
+	font-size:14px;
+	align-items: center;
+	font-weight:900;
+}
 .logo{
-	 color:blue;
+	 color:white;
 	 font-size:34px;
 	 font-style: italic;
 	 align-items: center;
