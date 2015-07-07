@@ -6,6 +6,17 @@
 html, body {
 	height: 100%;
 }
+.logo{
+	 color:blue;
+	 font-size:34px;
+	 font-style: italic;
+	 align-items: center;
+	 font-weight:900;
+ }
+
+.marginT{
+	margin-top: 70px;
+}
 
 .wrapper {
 	position: relative;
