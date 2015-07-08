@@ -10,10 +10,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class EmployeeDaoImpl implements DaoGeneric<Employee> {
+    private Employee employee;
     private static Logger logger = Logger.getLogger(EmployeeDaoImpl.class.getName());
 
-    public boolean selectByAuthorization(String ulogin, String upassword) {
-        boolean status = false;
+    public Employee selectByAuthorization(String ulogin, String upassword) {
+       /* boolean status = false;
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -57,7 +58,7 @@ public class EmployeeDaoImpl implements DaoGeneric<Employee> {
                     logger.error(e);
                 }
             }
-        }
-        return status;
+        }*/
+        return employee;
     }
 }

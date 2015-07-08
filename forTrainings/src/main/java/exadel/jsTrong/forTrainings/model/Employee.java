@@ -7,6 +7,8 @@ public class Employee {
     private String login;
     private String password;
     private boolean isAdmin;
+    private String email;
+    private String phone;
 
     public Employee(String id, String name, String surname, String login, String password, boolean isAdmin) {
         this.id = id;
