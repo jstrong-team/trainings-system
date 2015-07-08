@@ -60,3 +60,11 @@ footer {
 .trademark {
 	font-size:18px;
 }
+
+.searchingPanel {
+	vertical-align: middle;
+}
+
+.inputSearch, #buttonSearch {
+	margin-top: 8px;
+}
