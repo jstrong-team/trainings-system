@@ -23,6 +23,7 @@ trainings.config(function($routeProvider) {
             $routeProvider
                 .when('/trainings', {
                     templateUrl: 'employee.html',
-                    controller: 'newTrainingsController'
+                    controller: 'newTrainingsController',
+                    resolve: {}
                 })
 });

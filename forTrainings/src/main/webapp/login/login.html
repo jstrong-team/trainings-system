@@ -21,6 +21,9 @@
  					</div>
 				</div>
 				<div class="col-md-4">
+					<div ng-show="error">
+							{{error}}
+					</div>
 					<form class="form-horizontal" role="form" ng-submit="submit()">
 						<div class="form-group">
 							<div class="col-md-12">
@@ -28,7 +31,8 @@
 									   class="form-control"
 									   placeholder="Enter login"
 									   id="inputLogin"
-									   ng-model="credationals.login">
+									   ng-model="credationals.login"
+									   required>
 							</div>
 						</div>
 						<div class="form-group">
@@ -37,7 +41,8 @@
 									   class="form-control"
 									   placeholder="Enter password"
 									   id="inputPassword"
-									   ng-model="credationals.password">
+									   ng-model="credationals.password"
+									   required>
 							</div>
 						</div>
 						<div class="form-group">
