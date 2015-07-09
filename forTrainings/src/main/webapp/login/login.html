@@ -21,15 +21,23 @@
  					</div>
 				</div>
 				<div class="col-md-4">
-					<form class="form-horizontal" role="form">
+					<form class="form-horizontal" role="form" ng-click="submit()">
 						<div class="form-group">
 							<div class="col-md-12">
-								<input type="login" class="form-control" placeholder="Enter login" id="inputLogin">
+								<input type="login"
+									   class="form-control"
+									   placeholder="Enter login"
+									   id="inputLogin"
+									   ng-model="credationals.login">
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-12">
-								<input type="password" class="form-control" placeholder="Enter password" id="inputPassword">
+								<input type="password"
+									   class="form-control"
+									   placeholder="Enter password"
+									   id="inputPassword"
+									   ng-model="credationals.password">
 							</div>
 						</div>
 						<div class="form-group">
