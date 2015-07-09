@@ -7,7 +7,7 @@ public abstract class ConnectionManager {
     private static final String driverName = "com.mysql.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/for_trainings";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "04968786";
+    private static final String PASSWORD = "password";
 
     public static Connection getConnection() {
         Connection connection = null;
