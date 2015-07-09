@@ -2,6 +2,7 @@ package exadel.jsTrong.forTrainings.dao.impl;
 
 import exadel.jsTrong.forTrainings.dao.TrainingDAO;
 import exadel.jsTrong.forTrainings.db.ConnectionManager;
+import exadel.jsTrong.forTrainings.model.Employee;
 import exadel.jsTrong.forTrainings.model.Training;
 
 import java.sql.Connection;
@@ -141,11 +142,12 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
     }
 
     @Override
-    public List<Training> getTrainingsByName(String name) {
+    public List<Training> getTrainingsByField(String columnName, String columnValue){
+
         List<Training> list = new ArrayList<>();
         Training training = null;
 
-        ResultSet rs = executeQuery("SELECT * FROM trainings WHERE name = " + name);
+        ResultSet rs = executeQuery("SELECT * FROM trainings WHERE " + columnName + " = " + columnValue);
 
         try {
             while (rs.next()) {
@@ -162,4 +164,28 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
 
         return list;
     }
+
+    @Override
+    public List<Training> getPaidTrainings() {
+
+        List<Training> list = new ArrayList<>();
+        Training training = null;
+
+        ResultSet rs = executeQuery("SELECT * FROM trainings WHERE isPaid = 1");
+
+        try {
+            while (rs.next()) {
+                training = new Training(rs.getString("id"), rs.getString("name"),
+                        rs.getString("date"), rs.getString("place"),
+                        rs.getString("teacherName"), rs.getString("description"),
+                        rs.getString("targetAudience"), rs.getBoolean("isInternal"), rs.getBoolean("isPaid"));
+                list.add(training);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    };
 }

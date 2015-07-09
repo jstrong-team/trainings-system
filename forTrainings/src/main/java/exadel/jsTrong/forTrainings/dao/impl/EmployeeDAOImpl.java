@@ -76,8 +76,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public Employee update(Employee employee) {
-        return null;
+    public boolean update(Employee employee) {
+        return false;
     }
 
     @Override
