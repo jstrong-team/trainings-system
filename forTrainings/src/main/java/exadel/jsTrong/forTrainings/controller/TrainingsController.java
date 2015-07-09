@@ -1,5 +1,5 @@
 package exadel.jsTrong.forTrainings.controller;
 
-public interface TrainingsController extends Controller {
+public interface TrainingsController {
 
 }
