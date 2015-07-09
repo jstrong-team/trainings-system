@@ -7,6 +7,9 @@
 <script src="login/module.js"></script>
 <script src="login/controllers.js"></script>
 <script src="login/services.js"></script>
+<script src="trainings/module.js"></script>
+<script src="trainings/controller.js"></script>
+<script src="trainings/service.js"></script>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 loginModule
 <body ng-view>
