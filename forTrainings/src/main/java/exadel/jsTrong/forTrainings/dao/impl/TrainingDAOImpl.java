@@ -17,7 +17,7 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
 
     @Override
     public Training getByID(String ID) {
-        Training training = null;
+        Training training = null;Connection connection = null;
         ResultSet rs = executeQuery("SELECT * FROM trainings WHERE id = " + ID);
 
         try {
@@ -33,19 +33,18 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
 
     @Override
     public boolean update(Training training) {
-        
-        PreparedStatement ps = null;
         Connection connection = null;
+        PreparedStatement ps = null;
         boolean boolRes = false;
         int res = 0;
         String sql = "UPDATE trainings SET name = ?, date = ?, place = ?, teacherName = ?, " +
                 "description = ?,  audience = ?, isInternal = ?, isPaid = ?" +
-                "WHERE id =" +training.getId();
+                "WHERE id = " + training.getId();
 
         try {
             connection = getConnection();
-
             ps = connection.prepareStatement(sql);
+
             ps.setString(1, training.getName());
             ps.setString(2, training.getDate());
             ps.setString(3, training.getPlace());
@@ -71,9 +70,8 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
 
     @Override
     public boolean save(Training training) {
-
-        PreparedStatement ps = null;
         Connection connection = null;
+        PreparedStatement ps = null;
         boolean boolRes = false;
         int res = 0;
         String sql = "INSERT INTO trainings (name,date,place,teacher,description,audience,isInternal,isPaid) " +
@@ -81,6 +79,7 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
 
         try {
             connection = getConnection();
+            ps = connection.prepareStatement(sql);
 
             ps = connection.prepareStatement(sql);
             ps.setString(1, training.getName());
@@ -121,7 +120,6 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
     public List<Training> getAll() {
         List<Training> list = new ArrayList<>();
         Training training = null;
-        String ID;
 
         ResultSet rs = executeQuery("SELECT * FROM trainings");
 
@@ -133,8 +131,7 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
                         rs.getString("targetAudience"), rs.getBoolean("isInternal"), rs.getBoolean("isPaid"));
                 list.add(training);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -142,8 +139,42 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
     }
 
     @Override
-    public List<Training> getTrainingsByField(String columnName, String columnValue){
+    public List<Training> getTrainingsByTrainer(Employee trainer) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        List<Training> list = new ArrayList<>();
+        ResultSet rs = null;
+        Training training = null;
 
+        String sql = "SELECT * FROM trainings WHERE trainer_id = ?";
+
+        try {
+            connection = getConnection();
+            ps = connection.prepareStatement(sql);
+
+            ps.setString(1, trainer.getId());
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                training = new Training(rs.getString("id"), rs.getString("name"),
+                        rs.getString("date"), rs.getString("place"),
+                        rs.getString("teacherName"), rs.getString("description"),
+                        rs.getString("targetAudience"), rs.getBoolean("isInternal"), rs.getBoolean("isPaid"));
+                list.add(training);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeAll(null, ps, connection);
+        }
+
+        return list;
+
+    }
+
+    @Override
+    public List<Training> getTrainingsByField(String columnName, String columnValue) {
         List<Training> list = new ArrayList<>();
         Training training = null;
 
@@ -167,7 +198,6 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
 
     @Override
     public List<Training> getPaidTrainings() {
-
         List<Training> list = new ArrayList<>();
         Training training = null;
 

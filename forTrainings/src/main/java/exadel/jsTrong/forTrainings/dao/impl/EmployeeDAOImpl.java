@@ -6,9 +6,10 @@ import exadel.jsTrong.forTrainings.db.ConnectionManager;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDAOImpl implements EmployeeDAO {
+public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
     private Employee employee;
     private static Logger logger = Logger.getLogger(EmployeeDAOImpl.class.getName());
 
@@ -62,36 +63,143 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public Employee getEmployeeByFullName(String name, String surname) {
-        return null;
+        Employee employee = null;
+        ResultSet rs = executeQuery("SELECT * FROM employees WHERE name = " + name +
+                " AND surname = " + surname);
+
+        try {
+            employee = new Employee(rs.getString("id"), rs.getString("login"), rs.getString("password"),
+                    rs.getString("name"), rs.getString("surname"), rs.getString("mail"),
+                    rs.getString("phone"), rs.getBoolean("admin"), rs.getBoolean("external"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employee;
     }
 
     @Override
     public List<Employee> getAllEnglishTeachers() {
+        // TODO
         return null;
     }
 
     @Override
     public Employee getByID(String ID) {
-        return null;
+        Employee employee = null;
+        ResultSet rs = executeQuery("SELECT * FROM employees WHERE id = " + ID);
+
+        try {
+            employee = new Employee(rs.getString("id"), rs.getString("login"), rs.getString("password"),
+                    rs.getString("name"), rs.getString("surname"), rs.getString("mail"),
+                    rs.getString("phone"), rs.getBoolean("admin"), rs.getBoolean("external"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employee;
     }
 
     @Override
     public boolean update(Employee employee) {
-        return false;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        boolean boolRes = false;
+        int res = 0;
+        String sql = "UPDATE employees SET login = ?, password = ?, name = ?, surname = ?, " +
+                "mail = ?,  phone = ?, admin = ?, external = ?" +
+                "WHERE id = " + employee.getId();
+
+        try {
+            connection = getConnection();
+            ps = connection.prepareStatement(sql);
+
+            ps.setString(1, employee.getLogin());
+            ps.setString(2, employee.getPassword());
+            ps.setString(3, employee.getName());
+            ps.setString(4, employee.getSurname());
+            ps.setString(5, employee.getMail());
+            ps.setString(6, employee.getPhone());
+            ps.setBoolean(7, employee.getAdmin());
+            ps.setBoolean(8, employee.getExternal());
+
+            res = ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeAll(null, ps, connection);
+        }
+
+        if (res > 0)
+            boolRes = true;
+
+        return boolRes;
     }
 
     @Override
     public boolean save(Employee employee) {
-        return false;
+        Connection connection = null;
+        PreparedStatement ps = null;
+        boolean boolRes = false;
+        int res = 0;
+        String sql = "INSERT INTO employees (login, password, name, surname, mail, phone, admin, external) " +
+                "VALUES (?,?,?,?,?,?,?,?)";
+
+        try {
+            connection = getConnection();
+            ps = connection.prepareStatement(sql);
+
+            ps.setString(1, employee.getLogin());
+            ps.setString(2, employee.getPassword());
+            ps.setString(3, employee.getName());
+            ps.setString(4, employee.getSurname());
+            ps.setString(5, employee.getMail());
+            ps.setString(6, employee.getPhone());
+            ps.setBoolean(7, employee.getAdmin());
+            ps.setBoolean(8, employee.getExternal());
+
+            res = ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeAll(null, ps, connection);
+        }
+
+        if (res > 0)
+            boolRes = true;
+
+        return boolRes;
     }
 
     @Override
     public boolean delete(String id) {
-        return false;
+        boolean boolRes = false;
+        int res = executeUpdate("DELETE FROM employees WHERE id = " + id);
+
+        if (res > 0)
+            boolRes = true;
+
+        return boolRes;
     }
 
     @Override
     public List<Employee> getAll() {
-        return null;
+        List<Employee> list = new ArrayList<>();
+        Employee employee = null;
+
+        ResultSet rs = executeQuery("SELECT * FROM employees");
+
+        try {
+            while (rs.next()) {
+                employee = new Employee(rs.getString("id"), rs.getString("login"), rs.getString("password"),
+                        rs.getString("name"), rs.getString("surname"), rs.getString("mail"),
+                        rs.getString("phone"), rs.getBoolean("admin"), rs.getBoolean("external"));
+                list.add(employee);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }

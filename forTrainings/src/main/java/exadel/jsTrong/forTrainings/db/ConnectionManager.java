@@ -22,7 +22,6 @@ public abstract class ConnectionManager {
     }
 
     public ResultSet executeQuery(String sql) {
-
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -42,7 +41,6 @@ public abstract class ConnectionManager {
     }
 
     public int executeUpdate(String sql) {
-
         Connection connection = null;
         Statement statement = null;
         int res = 0;
