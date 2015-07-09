@@ -1,4 +1,4 @@
-var myMod=angular.module("app",['ngRoute','trainings']);
+var myMod=angular.module("app",['ngRoute','trainings','loginModule']);
 // myMod.run(['$rootScope',function(oot){
 // 	oot.hello="asdfasd";
 // }]);
@@ -6,6 +6,8 @@ myMod.controller('appController',['$rootScope',function($scope){
     $scope.hello="zxczxc";
 
 }])
+
+
 
 var trainings=angular.module('trainings',[]);
 
@@ -18,21 +20,9 @@ trainings.controller('newTrainingsController',['$scope',function($scope){
 }])
 
 trainings.config(function($routeProvider) {
-    $routeProvider
-        .when('/', {
-            templateUrl : 'login.html',
-            controller: 'trainingsController',
-            // resolve: {
-            //   // I will cause a 1 second delay
-            //   delay: function($q, $timeout) {
-            //     var delay = $q.defer();
-            //     $timeout(delay.resolve, 1000);
-            //     return delay.promise;
-            //   }
-            // }
-        })
-        .when('/trainings', {
-            templateUrl: 'employee.html',
-            controller: 'newTrainingsController'
-        })
+            $routeProvider
+                .when('/trainings', {
+                    templateUrl: 'employee.html',
+                    controller: 'newTrainingsController'
+                })
 });
