@@ -41,7 +41,27 @@ public abstract class ConnectionManager {
         return resultSet;
     }
 
-    void closeAll(ResultSet resultSet, Statement statement, Connection connection) {
+    public int executeUpdate(String sql) {
+
+        Connection connection = null;
+        Statement statement = null;
+        int res = 0;
+
+        try {
+            connection = getConnection();
+            statement = connection.createStatement();
+            res = statement.executeUpdate(sql);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeAll(null, statement, connection);
+        }
+
+        return res;
+    }
+
+    public void closeAll(ResultSet resultSet, Statement statement, Connection connection) {
 
         if (resultSet != null) {
             try {
