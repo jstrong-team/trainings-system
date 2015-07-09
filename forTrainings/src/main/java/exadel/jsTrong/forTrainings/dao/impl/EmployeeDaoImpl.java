@@ -1,15 +1,11 @@
 package exadel.jsTrong.forTrainings.dao.impl;
 
 import exadel.jsTrong.forTrainings.dao.EmployeeDAO;
-import exadel.jsTrong.forTrainings.dao.GenericDAO;
 import exadel.jsTrong.forTrainings.model.Employee;
 import exadel.jsTrong.forTrainings.db.ConnectionManager;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
@@ -17,25 +13,24 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     private static Logger logger = Logger.getLogger(EmployeeDAOImpl.class.getName());
 
     public Employee selectByAuthorization(String ulogin, String upassword) {
-        /* boolean status = false;
         Connection connection = null;
         Statement statement = null;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        String login = null;
-        String password = null;
 
         try {
             connection = ConnectionManager.getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM staff");//!!!!!!
+            preparedStatement = connection.prepareStatement("SELECT * FROM employees WHERE" +
+                    " login = ? " + " AND  " + " password = ?");
+            preparedStatement.setString(1, ulogin);
+            preparedStatement.setString(2, upassword);
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                login = resultSet.getString("login");
-                password = resultSet.getString("password");
+                employee = new Employee(resultSet.getString("id"), resultSet.getString("login"),
+                        resultSet.getString("password"), resultSet.getString("name"), resultSet.getString("surname"),
+                        resultSet.getString("mail"), resultSet.getString("phone"), resultSet.getBoolean("admin"),
+                        resultSet.getBoolean("external"));
             }
-            int a = ulogin.compareToIgnoreCase(login);
-            int b = upassword.compareToIgnoreCase(password);
-            if(a == 0 && b == 0)
-                status = true;
 
         } catch (SQLException e) {
             logger.error(e);
@@ -61,7 +56,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                     logger.error(e);
                 }
             }
-        } */
+        }
         return employee;
     }
 
