@@ -3,7 +3,7 @@ var myMod=angular.module("app",['ngRoute','trainings','loginModule']);
 // 	oot.hello="asdfasd";
 // }]);
 myMod.controller('appController',['$rootScope',function($scope){
-    $scope.hello="zxczxc";
+    //$scope.hello="zxczxc";
 
 }])
 
@@ -12,11 +12,11 @@ myMod.controller('appController',['$rootScope',function($scope){
 var trainings=angular.module('trainings',[]);
 
 trainings.controller('trainingsController',['$scope',function($scope){
-    $scope.hello='asdas11';
+    //$scope.hello='asdas11';
 }])
 
 trainings.controller('newTrainingsController',['$scope',function($scope){
-    $scope.hello='new';
+    //$scope.hello='new';
 }])
 
 trainings.config(function($routeProvider) {
