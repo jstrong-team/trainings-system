@@ -1,11 +1,14 @@
 package exadel.jsTrong.forTrainings.servlets;
 
+import com.google.gson.Gson;
 import exadel.jsTrong.forTrainings.controller.EmployeeController;
 import exadel.jsTrong.forTrainings.controller.EmployeeControllerImpl;
 import exadel.jsTrong.forTrainings.model.Employee;
 import exadel.jsTrong.forTrainings.rb.ResponseBuilder;
+import exadel.jsTrong.forTrainings.servlets.util.ServletUtil;
 import org.apache.log4j.Logger;
 import com.google.gson.JsonParseException;
+import com.google.gson.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,34 +24,43 @@ public class SigninServlet extends HttpServlet{
     private static Logger logger = Logger.getLogger(SigninServlet.class.getName());
     private EmployeeController employeeController;
     private ResponseBuilder<Employee> rb;
+    private Gson gson;
 
     @Override
     public void init() throws ServletException {
         employeeController = new EmployeeControllerImpl();
         rb = new ResponseBuilder<>();
+        gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("doPost");
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-
-        logger.info("Login " + login);
-        logger.info("Password " + password);
-
-        Employee employee = employeeController.authorization(login, password);
-        if(employee == null) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "User not found");
+        String data = ServletUtil.getEmployeeBody(request);
+        try {
+            /*JSONObject json = ServletUtil.stringToJson(data);
+            Object login = json.get("login");
+            Object password = json.get("password");*/
+            Employee rempl = gson.fromJson(data, Employee.class);
+            String login = rempl.getLogin();
+            String password = rempl.getPassword();
+            if(login != null && password != null) {
+                Employee employee = employeeController.authorization(login, password);
+                if (employee == null) {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "User not found");
+                } else {
+                    response.setCharacterEncoding(ServletUtil.UTF_8);
+                    response.setContentType(ServletUtil.APPLICATION_JSON);
+                    PrintWriter out = response.getWriter();
+                    out.print(rb.getResponse(employee));
+                    out.flush();
+                    response.setStatus(HttpServletResponse.SC_OK);
+                }
+            }
         }
-        else {
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType("application/json");
-            PrintWriter out = response.getWriter();
-            out.print(rb.getResponse(employee));
-            out.flush();
-            response.setStatus(HttpServletResponse.SC_OK);
+        catch (JsonParseException e) {
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
-
 }
