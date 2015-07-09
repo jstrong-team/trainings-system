@@ -2,7 +2,7 @@ angular.module('loginModule',[]).config(function($routeProvider) {
     $routeProvider
         .when('/', {
             templateUrl : 'login/login.html',
-            controller: 'trainingsController',
+            controller: 'loginController'
             // resolve: {
             //   // I will cause a 1 second delay
             //   delay: function($q, $timeout) {
