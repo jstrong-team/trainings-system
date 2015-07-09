@@ -1,30 +1,29 @@
-package exadel.jsTrong.forTrainings.controller;
+package exadel.jsTrong.forTrainings.servlets;
 
-import exadel.jsTrong.forTrainings.dao.*;
+import exadel.jsTrong.forTrainings.controller.Controller;
+import exadel.jsTrong.forTrainings.controller.EmployeeController;
+import exadel.jsTrong.forTrainings.controller.EmployeeControllerImpl;
 import org.apache.log4j.Logger;
-import org.json.simple.JSONObject;
-import org.xml.sax.SAXException;
+import com.google.gson.JsonParseException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+
 @WebServlet("/forTrainings")
-public class LoginServlet extends HttpServlet{
+public class SigninServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
-    private static Logger logger = Logger.getLogger(LoginServlet.class.getName());
-    private DaoGeneric employeeDao;
-    private boolean status;
+    private static Logger logger = Logger.getLogger(SigninServlet.class.getName());
+    private Controller controller;
 
     @Override
     public void init() throws ServletException {
-            this.employeeDao = new EmployeeDaoImpl();
-            status = false;
+        this.controller = new EmployeeControllerImpl();
     }
 
     @Override
@@ -34,12 +33,10 @@ public class LoginServlet extends HttpServlet{
         String password = request.getParameter("password");
         logger.info("Login " + login);
         logger.info("Password " + password);
-
         try {
             if (login != null) {
-
                 String st;
-                st = formResponse();
+                st = controller.getResponse();
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("application/json");
                 PrintWriter out = response.getWriter();
@@ -48,7 +45,7 @@ public class LoginServlet extends HttpServlet{
             } else {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "'token' parameter needed");
             }
-        } catch (SAXException | ParserConfigurationException e) {
+        } catch (JsonParseException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
@@ -62,13 +59,6 @@ public class LoginServlet extends HttpServlet{
         logger.info("Login " + login);
         logger.info("Password " + password);
         response.setStatus(HttpServletResponse.SC_OK);
-        status = employeeDao.selectByAuthorization(login, password);
-        logger.info("Status " + status);
-    }
-
-    private String formResponse() throws SAXException, IOException, ParserConfigurationException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("status", status);
-        return jsonObject.toJSONString();
+        controller.authorization(login, password);
     }
 }
