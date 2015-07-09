@@ -1,0 +1,70 @@
+* {
+	margin: 0;
+  	padding: 0;
+}
+
+html, body {
+	height: 100%;
+}
+
+.wrapper {
+	margin-top: 70px;
+	position: relative;
+	min-height: 100%;
+}
+
+.wrapper .container {
+	padding-bottom: 60px;
+}
+
+footer {
+	position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+}
+
+.navBarBackground{
+	background-color:#032539;
+	opacity: 0.85;
+}
+
+.navbar-header {
+	padding-right: 0;
+}
+
+.icon-bar {
+	background-color: white;
+}
+
+.navBarText{
+	color:white;
+	font-size:14px;
+	align-items: center;
+	font-weight:900;
+}
+
+.logo {
+	color:white;
+	font-size:34px;
+	font-style: italic;
+ 	align-items: center;
+	font-weight:900;
+ }
+
+ .logo:link, .logo:hover, .logo:active, .logo:visited {
+	text-decoration: none;
+	color:white;
+}
+
+.trademark {
+	font-size:18px;
+}
+
+.searchingPanel {
+	vertical-align: middle;
+}
+
+.inputSearch, #buttonSearch {
+	margin-top: 8px;
+}

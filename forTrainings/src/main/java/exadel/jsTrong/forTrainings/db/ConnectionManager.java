@@ -1,17 +1,18 @@
 package exadel.jsTrong.forTrainings.db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 
-public class ConnectionManager {
+public abstract class ConnectionManager {
+
+    private static final String driverName = "com.mysql.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/something";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "04968786";
+    private static final String PASSWORD = "root";
 
     public static Connection getConnection() {
         Connection connection = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(driverName);
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (Exception e) {
             e.printStackTrace();
@@ -20,4 +21,48 @@ public class ConnectionManager {
         return connection;
     }
 
+    public ResultSet executeQuery(String sql) {
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeAll(resultSet, statement, connection);
+        }
+
+        return resultSet;
+    }
+
+    void closeAll(ResultSet resultSet, Statement statement, Connection connection) {
+
+        if (resultSet != null) {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
