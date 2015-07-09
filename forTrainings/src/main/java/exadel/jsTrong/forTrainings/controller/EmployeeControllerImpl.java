@@ -12,10 +12,12 @@ public class EmployeeControllerImpl implements EmployeeController {
         Employee  employee;
         this.employeeDao = new EmployeeDAOImpl();
         employee = employeeDao.selectByAuthorization(login, password);
-        int a = login.compareToIgnoreCase(employee.getLogin());
-        int b = password.compareToIgnoreCase(employee.getPassword());
-        if(!(a == 0 && b == 0))
-            employee = null;
+        if(employee != null) {
+            int a = login.compareToIgnoreCase(employee.getLogin());
+            int b = password.compareToIgnoreCase(employee.getPassword());
+            if(!(a == 0 && b == 0))
+                employee = null;
+        }
         return employee;
     }
 }
