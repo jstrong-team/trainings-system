@@ -48,7 +48,7 @@ public class SigninServlet extends HttpServlet{
             if(login != null && password != null) {
                 Employee employee = employeeController.authorization(login, password);
                 if (employee == null) {
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "User not found");
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not found");
                 } else {
                     response.setCharacterEncoding(ServletUtil.UTF_8);
                     response.setContentType(ServletUtil.APPLICATION_JSON);
