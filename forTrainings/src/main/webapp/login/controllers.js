@@ -1,12 +1,18 @@
-angular.module('loginModule').controller('logintController',['$scope','loginService',function($scope,loginService){
-    $scope.credationals={login:null, password:null};
-    $scope.submit= function(){
-        console.log($scope.credationals);
-        loginService.serv(credationals).then(function(response){
-            console.log(response);
-        }, function(error){
-            console.log(error);
-        });
-    }
+angular.module('loginModule').controller('loginController', ['$scope', 'loginService',
+    function($scope, loginservice) {
+    $scope.credetionals = {login: '', password: ''};
 
+
+    $scope.login = function() {
+        console.log($scope.credetionals);
+        loginservice.a($scope.credetionals).then(function(response){
+            console.log(response);
+
+        }, function(error){
+            console.error(error);
+            console.error('smth');
+        });
+
+
+    }
 }]);
