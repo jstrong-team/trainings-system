@@ -39,6 +39,7 @@ public class SigninServlet extends HttpServlet{
                 st = controller.getResponse();
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("application/json");
+                response.addHeader("Access-Control-Allow-Origin", "http://localhost:8080/");
                 PrintWriter out = response.getWriter();
                 out.print(st);
                 out.flush();
@@ -61,4 +62,5 @@ public class SigninServlet extends HttpServlet{
         response.setStatus(HttpServletResponse.SC_OK);
         controller.authorization(login, password);
     }
+
 }
