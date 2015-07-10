@@ -1,17 +1,32 @@
 package com.exadel.jstrong.fortrainings.core.db;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
+import java.util.Properties;
 
 public abstract class ConnectionManager {
 
-    private static final String driverName = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/for_trainings";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "password";
+    private static String driverName;
+    private static String URL;
+    private static String USERNAME;
+    private static String PASSWORD;
+
+    private static void setProperties() throws IOException {
+        Properties prop = new Properties();
+        InputStream in = ConnectionManager.class.getClassLoader().getResourceAsStream("dbConnection.properties");
+        prop.load(in);
+        driverName = prop.getProperty("driver");
+        URL = prop.getProperty("connectionurl");
+        USERNAME = prop.getProperty("dbusername");
+        PASSWORD = prop.getProperty("dbpassword");
+        in.close();
+    }
 
     public static Connection getConnection() {
         Connection connection = null;
         try {
+            setProperties();
             Class.forName(driverName);
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (Exception e) {
