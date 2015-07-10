@@ -1,7 +1,7 @@
-package com.exadel.jstrong.fortrainings.web.controller;
+package com.exadel.jstrong.web.fortrainings.controller;
 
-import com.exadel.jstrong.fortrainings.web.controller.impl.EmployeeControllerImpl;
-import com.exadel.jstrong.fortrainings.web.controller.impl.TrainingsControllerImpl;
+import com.exadel.jstrong.web.fortrainings.controller.impl.EmployeeControllerImpl;
+import com.exadel.jstrong.web.fortrainings.controller.impl.TrainingsControllerImpl;
 
 public class Controller {
     private EmployeeController eci;

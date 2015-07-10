@@ -1,4 +1,4 @@
-package com.exadel.jstrong.fortrainings.web.controller;
+package com.exadel.jstrong.web.fortrainings.controller;
 
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 
