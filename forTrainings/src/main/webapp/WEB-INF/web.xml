@@ -6,12 +6,12 @@
   <display-name>Archetype Created Web Application</display-name>
 
     <!--<servlet>-->
-        <!--<servlet-name>employee</servlet-name>-->
-        <!--<servlet-class>exadel.jsTrong.forTrainings.servlets.SigninServlet</servlet-class>-->
+    <!--<servlet-name>employee</servlet-name>-->
+    <!--<servlet-class>exadel.jsTrong.forTrainings.servlets.SigninServlet</servlet-class>-->
 
     <!--</servlet>-->
     <!--<servlet-mapping>-->
-        <!--<servlet-name>employee</servlet-name>-->
-        <!--<url-pattern>/forTrainings</url-pattern>-->
+    <!--<servlet-name>employee</servlet-name>-->
+    <!--<url-pattern>/forTrainings</url-pattern>-->
     <!--</servlet-mapping>-->
 </web-app>
