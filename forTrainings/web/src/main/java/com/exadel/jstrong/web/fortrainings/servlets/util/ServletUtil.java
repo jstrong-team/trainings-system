@@ -1,4 +1,4 @@
-package com.exadel.jstrong.fortrainings.web.servlets.util;
+package com.exadel.jstrong.web.fortrainings.servlets.util;
 
 
 import org.json.simple.JSONObject;

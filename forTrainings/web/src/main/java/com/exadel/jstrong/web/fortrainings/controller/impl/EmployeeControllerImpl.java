@@ -1,9 +1,9 @@
-package com.exadel.jstrong.fortrainings.web.controller.impl;
+package com.exadel.jstrong.web.fortrainings.controller.impl;
 
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.impl.EmployeeDAOImpl;
-import com.exadel.jstrong.fortrainings.web.controller.EmployeeController;
+import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 
 public class EmployeeControllerImpl implements EmployeeController {
 

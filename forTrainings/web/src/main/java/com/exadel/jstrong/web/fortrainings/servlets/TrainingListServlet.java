@@ -1,6 +1,6 @@
-package com.exadel.jstrong.fortrainings.web.servlets;
+package com.exadel.jstrong.web.fortrainings.servlets;
 
-import com.exadel.jstrong.fortrainings.web.controller.Controller;
+import com.exadel.jstrong.web.fortrainings.controller.Controller;
 
 import javax.servlet.http.HttpServlet;
 

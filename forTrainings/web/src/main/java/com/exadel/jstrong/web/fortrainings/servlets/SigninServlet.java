@@ -1,11 +1,11 @@
-package com.exadel.jstrong.fortrainings.web.servlets;
+package com.exadel.jstrong.web.fortrainings.servlets;
 
+import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
+import com.exadel.jstrong.web.fortrainings.controller.impl.EmployeeControllerImpl;
+import com.exadel.jstrong.web.fortrainings.responsebuilder.ResponseBuilder;
+import com.exadel.jstrong.web.fortrainings.servlets.util.ServletUtil;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
-import com.exadel.jstrong.fortrainings.web.controller.EmployeeController;
-import com.exadel.jstrong.fortrainings.web.controller.impl.EmployeeControllerImpl;
-import com.exadel.jstrong.fortrainings.web.responsebuilder.ResponseBuilder;
 import com.google.gson.Gson;
-import com.exadel.jstrong.fortrainings.web.servlets.util.ServletUtil;
 import org.apache.log4j.Logger;
 import com.google.gson.JsonParseException;
 import com.google.gson.*;
