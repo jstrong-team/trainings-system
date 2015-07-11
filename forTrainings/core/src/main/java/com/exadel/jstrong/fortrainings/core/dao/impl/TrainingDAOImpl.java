@@ -30,7 +30,6 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
 
         Training training = null;
         String trainerId = null;
-        Employee trainer;
 
         try {
             connection = ConnectionManager.getConnection();
@@ -38,8 +37,7 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
             resultSet = statement.executeQuery("SELECT * FROM training");
             while (resultSet.next()) {
                 trainerId = resultSet.getString("trainer_id");
-                trainer = employeeDAO.getByID(trainerId);
-                training = new Training(resultSet.getString("id"), trainer.getName(),
+                training = new Training(resultSet.getString("id"), getTrainerNameById(trainerId),
                         resultSet.getString("name"), resultSet.getString("annotation"),
                         resultSet.getString("description"), resultSet.getString("duration"));
                 list.add(training);
@@ -73,21 +71,68 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
         return list;
     }
 
+    private String getTrainerNameById(String trainerId) {
+        Employee trainer;
+        StringBuilder trainerName = new StringBuilder("");
+        trainer = employeeDAO.getByID(trainerId);
+        trainerName.append(trainer.getName());
+        trainerName.append(" ");
+        trainerName.append(trainer.getSurname());
+        return trainerName.toString();
+    }
+
     @Override
-    public Training getByID(String ID) {
-        Training training = null;Connection connection = null;
-        ResultSet rs = executeQuery("SELECT * FROM training WHERE id = " + ID);
+    public Training getByID(String id) {
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        Training training = null;
+        String trainerId = null;
 
         try {
-            training = new Training(rs.getString("id"), rs.getString("trainer_id"),
-                    rs.getString("name"), rs.getString("annotation"),
-                    rs.getString("description"), rs.getString("duration"));
+            connection = ConnectionManager.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM training WHERE id = " + id);
+
+            resultSet.next();
+            trainerId = resultSet.getString("trainer_id");
+
+            training = new Training(resultSet.getString("id"), getTrainerNameById(trainerId),
+                    resultSet.getString("name"), resultSet.getString("annotation"),
+                    resultSet.getString("description"), resultSet.getString("duration"));
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
         }
+
         return training;
     }
+
 /*
+
     @Override
     public boolean update(Training training) {
         Connection connection = null;
