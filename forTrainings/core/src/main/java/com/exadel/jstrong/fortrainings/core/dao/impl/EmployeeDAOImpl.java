@@ -6,23 +6,22 @@ import com.exadel.jstrong.fortrainings.core.model.Employee;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
-    private Employee employee;
     private static Logger logger = Logger.getLogger(EmployeeDAOImpl.class.getName());
 
     public Employee selectByAuthorization(String ulogin, String upassword) {
-        Connection connection = null;
-        Statement statement = null;
         PreparedStatement preparedStatement = null;
+        Connection connection = null;
         ResultSet resultSet = null;
+        Employee employee = null;
 
         try {
             connection = ConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM employees WHERE" +
-                    " login = ? " + " AND  " + " password = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM employees WHERE login = ?  AND  password = ?");
             preparedStatement.setString(1, ulogin);
             preparedStatement.setString(2, upassword);
             resultSet = preparedStatement.executeQuery();
@@ -39,6 +38,49 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
             if (resultSet != null) {
                 try {
                     resultSet.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+        }
+        return employee;
+    }
+
+    @Override
+    public Employee getByID(String id) {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet rs = null;
+        Employee employee = null;
+
+        try {
+            connection = ConnectionManager.getConnection();
+            statement = connection.createStatement();
+            rs =  statement.executeQuery("SELECT * FROM employee WHERE id = " + Integer.parseInt(id));
+            rs.next();
+            employee = new Employee(rs.getString("id"), rs.getString("login"), rs.getString("password"),
+                    rs.getString("name"), rs.getString("surname"), rs.getString("mail"),
+                    rs.getString("phone"), rs.getBoolean("admin"), rs.getBoolean("external"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
                 } catch (SQLException e) {
                     logger.error(e);
                 }
@@ -60,6 +102,8 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
         }
         return employee;
     }
+
+    //----------------------------------------
 
     @Override
     public Employee getEmployeeByFullName(String name, String surname) {
@@ -83,22 +127,7 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
         return null;
     }
 
-    @Override
-    public Employee getByID(String ID) {
-        Employee employee = null;
-        ResultSet rs = executeQuery("SELECT * FROM employees WHERE id = " + ID);
-
-        try {
-            employee = new Employee(rs.getString("id"), rs.getString("login"), rs.getString("password"),
-                    rs.getString("name"), rs.getString("surname"), rs.getString("mail"),
-                    rs.getString("phone"), rs.getBoolean("admin"), rs.getBoolean("external"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return employee;
-    }
-
-    @Override
+   // @Override
     public boolean update(Employee employee) {
         Connection connection = null;
         PreparedStatement ps = null;
@@ -135,7 +164,7 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
         return boolRes;
     }
 
-    @Override
+   // @Override
     public boolean save(Employee employee) {
         Connection connection = null;
         PreparedStatement ps = null;
@@ -171,7 +200,7 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
         return boolRes;
     }
 
-    @Override
+   // @Override
     public boolean delete(String id) {
         boolean boolRes = false;
         int res = executeUpdate("DELETE FROM employees WHERE id = " + id);
@@ -202,4 +231,5 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
 
         return list;
     }
+
 }

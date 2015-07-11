@@ -1,28 +1,26 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
 public class Training {
+
     private String id;
+    private String trainerName;
     private String name;
-    private String date;
-    private String place;
-    private String teacherName;
+    private String annotation;
     private String description;
+    private String duration;
+
+    /* ??
     private String targetAudience;
     private boolean isInternal;
-    private boolean isPaid;
+    private boolean isPaid;*/
 
-    public Training(String id, String name, String date, String place,
-                    String teacherName, String description, String targetAudience,
-                    boolean isInternal, boolean isPaid) {
+    public Training(String id, String trainerName, String name, String annotation, String description, String duration) {
         this.id = id;
+        this.trainerName = trainerName;
         this.name = name;
-        this.date = date;
-        this.place = place;
-        this.teacherName = teacherName;
+        this.annotation = annotation;
         this.description = description;
-        this.targetAudience = targetAudience;
-        this.isInternal = isInternal;
-        this.isPaid = isPaid;
+        this.duration = duration;
     }
 
     public void setId(String id) {
@@ -33,6 +31,14 @@ public class Training {
         return id;
     }
 
+    public void setTrainerName(String trainerName) {
+        this.trainerName = trainerName;
+    }
+
+    public String getTrainerName() {
+        return trainerName;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -41,28 +47,12 @@ public class Training {
         return name;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setAnnotation(String annotation) {
+        this.annotation = annotation;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
-    }
-
-    public String getTeacherName() {
-        return teacherName;
+    public String getAnnotation() {
+        return annotation;
     }
 
     public void setDescription(String description) {
@@ -73,29 +63,12 @@ public class Training {
         return description;
     }
 
-    public void setTargetAudience(String targetAudience) {
-        this.targetAudience = targetAudience;
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
-    public String getTargetAudience() {
-        return targetAudience;
+    public String getDuration() {
+        return duration;
     }
-
-    public void setInternal(boolean isInternal) {
-        this.isInternal = isInternal;
-    }
-
-    public boolean getInternal() {
-        return isInternal;
-    }
-
-    public void setPaid(boolean isPaid) {
-        this.isPaid = isPaid;
-    }
-
-    public boolean getPaid() {
-        return isPaid;
-    }
-
 
 }

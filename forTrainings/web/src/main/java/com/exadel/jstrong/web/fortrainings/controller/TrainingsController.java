@@ -1,5 +1,9 @@
 package com.exadel.jstrong.web.fortrainings.controller;
 
-public interface TrainingsController {
+import com.exadel.jstrong.fortrainings.core.model.Training;
 
+import java.util.List;
+
+public interface TrainingsController {
+    List<Training> getAllTrainings();
 }

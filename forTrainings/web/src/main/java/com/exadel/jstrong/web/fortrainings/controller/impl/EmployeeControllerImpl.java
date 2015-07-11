@@ -9,9 +9,12 @@ public class EmployeeControllerImpl implements EmployeeController {
 
     private EmployeeDAO employeeDao;
 
+    public EmployeeControllerImpl() {
+        this.employeeDao = new EmployeeDAOImpl();
+    }
+
     public Employee authorization(String login, String password) {
         Employee  employee;
-        this.employeeDao = new EmployeeDAOImpl();
         employee = employeeDao.selectByAuthorization(login, password);
         if(employee != null) {
             int a = login.compareToIgnoreCase(employee.getLogin());
