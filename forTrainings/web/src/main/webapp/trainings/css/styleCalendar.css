@@ -1,0 +1,64 @@
+.monthName {
+    background-color: paleturquoise;
+}
+
+.months {
+    width: 20%;
+    height: 714px;
+    float: left;
+}
+
+.months tr {
+    height: 50px;
+    width: 100%;
+}
+
+.lineEvents {
+    height: 714px;
+}
+
+.days {
+    width: 80%;
+    float: left;
+}
+
+.dayItem {
+    color: black;
+    float: left;
+    background-color: #F0F8FF;
+    width: 14.28571428571429%;
+    height: 50px;
+    opacity: 0.85;
+    font-family: Helvetica, Georgia, Arial;
+    font-size: 100%;
+    text-align: center;
+    border-radius: 10px;
+    border-color: white;
+    border-style: solid;
+}
+
+.dayItem:hover {
+    color: #269abc;
+}
+.dayItem p {
+    margin: 0px;
+    padding-top: 14.28571428571429%;
+}
+
+.currentDay {
+    border-color: #269abc ;
+}
+
+.day-6, .day-0 {
+    font-weight: 900;
+    opacity: 1;
+}
+
+.days hr {
+    margin: 0;
+    width: 100%;
+}
+
+.month-1, .month-3, .month-5, .month-7, .month-9, .month-11 {
+    background-color: #c4e3f3;
+}

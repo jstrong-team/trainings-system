@@ -6,3 +6,10 @@ angular.module('trainingsModule').controller('trainingsController',['$scope','$l
         $location.url('/trainings');
     }
 }]);
+
+angular.module('trainingsModule').controller('controllerCalendar', ['$scope', function($scope) {
+    $scope.days = getThreeMonthDays();
+    $scope.$on('ngRepeatFinished', function() {
+        markCurrentDay();
+    });
+}]);

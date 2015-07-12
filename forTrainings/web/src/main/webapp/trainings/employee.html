@@ -1,14 +1,11 @@
-	<head>
-    	<meta charset="utf-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-    	<title>Employee's page</title>
-
-    	<link href="../css/bootstrap.min.css" rel="stylesheet">
-    	<link href="../css/styleEmployee.css" rel="stylesheet">
-    	<script src="../js/jquery.min.js"></script>
-    	<script src="../js/bootstrap.min.js"></script>
-  	</head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Employee's page</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="trainings/css/styleEmployee.css" rel="stylesheet">
+    <link href="trainings/css/styleCalendar.css" rel="stylesheet">
+</head>
 
  <body>
 	<nav class="navbar navbar-fixed-top navBarBackground">
@@ -20,7 +17,7 @@
         			<span class="icon-bar"></span>                        
       			</button>
 				<li>
-					<a href="http://www.exadel.com" class="logo">
+					<a href="" class="logo">
 						<span>
 							Exadel<sup class="trademark"><sup> &reg</sup></sup>
 						</span>
@@ -30,7 +27,7 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li><a href=""  class="navBarText" ng-click="goToTrainings()">Trainings</a></li>
-					<li><a href="#"  class="navBarText">Create training</a></li>
+					<li><a href=""  class="navBarText">Create training</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="" class="navBarText" ng-click="logout()">Log out</a></li>
@@ -47,18 +44,16 @@
 		</div>
 	</nav>
 
-
-
  	<div class="wrapper">
     	<div class="container">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="alert alert-danger fade in">
-    					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    					<a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     					<strong>Here will be how news!</strong>
   					</div>
   					<div class="alert alert-danger fade in">
-    					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    					<a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     					<strong>Today english training!</strong>
   					</div>
 					<div class="alert alert-danger fade in">
@@ -66,11 +61,46 @@
 						<strong>Today english training!</strong>
 					</div>
 				</div>
-				<div class="col-md-6">
-				</div>
-				<div class="col-md-6">
-				</div>
+                <div class="col-md-12" ng-controller="controllerCalendar">
+                    <div class="col-md-5">
+                        <div class="months">
+                            <!--Here will be month name-->
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                        </div>
+                        <div class="days">
+                            <a href="" ng-repeat-start="x in days" on-finish-render="ngRepeatFinished">
+                                <div class="dayItem fulldate_{{x.date}}-{{x.month}}-{{x.year}} day-{{x.day}} month-{{x.month}}" >
+                                    <p>{{x.date}}</p>
+                                </div>
+                            </a>
+                            <hr ng-if="(($index+1) % 7) == 0">
+                            <div ng-repeat-end ng-hide></div>
+                        </div>
+                    </div>
+                    <div class="lineEvents col-md-7"></div>
+                </div>
 			</div>
+            <h2>Past trainings</h2>
+            <ul class="pastMeetings">
+                <li>
+                    <a href=""><h3>Js Conf 2015</h3></a>
+                    27 july 2015
+                </li>
+                <li>
+                    <a href=""><h3>Spring framework</h3></a>
+                    31 july 2015
+                </li>
+                <li>
+                    <a href=""><h3>Js Conf 2015</h3></a>
+                    27 july 2015
+                </li>
+                <li>
+                    <a href=""><h3>MVC</h3></a>
+                    11 august 2015
+                </li>
+            </ul>
 		</div>
 	<footer>
 	    <h5 class="text-center">&copy 2015 jsTrong</h5>
