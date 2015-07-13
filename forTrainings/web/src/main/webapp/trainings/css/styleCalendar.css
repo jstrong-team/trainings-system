@@ -8,7 +8,7 @@
     float: left;
 }
 
-.months tr {
+.months .monthItem {
     height: 50px;
     width: 100%;
 }
@@ -54,7 +54,7 @@
     opacity: 1;
 }
 
-.days hr {
+hr {
     margin: 0;
     width: 100%;
 }

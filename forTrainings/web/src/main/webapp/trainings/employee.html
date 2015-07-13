@@ -64,10 +64,15 @@
                 <div class="col-md-12" ng-controller="controllerCalendar">
                     <div class="col-md-5">
                         <div class="months">
-                            <!--Here will be month name-->
-                            <p></p>
-                            <p></p>
-                            <p></p>
+                            <div ng-repeat-start="x in months">
+                                <div class="monthItem">{{x.month}}<br>{{x.year}}</div><hr>
+                                <div class="monthItem"></div><hr>
+                                <div class="monthItem"></div><hr>
+                                <div class="monthItem"></div><hr>
+                            </div>
+                            <div ng-if="$index > 0" class="monthItem"></div>
+                            <hr ng-if="$index > 0">
+                            <div ng-repeat-end ng-hide></div>
                         </div>
                         <div class="days">
                             <a href="" ng-repeat-start="x in days" on-finish-render="ngRepeatFinished">
