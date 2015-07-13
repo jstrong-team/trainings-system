@@ -8,7 +8,7 @@
     float: left;
 }
 
-.months .monthItem {
+.months .monthItem, .description {
     height: 50px;
     width: 100%;
 }

@@ -7,8 +7,10 @@ html, body {
 	height: 100%;
 }
 
-.inputSearch, #buttonSearch {
+.inputSearch {
 	margin-top: 8px;
+    width: 90%;
+    margin-left: 5%;
 }
 
 .wrapper {

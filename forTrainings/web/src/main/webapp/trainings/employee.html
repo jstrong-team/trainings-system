@@ -11,6 +11,7 @@
  <body>
 	<nav class="navbar navbar-fixed-top navBarBackground">
 		<div class="container">
+            <div class="row">
 			<div class="navbar-header col-md-2">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         			<span class="icon-bar"></span>
@@ -25,6 +26,7 @@
 					</a>
 				</li>
 			</div>
+
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li><a href=""  class="navBarText" ng-click="goToTrainings()">Trainings</a></li>
@@ -34,30 +36,18 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="" class="navBarText" ng-click="logout()">Log out</a></li>
 					<li>	
-						<input type="text" class="form-control inputSearch" placeholder="Search" id="search">
+						<input type="text" class="form-control inputSearch" placeholder="Search">
 					</li>
 				</ul>
 			</div>
+            </div>
 		</div>
 	</nav>
 
  	<div class="wrapper">
     	<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<div class="alert alert-danger fade in">
-    					<a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    					<strong>Here will be how news!</strong>
-  					</div>
-  					<div class="alert alert-danger fade in">
-    					<a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    					<strong>Today english training!</strong>
-  					</div>
-					<div class="alert alert-danger fade in">
-						<a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						<strong>Today english training!</strong>
-					</div>
-				</div>
+                <div class="col-md-12 text-center"><h1>Trainings calendar<br><br></h1></div>
                 <div class="col-md-12" ng-controller="controllerCalendar">
                     <div class="col-md-5">
                         <div class="months">
@@ -81,10 +71,25 @@
                             <div ng-repeat-end ng-hide></div>
                         </div>
                     </div>
-                    <div class="lineEvents col-md-7"></div>
+                    <div class="lineEvents col-md-7">
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                    </div>
                 </div>
 			</div>
-            <h2>Past trainings</h2>
+            <h2><br>Past trainings</h2>
             <ul class="pastMeetings">
                 <li>
                     <a href=""><h3>Js Conf 2015</h3></a>
