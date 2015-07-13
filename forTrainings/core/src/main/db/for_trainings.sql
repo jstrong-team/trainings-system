@@ -91,10 +91,11 @@ CREATE TABLE `meet` (
   `training_id` int(11) NOT NULL,
   `date` datetime NOT NULL,
   `place` varchar(25) NOT NULL,
+  `duration` varchar(25) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `training_id_idx` (`training_id`),
   CONSTRAINT `fk_training_meet` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,6 +104,7 @@ CREATE TABLE `meet` (
 
 LOCK TABLES `meet` WRITE;
 /*!40000 ALTER TABLE `meet` DISABLE KEYS */;
+INSERT INTO `meet` VALUES (1,1,'2015-08-01 17:55:22','243','2 h.'),(2,1,'2015-08-02 14:55:00','234','1 hour'),(3,1,'2015-08-03 00:00:00','250','1.5'),(4,2,'2015-08-05 00:00:00','4506','33');
 /*!40000 ALTER TABLE `meet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,11 +179,12 @@ CREATE TABLE `training` (
   `name` varchar(50) NOT NULL,
   `annotation` varchar(120) NOT NULL,
   `description` text NOT NULL,
-  `duration` varchar(20) NOT NULL,
+  `traget` varchar(45) NOT NULL,
+  `paid` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `trainer_id_idx` (`trainer_id`),
   CONSTRAINT `fk_employee_training` FOREIGN KEY (`trainer_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,6 +193,7 @@ CREATE TABLE `training` (
 
 LOCK TABLES `training` WRITE;
 /*!40000 ALTER TABLE `training` DISABLE KEYS */;
+INSERT INTO `training` VALUES (1,1,'Inglish','London is the capital of America.','Just englesh.','Allbody',1),(2,2,'A','B','C','D',0);
 /*!40000 ALTER TABLE `training` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -202,4 +206,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-10 22:27:10
+-- Dump completed on 2015-07-13  9:34:01
