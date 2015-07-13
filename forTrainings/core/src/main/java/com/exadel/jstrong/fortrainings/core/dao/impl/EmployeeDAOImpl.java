@@ -60,7 +60,6 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
         return employee;
     }
 
-    @Override
     public Employee getByID(String id) {
         Connection connection = null;
         Statement statement = null;
@@ -211,7 +210,6 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
         return boolRes;
     }
 
-    @Override
     public List<Employee> getAll() {
         List<Employee> list = new ArrayList<>();
         Employee employee = null;

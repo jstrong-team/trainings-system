@@ -6,13 +6,15 @@ import com.exadel.jstrong.fortrainings.core.db.ConnectionManager;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import org.apache.log4j.Logger;
+import java.sql.SQLException;
+
 
 import java.sql.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
+public class TrainingDAOImpl implements TrainingDAO {
     private static Logger logger = Logger.getLogger(EmployeeDAOImpl.class.getName());
     private EmployeeDAO employeeDAO;
 
@@ -21,6 +23,63 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
     }
 
     @Override
+    public List<Training> getUserTrainingsLast3Month (int userId, String dateFrom, String dateTo, boolean isUser) {
+        List<Training> list = new ArrayList<>();
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        Training training = null;
+
+        String sign = null;
+
+        if (isUser)
+        {
+            sign = "=";
+        }else
+        {
+            sign = "<>";
+        }
+
+        try {
+            connection = ConnectionManager.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT training.id, training.name, training.annotation, meet.date FROM training, subscribe, meet where subscribe.employee_id " + sign + userId + " and  training.id = subscribe.training_idand meet.training_id = training.id and meet.date between 'CURRENT_TIMESTAMP' and 'CURRENT_TIMESTAMP + INTERVAL 3 MONTH' order by meet.date;");
+            while (resultSet.next()) {
+                training = new Training(resultSet.getInt("id"),
+                        resultSet.getString("name"), resultSet.getString("annotation"),
+                        resultSet.getString("data"), resultSet.getBoolean("isMine"));
+                list.add(training);
+            }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (resultSet != null) {
+                    try {
+                        resultSet.close();
+                    } catch (SQLException e) {
+                        logger.error(e);
+                    }
+                }
+                if (statement != null) {
+                    try {
+                        statement.close();
+                    } catch (SQLException e) {
+                        logger.error(e);
+                    }
+                }
+                if (connection != null) {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        logger.error(e);
+                    }
+                }
+            }
+        return list;
+    }
+
+   /* @Override
     public List<Training> getAll() {
         List<Training> list = new ArrayList<>();
 
@@ -70,7 +129,9 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
 
         return list;
     }
+    */
 
+    /*
     private String getTrainerNameById(String trainerId) {
         Employee trainer;
         StringBuilder trainerName = new StringBuilder("");
@@ -80,7 +141,9 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
         trainerName.append(trainer.getSurname());
         return trainerName.toString();
     }
+    */
 
+    /*
     @Override
     public Training getByID(String id) {
 
@@ -130,7 +193,7 @@ public class TrainingDAOImpl extends ConnectionManager implements TrainingDAO {
 
         return training;
     }
-
+*/
 /*
 
     @Override
