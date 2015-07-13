@@ -20,7 +20,7 @@ public class TrainingsControllerImpl implements TrainingsController {
 
     @Override
     public List<Training> getAllTrainings(int userId) {
-        /*Calendar calendarDateFrom = Calendar.getInstance();
+        Calendar calendarDateFrom = Calendar.getInstance();
         calendarDateFrom.set(Calendar.DAY_OF_MONTH, 1);
         calendarDateFrom.set(Calendar.HOUR, 0);
         calendarDateFrom.set(Calendar.MINUTE, 0);
@@ -28,15 +28,13 @@ public class TrainingsControllerImpl implements TrainingsController {
         int currentMonth = calendarDateFrom.get(Calendar.MONTH);
         Date dateFrom = calendarDateFrom.getTime();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String stringDateFrom = dateFormat.format(dateFrom);
         Calendar calendarDateTo = calendarDateFrom;
         calendarDateTo.set(Calendar.MONTH, currentMonth + 3);
         Date dateTo = calendarDateTo.getTime();
-        String stringDateTo = dateFormat.format(dateTo);*/
+        String stringDateTo = dateFormat.format(dateTo);
 
-        String stringDateFrom = "2015-07-01 00:00:00";
-        String stringDateTo = "2015-09-01 00:00:00";
         List<Training> userTrainings = trainingDAO.getUserTrainingsLast3Month(userId, stringDateFrom, stringDateTo, true);
         List<Training> notUserTrainings = trainingDAO.getUserTrainingsLast3Month(userId, stringDateFrom, stringDateTo, false);
         for(Training training: userTrainings) {
