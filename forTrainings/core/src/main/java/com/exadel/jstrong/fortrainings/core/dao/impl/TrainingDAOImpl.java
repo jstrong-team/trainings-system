@@ -1,9 +1,7 @@
 package com.exadel.jstrong.fortrainings.core.dao.impl;
 
-import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.db.ConnectionManager;
-import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import org.apache.log4j.Logger;
 import java.sql.SQLException;
@@ -16,11 +14,6 @@ import java.util.List;
 
 public class TrainingDAOImpl implements TrainingDAO {
     private static Logger logger = Logger.getLogger(EmployeeDAOImpl.class.getName());
-    private EmployeeDAO employeeDAO;
-
-    public TrainingDAOImpl() {
-        employeeDAO = new EmployeeDAOImpl();
-    }
 
     @Override
     public List<Training> getUserTrainingsLast3Month (int userId, String dateFrom, String dateTo, boolean isUser) {
@@ -33,49 +26,50 @@ public class TrainingDAOImpl implements TrainingDAO {
 
         String sign = null;
 
-        if (isUser)
-        {
+        if (isUser) {
             sign = "=";
-        }else
-        {
+        } else {
             sign = "<>";
         }
 
         try {
             connection = ConnectionManager.getConnection();
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT training.id, training.name, training.annotation, meet.date FROM training, subscribe, meet where subscribe.employee_id " + sign + userId + " and  training.id = subscribe.training_idand meet.training_id = training.id and meet.date between 'CURRENT_TIMESTAMP' and 'CURRENT_TIMESTAMP + INTERVAL 3 MONTH' order by meet.date;");
+            resultSet = statement.executeQuery(
+                    "SELECT training.id, training.name, training.annotation, meet.date FROM training, subscribe, meet where subscribe.employee_id "
+                            + sign + userId + " and  training.id = subscribe.training_id and meet.training_id = training.id and meet.date between ' "
+                            + dateFrom + "' and '" + dateTo + "' order by meet.date;");
             while (resultSet.next()) {
                 training = new Training(resultSet.getInt("id"),
                         resultSet.getString("name"), resultSet.getString("annotation"),
-                        resultSet.getString("data"), resultSet.getBoolean("isMine"));
+                        resultSet.getString("date"), false);
                 list.add(training);
             }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                if (resultSet != null) {
-                    try {
-                        resultSet.close();
-                    } catch (SQLException e) {
-                        logger.error(e);
-                    }
-                }
-                if (statement != null) {
-                    try {
-                        statement.close();
-                    } catch (SQLException e) {
-                        logger.error(e);
-                    }
-                }
-                if (connection != null) {
-                    try {
-                        connection.close();
-                    } catch (SQLException e) {
-                        logger.error(e);
-                    }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    logger.error(e);
                 }
             }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+        }
         return list;
     }
 

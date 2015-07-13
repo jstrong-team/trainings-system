@@ -6,22 +6,14 @@ public class Training {
     private String name;
     private String annotation;
     private String data;
-    private boolean isMine;
-
-    /* ??
-    private String targetAudience;
-    private boolean isInternal;
-    private boolean isPaid;*/
+    private boolean isUser;
 
     public Training(int id, String name, String annotation, String data, boolean isUser) {
         this.id = id;
         this.name = name;
         this.annotation = annotation;
         this.data = data;
-        this.isMine = isUser;
-    //    this.trainerName = trainerName;
-    //    this.description = description;
-    //    this.duration = duration;
+        this.isUser = isUser;
     }
 
     public void setId(int id) {
@@ -50,20 +42,8 @@ public class Training {
 
     public String getDate() {return data;}
 
-    public void setIsUser(boolean isUser) {this.isMine = isUser;}
+    public void setIsUser(boolean isUser) {this.isUser = isUser;}
 
-    public boolean getIsUser() {return isMine;}
-
-    // public void setDuration(String duration) {this.duration = duration;}
-
-    // public String getDuration() {return duration;}
-
-    // public void setDescription(String description) {this.description = description;}
-
-    // public String getDescription() {return description;}
-
-    // public void setTrainerName(String trainerName) {this.trainerName = trainerName;}
-
-    // public String getTrainerName() {return trainerName;}
+    public boolean getIsUser() {return isUser;}
 
 }

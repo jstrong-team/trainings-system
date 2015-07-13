@@ -5,6 +5,8 @@ import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
 import com.exadel.jstrong.web.fortrainings.controller.impl.TrainingsControllerImpl;
 import com.exadel.jstrong.web.fortrainings.responsebuilder.ResponseBuilder;
 import com.exadel.jstrong.web.fortrainings.util.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -22,18 +24,21 @@ public class TrainingListServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(SigninServlet.class.getName());
     private TrainingsController trainingsController;
     private ResponseBuilder<List<Training>> rb;
+    private Gson gson;
 
     @Override
     public void init() throws ServletException {
         trainingsController = new TrainingsControllerImpl();
         rb = new ResponseBuilder<>();
+        gson = new GsonBuilder().setPrettyPrinting().create();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("doGet");
         try {
-            List<Training> trainings = trainingsController.getAllTrainings();
+            int id = Integer.parseInt(request.getParameter("id"));
+            List<Training> trainings = trainingsController.getAllTrainings(id);
             if(trainings == null) {
                 response.sendError(HttpServletResponse.SC_NO_CONTENT, "No data about trainings in db");
                 logger.info("No data about trainings in db");

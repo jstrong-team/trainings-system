@@ -59,7 +59,7 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
         }
         return employee;
     }
-
+/*
     public Employee getByID(String id) {
         Connection connection = null;
         Statement statement = null;
@@ -228,6 +228,6 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
         }
 
         return list;
-    }
+    }*/
 
 }
