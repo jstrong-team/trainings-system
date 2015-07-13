@@ -1,0 +1,1 @@
+SELECT training.id, training.name, training.annotation, meet.date FROM training, subscribe, meet where subscribe.employee_id = 1 and  training.id = subscribe.training_idand meet.training_id = training.id and meet.date between '2015-07-01 00:00:00' and '2015-09-01 00:00:00' order by meet.date;

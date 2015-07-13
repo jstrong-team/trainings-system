@@ -31,8 +31,6 @@ CREATE TABLE `employee` (
   `name` varchar(50) NOT NULL,
   `mail` varchar(25) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
-  `admin` tinyint(4) NOT NULL,
-  `external` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -43,8 +41,34 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1,'admin','1111','Anton Grigoriev','mail@mail.ru','666',0,0),(2,'batman','2222','Bruce Wayne','bat@mail.com','13',0,0),(3,'eng','3333','Spider Man','spidy@mail.by',NULL,0,0);
+INSERT INTO `employee` VALUES (1,'admin','1111','Anton Grigoriev','mail@mail.ru','666'),(2,'batman','2222','Bruce Wayne','bat@mail.com','13'),(3,'eng','3333','Spider Man','spidy@mail.by',NULL);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `employee_role`
+--
+
+DROP TABLE IF EXISTS `employee_role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `employee_role` (
+  `employee_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  PRIMARY KEY (`employee_id`,`role_id`),
+  KEY `fk_role_employee_role_idx` (`role_id`),
+  CONSTRAINT `fk_employee_employee_role` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_role_employee_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `employee_role`
+--
+
+LOCK TABLES `employee_role` WRITE;
+/*!40000 ALTER TABLE `employee_role` DISABLE KEYS */;
+/*!40000 ALTER TABLE `employee_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -94,7 +118,7 @@ CREATE TABLE `meet` (
   PRIMARY KEY (`id`),
   KEY `training_id_idx` (`training_id`),
   CONSTRAINT `fk_training_meet` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +127,7 @@ CREATE TABLE `meet` (
 
 LOCK TABLES `meet` WRITE;
 /*!40000 ALTER TABLE `meet` DISABLE KEYS */;
-INSERT INTO `meet` VALUES (1,1,'2015-08-01 17:55:22','243','2 h.'),(2,1,'2015-08-02 14:55:00','234','1 hour'),(3,1,'2015-08-03 00:00:00','250','1.5'),(4,2,'2015-08-05 00:00:00','4506','33'),(5,2,'2015-08-11 00:00:00','405','45'),(6,2,'2015-08-11 13:44:00','405','45');
+INSERT INTO `meet` VALUES (1,1,'2015-08-01 17:55:22','243','2 h.'),(2,1,'2015-08-02 14:55:00','234','1 hour'),(3,1,'2015-08-03 00:00:00','250','1.5'),(4,2,'2015-08-05 00:00:00','4506','33'),(5,2,'2015-08-11 13:44:00','405','45'),(6,3,'2015-05-18 11:12:13','666','69'),(7,3,'2015-07-10 15:15:14','1408','1337');
 /*!40000 ALTER TABLE `meet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,6 +190,29 @@ LOCK TABLES `participant` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `role`
+--
+
+DROP TABLE IF EXISTS `role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `role`
+--
+
+LOCK TABLES `role` WRITE;
+/*!40000 ALTER TABLE `role` DISABLE KEYS */;
+/*!40000 ALTER TABLE `role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `subscribe`
 --
 
@@ -183,7 +230,7 @@ CREATE TABLE `subscribe` (
   KEY `fk_training_subscribe_idx` (`training_id`),
   CONSTRAINT `fk_employee_subscribe` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_training_subscribe` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -192,6 +239,7 @@ CREATE TABLE `subscribe` (
 
 LOCK TABLES `subscribe` WRITE;
 /*!40000 ALTER TABLE `subscribe` DISABLE KEYS */;
+INSERT INTO `subscribe` VALUES (1,1,2,'yes','2015-07-15 16:44:35'),(2,2,1,'yes','2015-07-14 16:44:35'),(3,1,3,'yes','2015-05-15 12:12:13');
 /*!40000 ALTER TABLE `subscribe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,7 +261,7 @@ CREATE TABLE `training` (
   PRIMARY KEY (`id`),
   KEY `trainer_id_idx` (`trainer_id`),
   CONSTRAINT `fk_employee_training` FOREIGN KEY (`trainer_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -222,7 +270,7 @@ CREATE TABLE `training` (
 
 LOCK TABLES `training` WRITE;
 /*!40000 ALTER TABLE `training` DISABLE KEYS */;
-INSERT INTO `training` VALUES (1,1,'Inglish','London is the capital of America.','Just englesh.','Allbody',1),(2,2,'A','B','C','D',0);
+INSERT INTO `training` VALUES (1,1,'Inglish','London is the capital of America.','Just englesh.','Allbody',1),(2,2,'A','B','C','D',0),(3,3,'Wazap nigga','ACAB','I don\'t know','every people',0);
 /*!40000 ALTER TABLE `training` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -235,4 +283,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-13 14:47:43
+-- Dump completed on 2015-07-13 16:50:08
