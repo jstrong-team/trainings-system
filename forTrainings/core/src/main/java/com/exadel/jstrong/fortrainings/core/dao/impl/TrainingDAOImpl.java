@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrainingDAOImpl implements TrainingDAO {
-    private static Logger logger = Logger.getLogger(EmployeeDAOImpl.class.getName());
+    private static Logger logger = Logger.getLogger(TrainingDAOImpl.class.getName());
 
     @Override
     public List<Training> getUserTrainingsLast3Month (int userId, String dateFrom, String dateTo, boolean isUser) {

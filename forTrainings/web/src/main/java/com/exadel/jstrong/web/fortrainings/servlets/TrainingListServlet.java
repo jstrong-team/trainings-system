@@ -21,7 +21,7 @@ import java.util.List;
 @WebServlet("/forTrainings/trainings/trainingHistory")
 public class TrainingListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static Logger logger = Logger.getLogger(SigninServlet.class.getName());
+    private static Logger logger = Logger.getLogger(TrainingListServlet.class.getName());
     private TrainingsController trainingsController;
     private ResponseBuilder<List<Training>> rb;
     private Gson gson;
