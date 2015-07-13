@@ -43,7 +43,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1,'anton','1111','Anton Grigoriev','mail@mail.ru','666',0,0),(2,'batman','2222','Bruce Wayne','bat@mail.com','13',0,0),(3,'eng','3333','Spider Man','spidy@mail.by',NULL,0,0);
+INSERT INTO `employee` VALUES (1,'admin','1111','Anton Grigoriev','mail@mail.ru','666',0,0),(2,'batman','2222','Bruce Wayne','bat@mail.com','13',0,0),(3,'eng','3333','Spider Man','spidy@mail.by',NULL,0,0);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +94,7 @@ CREATE TABLE `meet` (
   PRIMARY KEY (`id`),
   KEY `training_id_idx` (`training_id`),
   CONSTRAINT `fk_training_meet` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,8 +103,38 @@ CREATE TABLE `meet` (
 
 LOCK TABLES `meet` WRITE;
 /*!40000 ALTER TABLE `meet` DISABLE KEYS */;
-INSERT INTO `meet` VALUES (1,1,'2015-08-01 17:55:22','243','2 h.'),(2,1,'2015-08-02 14:55:00','234','1 hour'),(3,1,'2015-08-03 00:00:00','250','1.5'),(4,2,'2015-08-05 00:00:00','4506','33');
+INSERT INTO `meet` VALUES (1,1,'2015-08-01 17:55:22','243','2 h.'),(2,1,'2015-08-02 14:55:00','234','1 hour'),(3,1,'2015-08-03 00:00:00','250','1.5'),(4,2,'2015-08-05 00:00:00','4506','33'),(5,2,'2015-08-11 00:00:00','405','45'),(6,2,'2015-08-11 13:44:00','405','45');
 /*!40000 ALTER TABLE `meet` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notice`
+--
+
+DROP TABLE IF EXISTS `notice`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) NOT NULL,
+  `training_id` int(11) NOT NULL,
+  `text` text NOT NULL,
+  `add_date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_employee_notice_idx` (`employee_id`),
+  KEY `fk_training_notice_idx` (`training_id`),
+  CONSTRAINT `fk_employee_notice` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_training_notice` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notice`
+--
+
+LOCK TABLES `notice` WRITE;
+/*!40000 ALTER TABLE `notice` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notice` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -205,4 +235,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-13 10:38:27
+-- Dump completed on 2015-07-13 14:47:43
