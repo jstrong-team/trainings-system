@@ -9,8 +9,8 @@ html, body {
 
 .inputSearch {
 	margin-top: 8px;
-    width: 94%;
-    margin-left: 3%;
+    width: 98%;
+    margin-left: 1%;
 }
 
 .wrapper {
@@ -69,5 +69,11 @@ footer {
 
 .searchingPanel {
 	vertical-align: middle;
+}
+
+@media screen and (min-width: 992px) {
+    .inputSearch {
+        width: 300px;
+    }
 }
 
