@@ -1,10 +1,10 @@
 package com.exadel.jstrong.web.fortrainings.servlets;
-;
+
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
 import com.exadel.jstrong.web.fortrainings.controller.impl.TrainingsControllerImpl;
 import com.exadel.jstrong.web.fortrainings.responsebuilder.ResponseBuilder;
-import com.exadel.jstrong.web.fortrainings.servlets.util.ServletUtil;
+import com.exadel.jstrong.web.fortrainings.util.*;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/trainingHistory")
+@WebServlet("/forTrainings/trainings/trainingHistory")
 public class TrainingListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static Logger logger = Logger.getLogger(SigninServlet.class.getName());
@@ -39,8 +39,8 @@ public class TrainingListServlet extends HttpServlet {
                 logger.info("No data about trainings in db");
             }
             else {
-                response.setCharacterEncoding(ServletUtil.UTF_8);
-                response.setContentType(ServletUtil.APPLICATION_JSON);
+                response.setCharacterEncoding(AppUtil.UTF_8);
+                response.setContentType(AppUtil.APPLICATION_JSON);
                 PrintWriter out = response.getWriter();
                 String trainingsJSONString = rb.getResponse(trainings);
                 out.print(trainingsJSONString);

@@ -3,7 +3,7 @@ package com.exadel.jstrong.web.fortrainings.servlets;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.impl.EmployeeControllerImpl;
 import com.exadel.jstrong.web.fortrainings.responsebuilder.ResponseBuilder;
-import com.exadel.jstrong.web.fortrainings.servlets.util.ServletUtil;
+import com.exadel.jstrong.web.fortrainings.util.*;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
@@ -36,9 +36,9 @@ public class SigninServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("doPost");
-        String data = ServletUtil.getEmployeeBody(request);
+        String data = AppUtil.getRequestBody(request);
         try {
-            /*JSONObject json = ServletUtil.stringToJson(data);
+            /*JSONObject json = AppUtil.stringToJson(data);
             Object login = json.get("login");
             Object password = json.get("password");*/
             Employee rempl = gson.fromJson(data, Employee.class);
@@ -50,8 +50,8 @@ public class SigninServlet extends HttpServlet{
                 if (employee == null) {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not found");
                 } else {
-                    response.setCharacterEncoding(ServletUtil.UTF_8);
-                    response.setContentType(ServletUtil.APPLICATION_JSON);
+                    response.setCharacterEncoding(AppUtil.UTF_8);
+                    response.setContentType(AppUtil.APPLICATION_JSON);
                     PrintWriter out = response.getWriter();
                     out.print(rb.getResponse(employee));
                     out.flush();
