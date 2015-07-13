@@ -28,8 +28,7 @@ CREATE TABLE `employee` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(25) NOT NULL,
   `password` varchar(25) NOT NULL,
-  `name` varchar(25) NOT NULL,
-  `surname` varchar(25) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `mail` varchar(25) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `admin` tinyint(4) NOT NULL,
@@ -44,7 +43,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1,'anton','1111','Anton','Grigoriev','mail@mail.ru','666',0,0),(2,'batman','2222','Bruce','Wayne','bat@mail.com','13',0,0),(3,'eng','3333','Spider','Man','spidy@mail.by',NULL,0,0);
+INSERT INTO `employee` VALUES (1,'anton','1111','Anton Grigoriev','mail@mail.ru','666',0,0),(2,'batman','2222','Bruce Wayne','bat@mail.com','13',0,0),(3,'eng','3333','Spider Man','spidy@mail.by',NULL,0,0);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,4 +205,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-13  9:34:01
+-- Dump completed on 2015-07-13 10:38:27
