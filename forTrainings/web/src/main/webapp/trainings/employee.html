@@ -60,9 +60,9 @@
                             <hr ng-if="$index > 0">
                             <div ng-repeat-end ng-hide></div>
                         </div>
-                        <div class="days">
+                        <div class="days" on-click-directive>
                             <a href="" ng-repeat-start="x in days" on-finish-render="ngRepeatFinished">
-                                <div class="dayItem fulldate_{{x.date}}-{{x.month}}-{{x.year}} day-{{x.day}} month-{{x.month}}" >
+                                <div class="dayItem fulldate_{{x.date}}-{{x.month}}-{{x.year}} day-{{x.day}} month-{{x.month}}">
                                     <p>{{x.date}}</p>
                                 </div>
                             </a>

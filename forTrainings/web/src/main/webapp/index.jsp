@@ -17,6 +17,10 @@
 <script src="trainings/js/directives.js"></script>
 <script src="trainings/js/calendar.js"></script>
 
+<header>
+    <base href="/">
+</header>
+
 <body ng-view>
 </body>
 
