@@ -5,11 +5,13 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="trainings/css/styleEmployee.css" rel="stylesheet">
     <link href="trainings/css/styleCalendar.css" rel="stylesheet">
+
 </head>
 
  <body>
 	<nav class="navbar navbar-fixed-top navBarBackground">
 		<div class="container">
+            <div class="row">
 			<div class="navbar-header col-md-2">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         			<span class="icon-bar"></span>
@@ -24,50 +26,40 @@
 					</a>
 				</li>
 			</div>
+
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li><a href=""  class="navBarText" ng-click="goToTrainings()">Trainings</a></li>
+					<li><a href=""  class="navBarText" ng-click="goToTrainings()">Calendar</a></li>
 					<li><a href=""  class="navBarText">Create training</a></li>
+					<li><a href=""  class="navBarText">My trainings</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="" class="navBarText" ng-click="logout()">Log out</a></li>
 					<li>	
-						<input type="text" class="form-control inputSearch 	" placeholder="Search" id="search">
+						<input type="text" class="form-control inputSearch" placeholder="Search">
 					</li>
-					<li>
-						<button class="btn btn-info btn-md" type="button" id="buttonSearch">
-                        	<i class="glyphicon glyphicon-search"></i>
-                        </button>
-                    </li>
 				</ul>
 			</div>
+            </div>
 		</div>
 	</nav>
 
  	<div class="wrapper">
     	<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<div class="alert alert-danger fade in">
-    					<a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    					<strong>Here will be how news!</strong>
-  					</div>
-  					<div class="alert alert-danger fade in">
-    					<a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    					<strong>Today english training!</strong>
-  					</div>
-					<div class="alert alert-danger fade in">
-						<a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						<strong>Today english training!</strong>
-					</div>
-				</div>
+                <div class="col-md-12 text-center"><h1>Trainings calendar<br><br></h1></div>
                 <div class="col-md-12" ng-controller="controllerCalendar">
                     <div class="col-md-5">
                         <div class="months">
-                            <!--Here will be month name-->
-                            <p></p>
-                            <p></p>
-                            <p></p>
+                            <div ng-repeat-start="x in months">
+                                <div class="monthItem">{{x.month}}<br>{{x.year}}</div><hr>
+                                <div class="monthItem"></div><hr>
+                                <div class="monthItem"></div><hr>
+                                <div class="monthItem"></div><hr>
+                            </div>
+                            <div ng-if="$index > 0" class="monthItem"></div>
+                            <hr ng-if="$index > 0">
+                            <div ng-repeat-end ng-hide></div>
                         </div>
                         <div class="days">
                             <a href="" ng-repeat-start="x in days" on-finish-render="ngRepeatFinished">
@@ -79,31 +71,50 @@
                             <div ng-repeat-end ng-hide></div>
                         </div>
                     </div>
-                    <div class="lineEvents col-md-7"></div>
+                    <div class="lineEvents col-md-7">
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                        <div class="description"></div><hr>
+                    </div>
                 </div>
-			</div>
-            <h2>Past trainings</h2>
-            <ul class="pastMeetings">
-                <li>
-                    <a href=""><h3>Js Conf 2015</h3></a>
-                    27 july 2015
-                </li>
-                <li>
-                    <a href=""><h3>Spring framework</h3></a>
-                    31 july 2015
-                </li>
-                <li>
-                    <a href=""><h3>Js Conf 2015</h3></a>
-                    27 july 2015
-                </li>
-                <li>
-                    <a href=""><h3>MVC</h3></a>
-                    11 august 2015
-                </li>
-            </ul>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2><br>Past trainings</h2>
+                    <ul class="pastMeetings">
+                        <li>
+                            <a href=""><h3>Js Conf 2015</h3></a>
+                            27 july 2015
+                        </li>
+                        <li>
+                            <a href=""><h3>Spring framework</h3></a>
+                            31 july 2015
+                        </li>
+                        <li>
+                            <a href=""><h3>Js Conf 2015</h3></a>
+                            27 july 2015
+                        </li>
+                        <li>
+                            <a href=""><h3>MVC</h3></a>
+                            11 august 2015
+                        </li>
+                    </ul>
+                </div>
+            </div>
 		</div>
-	<footer>
-	    <h5 class="text-center">&copy 2015 jsTrong</h5>
-	</footer>
+		<footer>
+			<h5 class="text-center">&copy 2015 jsTrong</h5>
+		</footer>
 	</div>
 </body>

@@ -41,3 +41,19 @@ function markCurrentDay () {
 	var element = document.querySelector(selector);
 	element.className += " currentDay";
 }
+
+function getThreeMoths () {
+    var result = [];
+    var currentYear = getNthDate(1).getYear() + 1900;
+    var currentIndexMonth = getNthDate(1).getMonth();
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+        'September', 'October', 'November', 'December'];
+    for (var i = 0; i < 3; ++i) {
+        result.push({month: months[currentIndexMonth], year: currentYear});
+        currentIndexMonth = (++currentIndexMonth) % 12;
+        if (currentIndexMonth === 0) {
+            ++currentYear;
+        }
+    }
+    return result;
+}
