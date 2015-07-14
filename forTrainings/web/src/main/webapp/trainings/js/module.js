@@ -6,7 +6,7 @@ angular.module('trainingsModule',[]).config(function($routeProvider) {
             resolve: {
                 threeMonthList: ['$http', '$q', function($http, $q){
                     var def = $q.defer();
-                    $http.get('forTrainings/trainings/trainingHistory?param=2&id=1').success(function(data, status){
+                    $http.get('forTrainings/trainings/trainingHistory?param=2&id=' + localStorage.getItem('id')).success(function(data, status){
                         def.resolve(data);
                     })
                         .error(function(data, status){

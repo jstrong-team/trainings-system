@@ -46,7 +46,7 @@
  	<div class="wrapper">
     	<div class="container">
 			<div class="row">
-                <div class="col-md-12 text-center"><h1>{{threeMonthData}}<br><br></h1></div>
+                <div class="col-md-12 text-center"><h1>Trainings calendar<br><br></h1></div>
                 <div class="col-md-12" ng-controller="controllerCalendar">
                     <div class="col-md-5 col-sm-5">
                         <div class="months">
@@ -62,7 +62,7 @@
                         </div>
                         <div class="days" on-click-directive>
                             <a href="" ng-repeat-start="x in days" on-finish-render="ngRepeatFinished">
-                                <div class="dayItem fulldate_{{x.date}}-{{x.month}}-{{x.year}} day-{{x.day}} month-{{x.month}}">
+                                <div class="dayItem fulldate_{{x.year}}-{{x.month}}-{{x.date}} day-{{x.day}} month-{{x.month}}">
                                     <p>{{x.date}}</p>
                                 </div>
                             </a>

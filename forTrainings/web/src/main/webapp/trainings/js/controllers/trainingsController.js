@@ -1,5 +1,6 @@
 angular.module('trainingsModule').controller('trainingsController',['$scope','$location','threeMonthList', function($scope, $location, threeMonthList) {
     $scope.logout=function(){
+        localStorage.clear();
         $location.url('/');
     }
     $scope.goToTrainings=function(){
@@ -7,7 +8,8 @@ angular.module('trainingsModule').controller('trainingsController',['$scope','$l
     }
 
     threeMonthList.getThreeMonthList().then(function(data) {
-        $scope.threeMonthData = data;
+        //$scope.threeMonthData = data;
+        colorDayItems (data);
     })
 
 }]);

@@ -1,7 +1,15 @@
 function Day(date, day, month, year) {
-	this.date = date;
+    if (date.toString().length === 1) {
+        this.date = '0' + date;
+    } else {
+        this.date = date;
+    }
+    if (month.toString().length === 1) {
+        this.month = '0' + month;
+    } else {
+        this.month = month;
+    }
 	this.day = day;
-	this.month = month;
 	this.year = year;
 }
 
@@ -37,7 +45,13 @@ function markCurrentDay () {
 	var date = today.getDate();
 	var month = today.getMonth() + 1;
 	var year = today.getYear() + 1900;
-	var selector = '.fulldate_' + date + '-' + month + '-' + year;
+    if (date.toString().length === 1) {
+        date = '0' + date;
+    }
+    if (month.toString().length === 1) {
+        month = '0' + month;
+    }
+	var selector = '.fulldate_' + year + '-' + month + '-' + date ;
 	var element = document.querySelector(selector);
 	element.className += " currentDay";
 }
@@ -56,4 +70,18 @@ function getThreeMoths () {
         }
     }
     return result;
+}
+
+function colorDayItems (data) {
+    var regexp = new RegExp('\\d\\d\\d\\d-\\d\\d-\\d\\d');
+    for (var i = 0; i < data.length; ++i) {
+        var selector = '.fulldate_' + data[i].date.match(regexp)[0];
+        var element = document.querySelector(selector);
+        console.log(element);
+        if (data[i].isSubscribe === true) {
+            element.className += " willGo";
+        } else {
+            element.className += " willNotGo";
+        }
+    }
 }

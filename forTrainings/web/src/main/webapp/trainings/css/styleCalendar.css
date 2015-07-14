@@ -59,6 +59,14 @@ hr {
     width: 100%;
 }
 
-.month-1, .month-3, .month-5, .month-7, .month-9, .month-11 {
+.month-01, .month-03, .month-05, .month-07, .month-09, .month-11 {
     background-color: #c4e3f3;
+}
+
+.willNotGo {
+    background-color: #f7ecb5;
+}
+
+.willGo {
+    background-color: palegreen;
 }
