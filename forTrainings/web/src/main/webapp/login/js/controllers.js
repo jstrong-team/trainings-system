@@ -2,10 +2,12 @@ angular.module('loginModule').controller('logintController',['$scope','loginServ
     $scope.credationals={login:null, password:null}
     $scope.error;
     $scope.submit= function(){
-        //console.log($scope.credationals);
         loginService.serv($scope.credationals).then(function(response){
             console.log(response);
+            localStorage.setItem('id',response.data.id);
+            localStorage.setItem('name',response.data.name);
             $location.url('/trainings');
+
         }, function(error){
             console.error(error);
             $scope.error="Wrong login or password";

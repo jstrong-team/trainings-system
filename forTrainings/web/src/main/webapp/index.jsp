@@ -12,9 +12,11 @@
 <script src="login/js/services.js"></script>
 
 <script src="trainings/js/module.js"></script>
-<script src="trainings/js/controller.js"></script>
-<script src="trainings/js/service.js"></script>
-<script src="trainings/js/directives.js"></script>
+<script src="trainings/js/controllers/trainingsController.js"></script>
+<script src="trainings/js/controllers/controllerCalendar.js"></script>
+<script src="trainings/js/services/getTrainingsService.js"></script>
+<script src="trainings/js/directives/onFinishRender.js"></script>
+<script src="trainings/js/directives/onClickDirective.js"></script>
 <script src="trainings/js/calendar.js"></script>
 
 <header>
