@@ -1,0 +1,1 @@
+SELECT training.id, training.name, training.annotation, meet.date FROM training, subscribe, meet where training.id = subscribe.training_id and meet.training_id = training.id  and (training.name like '%n%' or training.annotation like '%n%' or training.description like '%n%') order by meet.date;
