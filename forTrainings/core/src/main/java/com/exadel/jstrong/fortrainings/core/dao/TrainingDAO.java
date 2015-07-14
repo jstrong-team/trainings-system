@@ -8,6 +8,7 @@ import java.util.List;
 public interface TrainingDAO extends GenericDAO<Training> {
 
     List<Training> getUserTrainingsLast3Month (int userId, String dateFrom, String dateTo, boolean isUser);
+    List<Training> getSearchResponse(String st);
     // List<Training> getNotUserTrainingsLast3Month (int userId);
     /*List<Training> getTrainingsByTrainer(Employee trainer);
     List<Training> getTrainingsByField(String columnName, String columnValue);  // columnName = "name", "annotation"...

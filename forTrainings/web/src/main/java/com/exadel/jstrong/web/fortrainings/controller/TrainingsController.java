@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TrainingsController {
     List<Training> getAllTrainings(int userId);
+    List<Training> getSearchData(String str);
 }

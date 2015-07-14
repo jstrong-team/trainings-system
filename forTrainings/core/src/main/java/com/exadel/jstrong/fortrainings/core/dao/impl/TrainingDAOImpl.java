@@ -73,4 +73,55 @@ public class TrainingDAOImpl implements TrainingDAO {
         }
         return list;
     }
+
+    @Override
+    public List<Training> getSearchResponse(String st) {
+        List<Training> list = new ArrayList<>();
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        Training training = null;
+
+        String sign = null;
+
+        try {
+            connection = ConnectionManager.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(
+                    "SELECT training.id, training.name, training.annotation, meet.date FROM training, subscribe, meet where training.id = subscribe.training_id and meet.training_id = training.id  and (training.name like '%"+ st + "%' or training.annotation like '%" + st + "%' or training.description like '%" + st + "%') order by meet.date;");
+            while (resultSet.next()) {
+                String buf = resultSet.getString("date");
+                training = new Training(resultSet.getInt("id"),
+                        resultSet.getString("name"), resultSet.getString("annotation"),
+                        buf.substring(0, buf.length() - 2), false);
+                list.add(training);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+        }
+        return list;
+    }
 }

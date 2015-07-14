@@ -39,9 +39,13 @@ public class TrainingsControllerImpl implements TrainingsController {
         List<Training> notUserTrainings = trainingDAO.getUserTrainingsLast3Month(userId, stringDateFrom, stringDateTo, false);
         for(Training training: userTrainings) {
             training.setIsUser(true);
-
         }
         userTrainings.addAll(notUserTrainings);
         return userTrainings;
+    }
+
+    @Override
+    public List<Training> getSearchData(String str) {
+        return trainingDAO.getSearchResponse(str);
     }
 }
