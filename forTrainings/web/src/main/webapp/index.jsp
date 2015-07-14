@@ -15,6 +15,7 @@
 <script src="trainings/js/controllers/trainingsController.js"></script>
 <script src="trainings/js/controllers/controllerCalendar.js"></script>
 <script src="trainings/js/services/getTrainingsService.js"></script>
+<script src="trainings/js/services/doSearchService.js"></script>
 <script src="trainings/js/directives/onFinishRender.js"></script>
 <script src="trainings/js/directives/onClickDirective.js"></script>
 <script src="trainings/js/calendar.js"></script>

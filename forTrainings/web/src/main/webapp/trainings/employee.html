@@ -9,7 +9,7 @@
 </head>
 
  <body>
-	<nav class="navbar navbar-fixed-top navBarBackground">
+	<nav class="navbar navBarBackground">
 		<div class="container">
             <div class="row">
                 <div class="navbar-header col-md-2">
@@ -31,17 +31,29 @@
                         <li><a href=""  class="navBarText" ng-click="goToTrainings()">Calendar</a></li>
                         <li><a href=""  class="navBarText">Create training</a></li>
                         <li><a href=""  class="navBarText">My trainings</a></li>
+                        <li><a href=""  class="navBarText" ng-click="createLog()">LOG</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="" class="navBarText" ng-click="logout()">Log out</a></li>
-                        <li>
-                            <input type="search" class="form-control inputSearch" placeholder="Search">
+                        <li >
+                            <form ng-submit="doSearch()">
+                                <input type="search" class="form-control inputSearch"  placeholder="Search" ng-model="searchExpression">
+                            </form>
                         </li>
                     </ul>
                 </div>
             </div>
 		</div>
 	</nav>
+
+    <div  >
+        <ul>
+            <li ng-repeat="training in searchResponse | filter:searchExpression">
+                {{training.id}};{{training.name}};{{training.annotation}};{{training.date}}
+            </li>
+        </ul>
+    </div>
+
 
  	<div class="wrapper">
     	<div class="container">
