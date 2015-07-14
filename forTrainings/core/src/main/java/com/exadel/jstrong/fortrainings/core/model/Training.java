@@ -5,15 +5,15 @@ public class Training {
     private int id;
     private String name;
     private String annotation;
-    private String data;
-    private boolean isUser;
+    private String date;
+    private boolean isSubscribe;
 
-    public Training(int id, String name, String annotation, String data, boolean isUser) {
+    public Training(int id, String name, String annotation, String date, boolean isSubscribe) {
         this.id = id;
         this.name = name;
         this.annotation = annotation;
-        this.data = data;
-        this.isUser = isUser;
+        this.date = date;
+        this.isSubscribe = isSubscribe;
     }
 
     public void setId(int id) {
@@ -38,12 +38,12 @@ public class Training {
 
     public String getAnnotation() {return annotation;}
 
-    public void setData(String data) {this.data = data;}
+    public void setDate(String date) {this.date = date;}
 
-    public String getDate() {return data;}
+    public String getDate() {return date;}
 
-    public void setIsUser(boolean isUser) {this.isUser = isUser;}
+    public void setIsUser(boolean isUser) {this.isSubscribe = isUser;}
 
-    public boolean getIsUser() {return isUser;}
+    public boolean getIsUser() {return isSubscribe;}
 
 }
