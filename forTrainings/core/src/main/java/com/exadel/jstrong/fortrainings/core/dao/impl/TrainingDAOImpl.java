@@ -37,7 +37,7 @@ public class TrainingDAOImpl implements TrainingDAO {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(
                     "SELECT training.id, training.name, training.annotation, meet.date FROM training, subscribe, meet where subscribe.employee_id "
-                            + sign + userId + " and  training.id = subscribe.training_id and meet.training_id = training.id and meet.date between ' "
+                            + sign + userId + " and subscribe.status = 'approve' and  training.id = subscribe.training_id and meet.training_id = training.id and meet.date between ' "
                             + dateFrom + "' and '" + dateTo + "' order by meet.date;");
             while (resultSet.next()) {
                 String buf = resultSet.getString("date");
