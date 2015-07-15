@@ -1,35 +1,31 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
 public class Employee {
-    private String id;
+    private int id;
     private String login;
     private String password;
     private String name;
-    private String surname;
     private String mail;
     private String phone;
-    private boolean isAdmin;
-    private boolean isExternal;
+    private String role;
 
-    public Employee(String id, String login, String password,
-                    String name, String surname, String mail, String phone,
-                    boolean isAdmin, boolean isExternal) {
+    public Employee(int id, String login, String password,
+                    String name, String mail, String phone,
+                    String role) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.name = name;
-        this.surname = surname;
         this.mail = mail;
         this.phone = phone;
-        this.isAdmin = isAdmin;
-        this.isExternal = isExternal;
+        this.role = role;
     }
 
-    public String getId(){
+    public int getId(){
         return id;
     }
 
-    public void setId(String id){
+    public void setId(int id){
         this.id = id;
     }
 
@@ -57,14 +53,6 @@ public class Employee {
         this.name = name;
     }
 
-    public String getSurname(){
-        return surname;
-    }
-
-    public void setSurname(String surname){
-        this.surname = surname;
-    }
-
     public String getMail() {
         return mail;
     }
@@ -81,19 +69,11 @@ public class Employee {
         this.phone = phone;
     }
 
-    public boolean getAdmin() {
-        return isAdmin;
+    public String getRole() {
+        return role;
     }
 
-    public void setAdmin(boolean admin) {
-        this.isAdmin = admin;
-    }
-
-    public boolean getExternal() {
-        return isExternal;
-    }
-
-    public void setExternal(boolean isExternal) {
-        this.isExternal = isExternal;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

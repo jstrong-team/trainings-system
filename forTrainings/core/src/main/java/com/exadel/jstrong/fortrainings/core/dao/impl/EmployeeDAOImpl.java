@@ -6,9 +6,6 @@ import com.exadel.jstrong.fortrainings.core.model.Employee;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
     private static Logger logger = Logger.getLogger(EmployeeDAOImpl.class.getName());
@@ -18,22 +15,67 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
         Connection connection = null;
         ResultSet resultSet = null;
         Employee employee = null;
+        String role = null;
+        int id = 0;
 
         try {
             connection = ConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM employees WHERE login = ?  AND  password = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM employee WHERE login = ?  AND  password = ?");
             preparedStatement.setString(1, ulogin);
             preparedStatement.setString(2, upassword);
             resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()) {
-                employee = new Employee(resultSet.getString("id"), resultSet.getString("login"),
-                        resultSet.getString("password"), resultSet.getString("name"), resultSet.getString("surname"),
-                        resultSet.getString("mail"), resultSet.getString("phone"), resultSet.getBoolean("admin"),
-                        resultSet.getBoolean("external"));
+                id = resultSet.getInt("id");
+                role = getRoleById(id);
+                employee = new Employee(id, resultSet.getString("login"),
+                        resultSet.getString("password"), resultSet.getString("name"),
+                        resultSet.getString("mail"), resultSet.getString("phone"), role);
             }
 
         } catch (SQLException e) {
-            logger.error(e);
+                logger.error(e);
+            } finally {
+                if (resultSet != null) {
+                    try {
+                        resultSet.close();
+                    } catch (SQLException e) {
+                        logger.error(e);
+                    }
+                }
+                if (preparedStatement != null) {
+                    try {
+                        preparedStatement.close();
+                    } catch (SQLException e) {
+                        logger.error(e);
+                    }
+                }
+                if (connection != null) {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        logger.error(e);
+                    }
+                }
+        }
+        return employee;
+    }
+
+    private String getRoleById(int id) {
+        String role = null;
+        PreparedStatement preparedStatement = null;
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionManager.getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM employee_role INNER JOIN role ON employee_role.employee_id=role.id WHERE employee_id = "
+                    + Integer.toString(id));
+            resultSet.next();
+            role = resultSet.getString("name");
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
             if (resultSet != null) {
                 try {
@@ -42,9 +84,9 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
                     logger.error(e);
                 }
             }
-            if (preparedStatement != null) {
+            if (statement != null) {
                 try {
-                    preparedStatement.close();
+                    statement.close();
                 } catch (SQLException e) {
                     logger.error(e);
                 }
@@ -57,7 +99,7 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
                 }
             }
         }
-        return employee;
+        return role;
     }
 /*
     public Employee getByID(String id) {
