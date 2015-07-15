@@ -29,10 +29,10 @@ CREATE TABLE `employee` (
   `login` varchar(25) NOT NULL,
   `password` varchar(25) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `mail` varchar(25) DEFAULT NULL,
+  `mail` varchar(50) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,8 +41,38 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1,'admin','1111','Anton Grigoriev','mail@mail.ru','666'),(2,'batman','2222','Bruce Wayne','bat@mail.com','13'),(3,'eng','3333','Spider Man','spidy@mail.by',NULL);
+INSERT INTO `employee` VALUES (1,'admin','1111','Anton Grigoriev','toxa.z@mail.ru',NULL),(2,'masha','masha','Maria Grakova','mariagracova96@gmail.com',NULL),(3,'stas','stas','Stanislav Petrovich','staspetrovichbsu@gmail.com',NULL),(4,'kolya','kolya','Nikolay Lebedev','nickylebedev@gmail.com',NULL),(5,'dima','dima','Dmitriy Nedelko',NULL,NULL),(6,'maks','maks','Maksim Skavish',NULL,NULL),(7,'main','main','Vasilenko Janna',NULL,NULL),(8,'jesus','jesus','Jesus Christ',NULL,NULL),(9,'king','king','Stephen King',NULL,NULL),(10,'vlad','vlad','Vladislav Dracula',NULL,NULL);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `employee_feedback`
+--
+
+DROP TABLE IF EXISTS `employee_feedback`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `employee_feedback` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) NOT NULL,
+  `training_id` int(11) NOT NULL,
+  `text` text NOT NULL,
+  `add_date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_employee_employee_feedback_idx` (`employee_id`),
+  KEY `fk_training_employee_feedback_idx` (`training_id`),
+  CONSTRAINT `fk_employee_employee_feedback` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_training_employee_feedback` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `employee_feedback`
+--
+
+LOCK TABLES `employee_feedback` WRITE;
+/*!40000 ALTER TABLE `employee_feedback` DISABLE KEYS */;
+/*!40000 ALTER TABLE `employee_feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -68,38 +98,34 @@ CREATE TABLE `employee_role` (
 
 LOCK TABLES `employee_role` WRITE;
 /*!40000 ALTER TABLE `employee_role` DISABLE KEYS */;
+INSERT INTO `employee_role` VALUES (1,1),(7,1),(8,2),(2,3),(3,3),(4,3);
 /*!40000 ALTER TABLE `employee_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `feedback`
+-- Table structure for table `employee_tag`
 --
 
-DROP TABLE IF EXISTS `feedback`;
+DROP TABLE IF EXISTS `employee_tag`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `feedback` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `employee_tag` (
   `employee_id` int(11) NOT NULL,
-  `training_id` int(11) NOT NULL,
-  `text` text NOT NULL,
-  `add_date` datetime NOT NULL,
-  `status` varchar(25) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_employee_recall_idx` (`employee_id`),
-  KEY `fk_training_recall_idx` (`training_id`),
-  CONSTRAINT `fk_employee_recall` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_training_recall` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  `tag_id` int(11) NOT NULL,
+  PRIMARY KEY (`employee_id`,`tag_id`),
+  KEY `fk_tag_employee_tag_idx` (`tag_id`),
+  CONSTRAINT `fk_employee_employee_tag` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_tag_employee_tag` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `feedback`
+-- Dumping data for table `employee_tag`
 --
 
-LOCK TABLES `feedback` WRITE;
-/*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
-/*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
+LOCK TABLES `employee_tag` WRITE;
+/*!40000 ALTER TABLE `employee_tag` DISABLE KEYS */;
+/*!40000 ALTER TABLE `employee_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -118,7 +144,7 @@ CREATE TABLE `meet` (
   PRIMARY KEY (`id`),
   KEY `training_id_idx` (`training_id`),
   CONSTRAINT `fk_training_meet` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,8 +153,34 @@ CREATE TABLE `meet` (
 
 LOCK TABLES `meet` WRITE;
 /*!40000 ALTER TABLE `meet` DISABLE KEYS */;
-INSERT INTO `meet` VALUES (1,1,'2015-08-01 17:55:22','243','2 h.'),(2,1,'2015-08-02 14:55:00','234','1 hour'),(3,1,'2015-08-03 00:00:00','250','1.5'),(4,2,'2015-08-05 00:00:00','4506','33'),(5,2,'2015-08-11 13:44:00','405','45'),(6,3,'2015-05-18 11:12:13','666','69'),(7,3,'2015-07-10 15:15:14','1408','1337');
+INSERT INTO `meet` VALUES (1,1,'2015-07-02 12:00:00','243','1.5 h.'),(2,1,'2015-07-07 13:00:00','243','1.5 hours'),(3,1,'2015-07-09 12:00:00','223','2'),(4,1,'2015-07-14 12:00:00','333','1.5 h'),(5,1,'2015-07-15 12:00:00','666','3'),(6,1,'2015-07-21 12:00:00','223','1.5'),(7,1,'2015-07-23 12:00:00','243','2 h.'),(8,1,'2015-07-28 15:00:00','304','1 hour'),(9,1,'2015-07-30 12:00:00','234','3'),(10,1,'2015-08-04 12:00:00','312','2'),(11,1,'2015-08-06 12:00:00','356','2-3'),(12,1,'2015-08-11 12:00:00','202','1 h'),(13,1,'2015-08-13 14:00:00','223','1'),(14,1,'2015-08-18 12:00:00','344','1.5'),(15,1,'2015-08-20 12:00:00','233','1.5'),(16,1,'2015-08-25 12:00:00','234','1.5'),(17,1,'2015-08-27 12:00:00','345','3'),(18,2,'2015-07-08 15:00:00','234','3 hours'),(19,3,'2015-09-01 06:00:00','666','4'),(20,4,'2015-06-04 12:00:00','432','2'),(21,5,'2015-09-07 12:00:00','233','3');
 /*!40000 ALTER TABLE `meet` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `meet_version`
+--
+
+DROP TABLE IF EXISTS `meet_version`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `meet_version` (
+  `old_version` int(11) NOT NULL,
+  `new_version` int(11) NOT NULL,
+  PRIMARY KEY (`old_version`,`new_version`),
+  KEY `fk_meet(new)_meet_version_idx` (`new_version`),
+  CONSTRAINT `fk_meet(new)_meet_version` FOREIGN KEY (`new_version`) REFERENCES `meet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_meet(old)_meet_version` FOREIGN KEY (`old_version`) REFERENCES `meet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `meet_version`
+--
+
+LOCK TABLES `meet_version` WRITE;
+/*!40000 ALTER TABLE `meet_version` DISABLE KEYS */;
+/*!40000 ALTER TABLE `meet_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -140,14 +192,11 @@ DROP TABLE IF EXISTS `notice`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `notice` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `employee_id` int(11) NOT NULL,
   `training_id` int(11) NOT NULL,
   `text` text NOT NULL,
   `add_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_employee_notice_idx` (`employee_id`),
   KEY `fk_training_notice_idx` (`training_id`),
-  CONSTRAINT `fk_employee_notice` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_training_notice` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -200,7 +249,7 @@ CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,6 +258,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES (1,'admin'),(2,'external'),(3,'trainer');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,12 +275,13 @@ CREATE TABLE `subscribe` (
   `training_id` int(11) NOT NULL,
   `status` varchar(15) NOT NULL,
   `add_date` datetime NOT NULL,
+  `mark` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_employee_subscribe_idx` (`employee_id`),
   KEY `fk_training_subscribe_idx` (`training_id`),
   CONSTRAINT `fk_employee_subscribe` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_training_subscribe` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -239,8 +290,61 @@ CREATE TABLE `subscribe` (
 
 LOCK TABLES `subscribe` WRITE;
 /*!40000 ALTER TABLE `subscribe` DISABLE KEYS */;
-INSERT INTO `subscribe` VALUES (1,1,2,'yes','2015-07-15 16:44:35'),(2,2,1,'yes','2015-07-14 16:44:35'),(3,1,3,'yes','2015-05-15 12:12:13');
+INSERT INTO `subscribe` VALUES (1,1,1,'approve','2015-06-01 12:00:00',0),(2,2,1,'approve','2015-06-02 12:00:00',0),(3,3,1,'approve','2015-06-03 12:00:00',0),(4,4,1,'approve','2015-06-04 12:00:00',0),(5,5,1,'approve','2015-06-05 12:00:00',0),(6,6,1,'wait','2015-06-06 12:00:00',0),(7,7,1,'wait','2015-06-07 12:00:00',0),(8,9,1,'wait','2015-06-08 12:00:00',0),(9,1,2,'approve','2015-06-01 12:00:00',0),(10,2,2,'approve','2015-06-15 12:00:00',0),(11,3,4,'approve','2015-06-09 12:00:00',0),(12,9,5,'approve','2015-06-03 12:00:00',0);
 /*!40000 ALTER TABLE `subscribe` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tag`
+--
+
+DROP TABLE IF EXISTS `tag`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tag` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tag`
+--
+
+LOCK TABLES `tag` WRITE;
+/*!40000 ALTER TABLE `tag` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tag` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `trainer_feedback`
+--
+
+DROP TABLE IF EXISTS `trainer_feedback`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `trainer_feedback` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) NOT NULL,
+  `training_id` int(11) NOT NULL,
+  `text` text NOT NULL,
+  `add_date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_employee_trainer_feedback_idx1` (`employee_id`),
+  KEY `fk_training_trainer_feedback_idx` (`training_id`),
+  CONSTRAINT `fk_employee_trainer_feedback` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_training_trainer_feedback` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `trainer_feedback`
+--
+
+LOCK TABLES `trainer_feedback` WRITE;
+/*!40000 ALTER TABLE `trainer_feedback` DISABLE KEYS */;
+/*!40000 ALTER TABLE `trainer_feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -256,12 +360,14 @@ CREATE TABLE `training` (
   `name` varchar(50) NOT NULL,
   `annotation` varchar(120) NOT NULL,
   `description` text NOT NULL,
-  `traget` varchar(45) NOT NULL,
+  `target` varchar(45) NOT NULL,
   `paid` tinyint(4) NOT NULL,
+  `approve` tinyint(4) NOT NULL,
+  `max_participants` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `trainer_id_idx` (`trainer_id`),
   CONSTRAINT `fk_employee_training` FOREIGN KEY (`trainer_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -270,8 +376,60 @@ CREATE TABLE `training` (
 
 LOCK TABLES `training` WRITE;
 /*!40000 ALTER TABLE `training` DISABLE KEYS */;
-INSERT INTO `training` VALUES (1,1,'Inglish','London is the capital of America.','Just englesh.','Allbody',1),(2,2,'A','B','C','D',0),(3,3,'Wazap nigga','ACAB','I don\'t know','every people',0);
+INSERT INTO `training` VALUES (1,8,'English training','Learning english.\nJust english.','Technical lexis in IT.','For begginers.',1,1,5),(2,4,'CORE JAVA ','Sun trainings is a best online center in Hyderabad. We are providing very best online training on CORE JAVA.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Medium-level JAVA developers.',0,1,10),(3,4,'Advanced Java','Sun trainings is a best online center in Hyderabad. We are providing very best online training on Advanced Java.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Hight-level JAVA developers.',0,0,7),(4,2,'ORACLE DBA ','Sun trainings is a best online center in Hyderabad. We are providing very best online training on ORACLE DBA.','Course Name : ORACLE DBA                                                                    24*7 Technical Support\nDuration         : 35 hours\nFaculty            : Realtime experience \n\n           Sun trainings is a best online center in Hyderabad. We are providing very best online training on ORACLE DBA.\n\nHighlights in our training:\n\n*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Oracle users.',1,1,9),(5,3,'MongoDB ','Sun trainings is a best online center in Hyderabad. We are providing very best online training on MongoDB.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','DB developers.',0,1,10);
 /*!40000 ALTER TABLE `training` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `training_tag`
+--
+
+DROP TABLE IF EXISTS `training_tag`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `training_tag` (
+  `training_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  PRIMARY KEY (`training_id`,`tag_id`),
+  KEY `fk_tag_training_tag_idx` (`tag_id`),
+  CONSTRAINT `fk_tag_training_tag` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_training_training_tag` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `training_tag`
+--
+
+LOCK TABLES `training_tag` WRITE;
+/*!40000 ALTER TABLE `training_tag` DISABLE KEYS */;
+/*!40000 ALTER TABLE `training_tag` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `training_version`
+--
+
+DROP TABLE IF EXISTS `training_version`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `training_version` (
+  `old_version` int(11) NOT NULL,
+  `new_version` int(11) NOT NULL,
+  PRIMARY KEY (`old_version`,`new_version`),
+  KEY `fk_training(new)_training_version_idx` (`new_version`),
+  CONSTRAINT `fk_training(new)_training_version` FOREIGN KEY (`new_version`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_training(old)_training_version` FOREIGN KEY (`old_version`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `training_version`
+--
+
+LOCK TABLES `training_version` WRITE;
+/*!40000 ALTER TABLE `training_version` DISABLE KEYS */;
+/*!40000 ALTER TABLE `training_version` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -283,4 +441,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-13 16:50:08
+-- Dump completed on 2015-07-15 14:46:17
