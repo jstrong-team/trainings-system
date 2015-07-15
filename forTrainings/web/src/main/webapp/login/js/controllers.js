@@ -1,5 +1,5 @@
 angular.module('loginModule').controller('logintController',['$scope','loginService','$location',function($scope,loginService,$location){
-    $scope.credationals={login:null, password:null}
+    $scope.credationals={login:null, password:null , rememberMe:false}
     $scope.error;
     $scope.submit= function(){
         loginService.serv($scope.credationals).then(function(response){

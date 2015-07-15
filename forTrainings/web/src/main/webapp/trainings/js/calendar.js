@@ -77,7 +77,7 @@ function colorDayItems (data) {
     for (var i = 0; i < data.length; ++i) {
         var selector = '.fulldate_' + data[i].date.match(regexp)[0];
         var element = document.querySelector(selector);
-        console.log(element);
+        //console.log(element);
         if (data[i].isSubscribe === true) {
             element.className += " willGo";
         } else {
