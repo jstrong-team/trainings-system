@@ -1,7 +1,7 @@
 angular.module('trainingsModule',[]).config(function($routeProvider) {
     $routeProvider
         .when('/trainings', {
-            templateUrl: 'trainings/employee.html',
+            templateUrl: 'res/trainings/employee.html',
             controller: 'trainingsController',
             resolve: {
                 threeMonthList: ['$http', '$q', function($http, $q){
