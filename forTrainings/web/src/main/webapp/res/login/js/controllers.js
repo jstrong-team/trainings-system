@@ -6,7 +6,7 @@ angular.module('loginModule').controller('logintController',['$scope','loginServ
             console.log(response);
             localStorage.setItem('id',response.data.id);
             localStorage.setItem('name',response.data.name);
-            $location.url('/trainings');
+            $location.url('/ui/trainings');
 
         }, function(error){
             console.error(error);

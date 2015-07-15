@@ -22,10 +22,10 @@ angular.module('trainingsModule').controller('trainingsController',['$scope','$l
 
     $scope.logout=function(){
         localStorage.clear();
-        $location.url('/');
+        $location.url('/ui');
     };
     $scope.goToTrainings=function(){
-        $location.url('/trainings');
+        $location.url('/ui/trainings');
     };
 
     threeMonthList.getThreeMonthList().then(function(data) {

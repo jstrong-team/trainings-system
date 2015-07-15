@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 @WebServlet("/index.html")
 public class IndexServlet extends HttpServlet {
-    public static final String INDEX_PAGE_PATH = "index.html";
+    public static final String INDEX_PAGE_PATH = "/index.html";
 
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {

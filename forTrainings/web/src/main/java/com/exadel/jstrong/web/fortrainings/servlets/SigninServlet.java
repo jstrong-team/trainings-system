@@ -46,7 +46,8 @@ public class SigninServlet extends HttpServlet{
             String password = rempl.getPassword();
             logger.info("Login: " + login + "; Password: " + password);
             if(login != null && password != null) {
-                Employee employee = employeeController.authorization(login, password);
+                Employee employee = new Employee(1, "login", "passs", "name", "mail", "", "role");
+//                Employee employee = employeeController.authorization(login, password);
                 if (employee == null) {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not found");
                 } else {

@@ -1,6 +1,6 @@
 angular.module('trainingsModule',[]).config(function($routeProvider) {
     $routeProvider
-        .when('/trainings', {
+        .when('/ui/trainings', {
             templateUrl: 'res/trainings/employee.html',
             controller: 'trainingsController',
             resolve: {
