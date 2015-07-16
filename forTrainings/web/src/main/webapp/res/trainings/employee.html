@@ -9,62 +9,9 @@
 </head>
 
  <body>
-	<nav class="navbar navBarBackground">
-		<div class="container">
-            <div class="row">
-                <div class="navbar-header col-md-2">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <li>
-                        <a href="" class="logo">
-                            <span>
-                                Exadel<sup class="trademark"><sup> &reg</sup></sup>
-                            </span>
-                        </a>
-                    </li>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                        <li><a href=""  class="navBarText" ng-click="goToTrainings()">Calendar</a></li>
-                        <li><a href=""  class="navBarText">Create training</a></li>
-                        <li><a href=""  class="navBarText">My trainings</a></li>
-                        <li><a href=""  class="navBarText" ng-click="createLog()">LOG</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="" class="navBarText" ng-click="logout()">Log out</a></li>
-                        <li >
-                            <form ng-submit="doSearch()">
-                                <input type="search" class="form-control inputSearch"  placeholder="Search" ng-model="searchExpression">
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-		</div>
-	</nav>
-
-    <div  class="container" ng-show="searchExpression">
-        <div class="row" ng-repeat="training in searchResponse | filter:searchExpression">
-            <div class="col-md-1 col-md-offset-1">
-                {{training.id}}
-            </div>
-            <div class="col-md-2">
-                {{training.name}}
-            </div>
-            <div class="col-md-4">
-                {{training.annotation}}
-            </div>
-            <div class="col-md-2">
-                {{training.date}}
-            </div>
-        </div>
-        <hr>
-    </div>
-
-
+     <div >
+         <div ng-include="navigation.url"></div>
+     </div>
  	<div class="wrapper" ng-hide="searchExpression">
     	<div class="container">
 			<div class="row">

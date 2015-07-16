@@ -4,19 +4,21 @@ angular.module('trainingsModule').controller('trainingsController',['$scope','$l
 
     $scope.searchResponse=null;
 
+    $scope.navigation ={url: 'res/navigation.html'};
+
     $scope.doSearch=function(){
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
             $scope.searchResponse=data.data;
-            console.log(data.data);
+            //console.log(data.data);
         }, function (error) {
             console.log(error);
         });
-        console.log($scope.searchExpression);
+        //console.log($scope.searchExpression);
     };
 
     $scope.createLog=function(){
         console.log($scope.searchExpression);
-        console.log($scope.trainings);
+        //console.log($scope.trainings);
 
     };
 
