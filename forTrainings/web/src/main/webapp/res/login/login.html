@@ -1,72 +1,57 @@
-	<head>
-    	<meta charset="utf-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
-    	<title>Login</title>
-    	<link href="/res/css/bootstrap.min.css" rel="stylesheet">
-    	<link href="/res/css/style.css" rel="stylesheet">
-  	</head>
-
- <body>
- 	<div class="wrapper">
-    	<div class="container">
-			<div class="row">
-		 		<div class="col-md-12">
- 					<img src="/res/img/exadel.png">
- 				</div>
-				<div class="col-md-8">
-					<div class="jumbotron">
-    					<h1>Schedule trainings</h1>
-    					<h1>better, together</h1> 
-    					<h3>Meetings  management for employees</h3> 
- 					</div>
-				</div>
-				<div class="col-md-4">
-					<form class="form-horizontal" role="form" ng-submit="submit()">
-						<div class="form-group">
-							<div class="col-md-12">
-								<input type="login"
-									   class="form-control"
-									   placeholder="Enter login"
-									   id="inputLogin"
-									   ng-model="credationals.login"
-									   required>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-md-12">
-								<input type="password"
-									   class="form-control"
-									   placeholder="Enter password"
-									   id="inputPassword"
-									   ng-model="credationals.password"
-									   required>
-							</div>
-						</div>
-                        <div ng-show="error" class="text-danger">
-                            {{error}}
+<div class="container wrappered">
+    <div class="row">
+        <div class="col-md-12">
+            <img src="/res/login/img/exadel.png">
+        </div>
+        <div class="col-md-8">
+            <div class="jumbotron">
+                <h1>Schedule trainings</h1>
+                <h1>better, together</h1>
+                <h3>Meetings  management for employees</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <form class="form-horizontal" role="form" ng-submit="submit()">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="login"
+                               class="form-control"
+                               placeholder="Enter login"
+                               id="inputLogin"
+                               ng-model="credationals.login"
+                               required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="password"
+                               class="form-control"
+                               placeholder="Enter password"
+                               id="inputPassword"
+                               ng-model="credationals.password"
+                               required>
+                    </div>
+                </div>
+                <div ng-show="error" class="text-danger">
+                    {{error}}
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="credationals.rememberMe"> Remember me
+                            </label>
                         </div>
-						<div class="form-group">
-							<div class="col-md-12">
-								<div class="checkbox">				 
-									<label>
-										<input type="checkbox" ng-model="credationals.rememberMe"> Remember me
-									</label>
-							</div>
-						</div>
-						</div>
-						<div class="form-group">
-							<div class="col-md-12">
-								<button type="submit" class="btn submitButton">
-									Sign in
-								</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	<footer>
-	    <h5 class="text-center">&copy 2015 jsTrong</h5>	
-	</footer>
-	</div>
-</body>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn submitButton">
+                            Sign in
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

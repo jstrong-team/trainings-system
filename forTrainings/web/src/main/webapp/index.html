@@ -1,30 +1,46 @@
 <!DOCTYPE html>
 <html lang="en-US" ng-app="app">
-<script src="/res/js/jquery.min.js"></script>
-<script src="/res/js/bootstrap.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-route.js"></script>
-<script src="/res/index.js"></script>
+<link href="/res/libs/bootstrap.min.css" rel="stylesheet">
+<script src="/res/libs/jquery.min.js"></script>
+<script src="/res/libs/bootstrap.min.js"></script>
+<script src="/res/libs/angular.min.js"></script>
+<script src="/res/libs/angular-route.js"></script>
 
+<link href="footer.css" rel="stylesheet">
+<script src="res/index.js"></script>
 
+<link href="/res/login/css/login.css" rel="stylesheet">
 <script src="/res/login/js/module.js"></script>
-<script src="/res/login/js/controllers.js"></script>
-<script src="/res/login/js/services.js"></script>
+<script src="/res/login/js/controller.js"></script>
+<script src="/res/login/js/service.js"></script>
 
-<script src="/res/trainings/js/module.js"></script>
-<script src="/res/trainings/js/controllers/trainingsController.js"></script>
-<script src="/res/trainings/js/controllers/controllerCalendar.js"></script>
-<script src="/res/trainings/js/services/getTrainingsService.js"></script>
-<script src="/res/trainings/js/services/doSearchService.js"></script>
-<script src="/res/trainings/js/directives/onFinishRender.js"></script>
-<script src="/res/trainings/js/directives/onClickDirective.js"></script>
-<script src="/res/trainings/js/calendar.js"></script>
+<link href="/res/calendar/css/navigation.css" rel="stylesheet">
+<link href="/res/calendar/css/calendar.css" rel="stylesheet">
+
+<script src="/res/calendar/js/module.js"></script>
+<script src="/res/calendar/js/navigationController.js"></script>
+<script src="/res/calendar/js/calendarController.js"></script>
+<script src="/res/calendar/js/doSearchService.js"></script>
+<script src="/res/calendar/js/onFinishRenderDirective.js"></script>
+<script src="/res/calendar/js/onClickDirective.js"></script>
+<script src="/res/calendar/js/calendar.js"></script>
 
 <head>
-    <base href="/ui">
+    <base href="/">
+    <meta charset="utf-8">
+    <title>Exadel trainings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body ng-view>
-</body>
+<body>
 
+<div class="wrapper">
+    <div ng-view></div>
+
+    <footer>
+        <h5 class="text-center">&copy 2015 jsTrong</h5>
+    </footer>
+</div>
+
+</body>
 </html>
