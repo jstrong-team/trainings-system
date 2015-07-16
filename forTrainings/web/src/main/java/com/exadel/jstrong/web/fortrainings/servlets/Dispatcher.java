@@ -1,5 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.servlets;
 
+import com.exadel.jstrong.web.fortrainings.util.ServletUtils;
+
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -12,8 +14,10 @@ import java.io.IOException;
  */
 @WebServlet("/ui/*")
 public class Dispatcher extends HttpServlet {
+    public static final String INDEX_PAGE_PATH = "/index.html";
+
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
-        req.getRequestDispatcher("/index.html").forward(req, res);
+        ServletUtils.writeFileDataToResponse(req, res, INDEX_PAGE_PATH);
     }
 }

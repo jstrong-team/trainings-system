@@ -70,7 +70,7 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
         try {
             connection = ConnectionManager.getConnection();
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM employee_role INNER JOIN role ON employee_role.employee_id=role.id WHERE employee_id = "
+            resultSet = statement.executeQuery("SELECT * FROM employee_role INNER JOIN role ON employee_role.role_id=role.id WHERE employee_id = "
                     + Integer.toString(id));
             resultSet.next();
             role = resultSet.getString("name");

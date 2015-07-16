@@ -12,6 +12,7 @@ import com.google.gson.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,11 +47,13 @@ public class SigninServlet extends HttpServlet{
             String password = rempl.getPassword();
             logger.info("Login: " + login + "; Password: " + password);
             if(login != null && password != null) {
-                Employee employee = new Employee(1, "login", "passs", "name", "mail", "", "role");
-//                Employee employee = employeeController.authorization(login, password);
+                //Employee employee = new Employee(1, "login", "passs", "name", "mail", "", "role");
+                Employee employee = employeeController.authorization(login, password);
                 if (employee == null) {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not found");
                 } else {
+                    response.addCookie(new Cookie("authtoken", "antonGr")); // add new
+                    //response.addCookie(new Cookie("remmeflg", Boolean.toString(false)));
                     response.setCharacterEncoding(AppUtil.UTF_8);
                     response.setContentType(AppUtil.APPLICATION_JSON);
                     PrintWriter out = response.getWriter();

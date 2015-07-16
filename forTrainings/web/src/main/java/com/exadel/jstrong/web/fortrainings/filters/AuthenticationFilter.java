@@ -16,7 +16,7 @@ import java.util.Map;
 public class AuthenticationFilter implements Filter {
 
     public static final String COOKIE_TOKEN = "authtoken";
-    public static final String COOKIE_REMEMBER_ME = "remmeflg";
+//    public static final String COOKIE_REMEMBER_ME = "remmeflg";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -26,24 +26,47 @@ public class AuthenticationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         Cookie[] cookies = ((HttpServletRequest) request).getCookies();
         Map<String, Cookie> cookieMap = cookiesToMap(cookies);
+        String url = ((HttpServletRequest) request).getRequestURI();
+        System.out.println(url);
 
-        if (cookieMap.isEmpty()) {      //if no cookies
-            chain.doFilter(request, response);
-        }
-
-        Cookie tokenCookie = cookieMap.get("JSESSIONID");
-        Cookie remMeCookie = cookieMap.get(COOKIE_REMEMBER_ME);
-        boolean isValidSession = checkSessionFor(tokenCookie);
-        if (isValidSession) {
-            chain.doFilter(request, response);
+        if (cookieMap.isEmpty()) {
+            if (isBaseUrl(url)) {
+                chain.doFilter(request, response);
+                return;
+            } else {
+                ((HttpServletResponse) response).sendRedirect("/ui");
+            }
             return;
         }
-        boolean isRememberMeValid = checkIsRemembered(remMeCookie);
-        if (isRememberMeValid) {
+        Cookie tokenAuthenticate = cookieMap.get(COOKIE_TOKEN);
+
+        boolean isDoFilter = false;
+        boolean isBaseUrl = isBaseUrl(url);
+        String redirectUrl = "";
+
+        if(isBaseUrl){
+            if(tokenAuthenticate != null) {
+                redirectUrl = "/ui/trainings";
+            } else {
+                isDoFilter = true;
+            }
+        } else {
+            if(tokenAuthenticate != null) {
+                isDoFilter = true;
+            } else {
+                redirectUrl = "/ui";
+            }
+        }
+
+        if (isDoFilter) {
             chain.doFilter(request, response);
         } else {
-            ((HttpServletResponse) response).sendRedirect("/ui/index.html");//.forward(request, response);
+            ((HttpServletResponse) response).sendRedirect(redirectUrl);
         }
+    }
+
+    private boolean isBaseUrl(String url) {
+        return url.equals("/ui") || url.equals("/ui/");
     }
 
     /**
@@ -51,9 +74,7 @@ public class AuthenticationFilter implements Filter {
      * @param tokenCookie the cookie with id token (JSESSIONID now)
      * @return true if session is valid and false otherwise
      */
-    private boolean checkSessionFor(Cookie tokenCookie) {
-        return true;
-    }
+    private boolean checkSessionFor(Cookie tokenCookie) { return true; }
 
     /**
      * Checks whether the token for the current cookie is valid
