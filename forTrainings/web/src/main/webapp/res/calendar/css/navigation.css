@@ -41,6 +41,10 @@ footer h5 {
     padding-right: 0;
 }
 
+.navbar-header li {
+    list-style-type: none;
+}
+
 .icon-bar {
     background-color: white;
 }
