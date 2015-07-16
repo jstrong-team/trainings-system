@@ -1,8 +1,7 @@
-angular.module('trainingsModule',[]).config(function($routeProvider) {
-    $routeProvider
-        .when('/ui/trainings', {
-            templateUrl: 'res/trainings/employee.html',
-            controller: 'trainingsController',
+angular.module('calendarModule', []).config(function($routeProvider) {
+    $routeProvider.when('/ui/trainings', {
+            templateUrl: 'res/calendar/calendar.html',
+            controller: 'navigationController',
             resolve: {
                 threeMonthList: ['$http', '$q', function($http, $q){
                     var def = $q.defer();
@@ -20,5 +19,5 @@ angular.module('trainingsModule',[]).config(function($routeProvider) {
                     }
                 }]
             }
-        })
+        });
 });

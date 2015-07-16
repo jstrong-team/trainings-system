@@ -1,4 +1,4 @@
-angular.module('trainingsModule').directive('onClickDirective', function() {
+angular.module('calendarModule').directive('onClickDirective', function() {
     return function(scope, element) {
         element.on('click', function(event)
         {

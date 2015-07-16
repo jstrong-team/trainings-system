@@ -1,4 +1,4 @@
-angular.module('loginModule').controller('logintController',['$scope','loginService','$location',function($scope,loginService,$location){
+angular.module('loginModule').controller('loginController',['$scope','loginService','$location',function($scope,loginService,$location){
     $scope.credationals={login:null, password:null , rememberMe:false}
     $scope.error;
     $scope.submit= function(){

@@ -1,5 +1,5 @@
-var myMod = angular.module('app',['ngRoute','trainingsModule','loginModule']);
+var moduleApp = angular.module('app', ['ngRoute', 'calendarModule', 'loginModule']);
 
-myMod.config(['$locationProvider', function($locationProvider) {
+moduleApp.config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
 }]);
