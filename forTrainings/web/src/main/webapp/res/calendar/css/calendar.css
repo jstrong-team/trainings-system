@@ -39,6 +39,7 @@
 
 .dayItem:hover {
     color: #269abc;
+    border-color: #AFEEEE;
 }
 .dayItem p {
     margin: 0px;
@@ -46,7 +47,7 @@
 }
 
 .currentDay {
-    border-color: #269abc ;
+    border-color: #DC143C;
 }
 
 .day-6, .day-0 {
@@ -60,7 +61,7 @@ hr {
 }
 
 .month-01, .month-03, .month-05, .month-07, .month-09, .month-11 {
-    background-color: #c4e3f3;
+    background-color: #FFFAFA;
 }
 
 .willNotGo {
