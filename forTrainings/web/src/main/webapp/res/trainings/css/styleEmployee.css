@@ -50,6 +50,12 @@ footer {
 	font-weight:900;
 }
 
+.searchText{
+	color:white;
+	font-size:14px;
+	align-items: center;
+}
+
 .logo {
 	color:white;
 	font-size:34px;

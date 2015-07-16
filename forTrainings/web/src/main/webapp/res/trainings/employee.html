@@ -9,9 +9,8 @@
 </head>
 
  <body>
-
- <div class="navBarBackground">
-     <nav class="navbar">
+<div class="navBarBackground" >
+     <nav class="navbar navBarBackground" >
          <div class="container">
              <div class="row">
                  <div class="navbar-header col-md-2">
@@ -53,15 +52,13 @@
          </div>
      </nav>
 
-     <div  class="container" ng-show="searchExpression">
+     <div  class="container searchText" ng-show="searchExpression">
          <div class="row" ng-repeat="training in searchResponse "><!-- | filter:searchExpression-->
-             <div class="col-md-1 col-md-offset-1">
-                 {{training.id}}
-             </div>
+             <hr>
              <div class="col-md-2">
                  {{training.name}}
              </div>
-             <div class="col-md-4">
+             <div class="col-md-8">
                  {{training.annotation}}
              </div>
              <div class="col-md-2">
