@@ -180,6 +180,49 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
     public void updateTokenById (int id, String token){
 
     }
+
+    @Override
+    public int getIdByToken(String token) {
+        PreparedStatement preparedStatement = null;
+        Connection connection = null;
+        ResultSet resultSet = null;
+        int id = 0;
+        try {
+            connection = ConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT employee_id FROM token WHERE value = ?");
+            preparedStatement.setString(1, token);
+            resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+            id = resultSet.getInt("employee_id");
+
+        } catch (SQLException e) {
+            logger.error(e);
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+        }
+        return id;
+    }
 /*
     public Employee getByID(String id) {
         Connection connection = null;

@@ -48,4 +48,5 @@ public class TrainingsControllerImpl implements TrainingsController {
     public List<Training> getSearchData(String str) {
         return trainingDAO.getSearchResponse(str);
     }
+
 }

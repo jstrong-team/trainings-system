@@ -6,4 +6,5 @@ public interface EmployeeController {
     Employee authorization(String login, String password);
     void updateToken(int id, String token);
     boolean checkToken (String token);
+    int getIdByToken(String token);
 }

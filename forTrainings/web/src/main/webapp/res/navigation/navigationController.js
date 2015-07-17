@@ -1,4 +1,4 @@
-angular.module('app').controller('navigationController',['$scope','$location','doSearchService',  function($scope, $location, doSearchService) {
+angular.module('app').controller('navigationController',['$scope','$location','doSearchService','doLogoutService',  function($scope, $location, doSearchService,doLogoutService) {
 
     $scope.searchExpression='';
 
@@ -22,8 +22,12 @@ angular.module('app').controller('navigationController',['$scope','$location','d
 
     $scope.logout=function(){
         localStorage.clear();
-        //doLogoutService();
-        $location.url('/ui');
+        doLogoutService().then(function (data) {
+            console.log(data);
+            $location.url('/ui');
+        }, function (error) {
+            console.log(error);
+        });
     };
     $scope.goToTrainings=function(){
         $location.url('/ui/trainings');

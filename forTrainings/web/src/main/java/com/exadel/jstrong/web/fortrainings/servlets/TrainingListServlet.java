@@ -1,7 +1,9 @@
 package com.exadel.jstrong.web.fortrainings.servlets;
 
 import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
+import com.exadel.jstrong.web.fortrainings.controller.impl.EmployeeControllerImpl;
 import com.exadel.jstrong.web.fortrainings.controller.impl.TrainingsControllerImpl;
 import com.exadel.jstrong.web.fortrainings.responsebuilder.ResponseBuilder;
 import com.exadel.jstrong.web.fortrainings.util.AppUtil;
@@ -26,6 +28,7 @@ public class TrainingListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static Logger logger = Logger.getLogger(TrainingListServlet.class.getName());
     private TrainingsController trainingsController;
+    private EmployeeController ec;
     private ResponseBuilder<List<Training>> rb;
     private Gson gson;
     private final String TOKEN = "token";
@@ -35,13 +38,16 @@ public class TrainingListServlet extends HttpServlet {
         trainingsController = new TrainingsControllerImpl();
         rb = new ResponseBuilder<>();
         gson = new GsonBuilder().setPrettyPrinting().create();
+        ec = new EmployeeControllerImpl();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("doGet");
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
+//            int id = Integer.parseInt(request.getParameter("id"));
+            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+            int id = ec.getIdByToken(cookies.get("token").getValue());
             List<Training> trainings = trainingsController.getAllTrainings(id);
             if(trainings == null) {
                 response.sendError(HttpServletResponse.SC_NO_CONTENT, "No data about trainings in db");
@@ -69,9 +75,11 @@ public class TrainingListServlet extends HttpServlet {
         try {
             Map<String, Cookie> cookieMap = CookieUtil.cookiesToMap(request.getCookies());
             Cookie token = cookieMap.get(TOKEN);
+            Cookie temp = null;
             if (token != null) {
-                token.setMaxAge(0);
-                response.addCookie(token);
+                temp = new Cookie(TOKEN, CookieUtil.generateToken());
+                temp.setPath("/");
+                response.addCookie(temp);
             }
             response.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e){

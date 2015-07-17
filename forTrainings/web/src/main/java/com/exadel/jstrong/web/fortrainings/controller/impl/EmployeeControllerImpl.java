@@ -33,4 +33,6 @@ public class EmployeeControllerImpl implements EmployeeController {
     public boolean checkToken (String token){
         return employeeDao.checkToken(token);
     }
+
+    public int getIdByToken(String token) {return employeeDao.getIdByToken(token);}
 }
