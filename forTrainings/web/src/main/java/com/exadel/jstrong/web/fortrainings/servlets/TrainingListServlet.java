@@ -4,27 +4,31 @@ import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
 import com.exadel.jstrong.web.fortrainings.controller.impl.TrainingsControllerImpl;
 import com.exadel.jstrong.web.fortrainings.responsebuilder.ResponseBuilder;
-import com.exadel.jstrong.web.fortrainings.util.*;
+import com.exadel.jstrong.web.fortrainings.util.AppUtil;
+import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
-@WebServlet("/forTrainings/trainings/trainingHistory")
+@WebServlet("/rest/trainings")
 public class TrainingListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static Logger logger = Logger.getLogger(TrainingListServlet.class.getName());
     private TrainingsController trainingsController;
     private ResponseBuilder<List<Training>> rb;
     private Gson gson;
+    private final String TOKEN = "token";
 
     @Override
     public void init() throws ServletException {
@@ -53,8 +57,24 @@ public class TrainingListServlet extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_OK);
                 logger.info(trainingsJSONString);
             }
+        } catch (Exception e){
+            logger.error(e);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
-        catch (Exception e){
+    }
+
+    @Override
+    public void doDelete (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        logger.info("doDelete");
+        try {
+            Map<String, Cookie> cookieMap = CookieUtil.cookiesToMap(request.getCookies());
+            Cookie token = cookieMap.get(TOKEN);
+            if (token != null) {
+                token.setMaxAge(0);
+                response.addCookie(token);
+            }
+            response.setStatus(HttpServletResponse.SC_OK);
+        } catch (Exception e){
             logger.error(e);
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }

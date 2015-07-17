@@ -1,12 +1,15 @@
 package com.exadel.jstrong.web.fortrainings.filters;
 
+import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
+import com.exadel.jstrong.web.fortrainings.controller.impl.EmployeeControllerImpl;
+import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,22 +18,27 @@ import java.util.Map;
 @WebFilter("/ui/*")
 public class AuthenticationFilter implements Filter {
 
-    public static final String COOKIE_TOKEN = "authtoken";
+    public static final String COOKIE_TOKEN = "token";
+    private EmployeeController ec;
 //    public static final String COOKIE_REMEMBER_ME = "remmeflg";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        ec = new EmployeeControllerImpl();
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         Cookie[] cookies = ((HttpServletRequest) request).getCookies();
-        Map<String, Cookie> cookieMap = cookiesToMap(cookies);
+        Map<String, Cookie> cookieMap = CookieUtil.cookiesToMap(cookies);
         String url = ((HttpServletRequest) request).getRequestURI();
-        System.out.println(url);
+//        EmployeeController ec = new EmployeeControllerImpl();
+
+        boolean isCorrect = false;
+        boolean isBaseUrl = isBaseUrl(url);
 
         if (cookieMap.isEmpty()) {
-            if (isBaseUrl(url)) {
+            if (isBaseUrl) {
                 chain.doFilter(request, response);
                 return;
             } else {
@@ -38,20 +46,20 @@ public class AuthenticationFilter implements Filter {
             }
             return;
         }
-        Cookie tokenAuthenticate = cookieMap.get(COOKIE_TOKEN);
-
+        Cookie token = cookieMap.get(COOKIE_TOKEN);
+        boolean i = ec.checkToken(token.getValue());
+        isCorrect = (token != null && ec.checkToken(token.getValue()));
         boolean isDoFilter = false;
-        boolean isBaseUrl = isBaseUrl(url);
         String redirectUrl = "";
 
         if(isBaseUrl){
-            if(tokenAuthenticate != null) {
+            if(isCorrect) {
                 redirectUrl = "/ui/trainings";
             } else {
                 isDoFilter = true;
             }
         } else {
-            if(tokenAuthenticate != null) {
+            if(isCorrect) {
                 isDoFilter = true;
             } else {
                 redirectUrl = "/ui";
@@ -83,17 +91,6 @@ public class AuthenticationFilter implements Filter {
      */
     private boolean checkIsRemembered(Cookie remMeCookie) {
         return true;
-    }
-
-    private Map<String, Cookie> cookiesToMap(Cookie[] cookies) {
-        Map<String, Cookie> cookieMap = new HashMap<>();
-        if (cookies == null) {
-            return cookieMap;
-        }
-        for (Cookie cookie : cookies) {
-            cookieMap.put(cookie.getName(), cookie);
-        }
-        return cookieMap;
     }
 
     @Override

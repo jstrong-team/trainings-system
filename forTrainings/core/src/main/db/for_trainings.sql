@@ -318,6 +318,33 @@ LOCK TABLES `tag` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `token`
+--
+
+DROP TABLE IF EXISTS `token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `token` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `value` varchar(45) NOT NULL DEFAULT 'token',
+  `employee_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_employee_token_idx` (`employee_id`),
+  CONSTRAINT `fk_employee_token` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `token`
+--
+
+LOCK TABLES `token` WRITE;
+/*!40000 ALTER TABLE `token` DISABLE KEYS */;
+INSERT INTO `token` VALUES (1,'1707151237122074569123',1),(2,'token',2),(3,'token',3),(4,'token',4),(5,'token',5),(6,'token',6),(7,'token',7),(8,'token',8),(9,'token',9);
+/*!40000 ALTER TABLE `token` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `trainer_feedback`
 --
 
@@ -441,4 +468,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-15 14:46:17
+-- Dump completed on 2015-07-17 13:31:06

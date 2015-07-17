@@ -61,6 +61,81 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
         return employee;
     }
 
+    @Override
+    public void updateTokenByID(int id, String token) {
+        PreparedStatement preparedStatement = null;
+        Connection connection = null;
+
+        try {
+            connection = ConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement("UPDATE token SET value = ? WHERE employee_id = ?;");
+            preparedStatement.setString(1, token);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            logger.error(e);
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+        }
+    }
+
+    public boolean checkToken(String token){
+        boolean isCorrect = false;
+        PreparedStatement preparedStatement = null;
+        Connection connection = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = ConnectionManager.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM token WHERE value = ?");
+            preparedStatement.setString(1, token);
+            resultSet = preparedStatement.executeQuery();
+
+            isCorrect = (resultSet.next());
+
+        } catch (SQLException e) {
+            logger.error(e);
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    logger.error(e);
+                }
+            }
+        }
+        return isCorrect;
+    }
+
     private String getRoleById(int id) {
         String role = null;
         PreparedStatement preparedStatement = null;
@@ -100,6 +175,10 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
             }
         }
         return role;
+    }
+
+    public void updateTokenById (int id, String token){
+
     }
 /*
     public Employee getByID(String id) {

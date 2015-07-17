@@ -20,7 +20,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 
-@WebServlet("/forTrainings/trainings/searchTrainings")
+@WebServlet("/rest/trainings/searchTrainings")
 public class SearchServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
     private static Logger logger = Logger.getLogger(SearchServlet.class.getName());
