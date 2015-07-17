@@ -22,6 +22,7 @@ angular.module('calendarModule').controller('navigationController',['$scope','$l
 
     $scope.logout=function(){
         localStorage.clear();
+        //doLogoutService();
         $location.url('/ui');
     };
     $scope.goToTrainings=function(){

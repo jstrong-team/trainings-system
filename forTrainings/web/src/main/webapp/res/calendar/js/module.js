@@ -5,7 +5,7 @@ angular.module('calendarModule', []).config(function($routeProvider) {
             resolve: {
                 threeMonthList: ['$http', '$q', function($http, $q){
                     var def = $q.defer();
-                    $http.get('forTrainings/trainings/trainingHistory?param=2&id=' + localStorage.getItem('id')).success(function(data, status){
+                    $http.get('rest/trainings?param=2&id=' + localStorage.getItem('id')).success(function(data, status){
                         def.resolve(data);
                     })
                         .error(function(data, status){

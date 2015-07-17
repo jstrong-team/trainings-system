@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/forTrainings")
+@WebServlet("/rest")
 public class SigninServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
     private static Logger logger = Logger.getLogger(SigninServlet.class.getName());
@@ -52,7 +52,11 @@ public class SigninServlet extends HttpServlet{
                 if (employee == null) {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not found");
                 } else {
-                    response.addCookie(new Cookie("authtoken", "antonGr")); // add new
+                    String token = CookieUtil.generateToken();
+                    Cookie cookie = new Cookie("token", token);
+                    cookie.setMaxAge(-1);
+                    response.addCookie(cookie); // add new
+                    employeeController.updateToken(employee.getId(), token);
                     //response.addCookie(new Cookie("remmeflg", Boolean.toString(false)));
                     response.setCharacterEncoding(AppUtil.UTF_8);
                     response.setContentType(AppUtil.APPLICATION_JSON);
