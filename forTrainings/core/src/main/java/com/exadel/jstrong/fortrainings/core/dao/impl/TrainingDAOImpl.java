@@ -83,13 +83,11 @@ public class TrainingDAOImpl implements TrainingDAO {
         ResultSet resultSet = null;
         Training training = null;
 
-        String sign = null;
-
         try {
             connection = ConnectionManager.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(
-                    "SELECT training.id, training.name, training.annotation, meet.date FROM training, subscribe, meet where training.id = subscribe.training_id and meet.training_id = training.id  and (training.name like '%"+ st + "%' or training.annotation like '%" + st + "%' or training.description like '%" + st + "%') order by meet.date;");
+                    "SELECT training.id, training.name, training.annotation, training.description, meet.date from  training join meet on meet.training_id = training.id where training.name like '%" + st + "%' or training.annotation like '%" + st + "%' or training.description like '%" + st + "%' order by meet.date");
             while (resultSet.next()) {
                 String buf = resultSet.getString("date");
                 training = new Training(resultSet.getInt("id"),
