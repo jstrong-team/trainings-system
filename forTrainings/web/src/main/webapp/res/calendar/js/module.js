@@ -1,7 +1,7 @@
 angular.module('calendarModule', []).config(function($routeProvider) {
     $routeProvider.when('/ui/trainings', {
             templateUrl: 'res/calendar/calendar.html',
-            controller: 'navigationController',
+            controller: 'calendarController',
             resolve: {
                 threeMonthList: ['$http', '$q', function($http, $q){
                     var def = $q.defer();

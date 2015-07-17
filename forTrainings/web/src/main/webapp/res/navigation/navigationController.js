@@ -1,4 +1,4 @@
-angular.module('calendarModule').controller('navigationController',['$scope','$location','doSearchService', 'threeMonthList', function($scope, $location, doSearchService, threeMonthList) {
+angular.module('app').controller('navigationController',['$scope','$location','doSearchService',  function($scope, $location, doSearchService) {
 
     $scope.searchExpression='';
 
@@ -29,8 +29,5 @@ angular.module('calendarModule').controller('navigationController',['$scope','$l
         $location.url('/ui/trainings');
     };
 
-    threeMonthList.getThreeMonthList().then(function(data) {
-        //$scope.threeMonthData = data;
-        colorDayItems (data);
-    })
+
 }]);
