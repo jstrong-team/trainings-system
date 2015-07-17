@@ -340,7 +340,7 @@ CREATE TABLE `token` (
 
 LOCK TABLES `token` WRITE;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
-INSERT INTO `token` VALUES (1,'1707151237122074569123',1),(2,'token',2),(3,'token',3),(4,'token',4),(5,'token',5),(6,'token',6),(7,'token',7),(8,'token',8),(9,'token',9);
+INSERT INTO `token` VALUES (1,'170715134304258240691',1),(2,'token',2),(3,'token',3),(4,'token',4),(5,'token',5),(6,'token',6),(7,'token',7),(8,'token',8),(9,'token',9);
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -468,4 +468,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-17 13:31:06
+-- Dump completed on 2015-07-17 13:54:31
