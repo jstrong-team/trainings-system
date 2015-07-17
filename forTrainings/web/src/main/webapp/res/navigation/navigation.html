@@ -1,4 +1,5 @@
-<nav class="navbar navBarBackground">
+<div>
+<nav class="navbar navBarBackground" >
     <div class="container">
         <div class="row">
             <div class="navbar-header col-md-2">
@@ -9,9 +10,9 @@
                 </button>
                 <li>
                     <a href="" class="logo">
-                            <span>
-                                Exadel<sup class="trademark"><sup> &reg</sup></sup>
-                            </span>
+                        <span>
+                            Exadel<sup class="trademark"><sup> &reg</sup></sup>
+                        </span>
                     </a>
                 </li>
             </div>
@@ -40,20 +41,20 @@
     </div>
 </nav>
 
-<div  class="container" ng-show="searchExpression">
-    <div class="row" ng-repeat="training in searchResponse "><!-- | filter:searchExpression-->
-        <div class="col-md-1 col-md-offset-1">
-            {{training.id}}
+<ol  class=" container" ng-show="searchExpression">
+    <div class="searchText  border1" ng-repeat="training in searchResponse| filter:searchExpression " >
+        <div >
+            <div class="col-md-8 col-md-offset-1">
+                <a href="#"> {{training.name}} </a>
+            </div>
+            <div class="col-md-2">
+                {{training.date}}
+            </div>
         </div>
-        <div class="col-md-2">
-            {{training.name}}
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-10 col-md-offset-1" style="margin-top: 10px">
             {{training.annotation}}
         </div>
-        <div class="col-md-2">
-            {{training.date}}
-        </div>
+        <hr>
     </div>
-    <hr>
+</ol>
 </div>

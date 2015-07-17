@@ -4,7 +4,7 @@ angular.module('calendarModule').controller('navigationController',['$scope','$l
 
     $scope.searchResponse=null;
 
-    $scope.navigation ={url: 'res/navigation.html'};
+    $scope.navigation ={url: '/res/navigation/navigation.html'};
 
     $scope.doSearch=function(){
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
@@ -13,13 +13,11 @@ angular.module('calendarModule').controller('navigationController',['$scope','$l
         }, function (error) {
             console.log(error);
         });
-        //console.log($scope.searchExpression);
     };
 
     $scope.createLog=function(){
         console.log($scope.searchExpression);
-        //console.log($scope.trainings);
-
+        console.log($scope.searchResponse);
     };
 
     $scope.logout=function(){
