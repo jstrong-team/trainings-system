@@ -32,7 +32,6 @@ public class AuthenticationFilter implements Filter {
         Cookie[] cookies = ((HttpServletRequest) request).getCookies();
         Map<String, Cookie> cookieMap = CookieUtil.cookiesToMap(cookies);
         String url = ((HttpServletRequest) request).getRequestURI();
-//        EmployeeController ec = new EmployeeControllerImpl();
 
         boolean isCorrect = false;
         boolean isBaseUrl = isBaseUrl(url);
@@ -47,7 +46,6 @@ public class AuthenticationFilter implements Filter {
             return;
         }
         Cookie token = cookieMap.get(COOKIE_TOKEN);
-        boolean i = ec.checkToken(token.getValue());
         isCorrect = (token != null && ec.checkToken(token.getValue()));
         boolean isDoFilter = false;
         String redirectUrl = "";
