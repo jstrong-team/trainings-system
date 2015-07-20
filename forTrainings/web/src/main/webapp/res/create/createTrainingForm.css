@@ -10,3 +10,9 @@ textarea {
     background-color: #2E729F;
     color: white;
 }
+
+@media screen and (min-width: 992px) {
+    .submitButton {
+        float: right;
+    }
+}

@@ -15,11 +15,6 @@ angular.module('navigationModule').controller('navigationController',['$scope','
         });
     };
 
-    $scope.createLog = function() {
-        console.log($scope.searchExpression);
-        console.log($scope.searchResponse);
-    };
-
     $scope.logout = function() {
         localStorage.clear();
         doLogoutService().then(function (data) {

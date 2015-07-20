@@ -1,60 +1,59 @@
 <div>
-<nav class="navbar navBarBackground" >
-    <div class="container">
-        <div class="row">
-            <div class="navbar-header col-md-2">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <li>
-                    <a href="" class="logo">
+    <nav class="navbar navBarBackground" >
+        <div class="container">
+            <div class="row">
+                <div class="navbar-header col-md-2">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <li>
+                        <a href="" class="logo">
                         <span>
                             Exadel<sup class="trademark"><sup> &reg</sup></sup>
                         </span>
-                    </a>
-                </li>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li><a href=""  class="navBarText" ng-click="goToTrainings()">Calendar</a></li>
-                    <li><a href=""  class="navBarText" ng-click="createTraining()">Create training</a></li>
-                    <li><a href=""  class="navBarText">My trainings</a></li>
-                    <li><a href=""  class="navBarText" ng-click="createLog()">LOG</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="" class="navBarText" ng-click="logout()">Log out</a></li>
-                    <li >
-                        <form ng-submit="doSearch()">
-                            <input type="search"
-                                   class="form-control inputSearch"
-                                   ng-change="doSearch()"
-                                   placeholder="Search"
-                                   ng-model="searchExpression"
-                                   ng-model-options="{ debounce: 400 }">
-                        </form>
+                        </a>
                     </li>
-                </ul>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li><a href=""  class="navBarText" ng-click="goToTrainings()">Calendar</a></li>
+                        <li><a href=""  class="navBarText" ng-click="createTraining()">Create training</a></li>
+                        <li><a href=""  class="navBarText">My trainings</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="" class="navBarText" ng-click="logout()">Log out</a></li>
+                        <li >
+                            <form ng-submit="doSearch()">
+                                <input type="search"
+                                       class="form-control inputSearch"
+                                       ng-change="doSearch()"
+                                       placeholder="Search"
+                                       ng-model="searchExpression"
+                                       ng-model-options="{ debounce: 400 }">
+                            </form>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<ol  class=" container" ng-show="searchExpression">
-    <div class="searchText  border1" ng-repeat="training in searchResponse| filter:searchExpression " >
-        <div >
-            <div class="col-md-8 col-md-offset-1">
-                <a href="#"> {{training.name}} </a>
+    <ol  class=" container" ng-show="searchExpression">
+        <div class="searchText  border1" ng-repeat="training in searchResponse| filter:searchExpression " >
+            <div >
+                <div class="col-md-8 col-md-offset-1">
+                    <a href="#"> {{training.name}} </a>
+                </div>
+                <div class="col-md-2">
+                    {{training.date}}
+                </div>
             </div>
-            <div class="col-md-2">
-                {{training.date}}
+            <div class="col-md-10 col-md-offset-1" style="margin-top: 10px">
+                {{training.annotation}}
             </div>
+            <hr>
         </div>
-        <div class="col-md-10 col-md-offset-1" style="margin-top: 10px">
-            {{training.annotation}}
-        </div>
-        <hr>
-    </div>
-</ol>
+    </ol>
 </div>
