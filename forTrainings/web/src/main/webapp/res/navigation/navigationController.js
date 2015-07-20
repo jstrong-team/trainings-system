@@ -2,6 +2,8 @@ angular.module('app').controller('navigationController',['$scope','$location','d
 
     $scope.searchExpression='';
 
+    $scope.showNavbar=false;
+
     $scope.searchResponse=null;
 
     $scope.navigation ={url: '/res/navigation/navigation.html'};

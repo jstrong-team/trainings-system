@@ -1,0 +1,43 @@
+
+.titleTrainingPage{
+    color: #0c004c;
+    font-size:25px;
+    font-weight:700;
+}
+
+.rating{
+   color: blue;
+   font-size:25px;
+}
+
+.textBlock{
+   padding-top:40px;
+   min-height:250px;
+   font-size:16px;;
+}
+
+.textBlock span{
+   font-size:18px;
+   font-weight:700;
+}
+
+.textBlock p{
+   font-size:5px;
+   font-weight:700;
+}
+
+.feedbackS{
+   font-size:16px;
+   font-weight:700;
+}
+
+.feedbackTextarea{
+   resize: none;
+   min-height: 120px;
+   width:100%;
+}
+
+.feedbackButton{
+   padding-top:47px;
+   /*padding-bottom:47px;*/
+}
