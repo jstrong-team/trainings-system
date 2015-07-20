@@ -20,7 +20,6 @@ public class AuthenticationFilter implements Filter {
 
     public static final String COOKIE_TOKEN = "token";
     private EmployeeController ec;
-//    public static final String COOKIE_REMEMBER_ME = "remmeflg";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

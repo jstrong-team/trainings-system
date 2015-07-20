@@ -4,12 +4,14 @@ import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.dao.impl.TrainingDAOImpl;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
+import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+@Component
 public class TrainingsControllerImpl implements TrainingsController {
 
     private TrainingDAO trainingDAO;

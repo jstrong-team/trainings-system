@@ -4,7 +4,9 @@ import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.impl.EmployeeDAOImpl;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EmployeeControllerImpl implements EmployeeController {
 
     private EmployeeDAO employeeDao;
