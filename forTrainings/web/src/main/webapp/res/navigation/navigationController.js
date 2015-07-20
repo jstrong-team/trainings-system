@@ -1,12 +1,14 @@
-angular.module('navigationModule').controller('navigationController',['$scope','$location','doSearchService','doLogoutService',  function($scope, $location, doSearchService,doLogoutService) {
+angular.module('app').controller('navigationController',['$scope','$location','doSearchService','doLogoutService',  function($scope, $location, doSearchService,doLogoutService) {
 
-    $scope.searchExpression = '';
+    $scope.searchExpression='';
 
-    $scope.searchResponse = null;
+    $scope.showNavbar=false;
 
-    $scope.navigation = {url: '/res/navigation/navigation.html'};
+    $scope.searchResponse=null;
 
-    $scope.doSearch = function() {
+    $scope.navigation ={url: '/res/navigation/navigation.html'};
+
+    $scope.doSearch=function(){
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
             $scope.searchResponse=data.data;
             //console.log(data.data);
@@ -15,7 +17,12 @@ angular.module('navigationModule').controller('navigationController',['$scope','
         });
     };
 
-    $scope.logout = function() {
+    $scope.createLog=function(){
+        console.log($scope.searchExpression);
+        console.log($scope.searchResponse);
+    };
+
+    $scope.logout=function(){
         localStorage.clear();
         doLogoutService().then(function (data) {
             console.log(data);
