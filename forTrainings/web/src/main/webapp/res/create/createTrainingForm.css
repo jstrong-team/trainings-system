@@ -1,0 +1,12 @@
+textarea {
+    resize: none;
+}
+
+.createTraining {
+    padding-bottom: 40px;
+}
+
+.submitButton {
+    background-color: #2E729F;
+    color: white;
+}

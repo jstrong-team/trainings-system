@@ -1,12 +1,12 @@
-angular.module('app').controller('navigationController',['$scope','$location','doSearchService','doLogoutService',  function($scope, $location, doSearchService,doLogoutService) {
+angular.module('navigationModule').controller('navigationController',['$scope','$location','doSearchService','doLogoutService',  function($scope, $location, doSearchService,doLogoutService) {
 
-    $scope.searchExpression='';
+    $scope.searchExpression = '';
 
-    $scope.searchResponse=null;
+    $scope.searchResponse = null;
 
-    $scope.navigation ={url: '/res/navigation/navigation.html'};
+    $scope.navigation = {url: '/res/navigation/navigation.html'};
 
-    $scope.doSearch=function(){
+    $scope.doSearch = function() {
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
             $scope.searchResponse=data.data;
             //console.log(data.data);
@@ -15,12 +15,12 @@ angular.module('app').controller('navigationController',['$scope','$location','d
         });
     };
 
-    $scope.createLog=function(){
+    $scope.createLog = function() {
         console.log($scope.searchExpression);
         console.log($scope.searchResponse);
     };
 
-    $scope.logout=function(){
+    $scope.logout = function() {
         localStorage.clear();
         doLogoutService().then(function (data) {
             console.log(data);
@@ -29,9 +29,13 @@ angular.module('app').controller('navigationController',['$scope','$location','d
             console.log(error);
         });
     };
-    $scope.goToTrainings=function(){
+
+    $scope.goToTrainings = function() {
         $location.url('/ui/trainings');
     };
 
+    $scope.createTraining = function() {
+        $location.url('/ui/create');
+    };
 
 }]);
