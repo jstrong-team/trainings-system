@@ -14,6 +14,8 @@ import java.util.Random;
 public class CookieUtil {
 
 
+    public static final String TOKEN = "token";
+
     public static String generateToken (){
         StringBuilder token = new StringBuilder();
         Date date = new Date();
