@@ -41,7 +41,7 @@
     </div>
 </nav>
 
-<ol  class=" container" ng-show="searchExpression">
+<ol  class=" container " ng-show="searchExpression">
     <div class="searchText  border1" ng-repeat="training in searchResponse| filter:searchExpression " >
         <div >
             <div class="col-md-8 col-md-offset-1">
@@ -54,7 +54,9 @@
         <div class="col-md-10 col-md-offset-1" style="margin-top: 10px">
             {{training.annotation}}
         </div>
-        <hr>
+        <div class="col-md-10 col-md-offset-1">
+            <hr>
+        </div>
     </div>
 </ol>
 </div>
