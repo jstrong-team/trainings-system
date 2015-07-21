@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `for_trainings` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `for_trainings`;
--- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
 -- Host: localhost    Database: for_trainings
 -- ------------------------------------------------------
--- Server version	5.6.24-log
+-- Server version	5.6.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -46,33 +46,34 @@ INSERT INTO `employee` VALUES (1,'admin','1111','Anton Grigoriev','toxa.z@mail.r
 UNLOCK TABLES;
 
 --
--- Table structure for table `employee_feedback`
+-- Table structure for table `employee_notice`
 --
 
-DROP TABLE IF EXISTS `employee_feedback`;
+DROP TABLE IF EXISTS `employee_notice`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `employee_feedback` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `employee_notice` (
   `employee_id` int(11) NOT NULL,
-  `training_id` int(11) NOT NULL,
-  `text` text NOT NULL,
-  `add_date` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_employee_employee_feedback_idx` (`employee_id`),
-  KEY `fk_training_employee_feedback_idx` (`training_id`),
-  CONSTRAINT `fk_employee_employee_feedback` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_training_employee_feedback` FOREIGN KEY (`training_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  `notice_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `complete` tinyint(4) NOT NULL DEFAULT '0',
+  KEY `fk_employee_employee_notice_idx` (`employee_id`),
+  KEY `fk_notice_employee_notice_idx` (`notice_id`),
+  KEY `fk_role_employee_notice_idx` (`role_id`),
+  CONSTRAINT `fk_employee_employee_notice` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_notice_employee_notice` FOREIGN KEY (`notice_id`) REFERENCES `notice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_role_employee_notice` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `employee_feedback`
+-- Dumping data for table `employee_notice`
 --
 
-LOCK TABLES `employee_feedback` WRITE;
-/*!40000 ALTER TABLE `employee_feedback` DISABLE KEYS */;
-/*!40000 ALTER TABLE `employee_feedback` ENABLE KEYS */;
+LOCK TABLES `employee_notice` WRITE;
+/*!40000 ALTER TABLE `employee_notice` DISABLE KEYS */;
+/*!40000 ALTER TABLE `employee_notice` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -138,12 +139,12 @@ DROP TABLE IF EXISTS `meet`;
 CREATE TABLE `meet` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `training_id` int(11) NOT NULL,
-  `date` datetime NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `place` varchar(25) NOT NULL,
   `duration` varchar(25) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `training_id_idx` (`training_id`),
-  CONSTRAINT `fk_training_meet` FOREIGN KEY (`training_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_training_meet` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -153,7 +154,7 @@ CREATE TABLE `meet` (
 
 LOCK TABLES `meet` WRITE;
 /*!40000 ALTER TABLE `meet` DISABLE KEYS */;
-INSERT INTO `meet` VALUES (1,1,'2015-07-02 12:00:00','243','1.5 h.'),(2,1,'2015-07-07 13:00:00','243','1.5 hours'),(3,1,'2015-07-09 12:00:00','223','2'),(4,1,'2015-07-14 12:00:00','333','1.5 h'),(5,1,'2015-07-15 12:00:00','666','3'),(6,1,'2015-07-21 12:00:00','223','1.5'),(7,1,'2015-07-23 12:00:00','243','2 h.'),(8,1,'2015-07-28 15:00:00','304','1 hour'),(9,1,'2015-07-30 12:00:00','234','3'),(10,1,'2015-08-04 12:00:00','312','2'),(11,1,'2015-08-06 12:00:00','356','2-3'),(12,1,'2015-08-11 12:00:00','202','1 h'),(13,1,'2015-08-13 14:00:00','223','1'),(14,1,'2015-08-18 12:00:00','344','1.5'),(15,1,'2015-08-20 12:00:00','233','1.5'),(16,1,'2015-08-25 12:00:00','234','1.5'),(17,1,'2015-08-27 12:00:00','345','3'),(18,2,'2015-07-08 15:00:00','234','3 hours'),(19,3,'2015-09-01 06:00:00','666','4'),(20,4,'2015-06-04 12:00:00','432','2'),(21,5,'2015-09-07 12:00:00','233','3');
+INSERT INTO `meet` VALUES (1,1,'2015-07-02 09:00:00','243','1.5 h.'),(2,1,'2015-07-07 10:00:00','243','1.5 hours'),(3,1,'2015-07-09 09:00:00','223','2'),(4,1,'2015-07-14 09:00:00','333','1.5 h'),(5,1,'2015-07-15 09:00:00','666','3'),(6,1,'2015-07-21 09:00:00','223','1.5'),(7,1,'2015-07-23 09:00:00','243','2 h.'),(8,1,'2015-07-28 12:00:00','304','1 hour'),(9,1,'2015-07-30 09:00:00','234','3'),(10,1,'2015-08-04 09:00:00','312','2'),(11,1,'2015-08-06 09:00:00','356','2-3'),(12,1,'2015-08-11 09:00:00','202','1 h'),(13,1,'2015-08-13 11:00:00','223','1'),(14,1,'2015-08-18 09:00:00','344','1.5'),(15,1,'2015-08-20 09:00:00','233','1.5'),(16,1,'2015-08-25 09:00:00','234','1.5'),(17,1,'2015-08-27 09:00:00','345','3'),(18,2,'2015-07-08 12:00:00','234','3 hours'),(19,3,'2015-09-01 03:00:00','666','4'),(20,4,'2015-06-04 09:00:00','432','2'),(21,5,'2015-09-07 09:00:00','233','3');
 /*!40000 ALTER TABLE `meet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,10 +195,9 @@ CREATE TABLE `notice` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `training_id` int(11) NOT NULL,
   `text` text NOT NULL,
-  `add_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_training_notice_idx` (`training_id`),
-  CONSTRAINT `fk_training_notice` FOREIGN KEY (`training_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_training_notice` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -218,14 +218,14 @@ DROP TABLE IF EXISTS `participant`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `participant` (
-  `employee_id` int(11) NOT NULL,
+  `subscribe_id` int(11) NOT NULL,
   `meet_id` int(11) NOT NULL,
   `absent` tinyint(4) NOT NULL,
   `reason` text NOT NULL,
-  PRIMARY KEY (`employee_id`,`meet_id`),
+  PRIMARY KEY (`subscribe_id`,`meet_id`),
   KEY `meet_id_idx` (`meet_id`),
-  CONSTRAINT `fk_employee_participant` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_meet_participant` FOREIGN KEY (`meet_id`) REFERENCES `meet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_meet_participant` FOREIGN KEY (`meet_id`) REFERENCES `meet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_subscribe_particicpant` FOREIGN KEY (`subscribe_id`) REFERENCES `subscribe` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -274,13 +274,13 @@ CREATE TABLE `subscribe` (
   `employee_id` int(11) NOT NULL,
   `training_id` int(11) NOT NULL,
   `status` varchar(15) NOT NULL,
-  `add_date` datetime NOT NULL,
+  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `mark` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_employee_subscribe_idx` (`employee_id`),
   KEY `fk_training_subscribe_idx` (`training_id`),
   CONSTRAINT `fk_employee_subscribe` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_training_subscribe` FOREIGN KEY (`training_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_training_subscribe` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -290,8 +290,38 @@ CREATE TABLE `subscribe` (
 
 LOCK TABLES `subscribe` WRITE;
 /*!40000 ALTER TABLE `subscribe` DISABLE KEYS */;
-INSERT INTO `subscribe` VALUES (1,1,1,'approve','2015-06-01 12:00:00',0),(2,2,1,'approve','2015-06-02 12:00:00',0),(3,3,1,'approve','2015-06-03 12:00:00',0),(4,4,1,'approve','2015-06-04 12:00:00',0),(5,5,1,'approve','2015-06-05 12:00:00',0),(6,6,1,'wait','2015-06-06 12:00:00',0),(7,7,1,'wait','2015-06-07 12:00:00',0),(8,9,1,'wait','2015-06-08 12:00:00',0),(9,1,2,'approve','2015-06-01 12:00:00',0),(10,2,2,'approve','2015-06-15 12:00:00',0),(11,3,4,'approve','2015-06-09 12:00:00',0),(12,9,5,'approve','2015-06-03 12:00:00',0);
+INSERT INTO `subscribe` VALUES (1,1,1,'approve','2015-05-31 21:00:00',0),(2,2,1,'approve','2015-06-01 21:00:00',0),(3,3,1,'approve','2015-06-02 21:00:00',0),(4,4,1,'approve','2015-06-03 21:00:00',0),(5,5,1,'approve','2015-06-04 21:00:00',0),(6,6,1,'wait','2015-06-05 21:00:00',0),(7,7,1,'wait','2015-06-06 21:00:00',0),(8,9,1,'wait','2015-06-07 21:00:00',0),(9,1,2,'approve','2015-05-31 21:00:00',0),(10,2,2,'approve','2015-06-14 21:00:00',0),(11,3,4,'approve','2015-06-08 21:00:00',0),(12,9,5,'approve','2015-06-02 21:00:00',0);
 /*!40000 ALTER TABLE `subscribe` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `subscribe_feedback`
+--
+
+DROP TABLE IF EXISTS `subscribe_feedback`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `subscribe_feedback` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `subscribe_id` int(11) NOT NULL,
+  `training_id` int(11) NOT NULL,
+  `text` text NOT NULL,
+  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_employee_employee_feedback_idx` (`subscribe_id`),
+  KEY `fk_training_employee_feedback_idx` (`training_id`),
+  CONSTRAINT `fk_subscribe_subscribe_feedback` FOREIGN KEY (`subscribe_id`) REFERENCES `subscribe` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_training_employee_feedback` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `subscribe_feedback`
+--
+
+LOCK TABLES `subscribe_feedback` WRITE;
+/*!40000 ALTER TABLE `subscribe_feedback` DISABLE KEYS */;
+/*!40000 ALTER TABLE `subscribe_feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -340,7 +370,7 @@ CREATE TABLE `token` (
 
 LOCK TABLES `token` WRITE;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
-INSERT INTO `token` VALUES (1,'170715134304258240691',1),(2,'token',2),(3,'token',3),(4,'token',4),(5,'token',5),(6,'token',6),(7,'token',7),(8,'token',8),(9,'token',9);
+INSERT INTO `token` VALUES (1,'200715165644-329078405',1),(2,'token',2),(3,'token',3),(4,'token',4),(5,'token',5),(6,'token',6),(7,'token',7),(8,'token',8),(9,'200715163818-1469330601',9);
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -356,12 +386,12 @@ CREATE TABLE `trainer_feedback` (
   `employee_id` int(11) NOT NULL,
   `training_id` int(11) NOT NULL,
   `text` text NOT NULL,
-  `add_date` datetime NOT NULL,
+  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `fk_employee_trainer_feedback_idx1` (`employee_id`),
   KEY `fk_training_trainer_feedback_idx` (`training_id`),
   CONSTRAINT `fk_employee_trainer_feedback` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_training_trainer_feedback` FOREIGN KEY (`training_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_training_trainer_feedback` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -375,13 +405,13 @@ LOCK TABLES `trainer_feedback` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `event`
+-- Table structure for table `training`
 --
 
-DROP TABLE IF EXISTS `event`;
+DROP TABLE IF EXISTS `training`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `event` (
+CREATE TABLE `training` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `trainer_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
@@ -389,6 +419,7 @@ CREATE TABLE `event` (
   `description` text NOT NULL,
   `target` varchar(45) NOT NULL,
   `paid` tinyint(4) NOT NULL,
+  `internal` tinyint(4) NOT NULL,
   `approve` tinyint(4) NOT NULL,
   `max_participants` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -398,13 +429,13 @@ CREATE TABLE `event` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `event`
+-- Dumping data for table `training`
 --
 
-LOCK TABLES `event` WRITE;
-/*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` VALUES (1,8,'English event','Learning english.\nJust english.','Technical lexis in IT.','For begginers.',1,1,5),(2,4,'CORE JAVA ','Sun events is a best online center in Hyderabad. We are providing very best online event on CORE JAVA.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In event case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented events with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Medium-level JAVA developers.',0,1,10),(3,4,'Advanced Java','Sun events is a best online center in Hyderabad. We are providing very best online event on Advanced Java.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In event case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented events with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Hight-level JAVA developers.',0,0,7),(4,2,'ORACLE DBA ','Sun events is a best online center in Hyderabad. We are providing very best online event on ORACLE DBA.','Course Name : ORACLE DBA                                                                    24*7 Technical Support\nDuration         : 35 hours\nFaculty            : Realtime experience \n\n           Sun events is a best online center in Hyderabad. We are providing very best online event on ORACLE DBA.\n\nHighlights in our event:\n\n*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In event case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented events with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Oracle users.',1,1,9),(5,3,'MongoDB ','Sun events is a best online center in Hyderabad. We are providing very best online event on MongoDB.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In event case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented events with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','DB developers.',0,1,10);
-/*!40000 ALTER TABLE `event` ENABLE KEYS */;
+LOCK TABLES `training` WRITE;
+/*!40000 ALTER TABLE `training` DISABLE KEYS */;
+INSERT INTO `training` VALUES (1,8,'English training','Learning english.\nJust english.','Technical lexis in IT.','For begginers.',1,0,1,5),(2,4,'CORE JAVA ','Sun trainings is a best online center in Hyderabad. We are providing very best online training on CORE JAVA.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Medium-level JAVA developers.',0,0,1,10),(3,4,'Advanced Java','Sun trainings is a best online center in Hyderabad. We are providing very best online training on Advanced Java.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Hight-level JAVA developers.',0,0,0,7),(4,2,'ORACLE DBA ','Sun trainings is a best online center in Hyderabad. We are providing very best online training on ORACLE DBA.','Course Name : ORACLE DBA                                                                    24*7 Technical Support\nDuration         : 35 hours\nFaculty            : Realtime experience \n\n           Sun trainings is a best online center in Hyderabad. We are providing very best online training on ORACLE DBA.\n\nHighlights in our training:\n\n*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Oracle users.',1,0,1,9),(5,3,'MongoDB ','Sun trainings is a best online center in Hyderabad. We are providing very best online training on MongoDB.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','DB developers.',0,0,1,10);
+/*!40000 ALTER TABLE `training` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -420,7 +451,7 @@ CREATE TABLE `training_tag` (
   PRIMARY KEY (`training_id`,`tag_id`),
   KEY `fk_tag_training_tag_idx` (`tag_id`),
   CONSTRAINT `fk_tag_training_tag` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_training_training_tag` FOREIGN KEY (`training_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_training_training_tag` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -445,8 +476,8 @@ CREATE TABLE `training_version` (
   `new_version` int(11) NOT NULL,
   PRIMARY KEY (`old_version`,`new_version`),
   KEY `fk_training(new)_training_version_idx` (`new_version`),
-  CONSTRAINT `fk_training(new)_training_version` FOREIGN KEY (`new_version`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_training(old)_training_version` FOREIGN KEY (`old_version`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_training(new)_training_version` FOREIGN KEY (`new_version`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_training(old)_training_version` FOREIGN KEY (`old_version`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -468,4 +499,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-17 13:54:31
+-- Dump completed on 2015-07-21 16:53:11
