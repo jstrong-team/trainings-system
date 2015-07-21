@@ -9,6 +9,8 @@
             max_participants : null, date : null, place : null, internal : true};
         $scope.error = null;
 
+        $scope.isTrainingPeriodic='';
+
         $scope.submitForm = function(){
             console.log($scope.createInfo);
             createService.serv($scope.createInfo).then(function(response){
