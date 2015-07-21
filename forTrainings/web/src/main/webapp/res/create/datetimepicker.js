@@ -1,18 +1,3 @@
-/*globals define, jQuery, module, require */
-/*jslint vars:true */
-
-/**
- * @license angular-bootstrap-datetimepicker  version: 0.3.13
- * Copyright 2013-2015 Knight Rider Consulting, Inc. http://www.knightrider.com
- * License: MIT
- */
-
-/**
- *
- *    @author        Dale "Ducky" Lotts
- *    @since        2013-Jul-8
- */
-
 (function (factory) {
   'use strict';
   /* istanbul ignore if */
@@ -349,7 +334,7 @@
             setTime: function setTime(unixDate) {
               var tempDate = new Date(unixDate);
               var newDate = new Date(tempDate.getTime() + (tempDate.getTimezoneOffset() * 60000));
-
+              newDate = moment(newDate).format('YYYY-MM-DD HH:mm:ss');
               var oldDate = ngModelController.$modelValue;
               ngModelController.$setViewValue(newDate);
 
@@ -396,7 +381,8 @@
                 $rightDate: result.rightDate
               });
 
-              scope.data = result;
+                scope.data = result;
+
             }
           };
 
