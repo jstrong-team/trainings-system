@@ -1,13 +1,37 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "employee")
 public class Employee {
+
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "login", length = 25)
     private String login;
+
+    @Column(name = "password", length = 25)
     private String password;
+
+    @Column(name = "name", length = 50)
     private String name;
+
+    @Column(name = "mail", length = 50)
     private String mail;
+
+    @Column(name = "phone", length = 50)
     private String phone;
+
+    @Transient
     private String role;
+
+    public Employee() {
+    }
 
     public Employee(int id, String login, String password,
                     String name, String mail, String phone,
@@ -76,4 +100,5 @@ public class Employee {
     public void setRole(String role) {
         this.role = role;
     }
+
 }

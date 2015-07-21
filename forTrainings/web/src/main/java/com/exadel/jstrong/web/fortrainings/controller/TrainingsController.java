@@ -1,10 +1,10 @@
 package com.exadel.jstrong.web.fortrainings.controller;
 
-import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.exadel.jstrong.fortrainings.core.model.Event;
 
 import java.util.List;
 
 public interface TrainingsController {
-    List<Training> getAllTrainings(int userId);
-    List<Training> getSearchData(String str);
+    List<Event> getAllTrainings(int userId);
+    List<Event> getSearchData(String str);
 }

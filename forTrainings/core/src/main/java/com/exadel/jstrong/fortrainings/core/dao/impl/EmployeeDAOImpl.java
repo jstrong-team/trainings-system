@@ -5,95 +5,20 @@ import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import org.apache.log4j.Logger;
 
+import javax.persistence.Query;
 import java.sql.*;
 
 public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
     private static Logger logger = Logger.getLogger(EmployeeDAOImpl.class.getName());
 
-    public Employee selectByAuthorization(String ulogin, String upassword) {
-        PreparedStatement preparedStatement = null;
-        Connection connection = null;
-        ResultSet resultSet = null;
-        Employee employee = null;
-        String role = null;
-        int id = 0;
-
-        try {
-            connection = ConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM employee WHERE login = ?  AND  password = ?");
-            preparedStatement.setString(1, ulogin);
-            preparedStatement.setString(2, upassword);
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                id = resultSet.getInt("id");
-                role = getRoleById(id);
-                employee = new Employee(id, resultSet.getString("login"),
-                        resultSet.getString("password"), resultSet.getString("name"),
-                        resultSet.getString("mail"), resultSet.getString("phone"), role);
-            }
-
-        } catch (SQLException e) {
-                logger.error(e);
-            } finally {
-                if (resultSet != null) {
-                    try {
-                        resultSet.close();
-                    } catch (SQLException e) {
-                        logger.error(e);
-                    }
-                }
-                if (preparedStatement != null) {
-                    try {
-                        preparedStatement.close();
-                    } catch (SQLException e) {
-                        logger.error(e);
-                    }
-                }
-                if (connection != null) {
-                    try {
-                        connection.close();
-                    } catch (SQLException e) {
-                        logger.error(e);
-                    }
-                }
-        }
+    public Employee selectByAuthorization(String login, String password) {
+        em.getTransaction().begin();
+        Query query = em.createQuery("SELECT e FROM Employee e WHERE e.login = :log  AND  e.password = :pas", Employee.class).setParameter("log", login).setParameter("pas", password);
+        Employee employee = (Employee)query.getSingleResult();
+        em.getTransaction().commit();
         return employee;
     }
-
-    @Override
-    public void updateTokenByID(int id, String token) {
-        PreparedStatement preparedStatement = null;
-        Connection connection = null;
-
-        try {
-            connection = ConnectionManager.getConnection();
-            preparedStatement = connection.prepareStatement("UPDATE token SET value = ? WHERE employee_id = ?;");
-            preparedStatement.setString(1, token);
-            preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-            logger.error(e);
-        } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    logger.error(e);
-                }
-            }
-
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.error(e);
-                }
-            }
-        }
-    }
-
+/*
     public boolean checkToken(String token){
         boolean isCorrect = false;
         PreparedStatement preparedStatement = null;
@@ -265,9 +190,9 @@ public class EmployeeDAOImpl extends ConnectionManager implements EmployeeDAO {
         }
         return employee;
     }
-
+*/
     //----------------------------------------
-
+/*
     @Override
     public Employee getEmployeeByFullName(String name, String surname) {
         Employee employee = null;

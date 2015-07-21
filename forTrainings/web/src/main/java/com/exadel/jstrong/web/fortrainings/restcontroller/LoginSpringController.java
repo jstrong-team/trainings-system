@@ -1,4 +1,4 @@
-package com.exadel.jstrong.web.fortrainings.springcontroller;
+package com.exadel.jstrong.web.fortrainings.restcontroller;
 
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;

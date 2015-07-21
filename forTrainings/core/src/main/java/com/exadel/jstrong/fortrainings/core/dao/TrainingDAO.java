@@ -1,16 +1,16 @@
 package com.exadel.jstrong.fortrainings.core.dao;
 
-import com.exadel.jstrong.fortrainings.core.model.Employee;
-import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.exadel.jstrong.fortrainings.core.model.Event;
 
 import java.util.List;
 
-public interface TrainingDAO extends GenericDAO<Training> {
+public interface TrainingDAO extends HibernateDAO{
 
-    List<Training> getUserTrainingsLast3Month (int userId, String dateFrom, String dateTo, boolean isUser);
-    List<Training> getSearchResponse(String st);
-    // List<Training> getNotUserTrainingsLast3Month (int userId);
-    /*List<Training> getTrainingsByTrainer(Employee trainer);
-    List<Training> getTrainingsByField(String columnName, String columnValue);  // columnName = "name", "annotation"...
-    List<Training> getPaidTrainings();*/
+    List<Event> getUserTrainingsLast3Month (int userId, String dateFrom, String dateTo);
+    //List<Event> getUserTrainingsLast3MonthIsUser (int userId, String dateFrom, String dateTo);
+    List<Event> getSearchResponse(String st);
+    // List<Event> getNotUserTrainingsLast3Month (int userId);
+    /*List<Event> getTrainingsByTrainer(Employee trainer);
+    List<Event> getTrainingsByField(String columnName, String columnValue);  // columnName = "name", "annotation"...
+    List<Event> getPaidTrainings();*/
 }

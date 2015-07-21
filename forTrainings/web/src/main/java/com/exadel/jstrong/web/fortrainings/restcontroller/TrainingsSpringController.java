@@ -1,6 +1,6 @@
-package com.exadel.jstrong.web.fortrainings.springcontroller;
+package com.exadel.jstrong.web.fortrainings.restcontroller;
 
-import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
@@ -31,16 +31,16 @@ public class TrainingsSpringController {
     private TrainingsController trainingsController;
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody List<Training> getHistory(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public @ResponseBody List<Event> getHistory(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
             int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
-            List<Training> trainings = trainingsController.getAllTrainings(id);
-            if(trainings == null) {
-                response.sendError(HttpServletResponse.SC_NO_CONTENT, "No data about trainings in db");
+            List<Event> events = trainingsController.getAllTrainings(id);
+            if(events == null) {
+                response.sendError(HttpServletResponse.SC_NO_CONTENT, "No data about events in db");
             }
             else {
-                return trainings;
+                return events;
             }
         } catch (Exception e){
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -66,15 +66,15 @@ public class TrainingsSpringController {
     }
 
     @RequestMapping(value = "/searchTrainings", method = RequestMethod.GET)
-    public @ResponseBody List<Training> getSearch(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public @ResponseBody List<Event> getSearch(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             String str = request.getParameter("search");
-            List<Training> trainings = trainingsController.getSearchData(str);
-            if(trainings == null) {
-                response.sendError(HttpServletResponse.SC_NO_CONTENT, "No data about trainings in db");
+            List<Event> events = trainingsController.getSearchData(str);
+            if(events == null) {
+                response.sendError(HttpServletResponse.SC_NO_CONTENT, "No data about events in db");
             }
             else {
-                return trainings;
+                return events;
             }
         }
         catch (Exception e){
