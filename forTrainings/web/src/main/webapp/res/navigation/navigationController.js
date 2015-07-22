@@ -14,11 +14,7 @@ angular.module('navigationModule').controller('navigationController',['$scope','
             console.log(error);
         });
     };
-
-    $scope.createlog=function (){
-      console.log($location.url());
-    };
-
+    
     $scope.logout = function() {
         localStorage.clear();
         doLogoutService().then(function (data) {
@@ -37,4 +33,6 @@ angular.module('navigationModule').controller('navigationController',['$scope','
         $location.url('/ui/create');
     };
 
+}]).factory('s1',[function(){
+    var a='1';
 }]);
