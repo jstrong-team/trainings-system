@@ -59,6 +59,8 @@ footer h5 {
 .border1{
     /*background-color:#c7ddef ;*/
     margin-top:15px;
+    /*margin-left:7px;*/
+    /*margin-right:7px;*/
     /*border: 2px solid #c7ddef;*/
     border-radius: 10px;
 }
@@ -76,7 +78,10 @@ footer h5 {
     align-items: center;
     margin-top:10px;
     font-weight:500;
+    /*height:200px;*/
 }
+
+
 
 .searchText a{
     color:blue;

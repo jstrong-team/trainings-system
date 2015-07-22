@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US" ng-app="app">
 
-<link href="/res/libs/bootstrap-datetimepicker.min.js" rel="stylesheet">
+
 <link href="/res/libs/bootstrap.min.css" rel="stylesheet">
 <script src="/res/libs/jquery.min.js"></script>
 <script src="/res/libs/bootstrap.min.js"></script>
@@ -10,8 +10,6 @@
 <script src="/res/libs/angular-route.js"></script>
 <script src="/res/libs/moment.js"></script>
 
-<!--FONTS-->
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
 <link href="/res/login/css/login.css" rel="stylesheet">
 <script src="/res/login/js/module.js"></script>
@@ -34,13 +32,22 @@
 <script src="/res/navigation/doLogoutService.js"></script>
 <script src="/res/navigation/navigationController.js"></script>
 
-<script src="/res/trainingpage/js/module.js"></script>
-<script src="/res/trainingpage/js/trainingPageController.js"></script>
-<script src="/res/trainingpage/js/ratingController.js"></script>
+<script src="/res/trainingpage/user/js/module.js"></script>
+<script src="/res/trainingpage/user/js/trainingPageController.js"></script>
+<script src="/res/trainingpage/user/js/ratingController.js"></script>
+<script src="/res/trainingpage/trainer/js/module.js"></script>
+<script src="/res/trainingpage/trainer/js/trainingPageTrainerController.js"></script>
+<script src="/res/trainingpage/trainer/js/commentFilter.js"></script>
 
 <link href="/res/create/datetimepicker.css" rel="stylesheet">
 <link href="/res/create/createTrainingForm.css" rel="stylesheet">
+<script src="/res/create/module.js"></script>
+<script src="/res/create/service.js"></script>
+<script src="/res/create/controller.js"></script>
 <script src="/res/create/datetimepicker.js"></script>
+
+<link href="/res/creationResponse/success.css" rel="stylesheet">
+<script src="/res/creationResponse/module.js"></script>
 
 <link href="/footer.css" rel="stylesheet">
 <script src="/res/index.js"></script>
@@ -53,8 +60,12 @@
 </head>
 
 <body>
+<!--<h1 ng-if="{{showNavbarHat}}">HIDEN</h1>-->
 
 <div class="wrapper" ng-controller="navigationController">
+
+
+
     <div ng-view></div>
 
     <footer>

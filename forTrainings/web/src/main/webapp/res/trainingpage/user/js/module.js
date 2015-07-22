@@ -1,6 +1,6 @@
 angular.module('trainingPageModule', []).config(function($routeProvider) {
-    $routeProvider.when('/ui/trainingPage', {
-        templateUrl: 'res/trainingpage/training.html',
+    $routeProvider.when('/ui/trainingPage/user', {
+        templateUrl: 'res/trainingpage/user/training.html',
         controller: 'trainingPageController',
         resolve: {
             getTrainingInfo: ['$http', '$q', function($http, $q){
