@@ -1,0 +1,61 @@
+<div ng-include="navigation.url">
+</div>
+
+
+<div class="container">
+    <div classs="row ">
+        <div class="col-md-6 col-md-offset-3 text-center">
+            <span class="titleTrainingPage "> {{training.name}}</span>
+        </div>
+        <div class="col-md-2 " >
+            <span class="rating">
+                <rating ng-model="currentRating"
+                        max="5">
+                </rating>{{overStar}}
+            </span>
+        </div>
+    </div>
+
+    <div classs="row " style="padding-top: 50px">
+        <div class="col-md-7 jumbotron textBlock" >
+            <span>Annotation:</span>{{training.annotation}}<p></p>
+            <span>Date:</span>{{training.date}}<p></p>
+            <span>Target audience:</span>{{training.date}}<p></p>
+        </div>
+        <div class="col-md-4 jumbotron textBlock" >
+            <span>Trainer:</span>Diadia fedia<p></p>
+            <span>Time:</span>{{training.date}}<p></p>
+            <span>Place:</span>{{training.date}}<p></p>
+            <span>Duration:</span>{{training.date}}<p></p>
+            <button type="button" class="btn btn-primary ">Edit training info</button>
+        </div>
+    </div>
+
+    <div classs="row " ng-repeat="feedback in feedbacks">
+        <div class="col-md-11 jumbotron commentBlock" >
+            <div>
+                <span>Understand all: {{feedback.understand|yesNoFilter}}</span>
+            </div>
+            <div>
+                <span>Interested in: {{feedback.interested|yesNoFilter}}</span>
+            </div>
+            <div>
+                <span>Like to learn from this coach: {{feedback.continueWithThisTrainer|yesNoFilter}}</span>
+            </div>
+            <div>
+                <span>Learn something new: {{feedback.smthNew|yesNoFilter}}</span>
+            </div>
+            <div>
+                <span>Recommend to your colleagues to visit this training: {{feedback.recommend|yesNoFilter}}</span>
+            </div>
+            <div>
+                <span>Effectively the last session (rate from 1 to 5): {{feedback.rate}}</span>
+            </div>
+            <div>
+                <span>Other: {{feedback.other}}</span>
+            </div>
+        </div>
+
+    </div>
+
+</div>

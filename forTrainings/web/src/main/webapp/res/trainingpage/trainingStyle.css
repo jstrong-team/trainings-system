@@ -58,3 +58,12 @@
    border-radius: 16px;
    color: black;
 }
+
+.commentBlock{
+   padding-top:10px;
+   padding-left:10px;
+   margin-left:10px;
+   min-height: 50px;
+   font-size:14px;
+   font-weight:500;
+}
