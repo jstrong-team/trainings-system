@@ -14,7 +14,7 @@ angular.module('navigationModule').controller('navigationController',['$scope','
             console.log(error);
         });
     };
-    
+
     $scope.logout = function() {
         localStorage.clear();
         doLogoutService().then(function (data) {
