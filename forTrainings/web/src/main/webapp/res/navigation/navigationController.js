@@ -33,6 +33,4 @@ angular.module('navigationModule').controller('navigationController',['$scope','
         $location.url('/ui/create');
     };
 
-}]).factory('s1',[function(){
-    var a='1';
 }]);
