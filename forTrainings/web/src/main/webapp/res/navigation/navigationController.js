@@ -33,4 +33,8 @@ angular.module('navigationModule').controller('navigationController',['$scope','
         $location.url('/ui/create');
     };
 
+    $scope.goToNews = function() {
+        $location.url('/ui/news');
+    };
+
 }]);
