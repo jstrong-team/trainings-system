@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 public interface HibernateDAO {
-    public static EntityManager em = Persistence.createEntityManagerFactory("TrainingsManager").createEntityManager();
+//    public static EntityManager em = Persistence.createEntityManagerFactory("TrainingsManager").createEntityManager();
     //T getByID(String ID);
     //boolean update(T t);
     //boolean save(T t);

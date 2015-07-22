@@ -10,7 +10,7 @@ public class Employee {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "login", length = 25)
     private String login;

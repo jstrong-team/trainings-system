@@ -5,6 +5,7 @@ import com.exadel.jstrong.fortrainings.core.dao.impl.TrainingDAOImpl;
 import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.SearchEvent;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -15,6 +16,7 @@ import java.util.List;
 @Component
 public class TrainingsControllerImpl implements TrainingsController {
 
+    @Autowired
     private TrainingDAO trainingDAO;
 
     public TrainingsControllerImpl() {

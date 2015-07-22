@@ -3,21 +3,20 @@ package com.exadel.jstrong.web.fortrainings.controller.impl;
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TokenDAO;
 import com.exadel.jstrong.fortrainings.core.dao.impl.EmployeeDAOImpl;
+import com.exadel.jstrong.fortrainings.core.dao.impl.EmployeeDAOImpl;
 import com.exadel.jstrong.fortrainings.core.dao.impl.TokenDAOImpl;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EmployeeControllerImpl implements EmployeeController {
 
+    @Autowired
     private EmployeeDAO employeeDao;
+    @Autowired
     private TokenDAO tokenDAO;
-
-    public EmployeeControllerImpl() {
-        this.employeeDao = new EmployeeDAOImpl();
-        this.tokenDAO = new TokenDAOImpl();
-    }
 
     public Employee authorization(String login, String password) {
         Employee  employee;

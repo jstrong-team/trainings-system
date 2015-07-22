@@ -22,7 +22,7 @@ public class ServiceTest {
         trainingDAO = new TrainingDAOImpl();
     }
 
-    @Test
+//    @Test
     public void test() {
         tokenDAO.checkToken("5");
     }

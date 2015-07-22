@@ -1,10 +1,12 @@
 package com.exadel.jstrong.fortrainings.core.dao.impl;
 
+import com.exadel.jstrong.fortrainings.core.dao.HibernateBaseDao;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.db.ConnectionManager;
 import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.SearchEvent;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -17,7 +19,8 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
-public class TrainingDAOImpl implements TrainingDAO {
+@Service
+public class TrainingDAOImpl extends HibernateBaseDao implements TrainingDAO {
     private static Logger logger = Logger.getLogger(TrainingDAOImpl.class.getName());
 
     @Override

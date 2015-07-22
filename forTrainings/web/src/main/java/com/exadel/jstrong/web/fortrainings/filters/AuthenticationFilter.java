@@ -3,6 +3,11 @@ package com.exadel.jstrong.web.fortrainings.filters;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.impl.EmployeeControllerImpl;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.DelegatingFilterProxy;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -15,22 +20,18 @@ import java.util.Map;
 /**
  * Created by Sergey Nalivko.
  */
-@WebFilter("/ui/*")
-public class AuthenticationFilter implements Filter {
+
+public class AuthenticationFilter extends OncePerRequestFilter {
 
     public static final String COOKIE_TOKEN = "token";
+    @Autowired
     private EmployeeController ec;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        ec = new EmployeeControllerImpl();
-    }
-
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        Cookie[] cookies = ((HttpServletRequest) request).getCookies();
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        Cookie[] cookies = request.getCookies();
         Map<String, Cookie> cookieMap = CookieUtil.cookiesToMap(cookies);
-        String url = ((HttpServletRequest) request).getRequestURI();
+        String url = request.getRequestURI();
 
         boolean isCorrect = false;
         boolean isBaseUrl = isBaseUrl(url);
@@ -40,7 +41,7 @@ public class AuthenticationFilter implements Filter {
                 chain.doFilter(request, response);
                 return;
             } else {
-                ((HttpServletResponse) response).sendRedirect("/ui");
+                response.sendRedirect("/ui");
             }
             return;
         }
@@ -66,7 +67,7 @@ public class AuthenticationFilter implements Filter {
         if (isDoFilter) {
             chain.doFilter(request, response);
         } else {
-            ((HttpServletResponse) response).sendRedirect(redirectUrl);
+             response.sendRedirect(redirectUrl);
         }
     }
 

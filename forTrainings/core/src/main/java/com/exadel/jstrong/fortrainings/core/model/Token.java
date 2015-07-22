@@ -13,13 +13,13 @@ public class Token {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "value", length = 45)
     private String value;
 
     @Column
-    private int employee_id;
+    private Integer employee_id;
 
     public Token() {
     }
