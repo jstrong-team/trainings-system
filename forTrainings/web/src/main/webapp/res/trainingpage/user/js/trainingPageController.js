@@ -2,6 +2,20 @@ angular.module('trainingPageModule').controller('trainingPageController',['$scop
 
     $scope.temp1='directive context';
 
+    $scope.feedback={
+        understand:null,
+        interested:null,
+        continueWithThisTrainer:null,
+        smthNew:null,
+        recommend:null,
+        rate:null,
+        other:null
+    };
+
+    $scope.submit=function(){
+        console.log($scope.feedback)
+    }
+
     getTrainingInfo().then(function(data, status, headers, config) {
         //console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa33");
         //console.log(data.data[0]);

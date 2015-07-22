@@ -133,7 +133,7 @@
                             <label><input type="radio" value="true" name="internalExternal" ng-model="createInfo.internal">internal</label>
                         </div>
                         <div class="radio">
-                            <label><input type="radio" value="false" name="internalExternal">external</label>
+                            <label><input type="radio" value="false" name="internalExternal" ng-model="createInfo.internal">external</label>
                         </div>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
                             <label><input type="radio" value="true" name="paidFree" ng-model="createInfo.paid">paid</label>
                         </div>
                         <div class="radio">
-                            <label><input type="radio" value="true" name="paidFree">free</label>
+                            <label><input type="radio" value="false" name="paidFree" ng-model="createInfo.paid">free</label>
                         </div>
                     </div>
                 </div>
