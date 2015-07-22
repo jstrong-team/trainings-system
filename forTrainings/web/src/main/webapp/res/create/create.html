@@ -3,7 +3,7 @@
 
 <div class="container wrappered" ng-controller="createController">
     <h2 class="text-center createTraining">Create training</h2>
-    <form class="form-horizontal" role="form" ng-submit="submitForm()">
+    <form class="form-horizontal" role="form" ng-submit="submitForm()" novalidate>
         <div class="col-md-6">
             <div class="form-group">
                 <label class="control-label col-md-4" for="name">Training name:</label>
@@ -20,92 +20,75 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" for="annotation">Type:{{isTrainingPeriodic}}</label>
+                <label class="control-label col-md-4">Type:</label>
                 <div class="col-md-8">
                     <select ng-model="isTrainingPeriodic" class="form-control">
-                        <option value='Period' >Periodic</option>
+                        <option value='true'>Periodic</option>
                         <option value=''>One time</option>
                     </select>
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="control-label col-md-4" for="firstDate" ng-hide="isTrainingPeriodic">Date:</label>
+                <label class="control-label col-md-4" for="firstDate" ng-show="isTrainingPeriodic">First training:</label>
+                <div class="col-md-8">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="firstDate" placeholder="Pick a date" ng-model="firstDate" required>
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker data-ng-model="firstDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-
-            <div class="form-group" ng-hide="isTrainingPeriodic">
-                <label class="control-label col-md-4" for="date">Date:</label>
+            <div class="form-group" ng-show="isTrainingPeriodic">
+                <label class="control-label col-md-4" for="lastDate">Last training</label>
                 <div class="col-md-8">
                     <div class="dropdown">
                         <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
                             <div class="input-group">
-                                <input type="text" class="form-control" id="date" placeholder="Pick a date" ng-model="createInfo.date" required>
+                                <input type="text" class="form-control" id="lastDate" placeholder="Pick a date" ng-model="lastDate" required>
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </span>
                             </div>
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <datetimepicker data-ng-model="createInfo.date" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="form-group" ng-show="isTrainingPeriodic">
-                <label class="control-label col-md-4" for="date">First training:</label>
-                <div class="col-md-8">
-                    <div class="dropdown">
-                        <a class="dropdown-toggle" id="dropdown3" role="button" data-toggle="dropdown" data-target="#" href="#">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="date23" placeholder="Pick a date" ng-model="createInfo.date" required>
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-calendar"></i>
-                            </span>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <datetimepicker data-ng-model="createInfo.date" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+                            <datetimepicker data-ng-model="lastDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="form-group" ng-show="isTrainingPeriodic">
-                <label class="control-label col-md-4" for="date">Last training</label>
-                <div class="col-md-8">
-                    <div class="dropdown">
-                        <a class="dropdown-toggle" id="dropdown4" role="button" data-toggle="dropdown" data-target="#" href="#">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="date111" placeholder="Pick a date" ng-model="createInfo.date" required>
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-calendar"></i>
-                            </span>
-                            </div>
-                        </a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <datetimepicker data-ng-model="createInfo.date" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
-                        </ul>
+                <label class="control-label col-md-4">Days:</label>
+                <div class="col-md-">
+                    <div class="col-md-1">
+                        Sun:<input type="checkbox" aria-label="Toggle ngHide">
                     </div>
-                </div>
-            </div>
-            <div class="form-group" ng-show="isTrainingPeriodic">
-                <label class="control-label col-md-4" for="date">Days:</label>
-                <div class="col-md-8">
-                    <div class="col-md-2">
-                        <div> Mon:<input type="checkbox" aria-label="Toggle ngHide"></div>
+                    <div class="col-md-1">
+                        Mon:<input type="checkbox" aria-label="Toggle ngHide">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         Tue:<input type="checkbox" aria-label="Toggle ngHide">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         Wed:<input type="checkbox" aria-label="Toggle ngHide">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         Thur:<input type="checkbox" aria-label="Toggle ngHide">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         Fr:<input type="checkbox" aria-label="Toggle ngHide">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         Sat:<input type="checkbox" aria-label="Toggle ngHide">
                     </div>
                 </div>
