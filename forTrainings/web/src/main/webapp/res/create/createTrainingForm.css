@@ -11,6 +11,10 @@ textarea {
     color: white;
 }
 
+.radioForm  {
+    padding: 0;
+}
+
 @media screen and (min-width: 992px) {
     .submitButton {
         float: right;
