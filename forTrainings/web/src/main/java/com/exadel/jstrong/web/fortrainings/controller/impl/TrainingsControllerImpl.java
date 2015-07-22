@@ -3,6 +3,7 @@ package com.exadel.jstrong.web.fortrainings.controller.impl;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.dao.impl.TrainingDAOImpl;
 import com.exadel.jstrong.fortrainings.core.model.Event;
+import com.exadel.jstrong.fortrainings.core.model.SearchEvent;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
 import org.springframework.stereotype.Component;
 
@@ -47,7 +48,7 @@ public class TrainingsControllerImpl implements TrainingsController {
     }
 
     @Override
-    public List<Event> getSearchData(String str) {
+    public List<SearchEvent> getSearchData(String str) {
         return trainingDAO.getSearchResponse(str);
     }
 

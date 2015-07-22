@@ -27,23 +27,23 @@ public class TokenDAOImpl implements TokenDAO {
 
     @Override
     public boolean checkToken(String value) {
-        em.getTransaction().begin();
+//        em.getTransaction().begin();
         try {
             Token token = (Token) em.createQuery("SELECT t FROM Token t WHERE t.value = :value").setParameter("value", value).getSingleResult();
         } catch (NoResultException e) {
             return false;
         }
         finally {
-            em.getTransaction().commit();
+//            em.getTransaction().commit();
         }
         return true;
     }
 
     @Override
     public int getIdByToken(String value) {
-        em.getTransaction().begin();
+//        em.getTransaction().begin();
         int id = (int)em.createQuery("SELECT t.id FROM Token t WHERE t.value = :value").setParameter("value", value).getSingleResult();
-        em.getTransaction().commit();
+//        em.getTransaction().commit();
         return id;
     }
 }

@@ -1,5 +1,6 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
+import com.exadel.jstrong.fortrainings.core.model.Account;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
@@ -22,7 +23,7 @@ public class LoginSpringController {
     private EmployeeController employeeController;
 
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody Employee login(@RequestBody Employee rempl, HttpServletResponse response) throws ServletException, IOException {
+    public @ResponseBody Employee login(@RequestBody Account rempl, HttpServletResponse response) throws ServletException, IOException {
         try {
             String login = rempl.getLogin();
             String password = rempl.getPassword();

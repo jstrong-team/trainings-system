@@ -3,6 +3,7 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.db.ConnectionManager;
 import com.exadel.jstrong.fortrainings.core.model.Event;
+import com.exadel.jstrong.fortrainings.core.model.SearchEvent;
 import org.apache.log4j.Logger;
 
 import javax.persistence.Query;
@@ -21,7 +22,7 @@ public class TrainingDAOImpl implements TrainingDAO {
 
     @Override
     public List<Event> getUserTrainingsLast3Month (int userId, String dateFrom, String dateTo) {
-        em.getTransaction().begin();
+//        em.getTransaction().begin();
         List<Event> events = null;
         try {
             CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -32,7 +33,7 @@ public class TrainingDAOImpl implements TrainingDAO {
 
             String date = "";
             List<Integer> ids = (List<Integer>) em.createNativeQuery("SELECT training_id FROM subscribe WHERE employee_id = :id").setParameter("id", userId).getResultList();
-            em.getTransaction().commit();
+//            em.getTransaction().commit();
             Event event = null;
             for(int i = 0; i < events.size(); i++) {
                 event = events.get(i);
@@ -49,12 +50,21 @@ public class TrainingDAOImpl implements TrainingDAO {
     }
 
     @Override
-    public List<Event> getSearchResponse(String st) {
+    public List<SearchEvent> getSearchResponse(String st) {
 
-        em.getTransaction().begin();
-        Query query = em.createNativeQuery("SELECT meet.id, training.id as training_id, training.name, training.annotation, training.description, meet.date from  training join meet on meet.training_id = training.id where training.name like '%" + st + "%' or training.annotation like '%" + st + "%' or training.description like '%" + st + "%' order by meet.date");
-        List<Event> events = query.getResultList();
-        em.getTransaction().commit();
+       // em.getTransaction().begin();
+        Query query = em.createNativeQuery("SELECT meet.id, training.id as training_id, training.name, training.annotation, training.description, meet.date from  training join meet on meet.training_id = training.id where training.name like '%" + st + "%' or training.annotation like '%" + st + "%' or training.description like '%" + st + "%' order by meet.date", SearchEvent.class);
+
+        List<SearchEvent> events = query.getResultList();
+        String date = "";
+        SearchEvent event = null;
+        for(int i = 0; i < events.size(); i++) {
+            event = events.get(i);
+            date = date.concat(event.getDate());
+            event.setDate(date.substring(0, date.indexOf('.')));
+            date = "";
+        }
+//        em.getTransaction().commit();
         return events;
         /*List<Event> list = new ArrayList<>();
 
