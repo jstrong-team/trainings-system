@@ -2,21 +2,20 @@ angular.module('navigationModule').controller('navigationController',['$rootScop
 
     $scope.searchExpression = '';
 
-    $rootScope.rootExpr='';
+    $rootScope.inputSearchText = '';
 
-    $scope.location=$location;
+    $scope.location = $location;
 
     $scope.searchResponse = null;
 
     $scope.navigation = {url: '/res/navigation/navigation.html'};
 
     $scope.doSearch = function() {
-        $rootScope.rootExpr=$scope.searchExpression;
-        console.log($scope.searchExpression);
+        $rootScope.inputSearchText = $scope.searchExpression;
+        console.log($scope.searchExpression + " --- input");
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
-            $scope.searchResponse=data.data;
-            console.log($scope.searchExpression);
-            //console.log(data.data);
+            $scope.searchResponse = data.data;
+            console.log($scope.searchResponse + " --- response");
         }, function (error) {
             console.log(error);
         });
@@ -42,9 +41,5 @@ angular.module('navigationModule').controller('navigationController',['$rootScop
 
     $scope.goToNews = function() {
         $location.url('/ui/news');
-    };
-
-    $scope.createLog=function (){
-        console.log($location.path());
     };
 }]);

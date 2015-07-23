@@ -1,4 +1,4 @@
-<div>
+<div ng-controller="navigationController">
     <nav class="navbar navBarBackground" >
         <div class="container">
             <div class="row">
@@ -21,18 +21,17 @@
                         <li><a href=""  class="navBarText" ng-click="goToTrainings()">Calendar</a></li>
                         <li><a href=""  class="navBarText" ng-click="createTraining()">Create training</a></li>
                         <li><a href=""  class="navBarText" ng-click="goToNews()">News</a></li>
-                        <li><a href=""  class="navBarText" ng-click="createLog()">LOG</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="" class="navBarText" ng-click="logout()">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
                         <li >
-                            <form ><!--ng-submit="doSearch()"-->
-                                <input type="search"
-                                       class="form-control inputSearch"
-                                       ng-change="doSearch()"
-                                       placeholder="Search"
-                                       ng-model="searchExpression"
-                                       ng-model-options="{ debounce: 400 }">
+                            <form>
+                                    <input type="search"
+                                           class="form-control inputSearch"
+                                           ng-change="doSearch()"
+                                           placeholder="Search"
+                                           ng-model="searchExpression"
+                                           ng-model-options="{ debounce: 400 }">
                             </form>
                         </li>
                     </ul>
@@ -42,22 +41,22 @@
     </nav>
 
     <!--<div  class=" row" ng-show="searchExpression">-->
-        <!--<div class="col-md-10 col-md-offset-2">-->
-        <!--<div class="searchText  border1 col-md-3" ng-repeat="training in searchResponse| filter:searchExpression " >-->
-            <!--<div >-->
-                <!--<div class="col-md-8">-->
-                    <!--<a href="#"> {{training.name}} </a>-->
-                <!--</div>-->
-                <!--<div class="col-md-6">-->
-                    <!--{{training.date}}-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-md-12" style="margin-top: 10px">-->
-                <!--{{training.annotation}}-->
-            <!--</div>-->
-            <!--<hr>-->
-        <!--</div>-->
-        <!--</div>-->
+    <!--<div class="col-md-10 col-md-offset-2">-->
+    <!--<div class="searchText  border1 col-md-3" ng-repeat="training in searchResponse| filter:searchExpression " >-->
+    <!--<div >-->
+    <!--<div class="col-md-8">-->
+    <!--<a href="#"> {{training.name}} </a>-->
+    <!--</div>-->
+    <!--<div class="col-md-6">-->
+    <!--{{training.date}}-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-md-12" style="margin-top: 10px">-->
+    <!--{{training.annotation}}-->
+    <!--</div>-->
+    <!--<hr>-->
+    <!--</div>-->
+    <!--</div>-->
     <!--</div>-->
 
     <ol  class=" container" ng-show="searchExpression">
@@ -74,7 +73,6 @@
                 {{training.annotation}}
                 <hr>
             </div>
-
         </div>
     </ol>
 </div>
