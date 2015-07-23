@@ -21,11 +21,12 @@
                         <li><a href=""  class="navBarText" ng-click="goToTrainings()">Calendar</a></li>
                         <li><a href=""  class="navBarText" ng-click="createTraining()">Create training</a></li>
                         <li><a href=""  class="navBarText" ng-click="goToNews()">News</a></li>
+                        <li><a href=""  class="navBarText" ng-click="createLog()">LOG</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="" class="navBarText" ng-click="logout()">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
                         <li >
-                            <form ng-submit="doSearch()">
+                            <form ><!--ng-submit="doSearch()"-->
                                 <input type="search"
                                        class="form-control inputSearch"
                                        ng-change="doSearch()"
@@ -60,7 +61,7 @@
     <!--</div>-->
 
     <ol  class=" container" ng-show="searchExpression">
-        <div class="searchText  border1" ng-repeat="training in searchResponse| filter:searchExpression " >
+        <div class="searchText  border1" ng-repeat="training in searchResponse" >
             <div >
                 <div class="col-md-8 col-md-offset-1">
                     <a href="#"> {{training.name}} </a>

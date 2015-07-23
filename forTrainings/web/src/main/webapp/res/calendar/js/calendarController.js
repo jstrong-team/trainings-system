@@ -2,6 +2,7 @@ angular.module('calendarModule').controller('calendarController', ['$scope','thr
     $scope.days = getThreeMonthDays();
     $scope.months = getThreeMoths ();
     $scope.showNavbarHat=true;
+    //$scope.isNotLoginPage();
     $scope.$on('ngRepeatFinished', function() {
         markCurrentDay();
     });

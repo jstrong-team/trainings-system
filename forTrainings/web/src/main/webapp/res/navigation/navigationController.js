@@ -1,14 +1,21 @@
-angular.module('navigationModule').controller('navigationController',['$scope','$location','doSearchService','doLogoutService',  function($scope, $location, doSearchService,doLogoutService) {
+angular.module('navigationModule').controller('navigationController',['$rootScope','$scope','$location','doSearchService','doLogoutService',  function($rootScope, $scope, $location, doSearchService,doLogoutService) {
 
     $scope.searchExpression = '';
+
+    $rootScope.rootExpr='';
+
+    $scope.location=$location;
 
     $scope.searchResponse = null;
 
     $scope.navigation = {url: '/res/navigation/navigation.html'};
 
     $scope.doSearch = function() {
+        $rootScope.rootExpr=$scope.searchExpression;
+        console.log($scope.searchExpression);
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
             $scope.searchResponse=data.data;
+            console.log($scope.searchExpression);
             //console.log(data.data);
         }, function (error) {
             console.log(error);
@@ -37,4 +44,7 @@ angular.module('navigationModule').controller('navigationController',['$scope','
         $location.url('/ui/news');
     };
 
+    $scope.createLog=function (){
+        console.log($location.path());
+    };
 }]);
