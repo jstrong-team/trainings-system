@@ -8,6 +8,8 @@ angular.module('navigationModule').controller('navigationController',['$rootScop
 
     $scope.searchResponse = null;
 
+    $scope.noResultsFound = false;
+
     $scope.navigation = {url: '/res/navigation/navigation.html'};
 
     $scope.doSearch = function() {
@@ -15,7 +17,11 @@ angular.module('navigationModule').controller('navigationController',['$rootScop
         console.log($scope.searchExpression + " --- input");
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
             $scope.searchResponse = data.data;
-            console.log($scope.searchResponse + " --- response");
+            if (data.data == '') {
+                $scope.noResultsFound = true;
+            } else {
+                $scope.noResultsFound = false;
+            }
         }, function (error) {
             console.log(error);
         });

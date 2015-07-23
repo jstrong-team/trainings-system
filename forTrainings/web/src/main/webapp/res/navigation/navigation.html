@@ -40,24 +40,9 @@
         </div>
     </nav>
 
-    <!--<div  class=" row" ng-show="searchExpression">-->
-    <!--<div class="col-md-10 col-md-offset-2">-->
-    <!--<div class="searchText  border1 col-md-3" ng-repeat="training in searchResponse| filter:searchExpression " >-->
-    <!--<div >-->
-    <!--<div class="col-md-8">-->
-    <!--<a href="#"> {{training.name}} </a>-->
-    <!--</div>-->
-    <!--<div class="col-md-6">-->
-    <!--{{training.date}}-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="col-md-12" style="margin-top: 10px">-->
-    <!--{{training.annotation}}-->
-    <!--</div>-->
-    <!--<hr>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
+    <div ng-show="noResultsFound">
+        <h2 class="text-center newsTitle" style="padding-top: 200px"><small>Oops! We have not found such expressions :)</small></h2>
+    </div>
 
     <ol  class="wrappered container" ng-show="searchExpression">
         <div class="searchText  border1" ng-repeat="training in searchResponse" >
