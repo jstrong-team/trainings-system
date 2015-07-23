@@ -1,5 +1,5 @@
-<div>
-    <nav class="navbar navBarBackground" >
+<div ng-controller="navigationController">
+    <nav class="navbar navBarBackground">
         <div class="container">
             <div class="row">
                 <div class="navbar-header col-md-2">
@@ -20,19 +20,18 @@
                     <ul class="nav navbar-nav">
                         <li><a href=""  class="navBarText" ng-click="goToTrainings()">Calendar</a></li>
                         <li><a href=""  class="navBarText" ng-click="createTraining()">Create training</a></li>
-                        <li><a href=""  class="navBarText">My trainings</a></li>
-                        <li><a href=""  class="navBarText" ng-click="createlog()">LOG</a></li>
+                        <li><a href=""  class="navBarText" ng-click="goToNews()">News</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="" class="navBarText" ng-click="logout()">Log out</a></li>
+                        <li><a href="" class="navBarText" ng-click="logout()">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
                         <li >
-                            <form ng-submit="doSearch()">
-                                <input type="search"
-                                       class="form-control inputSearch"
-                                       ng-change="doSearch()"
-                                       placeholder="Search"
-                                       ng-model="searchExpression"
-                                       ng-model-options="{ debounce: 400 }">
+                            <form>
+                                    <input type="search"
+                                           class="form-control inputSearch"
+                                           ng-change="doSearch()"
+                                           placeholder="Search"
+                                           ng-model="searchExpression"
+                                           ng-model-options="{ debounce: 400 }">
                             </form>
                         </li>
                     </ul>
@@ -41,30 +40,18 @@
         </div>
     </nav>
 
-    <!--<div  class=" row" ng-show="searchExpression">-->
-        <!--<div class="col-md-10 col-md-offset-2">-->
-        <!--<div class="searchText  border1 col-md-3" ng-repeat="training in searchResponse| filter:searchExpression " >-->
-            <!--<div >-->
-                <!--<div class="col-md-8">-->
-                    <!--<a href="#"> {{training.name}} </a>-->
-                <!--</div>-->
-                <!--<div class="col-md-6">-->
-                    <!--{{training.date}}-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-md-12" style="margin-top: 10px">-->
-                <!--{{training.annotation}}-->
-            <!--</div>-->
-            <!--<hr>-->
-        <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
+    <div ng-show="noResultsFound">
+        <h2 class="text-center newsTitle" style="padding-top: 200px"><small>Oops! We have not found such expressions :)</small></h2>
+    </div>
 
-    <ol  class=" container" ng-show="searchExpression">
-        <div class="searchText  border1" ng-repeat="training in searchResponse| filter:searchExpression " >
+    <ol  class="wrappered container" ng-show="searchExpression">
+        <!--<div class="col-md-2 col-md-offset-12 closeSearch">-->
+                <!--<span class="glyphicon glyphicon-remove"></span>-->
+        <!--</div>-->
+        <div class="searchText  border1" ng-repeat="training in searchResponse" >
             <div >
                 <div class="col-md-8 col-md-offset-1">
-                    <a href="#"> {{training.name}} </a>
+                    <a href="http://localhost:8080/ui/trainingPage/user"> {{training.name}} </a>
                 </div>
                 <div class="col-md-2">
                     {{training.date}}
@@ -74,7 +61,6 @@
                 {{training.annotation}}
                 <hr>
             </div>
-
         </div>
     </ol>
 </div>

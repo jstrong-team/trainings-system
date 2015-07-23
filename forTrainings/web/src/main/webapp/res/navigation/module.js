@@ -1,6 +1,3 @@
-angular.module('navigationModule', []).config(function($routeProvider) {
-    $routeProvider.when('/ui/create', {
-        templateUrl: 'res/create/create.html',
-        controller: 'navigationController'
-    });
-});
+angular.module('navigationModule', []).run(function($rootScope, $location) {
+    $rootScope.location = $location;
+});;

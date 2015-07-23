@@ -7,11 +7,25 @@
     var controller =  function($scope, createService, $location) {
         $scope.createInfo = {name: null, annotation: null, description : null, target : null, paid : true,
             max_participants : null, date : [], place : null, internal : true};
+
+        $scope.isTrainingPeriodic = '';
+
         $scope.error = null;
 
-        $scope.isTrainingPeriodic='';
-
         $scope.submitForm = function(){
+
+            if ($scope.isTrainingPeriodic !== '') {
+                if (Date.parse($scope.firstDate) > Date.parse($scope.lastDate)) {
+                    $scope.firstDate = '';
+                    $scope.lastDate = '';
+                    return;
+                }
+                $scope.createInfo.date.push($scope.firstDate);
+                $scope.createInfo.date.push($scope.lastDate);
+            } else {
+                $scope.createInfo.date.push($scope.firstDate);
+            }
+
             console.log($scope.createInfo);
             createService.serv($scope.createInfo).then(function(response){
                 console.log(response);

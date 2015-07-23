@@ -1,8 +1,4 @@
-<div ng-include="navigation.url">
-</div>
-
-
-<div class="container">
+<div class="container wrappered">
     <div classs="row ">
         <div class="col-md-6 col-md-offset-3 text-center">
             <span class="titleTrainingPage "> {{training.name}}</span>
@@ -20,110 +16,128 @@
     </div>
 
     <div classs="row " style="padding-top: 50px">
-        <div class="col-md-7 jumbotron textBlock" >
+        <div class="col-md-7 well textBlock" >
             <span>Annotation:</span>{{training.annotation}}<p></p>
-            <span>Date:</span>{{training.date}}<p></p>
-            <span>Target audience:</span>{{training.date}}<p></p>
+            <span>Date:</span>{{training.date[0]}}<p></p>
+            <span>Description:</span>{{training.description}}<p></p>
+            <span>Target audience:</span>{{training.target}}<p></p>
         </div>
-        <div class="col-md-4 jumbotron textBlock" >
+        <div class="col-md-4 well textBlock" >
             <span>Trainer:</span>Diadia fedia<p></p>
-            <span>Time:</span>{{training.date}}<p></p>
-            <span>Place:</span>{{training.date}}<p></p>
+            <span>Time:</span>{{training.date[0]}}<p></p>
+            <span>Place:</span>{{training.place}}<p></p>
             <span>Duration:</span>{{training.date}}<p></p>
-            <button type="button" class="btn btn-primary ">Leave feedback/subscribe</button>
+            <div class="row">
+                <div class="col-md-8">
+                    <button type="button" class="btn btn-primary " ng-click="openModal()">Leave feedback/subscribe</button>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-danger " ng-click="">unsubscribe</button>
+                </div>
+                <!--<button type="button" class="btn btn-primary " ng-click="openModal()">Leave feedback/subscribe</button>-->
+                <!--<button type="button" class="btn btn-danger " ng-click="">unsubscribe</button>-->
+            </div>
         </div>
-
     </div>
 
-    <div classs="row " >
-        <div class="col-md-7 jumbotron textBlock" >
-            <div>
-                <span>Did you understand all?</span>
-                <div class="radio">
-                    <label><input type="radio" value="true" name="internalExternal" >yes</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio" value="false" name="internalExternal">no</label>
-                </div>
-                <p></p>
-            </div>
-            <div>
-                <span>whether you're interested in?</span>
-                <div class="radio">
-                    <label><input type="radio" value="true" name="internalExternal" >yes</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio" value="false" name="internalExternal">no</label>
-                </div>
-                <p></p>
-            </div>
-            <div>
-                <span>Would you like to learn from this coach?</span>
-                <div class="radio">
-                    <label><input type="radio" value="true" name="internalExternal" >yes</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio" value="false" name="internalExternal">no</label>
-                </div>
-                <p></p>
-            </div>
-            <div>
-                <span>Did you learn something new?</span>
-                <div class="radio">
-                    <label><input type="radio" value="true" name="internalExternal" >yes</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio" value="false" name="internalExternal">no</label>
-                </div>
-                <p></p>
-            </div>
-            <div>
-                <span>Would you recommend to your colleagues to visit this training?</span>
-                <div class="radio">
-                    <label><input type="radio" value="true" name="internalExternal" >yes</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio" value="false" name="internalExternal">no</label>
-                </div>
-                <p></p>
-            </div>
-            <div>
-                <span>how effectively the last session (Rate from 1 to 5)?</span>
-                <div ng-controller="ratingController">
-                    <span >
-                        <rating ng-model="currentRating"
-                                max="5"
-                                readonly="isRatingReadonly"
-                                on-hover="hoveringOver(value)"
-                                on-leave="overStar=null">
-                        </rating>{{overStar}}
-                    </span>
-                </div>
-                <p></p>
-            </div>
-            <div>
-                <span>Other:</span><textarea type="text" rows="3"
-                                                              class="form-control"
-                                                              placeholder="Description"
-                                                              required></textarea><p></p>
-            </div>
-            <button type="button" class="btn btn-primary ">Send feedback</button>
+
+    <div classs="row " style="padding-top: 50px">
+        <div class="col-md-7 well textBlock" >
+
         </div>
+        <div class="col-md-4 well textBlock" >
+
+        </div>
+    </div>
+
+
+
+
+    <div>
+        <script type="text/ng-template" id="myModalContent.html">
+            <div classs="row " >
+                <div class=" textBlock" >
+                    <form ng-submit = "submit()">
+                        <div>
+                            <label class="control-label ">Did you understand all? </label>
+                            <div class="radio">
+                                <label><input type="radio" value="true" name="understand" ng-model="feedback.understand">yes</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" value="false" name="understand" ng-model="feedback.understand">no</label>
+                            </div>
+                            <p></p>
+                        </div>
+                        <div >
+                            <label class="control-label ">whether you're interested in?</label>
+                            <div class="radio">
+                                <label><input type="radio" value="true" name="interested" ng-model="feedback.interested">yes</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" value="false" name="interested" ng-model="feedback.interested">no</label>
+                            </div>
+                            <p></p>
+                        </div>
+                        <div>
+                            <label class="control-label ">Would you like to learn from this coach?</label>
+                            <div class="radio">
+                                <label><input type="radio" value="true" name="continueWithThisTrainer" ng-model="feedback.continueWithThisTrainer">yes</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" value="false" name="continueWithThisTrainer" ng-model="feedback.continueWithThisTrainer">no</label>
+                            </div>
+                            <p></p>
+                        </div>
+                        <div>
+                            <label class="control-label ">Did you learn something new?</label>
+                            <div class="radio">
+                                <label><input type="radio" value="true" name="smthNew" ng-model="feedback.smthNew">yes</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" value="false" name="smthNew" ng-model="feedback.smthNew">no</label>
+                            </div>
+                            <p></p>
+                        </div>
+                        <div>
+                            <label class="control-label ">Would you recommend to your colleagues to visit this training?</label>
+                            <div class="radio">
+                                <label><input type="radio" value="true" name="recommend" ng-model="feedback.recommend">yes</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" value="false" name="recommend" ng-model="feedback.recommend">no</label>
+                            </div>
+                            <p></p>
+                        </div>
+                        <div>
+                            <label class="control-label ">how effectively the last session (Rate from 1 to 5)?</label>
+                            <div ng-controller="ratingController">
+                            <span >
+                                <rating ng-model="feedback.rate"
+                                        max="5"
+                                        readonly="isRatingReadonly"
+                                        on-hover="hoveringOver(value)"
+                                        on-leave="overStar=null"
+                                        >
+                                </rating>{{overStar}}
+                            </span>
+                            </div>
+                            <p></p>
+                        </div>
+                        <div>
+                            <label class="control-label ">Other:</label><textarea type="text" rows="3"
+                                                         class="form-control"
+                                                         ng-model="feedback.other" ></textarea><p></p>
+                        </div>
+                        <button type="submit" class="btn btn-primary ">Send feedback</button>
+                        <p></p>
+                    </form>
+                </div>
+            </div>
+        </script>
+    </div>
+
+    <div>
 
     </div>
 
 </div>
-
-
-
-
-
-
-<!--<div class="col-md-4">-->
-    <!--<div style="display:inline-block; min-height:290px;">-->
-        <!--<datepicker ng-model="dt"-->
-                    <!--class="well well-sm"-->
-                    <!--custom-class="getDayClass(date,mode)">-->
-        <!--</datepicker>-->
-    <!--</div>-->
-<!--</div>-->

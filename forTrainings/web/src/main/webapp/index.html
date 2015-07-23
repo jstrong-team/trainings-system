@@ -35,6 +35,7 @@
 <script src="/res/trainingpage/user/js/module.js"></script>
 <script src="/res/trainingpage/user/js/trainingPageController.js"></script>
 <script src="/res/trainingpage/user/js/ratingController.js"></script>
+<script src="/res/trainingpage/user/js/ModalInstanceCtrl.js"></script>
 <script src="/res/trainingpage/trainer/js/module.js"></script>
 <script src="/res/trainingpage/trainer/js/trainingPageTrainerController.js"></script>
 <script src="/res/trainingpage/trainer/js/commentFilter.js"></script>
@@ -49,28 +50,36 @@
 <link href="/res/creationResponse/success.css" rel="stylesheet">
 <script src="/res/creationResponse/module.js"></script>
 
+<link href="/res/news/news.css" rel="stylesheet">
+<script src="/res/news/module.js"></script>
+<script src="/res/news/controller.js"></script>
+
 <link href="/footer.css" rel="stylesheet">
 <script src="/res/index.js"></script>
 
 <head>
     <base href="/">
     <meta charset="utf-8">
-    <title>Exadel events</title>
+    <title>Exadel trainings</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-<!--<h1 ng-if="{{showNavbarHat}}">HIDEN</h1>-->
 
-<div class="wrapper" ng-controller="navigationController">
+<div class="wrapper" >
 
+    <div ng-controller="navigationController">
+        <div ng-include="navigation.url" ng-if="location.path() !== '/ui/'"></div>
+    </div>
 
-
-    <div ng-view></div>
+    <div ng-hide="inputSearchText">
+        <div ng-view></div>
+    </div>
 
     <footer>
         <h5 class="text-center">&copy 2015 jsTrong</h5>
     </footer>
+
 </div>
 
 </body>

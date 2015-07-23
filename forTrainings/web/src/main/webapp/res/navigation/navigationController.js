@@ -1,25 +1,35 @@
-angular.module('navigationModule').controller('navigationController',['$scope','$location','doSearchService','doLogoutService',  function($scope, $location, doSearchService,doLogoutService) {
+angular.module('navigationModule').controller('navigationController',['$rootScope','$scope','$location','doSearchService','doLogoutService',  function($rootScope, $scope, $location, doSearchService,doLogoutService) {
 
     $scope.searchExpression = '';
 
+    $rootScope.inputSearchText = '';
+
+    $scope.location = $location;
+
     $scope.searchResponse = null;
+
+    $scope.noResultsFound = false;
 
     $scope.navigation = {url: '/res/navigation/navigation.html'};
 
     $scope.doSearch = function() {
+        $rootScope.inputSearchText = $scope.searchExpression;
+        console.log($scope.searchExpression + " --- input");
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
-            $scope.searchResponse=data.data;
-            //console.log(data.data);
+            $scope.searchResponse = data.data;
+            if (data.data == '') {
+                $scope.noResultsFound = true;
+            } else {
+                $scope.noResultsFound = false;
+            }
         }, function (error) {
             console.log(error);
         });
     };
 
-    $scope.createlog=function (){
-      console.log($location.url());
-    };
-
     $scope.logout = function() {
+        $rootScope.inputSearchText ='';
+        $scope.searchExpression='';
         localStorage.clear();
         doLogoutService().then(function (data) {
             console.log(data);
@@ -31,10 +41,19 @@ angular.module('navigationModule').controller('navigationController',['$scope','
 
     $scope.goToTrainings = function() {
         $location.url('/ui/trainings');
+        $rootScope.inputSearchText ='';
+        $scope.searchExpression='';
     };
 
     $scope.createTraining = function() {
         $location.url('/ui/create');
+        $rootScope.inputSearchText ='';
+        $scope.searchExpression='';
     };
 
+    $scope.goToNews = function() {
+        $location.url('/ui/news');
+        $rootScope.inputSearchText ='';
+        $scope.searchExpression='';
+    };
 }]);

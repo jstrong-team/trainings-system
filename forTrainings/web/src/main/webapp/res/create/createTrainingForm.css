@@ -15,6 +15,18 @@ textarea {
     padding: 0;
 }
 
+.form-control {
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+}
+.form-control.ng-invalid {
+    background-color: #ebccd1;
+}
+
+.form-control.ng-pristine{
+    background-color: white;
+}
+
 @media screen and (min-width: 992px) {
     .submitButton {
         float: right;

@@ -1,21 +1,60 @@
-angular.module('trainingPageModule').controller('trainingPageController',['$scope','getTrainingInfo', function($scope,getTrainingInfo) {
+angular.module('trainingPageModule').controller('trainingPageController',['$scope','getTrainingInfo','$http','$modal', function($scope,getTrainingInfo,$http,$modal) {
 
-    $scope.temp1='directive context';
+    $scope.training={
+        name: 'JAVA SUPER DUPER TRAINING',
+        annotation: '$apply() is used to execute an expression in angular from outside of the angular framework. ' +
+        '(For example from browser DOM events, setTimeout, XHR or third party libraries). Because we are calling ' +
+        'into the angular framework we need to perform proper scope life cycle of exception handling, executing watches.',
+        description : '$apply() is used to execute an expression in angular from ',
+        target : 'kids, bamby,white panda,black panda, anton grigoriev',
+        paid : true,
+        max_participants :10,
+        date : ['2015-06-04 12:00:00'],
+        place : '243',
+        internal : true};
+
+    $scope.paticipants=[{name:'fedia',lastname:'petrov'}];
+
+    $scope.feedback={
+        understand:null,
+        interested:null,
+        continueWithThisTrainer:null,
+        smthNew:null,
+        recommend:null,
+        rate:null,
+        other:null
+    };
+
+    $scope.openModal = function () {
+
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+            size: 'lg',
+            resolve: {
+                items: function () {
+                    return $scope.feedback;
+                }
+            }
+        });
+        modalInstance.result.then(function (response) {
+            console.log(response);
+        }, function (error) {
+            console.log(error);
+        });
+    };
+
+
+
 
     getTrainingInfo().then(function(data, status, headers, config) {
         //console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa33");
         //console.log(data.data[0]);
-        $scope.training=data.data[0];
+        //$scope.training=data.data[0];
         $scope.trainingDate=new Date(data.data[0].date);
     });
-
-
 }]);
-
-
-
-
-
 
 
 

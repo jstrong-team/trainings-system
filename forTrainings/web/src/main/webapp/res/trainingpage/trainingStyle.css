@@ -60,10 +60,23 @@
 }
 
 .commentBlock{
+
    padding-top:10px;
    padding-left:10px;
    margin-left:10px;
-   min-height: 50px;
    font-size:14px;
    font-weight:500;
+   border-bottom: 3px solid #555555;
+   border-top: 3px solid #555555;
+
+      /*border-radius: 10px;*/
+   /*border-color: #c7ddef;*/
+   /*border-style: solid;*/
+}
+
+.rightForm{
+   border-left: 2px solid #555555;
+   /*border-radius: 10px;*/
+   /*border-color: #c7ddef;*/
+   /*border-style: solid;*/
 }
