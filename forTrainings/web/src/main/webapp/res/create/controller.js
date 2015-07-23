@@ -13,10 +13,19 @@
         $scope.error = null;
 
         $scope.submitForm = function(){
-            $scope.createInfo.date.push($scope.firstDate);
+
             if ($scope.isTrainingPeriodic !== '') {
+                if (Date.parse($scope.firstDate) > Date.parse($scope.lastDate)) {
+                    $scope.firstDate = '';
+                    $scope.lastDate = '';
+                    return;
+                }
+                $scope.createInfo.date.push($scope.firstDate);
                 $scope.createInfo.date.push($scope.lastDate);
+            } else {
+                $scope.createInfo.date.push($scope.firstDate);
             }
+
             console.log($scope.createInfo);
             createService.serv($scope.createInfo).then(function(response){
                 console.log(response);
