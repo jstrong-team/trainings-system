@@ -45,10 +45,13 @@
     </div>
 
     <ol  class="wrappered container" ng-show="searchExpression">
+        <!--<div class="col-md-2 col-md-offset-12 closeSearch">-->
+                <!--<span class="glyphicon glyphicon-remove"></span>-->
+        <!--</div>-->
         <div class="searchText  border1" ng-repeat="training in searchResponse" >
             <div >
                 <div class="col-md-8 col-md-offset-1">
-                    <a href="#"> {{training.name}} </a>
+                    <a href="http://localhost:8080/ui/trainingPage/user"> {{training.name}} </a>
                 </div>
                 <div class="col-md-2">
                     {{training.date}}

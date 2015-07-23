@@ -13,6 +13,8 @@ angular.module('trainingPageModule').controller('trainingPageController',['$scop
         place : '243',
         internal : true};
 
+    $scope.paticipants=[{name:'fedia',lastname:'petrov'}];
+
     $scope.feedback={
         understand:null,
         interested:null,

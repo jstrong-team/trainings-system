@@ -28,6 +28,8 @@ angular.module('navigationModule').controller('navigationController',['$rootScop
     };
 
     $scope.logout = function() {
+        $rootScope.inputSearchText ='';
+        $scope.searchExpression='';
         localStorage.clear();
         doLogoutService().then(function (data) {
             console.log(data);
@@ -39,13 +41,19 @@ angular.module('navigationModule').controller('navigationController',['$rootScop
 
     $scope.goToTrainings = function() {
         $location.url('/ui/trainings');
+        $rootScope.inputSearchText ='';
+        $scope.searchExpression='';
     };
 
     $scope.createTraining = function() {
         $location.url('/ui/create');
+        $rootScope.inputSearchText ='';
+        $scope.searchExpression='';
     };
 
     $scope.goToNews = function() {
         $location.url('/ui/news');
+        $rootScope.inputSearchText ='';
+        $scope.searchExpression='';
     };
 }]);

@@ -11,14 +11,13 @@
             </span>
         </div>
     </div>
-
     <div classs="row " style="padding-top: 50px">
-        <div class="col-md-7 jumbotron textBlock" >
+        <div class="col-md-7 well textBlock" >
             <span>Annotation:</span>{{training.annotation}}<p></p>
             <span>Date:</span>{{training.date}}<p></p>
             <span>Target audience:</span>{{training.date}}<p></p>
         </div>
-        <div class="col-md-4 jumbotron textBlock" >
+        <div class="col-md-4 well textBlock " >
             <span>Trainer:</span>Diadia fedia<p></p>
             <span>Time:</span>{{training.date}}<p></p>
             <span>Place:</span>{{training.date}}<p></p>
@@ -27,31 +26,34 @@
         </div>
     </div>
 
-    <div classs="row " ng-repeat="feedback in feedbacks">
-        <div class="col-md-11 jumbotron commentBlock" >
-            <div>
-                <span>Understand all: {{feedback.understand|yesNoFilter}}</span>
-            </div>
-            <div>
-                <span>Interested in: {{feedback.interested|yesNoFilter}}</span>
-            </div>
-            <div>
-                <span>Like to learn from this coach: {{feedback.continueWithThisTrainer|yesNoFilter}}</span>
-            </div>
-            <div>
-                <span>Learn something new: {{feedback.smthNew|yesNoFilter}}</span>
-            </div>
-            <div>
-                <span>Recommend to your colleagues to visit this training: {{feedback.recommend|yesNoFilter}}</span>
-            </div>
-            <div>
-                <span>Effectively the last session (rate from 1 to 5): {{feedback.rate}}</span>
-            </div>
-            <div>
-                <span>Other: {{feedback.other}}</span>
+        <div classs="row " ng-repeat="feedback in feedbacks">
+            <!--<hr>-->
+            <div class="col-md-11 commentBlock" >
+                <div>
+                    <rating ng-model="feedback.rate"
+                            readonly=true
+                            max="5">
+                    </rating>
+                </div>
+                <div>
+                    <label class="control-label ">Understand all: {{feedback.understand|yesNoFilter}}</label>
+                </div>
+                <div>
+                    <label class="control-label ">Interested in: {{feedback.interested|yesNoFilter}}</label>
+                </div>
+                <div>
+                    <label class="control-label ">Like to learn from this coach: {{feedback.continueWithThisTrainer|yesNoFilter}}</label>
+                </div>
+                <div>
+                    <label class="control-label ">Learn something new: {{feedback.smthNew|yesNoFilter}}</label>
+                </div>
+                <div>
+                    <label class="control-label ">Recommend to your colleagues to visit this training: {{feedback.recommend|yesNoFilter}}</label>
+                </div>
+                <div>
+                    <label class="control-label ">Other: {{feedback.other}}</label>
+                </div>
             </div>
         </div>
-
-    </div>
 
 </div>

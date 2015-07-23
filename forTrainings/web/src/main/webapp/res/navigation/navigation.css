@@ -50,6 +50,12 @@ footer h5 {
     background-color: white;
 }
 
+.closeSearch{
+
+    font-size:34px;
+    color:#ec971f;
+}
+
 .navBarText{
     color:white;
     font-size:14px;
