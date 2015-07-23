@@ -1,4 +1,4 @@
-<div class="wrappered" ng-controller="navigationController">
+<div ng-controller="navigationController">
     <nav class="navbar navBarBackground">
         <div class="container">
             <div class="row">
@@ -59,7 +59,7 @@
     <!--</div>-->
     <!--</div>-->
 
-    <ol  class=" container" ng-show="searchExpression">
+    <ol  class="wrappered container" ng-show="searchExpression">
         <div class="searchText  border1" ng-repeat="training in searchResponse" >
             <div >
                 <div class="col-md-8 col-md-offset-1">
