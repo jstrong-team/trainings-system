@@ -1,19 +1,22 @@
 package com.exadel.jstrong.web.fortrainings.controller.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
+import com.exadel.jstrong.fortrainings.core.dao.TokenDAO;
 import com.exadel.jstrong.fortrainings.core.dao.impl.EmployeeDAOImpl;
+import com.exadel.jstrong.fortrainings.core.dao.impl.EmployeeDAOImpl;
+import com.exadel.jstrong.fortrainings.core.dao.impl.TokenDAOImpl;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EmployeeControllerImpl implements EmployeeController {
 
+    @Autowired
     private EmployeeDAO employeeDao;
-
-    public EmployeeControllerImpl() {
-        this.employeeDao = new EmployeeDAOImpl();
-    }
+    @Autowired
+    private TokenDAO tokenDAO;
 
     public Employee authorization(String login, String password) {
         Employee  employee;
@@ -29,12 +32,12 @@ public class EmployeeControllerImpl implements EmployeeController {
     }
 
     public void updateToken (int id, String token){
-        employeeDao.updateTokenByID(id, token);
+        tokenDAO.updateTokenByID(id, token);
     }
 
     public boolean checkToken (String token){
-        return employeeDao.checkToken(token);
+        return tokenDAO.checkToken(token);
     }
 
-    public int getIdByToken(String token) {return employeeDao.getIdByToken(token);}
+    public int getIdByToken(String token) {return tokenDAO.getIdByToken(token);}
 }

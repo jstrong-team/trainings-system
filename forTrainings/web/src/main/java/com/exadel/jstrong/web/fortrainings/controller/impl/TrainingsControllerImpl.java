@@ -2,8 +2,10 @@ package com.exadel.jstrong.web.fortrainings.controller.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.dao.impl.TrainingDAOImpl;
-import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.exadel.jstrong.fortrainings.core.model.Event;
+import com.exadel.jstrong.fortrainings.core.model.SearchEvent;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -14,6 +16,7 @@ import java.util.List;
 @Component
 public class TrainingsControllerImpl implements TrainingsController {
 
+    @Autowired
     private TrainingDAO trainingDAO;
 
     public TrainingsControllerImpl() {
@@ -21,7 +24,7 @@ public class TrainingsControllerImpl implements TrainingsController {
     }
 
     @Override
-    public List<Training> getAllTrainings(int userId) {
+    public List<Event> getAllTrainings(int userId) {
         Calendar calendarDateFrom = Calendar.getInstance();
         calendarDateFrom.set(Calendar.DAY_OF_MONTH, 1);
         calendarDateFrom.set(Calendar.HOUR, 0);
@@ -37,17 +40,17 @@ public class TrainingsControllerImpl implements TrainingsController {
         Date dateTo = calendarDateTo.getTime();
         String stringDateTo = dateFormat.format(dateTo);
 
-        List<Training> userTrainings = trainingDAO.getUserTrainingsLast3Month(userId, stringDateFrom, stringDateTo, true);
-        List<Training> notUserTrainings = trainingDAO.getUserTrainingsLast3Month(userId, stringDateFrom, stringDateTo, false);
-        for(Training training: userTrainings) {
-            training.setIsUser(true);
-        }
-        userTrainings.addAll(notUserTrainings);
-        return userTrainings;
+        //List<Event> userEvents = trainingDAO.getUserTrainingsLast3MonthIsUser(userId, stringDateFrom, stringDateTo);
+        List<Event> events = trainingDAO.getUserTrainingsLast3Month(userId, stringDateFrom, stringDateTo);
+//        for(Event event : userEvents) {
+//            event.setIsUser(true);
+//        }
+//        userEvents.addAll(notUserEvents);
+        return events;
     }
 
     @Override
-    public List<Training> getSearchData(String str) {
+    public List<SearchEvent> getSearchData(String str) {
         return trainingDAO.getSearchResponse(str);
     }
 

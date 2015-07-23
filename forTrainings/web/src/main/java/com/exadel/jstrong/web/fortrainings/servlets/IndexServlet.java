@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Sergey Nalivko.
- */
+
 @WebServlet("/index.html")
 public class IndexServlet extends HttpServlet {
 

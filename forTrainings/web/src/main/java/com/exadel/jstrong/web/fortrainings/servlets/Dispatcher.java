@@ -9,9 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import java.io.IOException;
 
-/**
- * Created by Sergey Nalivko.
- */
+
 @WebServlet("/ui/*")
 public class Dispatcher extends HttpServlet {
     public static final String INDEX_PAGE_PATH = "/index.html";
