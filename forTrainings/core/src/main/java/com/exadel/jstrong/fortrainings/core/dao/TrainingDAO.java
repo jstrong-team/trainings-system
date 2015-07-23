@@ -2,12 +2,15 @@ package com.exadel.jstrong.fortrainings.core.dao;
 
 import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.SearchEvent;
+import com.exadel.jstrong.fortrainings.core.model.Training;
 
-import java.util.Date;
 import java.util.List;
 
 public interface TrainingDAO extends HibernateDAO{
 
     List<Event> getUserTrainingsLast3Month (int userId, String dateFrom, String dateTo);
     List<SearchEvent> getSearchResponse(String st);
+    int add (Training training);
+    boolean isSubscribeById(int employeeId, int trainingId);
+    Training getTrainingById(int id);
 }

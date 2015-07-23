@@ -1,11 +1,21 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
-/**
- * Created by Администратор on 21.07.2015.
- */
+import javax.persistence.*;
+
+
+@Entity
+@Table(name="meet")
 public class Meet {
+
+    @Column
     private String date;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private int id;
+
+    @Column
     private int training_id;
 
     public int getId() {

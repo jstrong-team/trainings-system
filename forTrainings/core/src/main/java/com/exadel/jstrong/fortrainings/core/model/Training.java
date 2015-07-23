@@ -1,18 +1,18 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Maria on 21.07.2015.
  */
-//@Entity
-//@Table(name = "training")
+@Entity
+@Table(name = "training")
 public class Training {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private int id;
 
@@ -22,13 +22,13 @@ public class Training {
     @Column
     private String annotation;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column
     private String target;
 
-    @Column
+    @Column(columnDefinition = "TINYINT(4)")
     private boolean paid;
 
     @Column
@@ -37,8 +37,56 @@ public class Training {
     @Column
     private String place;
 
-    @Column
+    @Column(columnDefinition = "TINYINT(4)")
     private boolean internal;
+
+    @Column(columnDefinition = "TINYINT(4)")
+    private boolean approve;
+
+    public int getTrainer_id() {
+        return trainer_id;
+    }
+
+    public void setTrainer_id(int trainer_id) {
+        this.trainer_id = trainer_id;
+    }
+
+    @Column
+    private int trainer_id;
+
+    @Transient
+    private List<String> date;
+
+    @Transient
+    private boolean isSubscribe;
+
+    public Training() {
+        date = new ArrayList<>();
+    }
+
+    public void setDate(List<String> date){
+        this.date = new ArrayList<String>(date);
+    }
+
+    public boolean isSubscribe() {
+        return isSubscribe;
+    }
+
+    public void setIsSubscribe(boolean isSubscribe) {
+        this.isSubscribe = isSubscribe;
+    }
+
+    public boolean isApprove() {
+        return approve;
+    }
+
+    public List<String> getDate() {
+        return date;
+    }
+
+    public void setApprove(boolean approve) {
+        this.approve = approve;
+    }
 
     public boolean isInternal() {
         return internal;

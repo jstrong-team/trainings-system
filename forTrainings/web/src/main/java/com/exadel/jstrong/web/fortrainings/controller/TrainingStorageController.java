@@ -1,15 +1,12 @@
 package com.exadel.jstrong.web.fortrainings.controller;
 
-import com.exadel.jstrong.fortrainings.core.model.Meet;
-import com.exadel.jstrong.fortrainings.core.model.TrainingToAdd;
-
-import java.util.List;
+import com.exadel.jstrong.fortrainings.core.model.Training;
 
 /**
- * Created by Администратор on 21.07.2015.
+ * Created by ????????????? on 21.07.2015.
  */
 public interface TrainingStorageController {
-    List<Meet> toMeets(int id, List<String> dates);
-    void addMeets(List<Meet> meets);
-    void addTraining(TrainingToAdd tta);
+    Training getTraining(int tId, int uId);
+    void addTraining(Training training);
 }
+

@@ -2,22 +2,18 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.HibernateBaseDao;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
-import com.exadel.jstrong.fortrainings.core.db.ConnectionManager;
 import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.SearchEvent;
+import com.exadel.jstrong.fortrainings.core.model.Training;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
-
-import java.sql.*;
-
-import java.util.*;
-import java.util.Date;
+import java.util.List;
 
 @Service
 public class TrainingDAOImpl extends HibernateBaseDao implements TrainingDAO {
@@ -25,7 +21,6 @@ public class TrainingDAOImpl extends HibernateBaseDao implements TrainingDAO {
 
     @Override
     public List<Event> getUserTrainingsLast3Month (int userId, String dateFrom, String dateTo) {
-//        em.getTransaction().begin();
         List<Event> events = null;
         try {
             CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -36,7 +31,6 @@ public class TrainingDAOImpl extends HibernateBaseDao implements TrainingDAO {
 
             String date = "";
             List<Integer> ids = (List<Integer>) em.createNativeQuery("SELECT training_id FROM subscribe WHERE employee_id = :id").setParameter("id", userId).getResultList();
-//            em.getTransaction().commit();
             Event event = null;
             for(int i = 0; i < events.size(); i++) {
                 event = events.get(i);
@@ -55,7 +49,6 @@ public class TrainingDAOImpl extends HibernateBaseDao implements TrainingDAO {
     @Override
     public List<SearchEvent> getSearchResponse(String st) {
 
-       // em.getTransaction().begin();
         Query query = em.createNativeQuery("SELECT meet.id, training.id as training_id, training.name, training.annotation, training.description, meet.date from  training join meet on meet.training_id = training.id where training.name like '%" + st + "%' or training.annotation like '%" + st + "%' or training.description like '%" + st + "%' order by meet.date", SearchEvent.class);
 
         List<SearchEvent> events = query.getResultList();
@@ -67,52 +60,44 @@ public class TrainingDAOImpl extends HibernateBaseDao implements TrainingDAO {
             event.setDate(date.substring(0, date.indexOf('.')));
             date = "";
         }
-//        em.getTransaction().commit();
         return events;
-        /*List<Event> list = new ArrayList<>();
 
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
-        Event event = null;
+    }
+
+    @Override
+    @Transactional
+    public int add (Training training){
+//        em.getTransaction().begin();
+        training = em.merge(training);
+//        em.getTransaction().commit();
+        return training.getId();
+    }
+
+    @Override
+    public Training getTrainingById(int id) {
+        Training tr = null;
+        try {
+            tr = em.find(Training.class, id);
+        } catch(Exception e) {
+
+        }
+        return tr;
+    }
+
+    @Override
+    public boolean isSubscribeById (int employeeId, int trainingId){
 
         try {
-            connection = ConnectionManager.getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(
-                    "SELECT training.id, training.name, training.annotation, training.description, meet.date from  training join meet on meet.training_id = training.id where training.name like '%" + st + "%' or training.annotation like '%" + st + "%' or training.description like '%" + st + "%' order by meet.date");
-            while (resultSet.next()) {
-                String buf = resultSet.getString("date");
-                event = new Event(resultSet.getInt("id"),
-                        resultSet.getString("name"), resultSet.getString("annotation"),
-                        buf.substring(0, buf.length() - 2), false);
-                list.add(event);
+            String result = (String) em.createNativeQuery("select status from subscribe where training_id =:training_Id and employee_id =:employee_Id").setParameter("training_Id", trainingId).setParameter("employee_Id", employeeId).getSingleResult();
+            if(result.compareTo("approve") == 0) {
+                return true;
+            } else {
+                return false;
             }
-        } catch (SQLException e) {
+        } catch (Throwable e) {
             e.printStackTrace();
-        } finally {
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    logger.error(e);
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    logger.error(e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    logger.error(e);
-                }
-            }
         }
-        return list;*/
+        return false;
     }
+
 }

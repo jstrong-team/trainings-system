@@ -17,9 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-/**
- * Created by Sergey Nalivko.
- */
 
 public class AuthenticationFilter extends OncePerRequestFilter {
 
