@@ -1,17 +1,15 @@
 package com.exadel.jstrong.fortrainings.core.dao.impl;
 
-import com.exadel.jstrong.fortrainings.core.dao.HibernateBaseDao;
-import com.exadel.jstrong.fortrainings.core.db.ConnectionManager;
+import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
-import java.sql.*;
 
 @Service
-public class EmployeeDAOImpl extends HibernateBaseDao implements EmployeeDAO {
+public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
     private static Logger logger = Logger.getLogger(EmployeeDAOImpl.class.getName());
 
     public Employee selectByAuthorization(String login, String password) {

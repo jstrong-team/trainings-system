@@ -1,6 +1,6 @@
 package com.exadel.jstrong.fortrainings.core.dao.impl;
 
-import com.exadel.jstrong.fortrainings.core.dao.HibernateBaseDao;
+import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.SearchEvent;
@@ -12,11 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Service
-public class TrainingDAOImpl extends HibernateBaseDao implements TrainingDAO {
+public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
+
     private static Logger logger = Logger.getLogger(TrainingDAOImpl.class.getName());
 
     @Override
@@ -67,9 +69,7 @@ public class TrainingDAOImpl extends HibernateBaseDao implements TrainingDAO {
     @Override
     @Transactional
     public int add (Training training){
-//        em.getTransaction().begin();
         training = em.merge(training);
-//        em.getTransaction().commit();
         return training.getId();
     }
 
@@ -99,5 +99,40 @@ public class TrainingDAOImpl extends HibernateBaseDao implements TrainingDAO {
         }
         return false;
     }
+
+    @Override
+    public boolean isTrainer(int userId, int trainingId){
+        CriteriaQuery<Training> query = em.getCriteriaBuilder().createQuery(Training.class);
+        Root<Training> root = query.from(Training.class);
+
+        Predicate uId = root.get("trainer_id").in(userId);
+        Predicate tId = root.get("id").in(trainingId);
+
+        query.where(em.getCriteriaBuilder().and(uId, tId));
+        List<Training> result = executeQuery(query);
+        return !result.isEmpty();
+    }
+
+    @Override
+    public boolean isApprove(int trainingId) {
+        int maxParticipants = (Integer)em.createNativeQuery("SELECT max_participants FROM training WHERE id = :id").setParameter("id", trainingId).getSingleResult();
+        int realParticipants = (Integer)em.createNativeQuery("SELECT count(*) FROM subscribe WHERE training_id = :id and status = 'approve'").setParameter("id", trainingId).getSingleResult();
+        return (maxParticipants > realParticipants);
+    }
+
+    @Override
+    public boolean isSubscriber(int userId, int trainingId){
+        CriteriaQuery<Training> query = em.getCriteriaBuilder().createQuery(Training.class);
+        Root<Training> root = query.from(Training.class);
+
+        Predicate uId = root.get("employee_id").in(userId);
+        Predicate tId = root.get("id").in(trainingId);
+
+        query.where(em.getCriteriaBuilder().and(uId, tId));
+        List<Training> result = executeQuery(query);
+        return !result.isEmpty();
+    }
+
+
 
 }

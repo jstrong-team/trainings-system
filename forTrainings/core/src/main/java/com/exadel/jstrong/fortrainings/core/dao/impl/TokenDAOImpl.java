@@ -1,6 +1,6 @@
 package com.exadel.jstrong.fortrainings.core.dao.impl;
 
-import com.exadel.jstrong.fortrainings.core.dao.HibernateBaseDao;
+import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TokenDAO;
 import com.exadel.jstrong.fortrainings.core.model.Token;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import javax.persistence.NoResultException;
  * Created by Maria on 20.07.2015.
  */
 @Service
-public class TokenDAOImpl extends HibernateBaseDao implements TokenDAO {
+public class TokenDAOImpl extends BaseDAO<Token> implements TokenDAO {
 
     @Override
     @Transactional
