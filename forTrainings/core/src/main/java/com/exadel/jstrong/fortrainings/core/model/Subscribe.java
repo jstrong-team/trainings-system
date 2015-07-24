@@ -22,6 +22,7 @@ public class Subscribe {
     private int trainingId;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private SubscribeStatus status;
 
     @Column(name = "add_date")
