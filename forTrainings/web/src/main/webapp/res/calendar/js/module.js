@@ -16,7 +16,7 @@ angular.module('calendarModule', []).config(function($routeProvider) {
                         getThreeMonthList: function() {
                             return def.promise;
                         }
-                    }
+                    };
                 }]
             }
         });

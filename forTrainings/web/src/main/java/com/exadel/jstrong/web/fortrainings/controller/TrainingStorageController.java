@@ -5,6 +5,8 @@ import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.model.TrainingUI;
 
+import java.util.List;
+
 /**
  * Created by ????????????? on 21.07.2015.
  */
@@ -16,5 +18,7 @@ public interface TrainingStorageController {
     boolean addSubscriber(Subscribe s);
     boolean check(int uId, int tId);
     void addEmployeeFeedback(EmployeeFeedback ef);
+    List<Subscribe> getSubscribers(int id);
+    List<EmployeeFeedback> getEmployeeFeedback(int id);
 }
 
