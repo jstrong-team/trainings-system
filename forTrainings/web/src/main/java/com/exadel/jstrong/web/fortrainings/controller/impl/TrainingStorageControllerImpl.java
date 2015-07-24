@@ -85,9 +85,9 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         s.setAddDate(dateFormat.format(date));
 
         if(tDAO.isApprove(tId)) {
-            s.setStatus(SubscribeStatus.approve);
+            s.setStatus(SubscribeStatus.APPROVE);
         } else {
-            s.setStatus(SubscribeStatus.wait);
+            s.setStatus(SubscribeStatus.WAIT);
         }
         return s;
     }
@@ -101,6 +101,17 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     public void addEmployeeFeedback(EmployeeFeedback ef) {
         emDAO.addFeedback(ef);
     }
+
+    @Override
+    public List<EmployeeFeedback> getEmployeeFeedback(int tId) {
+        return null;
+    }
+
+    @Override
+    public List<Subscribe> getSubscribers(int tId) {
+        return null;
+    }
+
 
 
 }

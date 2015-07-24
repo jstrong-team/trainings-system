@@ -12,6 +12,7 @@ import javax.persistence.Query;
 public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
     private static Logger logger = Logger.getLogger(EmployeeDAOImpl.class.getName());
 
+    @Override
     public Employee selectByAuthorization(String login, String password) {
         Query query = em.createQuery("SELECT e FROM Employee e WHERE e.login = :log  AND  e.password = :pas", Employee.class).setParameter("log", login).setParameter("pas", password);
         Employee employee = (Employee)query.getSingleResult();
