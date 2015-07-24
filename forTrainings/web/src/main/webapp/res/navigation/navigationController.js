@@ -1,5 +1,10 @@
 angular.module('navigationModule').controller('navigationController',['$rootScope','$scope','$location','doSearchService','doLogoutService',  function($rootScope, $scope, $location, doSearchService,doLogoutService) {
 
+    $scope.isActive = function (viewLocation) {
+        return viewLocation === $location.path();
+
+    };
+
     $scope.searchExpression = '';
 
     $rootScope.inputSearchText = '';
@@ -14,7 +19,6 @@ angular.module('navigationModule').controller('navigationController',['$rootScop
 
     $scope.doSearch = function() {
         $rootScope.inputSearchText = $scope.searchExpression;
-        console.log($scope.searchExpression + " --- input");
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
             $scope.searchResponse = data.data;
             if (data.data == '') {

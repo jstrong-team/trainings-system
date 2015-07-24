@@ -120,6 +120,14 @@ footer h5 {
     vertical-align: middle;
 }
 
+.active {
+    background-color: #eee;
+}
+
+.active a  {
+    color: #235580;
+}
+
 @media screen and (min-width: 992px) {
     .inputSearch {
         width: 300px;
