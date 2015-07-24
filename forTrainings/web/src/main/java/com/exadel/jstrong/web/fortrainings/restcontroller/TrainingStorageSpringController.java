@@ -1,6 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
 import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
+import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 
@@ -56,7 +58,7 @@ public class TrainingStorageSpringController {
         return null;
     }
 
-    @RequestMapping(value = "/kola", method = RequestMethod.POST)
+    @RequestMapping(value = "/addsubscriber", method = RequestMethod.POST)
     public void addSubscriber(HttpServletRequest request, HttpServletResponse response) {
         try {
             int trainingId = Integer.parseInt(request.getParameter("id"));
@@ -74,7 +76,7 @@ public class TrainingStorageSpringController {
         }
     }
 
-    @RequestMapping(value = "/kola1", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public void addFeedback(@RequestBody EmployeeFeedback ef, HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
         Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
@@ -90,6 +92,33 @@ public class TrainingStorageSpringController {
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(value = "/kola2", method = RequestMethod.GET)
+    public @ResponseBody List<EmployeeFeedback> getFeedbacks(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            int trainingId = Integer.parseInt(request.getParameter("id"));
+            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+            int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            //who can see anonimys/
+            //is admin?
+            //is trainer?
+            //is simple user
+
+            /*getFeedbacks*/
+            return tsci.getEmployeeFeedback(trainingId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/kola3", method = RequestMethod.GET)
+    public @ResponseBody List<Subscribe> getSubscribers(HttpServletRequest request, HttpServletResponse response) {
+        int trainingId = Integer.parseInt(request.getParameter("id"));
+        /*getubscribers*/
+        return tsci.getSubscribers(trainingId);
     }
 
 }

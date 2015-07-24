@@ -70,26 +70,13 @@
             <div class="form-group" ng-show="isTrainingPeriodic">
                 <label class="control-label col-md-4">Days:</label>
                 <div class="col-md-">
-                    <div class="col-md-1">
-                        Sun:<input type="checkbox" aria-label="Toggle ngHide">
-                    </div>
-                    <div class="col-md-1">
-                        Mon:<input type="checkbox" aria-label="Toggle ngHide">
-                    </div>
-                    <div class="col-md-1">
-                        Tue:<input type="checkbox" aria-label="Toggle ngHide">
-                    </div>
-                    <div class="col-md-1">
-                        Wed:<input type="checkbox" aria-label="Toggle ngHide">
-                    </div>
-                    <div class="col-md-1">
-                        Thur:<input type="checkbox" aria-label="Toggle ngHide">
-                    </div>
-                    <div class="col-md-1">
-                        Fr:<input type="checkbox" aria-label="Toggle ngHide">
-                    </div>
-                    <div class="col-md-1">
-                        Sat:<input type="checkbox" aria-label="Toggle ngHide">
+                    <div class="col-md-1" ng-repeat="day in days">
+                        {{day.name}}<input
+                            type="checkbox"
+                            value="day.name"
+                            ng-checked="selectedDays.indexOf(day.day) > -1"
+                            ng-click="toggleSelection(day)"
+                            >
                     </div>
                 </div>
             </div>

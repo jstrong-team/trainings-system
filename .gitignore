@@ -131,3 +131,6 @@ crashlytics-build.properties
 
 # jboss angular
 .tern-project
+
+# JShint
+.jshintrc

@@ -10,21 +10,40 @@
     <context:annotation-config/>
     <context:component-scan base-package="com.exadel.jstrong.fortrainings.core.dao"/>
 
-       <bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-              <property name="dataSource" ref="dataSource" />
-              <property name="persistenceUnitName" value="TrainingsManager"/>
-       </bean>
+    <bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="persistenceUnitName" value="TrainingsManager"/>
 
-       <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-              <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-              <property name="url" value="jdbc:mysql://localhost:3306/for_trainings" />
-              <property name="username" value="root" />
-              <property name="password" value="password" />
-       </bean>
 
-       <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-              <property name="entityManagerFactory" ref="myEmf" />
-       </bean>
-       <tx:annotation-driven />
+        <property name="packagesToScan" >
+            <list>
+                <value>com.exadel</value>
+            </list>
+        </property>
+
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+        </property>
+
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+
+    </bean>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/for_trainings" />
+        <property name="username" value="root" />
+        <property name="password" value="password" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="myEmf" />
+
+    </bean>
+    <tx:annotation-driven />
 
 </beans>
