@@ -1,6 +1,6 @@
-angular.module('trainingPageModule').controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'items','$http',function($scope, $modalInstance, feedback,$http){
+angular.module('trainingPageModule').controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'feedbacks','$http',function($scope, $modalInstance, feedbacks,$http){
 
-    $scope.feedback = feedback;
+    $scope.feedback = feedbacks;
 
     $scope.submit=function(){
         console.log($scope.feedback);

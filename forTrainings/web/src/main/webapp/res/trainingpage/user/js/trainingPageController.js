@@ -29,11 +29,11 @@ angular.module('trainingPageModule').controller('trainingPageController',['$scop
 
         var modalInstance = $modal.open({
             animation: true,
-            templateUrl: 'myModalContent.html',
+            templateUrl: '/res/trainingpage/user/feedbackModal.html',
             controller: 'ModalInstanceCtrl',
             size: 'lg',
             resolve: {
-                items: function () {
+                feedbacks: function () {
                     return $scope.feedback;
                 }
             }
@@ -44,9 +44,6 @@ angular.module('trainingPageModule').controller('trainingPageController',['$scop
             console.log(error);
         });
     };
-
-
-
 
     getTrainingInfo().then(function(data, status, headers, config) {
         //console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa33");
