@@ -6,6 +6,10 @@ import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
+
 /**
  * Created by Anton on 23.07.2015.
  */
@@ -18,4 +22,12 @@ public class EmployeeFeedbackDAOImpl extends BaseDAO<EmployeeFeedback> implement
         super.update(feedback);
     }
 
+    @Override
+    public List<EmployeeFeedback> getAllFeedbacks(int trainingId) {
+        CriteriaQuery<EmployeeFeedback> query = em.getCriteriaBuilder().createQuery(EmployeeFeedback.class);
+        Root<EmployeeFeedback> root = query.from(EmployeeFeedback.class);
+        query.where(root.get("training_id").in(trainingId));
+        return em.createQuery(query).getResultList();
+
+    }
 }

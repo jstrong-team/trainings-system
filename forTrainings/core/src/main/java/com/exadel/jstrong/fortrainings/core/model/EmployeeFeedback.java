@@ -36,7 +36,18 @@ public class EmployeeFeedback {
 
     private String other;
 
+    @Transient
+    private String employeeName;
+
     public EmployeeFeedback() {
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 
     public int getId() {
