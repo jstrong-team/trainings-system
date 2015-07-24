@@ -1,9 +1,10 @@
-angular.module('calendarModule').controller('calendarModalCtrl', ['$scope', '$modalInstance', 'className',function($scope, $modalInstance, className){
+angular.module('calendarModule').controller('calendarModalCtrl', ['$scope', '$modalInstance', 'trainingsStr',function($scope, $modalInstance, trainingsStr){
 
-    $scope.className = className;
-    $scope.bla='111111';
+    $scope.date = trainingsStr.date;
+    $scope.trainings=trainingsStr.threeMonthTrainings;
     $scope.modalSubmit=function(){
-        console.log($scope.className);
+        console.log($scope.date);
+        console.log($scope.trainings);
         //$http.post('/rest/azdfsdfsdf', $scope.feedback).then(function(response){
         //    $modalInstance.close(response);
         //}, function(error){

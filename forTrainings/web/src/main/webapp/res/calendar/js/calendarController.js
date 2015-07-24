@@ -15,16 +15,23 @@ angular.module('calendarModule').controller('calendarController', ['$scope', 'th
             templateUrl: '/res/calendar/modal.html',
             controller: 'calendarModalCtrl',
             size: 'md',
+            windowClass: 'modalMain',
+            //backdropClass:'modalBackground',
             resolve: {
-                className: function () {
-                    return data;
+                trainingsStr: function () {
+                    var dateRe = /[0-9]{4}-[0-9]{2}-[0-9]{2}/ig;
+                    var date = dateRe.exec(data);
+                    return {
+                        date:date[0],
+                        threeMonthTrainings:$scope.threeMonthTrainings
+                    };
                 }
             }
         });
     };
 
     threeMonthList.getThreeMonthList().then(function (data) {
-        //$scope.threeMonthData = data;
+        $scope.threeMonthTrainings = data;
         $scope.showNavbarHat = false;
         colorDayItems(data);
     });

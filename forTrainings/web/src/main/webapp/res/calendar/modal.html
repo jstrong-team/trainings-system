@@ -1,8 +1,21 @@
-<div classs="row" >
-    {{className }}
-</div>
-<div classs="row" >
-    <form ng-submit = "modalSubmit()">
-        <button type="submit" class="btn btn-primary ">Send feedback</button>
-    </form>
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">Trainings in this day:</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row" ng-repeat="training in trainings | filter:date" >
+            <div >
+                <div class="col-md-8 ">
+                    <a href="http://localhost:8080/ui/trainingPage/user"> {{training.name}} </a>
+                </div>
+                <div class="col-md-4 ">
+                    {{training.date}}
+                </div>
+            </div>
+            <div class="col-md-12 " style="margin-top: 10px">
+                {{training.annotation}}
+                <p></p>
+            </div>
+        </div>
+    </div>
 </div>
