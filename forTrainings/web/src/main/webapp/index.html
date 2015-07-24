@@ -18,6 +18,7 @@
 
 
 <link href="/res/calendar/css/calendar.css" rel="stylesheet">
+<link href="/res/calendar/css/modal.css" rel="stylesheet">
 <link href="/res/trainingpage/trainingStyle.css" rel="stylesheet">
 
 <script src="/res/calendar/js/module.js"></script>
@@ -25,6 +26,7 @@
 <script src="/res/calendar/js/onFinishRenderDirective.js"></script>
 <script src="/res/calendar/js/onClickDirective.js"></script>
 <script src="/res/calendar/js/calendar.js"></script>
+<script src="/res/calendar/js/calendarModalCtrl.js"></script>
 
 <link href="/res/navigation/navigation.css" rel="stylesheet">
 <script src="/res/navigation/module.js"></script>
@@ -66,9 +68,9 @@
 
 <body>
 
-<div class="wrapper" >
+<div class="wrapper">
 
-    <div ng-controller="navigationController">
+    <div ng-controller="navigationController" ng-cloak>
         <div ng-include="navigation.url" ng-if="location.path() !== '/ui/'"></div>
     </div>
 
