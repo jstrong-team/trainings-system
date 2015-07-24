@@ -20,6 +20,7 @@ public class TrainingUI {
     private int trainer_id;
     private List<String> date;
     private boolean isSubscribe;
+    private int rate;
 
     public TrainingUI(int id, String name, String annotation, String description, String target, boolean paid, int max_participants, String place, boolean internal, boolean approve, int trainer_id, List<String> date, boolean isSubscribe) {
         this.id = id;
@@ -139,5 +140,13 @@ public class TrainingUI {
 
     public void setIsSubscribe(boolean isSubscribe) {
         this.isSubscribe = isSubscribe;
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
     }
 }

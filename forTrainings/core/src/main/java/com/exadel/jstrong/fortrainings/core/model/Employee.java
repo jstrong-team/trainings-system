@@ -56,6 +56,9 @@ public class Employee {
             inverseJoinColumns = {@JoinColumn(name = "notice_id")})
     private List<Notice> notices;
 
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+//    private List<Subscribe> subscribes;
+
     public Employee() {
     }
 
@@ -166,4 +169,5 @@ public class Employee {
     public void setNotices(List<Notice> notices) {
         this.notices = notices;
     }
+
 }

@@ -28,6 +28,14 @@ public class Subscribe {
     @Column(name = "add_date")
     private String addDate;
 
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "training_id", insertable = false, updatable = false)
+//    private Training training;
+//
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "employee_id", insertable = false, updatable = false)
+//    private Employee employee;
+
     public Subscribe() {
     }
 
@@ -70,4 +78,5 @@ public class Subscribe {
     public void setAddDate(String addDate) {
         this.addDate = addDate;
     }
+    
 }

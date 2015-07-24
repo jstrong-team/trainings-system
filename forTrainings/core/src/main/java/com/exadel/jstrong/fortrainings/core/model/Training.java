@@ -54,6 +54,12 @@ public class Training {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribeTrainings")
     private List<Employee> subscribers;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "training")
+    private List<EmployeeFeedback> feedbacks;
+
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "training")
+//    private List<Subscribe> subscribes;
+
     public Training() {
         date = new ArrayList<>();
     }
@@ -168,5 +174,13 @@ public class Training {
 
     public void setSubscribers(List<Employee> subscribers) {
         this.subscribers = subscribers;
+    }
+
+    public List<EmployeeFeedback> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(List<EmployeeFeedback> feedbacks) {
+        this.feedbacks = feedbacks;
     }
 }
