@@ -46,7 +46,7 @@ public class TrainingStorageSpringController {
         }
     }
 
-    @RequestMapping(value = "/storagetraining", method = RequestMethod.GET)
+    @RequestMapping(value = "/getTraining", method = RequestMethod.GET)
     public @ResponseBody TrainingUI getTraining (HttpServletRequest request, HttpServletResponse response) {
         try{
             int tId = Integer.parseInt(request.getParameter("id"));
