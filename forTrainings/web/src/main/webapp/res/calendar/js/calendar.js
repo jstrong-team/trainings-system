@@ -53,7 +53,7 @@ function markCurrentDay () {
     }
 	var selector = '.fulldate_' + year + '-' + month + '-' + date ;
 	var element = document.querySelector(selector);
-	element.className += " currentDay";
+	element.className += ' currentDay';
 }
 
 function getThreeMoths () {
@@ -79,9 +79,9 @@ function colorDayItems (data) {
         var element = document.querySelector(selector);
         //console.log(element);
         if (data[i].isSubscribe === true) {
-            element.className += " willGo";
+            element.className += ' willGo';
         } else {
-            element.className += " willNotGo";
+            element.className += ' willNotGo';
         }
     }
 }
