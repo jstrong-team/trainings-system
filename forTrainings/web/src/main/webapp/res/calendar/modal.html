@@ -6,7 +6,7 @@
         <div class="row" ng-repeat="training in trainings | filter:date" >
             <div >
                 <div class="col-md-8 ">
-                    <a href="http://localhost:8080/ui/trainingPage/user"> {{training.name}} </a>
+                    <a href ng-click="redirectToTrainingPage()"> {{training.name}} </a>
                 </div>
                 <div class="col-md-4 ">
                     {{training.date}}

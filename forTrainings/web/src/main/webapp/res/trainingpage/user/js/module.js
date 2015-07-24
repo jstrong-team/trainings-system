@@ -1,20 +1,20 @@
-angular.module('trainingPageModule', []).config(function($routeProvider) {
-    $routeProvider.when('/ui/trainingPage/user', {
+angular.module('trainingPageModule', []).config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/ui/trainingPage/:trainingId', {
         templateUrl: 'res/trainingpage/user/training.html',
         controller: 'trainingPageController',
         resolve: {
-            getTrainingInfo: ['$http', '$q', function($http, $q){
+            getTrainingInfo: ['$http', '$q','$routeParams', function ($http, $q,$routeParams) {
                 var def = $q.defer();
-                $http.get('rest/trainings/searchTrainings?param=block1&search=oracle').then(function(data, status, headers, config){
-                    console.log(data);
+                console.log($routeParams.trainingId);
+                $http.get('rest/trainings/searchTrainings?search=java').then(function (data, status, headers, config) {
                     def.resolve(data);
-                }, function(error){
+                }, function (error) {
                     console.error(error);
                 });
-                return  function() {
-                        return def.promise;
-                }
+                return function () {
+                    return def.promise;
+                };
             }]
         }
     });
-});
+}]);

@@ -19,6 +19,7 @@ angular.module('navigationModule').controller('navigationController',['$rootScop
 
     $scope.doSearch = function() {
         $rootScope.inputSearchText = $scope.searchExpression;
+        console.log($scope.searchExpression + " --- input");
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
             $scope.searchResponse = data.data;
             if (data.data == '') {
