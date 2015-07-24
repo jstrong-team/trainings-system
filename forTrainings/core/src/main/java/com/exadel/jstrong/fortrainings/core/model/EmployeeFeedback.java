@@ -36,18 +36,11 @@ public class EmployeeFeedback {
 
     private String other;
 
-    @Transient
-    private String employeeName;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "training_id", insertable = false, updatable = false)
+    private Training training;
 
     public EmployeeFeedback() {
-    }
-
-    public String getEmployeeName() {
-        return employeeName;
-    }
-
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
     }
 
     public int getId() {
@@ -136,5 +129,13 @@ public class EmployeeFeedback {
 
     public void setOther(String other) {
         this.other = other;
+    }
+
+    public Training getTraining() {
+        return training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
     }
 }

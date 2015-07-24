@@ -1,10 +1,11 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
 import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
-import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
+import com.exadel.jstrong.web.fortrainings.model.SubscriberUI;
+import com.exadel.jstrong.web.fortrainings.model.TrainingUI;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,8 +46,8 @@ public class TrainingStorageSpringController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody Training getTraining (HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/getTraining", method = RequestMethod.GET)
+    public @ResponseBody TrainingUI getTraining (HttpServletRequest request, HttpServletResponse response) {
         try{
             int tId = Integer.parseInt(request.getParameter("id"));
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
@@ -115,9 +116,8 @@ public class TrainingStorageSpringController {
     }
 
     @RequestMapping(value = "/kola3", method = RequestMethod.GET)
-    public @ResponseBody List<Subscribe> getSubscribers(HttpServletRequest request, HttpServletResponse response) {
+    public @ResponseBody List<SubscriberUI> getSubscribers(HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
-        /*getubscribers*/
         return tsci.getSubscribers(trainingId);
     }
 

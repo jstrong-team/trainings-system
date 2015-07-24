@@ -1,18 +1,16 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
-import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
-
 import javax.persistence.*;
 
 /**
- * Created by Maria on 23.07.2015.
+ * Created by Maria on 24.07.2015.
  */
 @Entity
-@Table(name = "subscribe")
-public class Subscribe {
+@Table(name = "trainer_feedback")
+public class TrainerFeedback {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private int id;
 
     @Column(name = "employee_id")
@@ -21,22 +19,16 @@ public class Subscribe {
     @Column(name = "training_id")
     private int trainingId;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private SubscribeStatus status;
+    private String text;
 
     @Column(name = "add_date")
     private String addDate;
 
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "training_id", insertable = false, updatable = false)
-//    private Training training;
-//
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "employee_id", insertable = false, updatable = false)
-//    private Employee employee;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id", insertable = false, updatable = false)
+    private Employee employee;
 
-    public Subscribe() {
+    public TrainerFeedback() {
     }
 
     public int getId() {
@@ -63,12 +55,12 @@ public class Subscribe {
         this.trainingId = trainingId;
     }
 
-    public SubscribeStatus getStatus() {
-        return status;
+    public String getText() {
+        return text;
     }
 
-    public void setStatus(SubscribeStatus status) {
-        this.status = status;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public String getAddDate() {
@@ -78,5 +70,12 @@ public class Subscribe {
     public void setAddDate(String addDate) {
         this.addDate = addDate;
     }
-    
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 }

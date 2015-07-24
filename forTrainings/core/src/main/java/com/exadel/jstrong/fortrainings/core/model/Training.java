@@ -3,7 +3,6 @@ package com.exadel.jstrong.fortrainings.core.model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * Created by Maria on 21.07.2015.
  */
@@ -43,14 +42,6 @@ public class Training {
     @Column(columnDefinition = "TINYINT(4)")
     private boolean approve;
 
-    public int getTrainer_id() {
-        return trainer_id;
-    }
-
-    public void setTrainer_id(int trainer_id) {
-        this.trainer_id = trainer_id;
-    }
-
     @Column
     private int trainer_id;
 
@@ -59,6 +50,15 @@ public class Training {
 
     @Transient
     private boolean isSubscribe;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribeTrainings")
+    private List<Employee> subscribers;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "training")
+    private List<EmployeeFeedback> feedbacks;
+
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "training")
+//    private List<Subscribe> subscribes;
 
     public Training() {
         date = new ArrayList<>();
@@ -158,5 +158,29 @@ public class Training {
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    public int getTrainer_id() {
+        return trainer_id;
+    }
+
+    public void setTrainer_id(int trainer_id) {
+        this.trainer_id = trainer_id;
+    }
+
+    public List<Employee> getSubscribers() {
+        return subscribers;
+    }
+
+    public void setSubscribers(List<Employee> subscribers) {
+        this.subscribers = subscribers;
+    }
+
+    public List<EmployeeFeedback> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(List<EmployeeFeedback> feedbacks) {
+        this.feedbacks = feedbacks;
     }
 }

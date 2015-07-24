@@ -2,10 +2,12 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
+import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.SearchEvent;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,13 +76,11 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     }
 
     @Override
+    @Transactional
     public Training getTrainingById(int id) {
         Training tr = null;
-        try {
-            tr = em.find(Training.class, id);
-        } catch(Exception e) {
-
-        }
+        tr = em.find(Training.class, id);
+        Hibernate.initialize(tr.getFeedbacks());
         return tr;
     }
 
@@ -89,7 +89,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
 
         try {
             String result = (String) em.createNativeQuery("select status from subscribe where training_id =:training_Id and employee_id =:employee_Id").setParameter("training_Id", trainingId).setParameter("employee_Id", employeeId).getSingleResult();
-            if(result.compareTo("approve") == 0) {
+            if(result.compareToIgnoreCase("approve") == 0) {
                 return true;
             } else {
                 return false;
@@ -120,6 +120,14 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         return (maxParticipants > realParticipants);
     }
 
-
-
+    @Override
+    @Transactional
+    public int getRate(Training training) {
+        List<EmployeeFeedback> feedbacks = training.getFeedbacks();
+        int rate = 0;
+        for(EmployeeFeedback ef: feedbacks) {
+            rate += ef.getRate();
+        }
+        return rate / feedbacks.size();
+    }
 }

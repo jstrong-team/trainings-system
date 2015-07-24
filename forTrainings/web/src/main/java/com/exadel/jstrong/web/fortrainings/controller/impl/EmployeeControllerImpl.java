@@ -2,10 +2,8 @@ package com.exadel.jstrong.web.fortrainings.controller.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TokenDAO;
-import com.exadel.jstrong.fortrainings.core.dao.impl.EmployeeDAOImpl;
-import com.exadel.jstrong.fortrainings.core.dao.impl.EmployeeDAOImpl;
-import com.exadel.jstrong.fortrainings.core.dao.impl.TokenDAOImpl;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
+import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,9 +16,10 @@ public class EmployeeControllerImpl implements EmployeeController {
     @Autowired
     private TokenDAO tokenDAO;
 
-    public Employee authorization(String login, String password) {
-        Employee  employee;
-        employee = employeeDao.selectByAuthorization(login, password);
+    public EmployeeUI authorization(String login, String password) {
+
+        Employee employee = employeeDao.selectByAuthorization(login, password);
+        EmployeeUI  employeeUI = null;
         if(employee != null) {
             int a = login.compareToIgnoreCase(employee.getLogin());
             int b = password.compareToIgnoreCase(employee.getPassword());
@@ -28,7 +27,8 @@ public class EmployeeControllerImpl implements EmployeeController {
                 employee = null;
             }
         }
-        return employee;
+        employeeUI = new EmployeeUI(employee.getId(), employee.getName());
+        return employeeUI;
     }
 
     public void updateToken (int id, String token){

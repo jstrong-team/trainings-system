@@ -1,7 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
 import com.exadel.jstrong.fortrainings.core.model.Account;
-import com.exadel.jstrong.fortrainings.core.model.Employee;
+import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import com.google.gson.JsonParseException;
@@ -24,21 +24,21 @@ public class LoginSpringController {
     private EmployeeController employeeController;
 
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody Employee login(@RequestBody Account rempl, HttpServletResponse response) throws ServletException, IOException {
+    public @ResponseBody EmployeeUI login(@RequestBody Account rempl, HttpServletResponse response) throws ServletException, IOException {
         try {
             String login = rempl.getLogin();
             String password = DigestUtils.md5Hex(rempl.getPassword());
             if(login != null && password != null) {
-                Employee employee = employeeController.authorization(login, password);
-                if (employee == null) {
+                EmployeeUI employeeUI = employeeController.authorization(login, password);
+                if (employeeUI == null) {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not found");
                 } else {
                     String token = CookieUtil.generateToken();
                     Cookie cookie = new Cookie("token", token);
                     cookie.setMaxAge(-1);
                     response.addCookie(cookie);
-                    employeeController.updateToken(employee.getId(), token);
-                    return employee;
+                    employeeController.updateToken(employeeUI.getId(), token);
+                    return employeeUI;
                 }
             }
         }

@@ -21,6 +21,10 @@ public class Token {
     @Column
     private Integer employee_id;
 
+    @OneToOne
+    @JoinColumn(name = "employee_id", insertable = false, updatable = false)
+    private Employee employee;
+
     public Token() {
     }
 
