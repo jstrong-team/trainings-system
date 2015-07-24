@@ -15,6 +15,6 @@ public interface TrainingDAO extends GenericDAO<Training>{
     Training getTrainingById(int id);
     boolean isTrainer(int userId, int trainingId);
     boolean isApprove(int trainingId);
-    boolean isSubscriber(int userId, int trainingId);
+   // boolean isSubscriber(int userId, int trainingId);
 
 }

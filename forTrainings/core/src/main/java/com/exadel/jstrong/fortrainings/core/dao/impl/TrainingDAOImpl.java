@@ -116,21 +116,8 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public boolean isApprove(int trainingId) {
         int maxParticipants = (Integer)em.createNativeQuery("SELECT max_participants FROM training WHERE id = :id").setParameter("id", trainingId).getSingleResult();
-        int realParticipants = (Integer)em.createNativeQuery("SELECT count(*) FROM subscribe WHERE training_id = :id and status = 'approve'").setParameter("id", trainingId).getSingleResult();
+        int realParticipants = em.createNativeQuery("SELECT * FROM subscribe WHERE training_id = :id and status = 'approve'").setParameter("id", trainingId).getResultList().size();
         return (maxParticipants > realParticipants);
-    }
-
-    @Override
-    public boolean isSubscriber(int userId, int trainingId){
-        CriteriaQuery<Training> query = em.getCriteriaBuilder().createQuery(Training.class);
-        Root<Training> root = query.from(Training.class);
-
-        Predicate uId = root.get("employee_id").in(userId);
-        Predicate tId = root.get("id").in(trainingId);
-
-        query.where(em.getCriteriaBuilder().and(uId, tId));
-        List<Training> result = executeQuery(query);
-        return !result.isEmpty();
     }
 
 

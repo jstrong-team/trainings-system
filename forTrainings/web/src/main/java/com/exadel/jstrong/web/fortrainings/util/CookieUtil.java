@@ -1,6 +1,10 @@
 package com.exadel.jstrong.web.fortrainings.util;
 
+import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +17,8 @@ import java.util.Random;
  */
 public class CookieUtil {
 
+    @Autowired
+    private static EmployeeController ec;
 
     public static final String TOKEN = "token";
 
@@ -34,6 +40,11 @@ public class CookieUtil {
             cookieMap.put(cookie.getName(), cookie);
         }
         return cookieMap;
+    }
+
+    public static int getUserId(HttpServletRequest request) {
+        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+        return ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
     }
 
 }
