@@ -12,6 +12,7 @@ import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
+import com.exadel.jstrong.web.fortrainings.model.TrainingUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -47,7 +48,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     @Override
-    public Training getTraining(int tId, int uId) {
+    public TrainingUI getTraining(int tId, int uId) {
         List<Meet> meets = mDAO.getMeetsByTrainingId(tId);
         int size = meets.size();
         List<String> dates = new ArrayList<String>(size);
@@ -61,7 +62,11 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         training.setDate(dates);
         training.setIsSubscribe(tDAO.isSubscribeById(tId, uId));
 
-        return training;
+        TrainingUI trainingUI = new TrainingUI(training.getId(), training.getName(), training.getAnnotation(),
+                training.getDescription(), training.getTarget(), training.isPaid(), training.getMax_participants(),
+                training.getPlace(), training.isInternal(), training.isApprove(), training.getTrainer_id(),
+                training.getDate(), training.isSubscribe());
+        return trainingUI;
     }
 
     @Override

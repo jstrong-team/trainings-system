@@ -1,93 +1,40 @@
-package com.exadel.jstrong.fortrainings.core.model;
+package com.exadel.jstrong.web.fortrainings.model;
 
-import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
+
 /**
- * Created by Maria on 21.07.2015.
+ * Created by Maria on 24.07.2015.
  */
-@Entity
-@Table(name = "training")
-public class Training {
+public class TrainingUI {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
     private int id;
-
-    @Column
     private String name;
-
-    @Column
     private String annotation;
-
-    @Column(columnDefinition = "TEXT")
     private String description;
-
-    @Column
     private String target;
-
-    @Column(columnDefinition = "TINYINT(4)")
     private boolean paid;
-
-    @Column
     private int max_participants;
-
-    @Column
     private String place;
-
-    @Column(columnDefinition = "TINYINT(4)")
     private boolean internal;
-
-    @Column(columnDefinition = "TINYINT(4)")
     private boolean approve;
-
-    @Column
     private int trainer_id;
-
-    @Transient
     private List<String> date;
-
-    @Transient
     private boolean isSubscribe;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribeTrainings")
-    private List<Employee> subscribers;
-
-    public Training() {
-        date = new ArrayList<>();
-    }
-
-    public void setDate(List<String> date){
-        this.date = new ArrayList<String>(date);
-    }
-
-    public boolean isSubscribe() {
-        return isSubscribe;
-    }
-
-    public void setIsSubscribe(boolean isSubscribe) {
-        this.isSubscribe = isSubscribe;
-    }
-
-    public boolean isApprove() {
-        return approve;
-    }
-
-    public List<String> getDate() {
-        return date;
-    }
-
-    public void setApprove(boolean approve) {
-        this.approve = approve;
-    }
-
-    public boolean isInternal() {
-        return internal;
-    }
-
-    public void setInternal(boolean internal) {
+    public TrainingUI(int id, String name, String annotation, String description, String target, boolean paid, int max_participants, String place, boolean internal, boolean approve, int trainer_id, List<String> date, boolean isSubscribe) {
+        this.id = id;
+        this.name = name;
+        this.annotation = annotation;
+        this.description = description;
+        this.target = target;
+        this.paid = paid;
+        this.max_participants = max_participants;
+        this.place = place;
         this.internal = internal;
+        this.approve = approve;
+        this.trainer_id = trainer_id;
+        this.date = date;
+        this.isSubscribe = isSubscribe;
     }
 
     public int getId() {
@@ -154,6 +101,22 @@ public class Training {
         this.place = place;
     }
 
+    public boolean isInternal() {
+        return internal;
+    }
+
+    public void setInternal(boolean internal) {
+        this.internal = internal;
+    }
+
+    public boolean isApprove() {
+        return approve;
+    }
+
+    public void setApprove(boolean approve) {
+        this.approve = approve;
+    }
+
     public int getTrainer_id() {
         return trainer_id;
     }
@@ -162,11 +125,19 @@ public class Training {
         this.trainer_id = trainer_id;
     }
 
-    public List<Employee> getSubscribers() {
-        return subscribers;
+    public List<String> getDate() {
+        return date;
     }
 
-    public void setSubscribers(List<Employee> subscribers) {
-        this.subscribers = subscribers;
+    public void setDate(List<String> date) {
+        this.date = date;
+    }
+
+    public boolean isSubscribe() {
+        return isSubscribe;
+    }
+
+    public void setIsSubscribe(boolean isSubscribe) {
+        this.isSubscribe = isSubscribe;
     }
 }
