@@ -1,5 +1,6 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
+import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
@@ -11,6 +12,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 
@@ -19,10 +23,11 @@ import java.util.Map;
 public class TrainingStorageSpringController {
 
     @Autowired
-    TrainingStorageController tsci;
+    private TrainingStorageController tsci;
 
     @Autowired
     private EmployeeController ec;
+
 
     @RequestMapping(method = RequestMethod.POST)
     public void addTraining(@RequestBody Training training, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -36,7 +41,6 @@ public class TrainingStorageSpringController {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
-
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -50,6 +54,42 @@ public class TrainingStorageSpringController {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
         return null;
+    }
+
+    @RequestMapping(value = "/kola", method = RequestMethod.POST)
+    public void addSubscriber(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            int trainingId = Integer.parseInt(request.getParameter("id"));
+            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+            int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            if(!tsci.isTrainer(userId, trainingId)) {
+                if(!tsci.addSubscriber(tsci.buildSubscriber(userId, trainingId))) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
+            } else {
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+            }
+        } catch(Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/kola1", method = RequestMethod.POST)
+    public void addFeedback(@RequestBody EmployeeFeedback ef, HttpServletRequest request, HttpServletResponse response) {
+        int trainingId = Integer.parseInt(request.getParameter("id"));
+        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        ef.setEmployeeId(userId);
+        ef.setTrainingId(trainingId);
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        ef.setAddDate(dateFormat.format(date));
+
+        if(tsci.check(userId, ef.getTrainingId())) {
+            tsci.addEmployeeFeedback(ef);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 
 }

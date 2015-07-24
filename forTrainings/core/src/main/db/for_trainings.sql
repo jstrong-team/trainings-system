@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.6.23, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `for_trainings` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `for_trainings`;
+-- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
 -- Host: localhost    Database: for_trainings
 -- ------------------------------------------------------
--- Server version	5.6.24-log
+-- Server version	5.6.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,7 +27,7 @@ DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(25) NOT NULL,
-  `password` varchar(25) NOT NULL,
+  `password` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
   `mail` varchar(50) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
@@ -39,7 +41,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1,'admin','1111','Anton Grigoriev','toxa.z@mail.ru',NULL),(2,'masha','masha','Maria Grakova','mariagracova96@gmail.com',NULL),(3,'stas','stas','Stanislav Petrovich','staspetrovichbsu@gmail.com',NULL),(4,'kolya','kolya','Nikolay Lebedev','nickylebedev@gmail.com',NULL),(5,'dima','dima','Dmitriy Nedelko',NULL,NULL),(6,'maks','maks','Maksim Skavish',NULL,NULL),(7,'main','main','Vasilenko Janna',NULL,NULL),(8,'jesus','jesus','Jesus Christ',NULL,NULL),(9,'king','king','Stephen King',NULL,NULL),(10,'vlad','vlad','Vladislav Dracula',NULL,NULL);
+INSERT INTO `employee` VALUES (1,'admin','b59c67bf196a4758191e42f76670ceba','Anton Grigoriev','toxa.z@mail.ru',NULL),(2,'masha','c3cc6e312d2bad42cf535aac3a259abd','Maria Grakova','mariagracova96@gmail.com',NULL),(3,'stas','c211c9e7e7689217c0cb99aafe30f3d7','Stanislav Petrovich','staspetrovichbsu@gmail.com',NULL),(4,'kolya','ec3da25081aa81b637fe6faa3debe26e','Nikolay Lebedev','nickylebedev@gmail.com',NULL),(5,'dima','0f5b25cd58319cde0e6e33715b66db4c','Dmitriy Nedelko',NULL,NULL),(6,'maks','051f7661ee7c287be66ee572768ec8f5','Maksim Skavish',NULL,NULL),(7,'main','fad58de7366495db4650cfefac2fcd61','Vasilenko Janna',NULL,NULL),(8,'jesus','110d46fcd978c24f306cd7fa23464d73','Jesus Christ',NULL,NULL),(9,'king','b2086154f101464aab3328ba7e060deb','Stephen King',NULL,NULL),(10,'vlad','d701fde59d74f76803087b6632186caf','Vladislav Dracula',NULL,NULL);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,7 +179,7 @@ CREATE TABLE `meet` (
   PRIMARY KEY (`id`),
   KEY `training_id_idx` (`training_id`),
   CONSTRAINT `fk_training_meet` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +188,7 @@ CREATE TABLE `meet` (
 
 LOCK TABLES `meet` WRITE;
 /*!40000 ALTER TABLE `meet` DISABLE KEYS */;
-INSERT INTO `meet` VALUES (1,1,'2015-07-02 09:00:00'),(2,1,'2015-07-07 10:00:00'),(3,1,'2015-07-09 09:00:00'),(4,1,'2015-07-14 09:00:00'),(5,1,'2015-07-15 09:00:00'),(6,1,'2015-07-21 09:00:00'),(7,1,'2015-07-23 09:00:00'),(8,1,'2015-07-28 12:00:00'),(9,1,'2015-07-30 09:00:00'),(10,1,'2015-08-04 09:00:00'),(11,1,'2015-08-06 09:00:00'),(12,1,'2015-08-11 09:00:00'),(13,1,'2015-08-13 11:00:00'),(14,1,'2015-08-18 09:00:00'),(15,1,'2015-08-20 09:00:00'),(16,1,'2015-08-25 09:00:00'),(17,1,'2015-08-27 09:00:00'),(18,2,'2015-07-08 12:00:00'),(19,3,'2015-09-01 03:00:00'),(20,4,'2015-06-04 09:00:00'),(21,5,'2015-09-07 09:00:00');
+INSERT INTO `meet` VALUES (1,1,'2015-07-02 09:00:00'),(2,1,'2015-07-07 10:00:00'),(3,1,'2015-07-09 09:00:00'),(4,1,'2015-07-14 09:00:00'),(5,1,'2015-07-15 09:00:00'),(6,1,'2015-07-21 09:00:00'),(7,1,'2015-07-23 09:00:00'),(8,1,'2015-07-28 12:00:00'),(9,1,'2015-07-30 09:00:00'),(10,1,'2015-08-04 09:00:00'),(11,1,'2015-08-06 09:00:00'),(12,1,'2015-08-11 09:00:00'),(13,1,'2015-08-13 11:00:00'),(14,1,'2015-08-18 09:00:00'),(15,1,'2015-08-20 09:00:00'),(16,1,'2015-08-25 09:00:00'),(17,1,'2015-08-27 09:00:00'),(18,2,'2015-07-08 12:00:00'),(19,3,'2015-09-01 03:00:00'),(20,4,'2015-06-04 09:00:00'),(21,5,'2015-09-07 09:00:00'),(26,13,'2015-07-31 16:55:00'),(27,14,'2015-07-01 03:10:00'),(28,14,'2015-07-30 11:30:00');
 /*!40000 ALTER TABLE `meet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -350,7 +352,6 @@ CREATE TABLE `subscribe` (
   `training_id` int(11) NOT NULL,
   `status` varchar(15) NOT NULL,
   `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `mark` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_employee_subscribe_idx` (`employee_id`),
   KEY `fk_training_subscribe_idx` (`training_id`),
@@ -365,7 +366,7 @@ CREATE TABLE `subscribe` (
 
 LOCK TABLES `subscribe` WRITE;
 /*!40000 ALTER TABLE `subscribe` DISABLE KEYS */;
-INSERT INTO `subscribe` VALUES (1,1,1,'approve','2015-05-31 21:00:00',0),(2,2,1,'approve','2015-06-01 21:00:00',0),(3,3,1,'approve','2015-06-02 21:00:00',0),(4,4,1,'approve','2015-06-03 21:00:00',0),(5,5,1,'approve','2015-06-04 21:00:00',0),(6,6,1,'wait','2015-06-05 21:00:00',0),(7,7,1,'wait','2015-06-06 21:00:00',0),(8,9,1,'wait','2015-06-07 21:00:00',0),(9,1,2,'approve','2015-05-31 21:00:00',0),(10,2,2,'approve','2015-06-14 21:00:00',0),(11,3,4,'approve','2015-06-08 21:00:00',0),(12,9,5,'approve','2015-06-02 21:00:00',0);
+INSERT INTO `subscribe` VALUES (1,1,1,'approve','2015-05-31 21:00:00'),(2,2,1,'approve','2015-06-01 21:00:00'),(3,3,1,'approve','2015-06-02 21:00:00'),(4,4,1,'approve','2015-06-03 21:00:00'),(5,5,1,'approve','2015-06-04 21:00:00'),(6,6,1,'wait','2015-06-05 21:00:00'),(7,7,1,'wait','2015-06-06 21:00:00'),(8,9,1,'wait','2015-06-07 21:00:00'),(9,1,2,'approve','2015-05-31 21:00:00'),(10,2,2,'approve','2015-06-14 21:00:00'),(11,3,4,'approve','2015-06-08 21:00:00'),(12,9,5,'approve','2015-06-02 21:00:00');
 /*!40000 ALTER TABLE `subscribe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,7 +416,7 @@ CREATE TABLE `token` (
 
 LOCK TABLES `token` WRITE;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
-INSERT INTO `token` VALUES (1,'230715090211770834657',1),(2,'token',2),(3,'token',3),(4,'token',4),(5,'token',5),(6,'token',6),(7,'token',7),(8,'token',8),(9,'200715163818-1469330601',9);
+INSERT INTO `token` VALUES (1,'240715115531-172525848',1),(2,'token',2),(3,'token',3),(4,'token',4),(5,'token',5),(6,'token',6),(7,'token',7),(8,'token',8),(9,'200715163818-1469330601',9);
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -471,7 +472,7 @@ CREATE TABLE `training` (
   PRIMARY KEY (`id`),
   KEY `trainer_id_idx` (`trainer_id`),
   CONSTRAINT `fk_employee_training` FOREIGN KEY (`trainer_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -480,7 +481,7 @@ CREATE TABLE `training` (
 
 LOCK TABLES `training` WRITE;
 /*!40000 ALTER TABLE `training` DISABLE KEYS */;
-INSERT INTO `training` VALUES (1,8,'English','Just English','Just do it','Everybody',0,0,1,12,'203'),(2,4,'CORE JAVA ','Sun trainings is a best online center in Hyderabad. We are providing very best online training on CORE JAVA.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Medium-level JAVA developers.',0,0,1,10,NULL),(3,4,'Advanced Java','Sun trainings is a best online center in Hyderabad. We are providing very best online training on Advanced Java.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Hight-level JAVA developers.',0,0,0,7,NULL),(4,2,'ORACLE DBA ','Sun trainings is a best online center in Hyderabad. We are providing very best online training on ORACLE DBA.','Course Name : ORACLE DBA                                                                    24*7 Technical Support\nDuration         : 35 hours\nFaculty            : Realtime experience \n\n           Sun trainings is a best online center in Hyderabad. We are providing very best online training on ORACLE DBA.\n\nHighlights in our training:\n\n*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Oracle users.',1,0,1,9,NULL),(5,3,'MongoDB ','Sun trainings is a best online center in Hyderabad. We are providing very best online training on MongoDB.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','DB developers.',0,0,1,10,NULL);
+INSERT INTO `training` VALUES (1,8,'English','Just English','Just do it','Everybody',0,0,1,12,'203'),(2,4,'CORE JAVA ','Sun trainings is a best online center in Hyderabad. We are providing very best online training on CORE JAVA.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Medium-level JAVA developers.',0,0,1,10,NULL),(3,4,'Advanced Java','Sun trainings is a best online center in Hyderabad. We are providing very best online training on Advanced Java.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Hight-level JAVA developers.',0,0,0,7,NULL),(4,2,'ORACLE DBA ','Sun trainings is a best online center in Hyderabad. We are providing very best online training on ORACLE DBA.','Course Name : ORACLE DBA                                                                    24*7 Technical Support\nDuration         : 35 hours\nFaculty            : Realtime experience \n\n           Sun trainings is a best online center in Hyderabad. We are providing very best online training on ORACLE DBA.\n\nHighlights in our training:\n\n*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','Oracle users.',1,0,1,9,NULL),(5,3,'MongoDB ','Sun trainings is a best online center in Hyderabad. We are providing very best online training on MongoDB.','*  Very in depth course material with real time scenarios.\n*  We are providing class with highly qualified trainer.\n*  We will provide class and demo session at student flexible timings.\n*  In training case studies and real time scenarios covered.\n*  We will give 24*7 technical supports.\n*  Each topic coverage with real time solutions.\n*  We are providing normal track,weekend,fast track classes.\n*  We will give every recorded session for play later.\n*  We are giving placement support by multiple consultancies in INDIA, USA, Australia, UK etc.\n*  We are providing certification oriented trainings with 100% pass guarantee.\n*  We will give full support while attending the interviews and contact me any time after completion of the course.','DB developers.',0,0,1,10,NULL),(13,1,'dfgdg','dfgdfgdg','sdfssf','sdfsf',1,1,0,6,'sdfsf'),(14,1,'Normal','Hahaton','Description','228',0,0,0,13,'333');
 /*!40000 ALTER TABLE `training` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -563,4 +564,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-23 10:12:12
+-- Dump completed on 2015-07-24 12:00:08
