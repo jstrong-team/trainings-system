@@ -31,12 +31,14 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             CriteriaQuery<Event> query = criteriaBuilder.createQuery(Event.class);
             Root<Event> root = query.from(Event.class);
             query.where(criteriaBuilder.between(root.<String>get("date"), dateFrom, dateTo));
+            query.orderBy(criteriaBuilder.asc(root.get("date")));
             events = em.createQuery(query).getResultList();
 
             String date = "";
             List<Integer> ids = (List<Integer>) em.createNativeQuery("SELECT training_id FROM subscribe WHERE employee_id = :id").setParameter("id", userId).getResultList();
             Event event = null;
             for(int i = 0; i < events.size(); i++) {
+                System.out.println(events.get(i).getDate());
                 event = events.get(i);
                 event.setIsSubscribe(ids.contains(event.getTraining_id()));
                 date = date.concat(event.getDate());
