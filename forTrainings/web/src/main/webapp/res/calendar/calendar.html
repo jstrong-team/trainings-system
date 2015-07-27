@@ -25,20 +25,15 @@
                 </div>
             </div>
             <div class="lineEvents col-md-7 col-sm-7 col-xs-12">
-                <div class="description"></div><hr>
-                <div class="description"></div><hr>
-                <div class="description"></div><hr>
-                <div class="description"></div><hr>
-                <div class="description"></div><hr>
-                <div class="description"></div><hr>
-                <div class="description"></div><hr>
-                <div class="description"></div><hr>
-                <div class="description"></div><hr>
-                <div class="description"></div><hr>
-                <div class="description"></div><hr>
-                <div class="description"></div><hr>
-                <div class="description"></div><hr>
-                <div class="description"></div><hr>
+
+                    <div ng-repeat="line in description">
+                        <div class="lineDescription">
+                            <div ng-repeat="item in line" class="description">
+                                <div class="description">{{item.name}}<br>{{item.date}}</div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
             </div>
         </div>
     </div>

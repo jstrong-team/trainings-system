@@ -8,9 +8,20 @@
     float: left;
 }
 
-.months .monthItem, .description {
+.months .monthItem {
     height: 50px;
     width: 100%;
+}
+
+.description {
+    height: 50px;
+    width: auto;
+    display: inline-block;
+}
+
+.lineDescription {
+    height: 50px;
+    overflow: hidden;
 }
 
 .lineEvents {
