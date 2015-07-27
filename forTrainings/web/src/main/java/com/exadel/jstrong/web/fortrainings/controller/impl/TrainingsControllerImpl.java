@@ -54,7 +54,27 @@ public class TrainingsControllerImpl implements TrainingsController {
     @Override
     public List<SearchEventUI> getSearchData(String str) {
         List<Training> trainings =  trainingDAO.getSearchResponse(str);
+        int size = trainings.size();
         List<SearchEventUI> events = new ArrayList<>();
+        SearchEventUI event;
+        Training training;
+        List<String> dates;
+        int count;
+        for (int i=0;i<size;i++){
+            dates = new ArrayList<>();
+            event = new SearchEventUI();
+            training = trainings.get(i);
+            event.setId(training.getId());
+            event.setAnnotation(training.getAnnotation());
+            event.setName(training.getName());
+            count = training.getMeets().size() - 1;
+            dates.add(training.getMeets().get(0).getDate());
+            if (count!=0) {
+                dates.add(training.getMeets().get(count).getDate());
+            }
+            event.setDates(dates);
+            events.add(event);
+        }
         return events;
     }
 

@@ -1,7 +1,6 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 
 @Entity
@@ -9,8 +8,7 @@ import java.util.Date;
 public class Meet {
 
     @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private String date;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,11 +38,11 @@ public class Meet {
         this.training_id = training_id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

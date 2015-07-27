@@ -41,7 +41,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         Meet meet = new Meet();
         for (int i = 0; i<size;i++){
             meet.setTraining_id(id);
-            //meet.setDate(dates.get(i));
+            meet.setDate(dates.get(i));
             mDAO.add(meet);
         }
     }
