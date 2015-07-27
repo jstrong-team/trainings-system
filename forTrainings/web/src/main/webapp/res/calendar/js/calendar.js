@@ -81,6 +81,7 @@ function dateTimeFormat(data) {
     }
 }
 
+
 function colorDayItems(data) {
     var regexp = new RegExp('\\d\\d\\d\\d-\\d\\d-\\d\\d');
     for (var i = 0; i < data.length; ++i) {

@@ -1,4 +1,4 @@
-angular.module('navigationModule').controller('navigationController',['$rootScope','$scope','$location','doSearchService','doLogoutService',  function($rootScope, $scope, $location, doSearchService,doLogoutService) {
+angular.module('navigationModule').controller('navigationController',['$rootScope','$scope','$location','doSearchService','doLogoutService','dateFormatService',  function($rootScope, $scope, $location, doSearchService,doLogoutService,dateFormatService) {
 
     $scope.isActive = function (viewLocation) {
         return viewLocation === $location.path();
@@ -17,10 +17,11 @@ angular.module('navigationModule').controller('navigationController',['$rootScop
 
     $scope.navigation = {url: '/res/navigation/navigation.html'};
 
+
     $scope.doSearch = function() {
         $rootScope.inputSearchText = $scope.searchExpression;
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
-            dateTimeFormat(data.data);
+            dateFormatService(data.data);
             $scope.searchResponse = data.data;
             if (data.data == '') {
                 $scope.noResultsFound = true;
