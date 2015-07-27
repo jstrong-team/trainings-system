@@ -1,7 +1,6 @@
 <div class="container wrappered">
     <div class="row">
         <div class="col-md-12 text-center"><h1>Trainings calendar<br><br></h1></div>
-        <div class="col-md-12">
             <div class="col-md-5 col-sm-5">
                 <div class="months">
                     <div ng-repeat-start="x in months">
@@ -25,38 +24,24 @@
                 </div>
             </div>
             <div class="lineEvents col-md-7 col-sm-7 col-xs-12">
-
                     <div ng-repeat="line in description">
                         <div class="lineDescription">
                             <div ng-repeat="item in line" class="description">
-                                <div class="descriptionItem"><strong><a href="" ng-click="redirectToTrainingPage()">{{item.name}}</a></strong><br>
+                                <div class="descriptionItem"><strong><a href="" ng-click="redirectToTrainingPage(item.id)">{{item.name}}</a></strong><br>
                                     <span class="glyphicon glyphicon-calendar" style="color: grey"></span> {{item.dateTime}} {{item.time}}</div>
                             </div>
                         </div>
                         <hr>
                     </div>
             </div>
-        </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <h2><br>Past trainings</h2>
             <ul class="pastMeetings">
-                <li>
-                    <a href=""><h3>Js Conf 2015</h3></a>
-                    27 july 2015
-                </li>
-                <li>
-                    <a href=""><h3>Spring framework</h3></a>
-                    31 july 2015
-                </li>
-                <li>
-                    <a href=""><h3>Js Conf 2015</h3></a>
-                    27 july 2015
-                </li>
-                <li>
-                    <a href=""><h3>MVC</h3></a>
-                    11 august 2015
+                <li ng-repeat="lastTraining in pastTrainingHistory">
+                    <a href="" ng-click="redirectToTrainingPage(lastTraining.id)"><h3>{{lastTraining.name}}</h3></a>
+                    {{lastTraining.dateTime}} {{lastTraining.year}}
                 </li>
             </ul>
         </div>

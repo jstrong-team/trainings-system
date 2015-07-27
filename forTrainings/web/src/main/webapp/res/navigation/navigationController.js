@@ -1,4 +1,4 @@
-angular.module('navigationModule').controller('navigationController',['$rootScope','$scope','$location','doSearchService','doLogoutService','dateFormatService',  function($rootScope, $scope, $location, doSearchService,doLogoutService,dateFormatService) {
+angular.module('navigationModule').controller('navigationController', ['$rootScope', '$scope', '$location', 'doSearchService', 'doLogoutService', 'dateFormatService', function ($rootScope, $scope, $location, doSearchService, doLogoutService, dateFormatService) {
 
     $scope.isActive = function (viewLocation) {
         return viewLocation === $location.path();
@@ -18,7 +18,7 @@ angular.module('navigationModule').controller('navigationController',['$rootScop
     $scope.navigation = {url: '/res/navigation/navigation.html'};
 
 
-    $scope.doSearch = function() {
+    $scope.doSearch = function () {
         $rootScope.inputSearchText = $scope.searchExpression;
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
             dateFormatService(data.data);
@@ -33,9 +33,9 @@ angular.module('navigationModule').controller('navigationController',['$rootScop
         });
     };
 
-    $scope.logout = function() {
-        $rootScope.inputSearchText ='';
-        $scope.searchExpression='';
+    $scope.logout = function () {
+        $rootScope.inputSearchText = '';
+        $scope.searchExpression = '';
         localStorage.clear();
         doLogoutService().then(function (data) {
             console.log(data);
@@ -45,25 +45,25 @@ angular.module('navigationModule').controller('navigationController',['$rootScop
         });
     };
 
-    $scope.goToTrainings = function() {
+    $scope.goToTrainings = function () {
         $location.url('/ui/trainings');
-        $rootScope.inputSearchText ='';
-        $scope.searchExpression='';
+        $rootScope.inputSearchText = '';
+        $scope.searchExpression = '';
     };
 
-    $scope.createTraining = function() {
+    $scope.createTraining = function () {
         $location.url('/ui/create');
-        $rootScope.inputSearchText ='';
-        $scope.searchExpression='';
+        $rootScope.inputSearchText = '';
+        $scope.searchExpression = '';
     };
 
-    $scope.goToNews = function() {
+    $scope.goToNews = function () {
         $location.url('/ui/news');
-        $rootScope.inputSearchText ='';
-        $scope.searchExpression='';
+        $rootScope.inputSearchText = '';
+        $scope.searchExpression = '';
     };
 
-    $scope.redirectToTrainingPage = function () {
-        $location.url('/ui/trainingPage/user');
+    $scope.redirectToTrainingPage = function (id) {
+        $location.url('/ui/trainingPage/user/' + id);
     };
 }]);

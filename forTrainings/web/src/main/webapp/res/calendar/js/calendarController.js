@@ -1,16 +1,6 @@
-angular.module('calendarModule').controller('calendarController', ['$scope', '$location', 'threeMonthList', '$modal', function ($scope, $location, threeMonthList, $modal) {
+angular.module('calendarModule').controller('calendarController', ['$scope', '$location', 'calendarList', '$modal', function ($scope, $location, calendarList, $modal) {
     $scope.days = getThreeMonthDays();
     $scope.months = getThreeMonths();
-    $scope.$on('ngRepeatFinished', function () {
-        markCurrentDay();
-        threeMonthList.getThreeMonthList().then(function (data) {
-            dateTimeFormat(data);
-            colorDayItems(data);
-            $scope.threeMonthTrainings = data;
-            $scope.description = dayDescription(data);
-        });
-
-    });
 
     $scope.openModal = function (data) {
         $modal.open({
@@ -32,7 +22,21 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
         });
     };
 
-    $scope.redirectToTrainingPage = function () {
-        $location.url('/ui/trainingPage/user');
+    $scope.$on('ngRepeatFinished', function () {
+        markCurrentDay();
+        calendarList.getCalendarInfo().then(function (data) {
+            dateTimeFormat(data.actualTrainingsHistory);
+            dateTimeFormat(data.pastTrainingsHistory);
+            colorDayItems(data.actualTrainingsHistory);
+            $scope.threeMonthTrainings = data.actualTrainingsHistory;
+            $scope.description = dayDescription(data.actualTrainingsHistory);
+            $scope.pastTrainingHistory = data.pastTrainingsHistory
+            console.log(data.pastTrainingsHistory);
+        });
+
+    });
+
+    $scope.redirectToTrainingPage = function (id) {
+        $location.url('/ui/trainingPage/user/' + id);
     };
 }]);

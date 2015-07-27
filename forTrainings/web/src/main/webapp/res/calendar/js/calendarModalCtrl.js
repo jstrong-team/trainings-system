@@ -12,8 +12,8 @@ angular.module('calendarModule').controller('calendarModalCtrl', ['$scope', '$mo
         //});
     };
 
-    $scope.redirectToTrainingPage = function () {
+    $scope.redirectToTrainingPage = function (id) {
         $modalInstance.close();
-        $location.url('/ui/trainingPage/user');
+        $location.url('/ui/trainingPage/user/' + id);
     };
 }]);

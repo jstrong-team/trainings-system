@@ -1,12 +1,11 @@
 
 .titleTrainingPage{
-    color: #0c004c;
     font-size:25px;
     font-weight:700;
 }
 
 .rating{
-   color: blue;
+   color: #032539;
    font-size:25px;
    margin-left: 30px;
 }
@@ -44,7 +43,6 @@
 
 .feedbackButton{
    padding-top:47px;
-   /*padding-bottom:47px;*/
 }
 
 
@@ -60,7 +58,6 @@
 }
 
 .commentBlock{
-
    padding-top:10px;
    padding-left:10px;
    margin-left:10px;
@@ -68,15 +65,8 @@
    font-weight:500;
    border-bottom: 3px solid #555555;
    border-top: 3px solid #555555;
-
-      /*border-radius: 10px;*/
-   /*border-color: #c7ddef;*/
-   /*border-style: solid;*/
 }
 
 .rightForm{
    border-left: 2px solid #555555;
-   /*border-radius: 10px;*/
-   /*border-color: #c7ddef;*/
-   /*border-style: solid;*/
 }

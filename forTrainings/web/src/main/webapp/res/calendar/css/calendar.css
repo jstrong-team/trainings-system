@@ -22,6 +22,29 @@
 
 .descriptionItem {
     padding-right: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    float: left;
+
+}
+
+@media (min-width: 350px) {
+    .descriptionItem {
+        width: 150px;
+    }
+}
+
+@media (min-width: 993px) {
+    .descriptionItem {
+        width: 160px;
+    }
+}
+
+@media (min-width: 1199px) {
+    .descriptionItem {
+        width: 180px;
+    }
 }
 
 .lineDescription {

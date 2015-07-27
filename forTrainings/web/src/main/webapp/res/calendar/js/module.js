@@ -3,7 +3,7 @@ angular.module('calendarModule', []).config(function($routeProvider) {
             templateUrl: 'res/calendar/calendar.html',
             controller: 'calendarController',
             resolve: {
-                threeMonthList: ['$http', '$q', function($http, $q){
+                calendarList: ['$http', '$q', function($http, $q){
                     var def = $q.defer();
                     $http.get('rest/trainings').success(function(data, status){
                         def.resolve(data);
@@ -13,7 +13,7 @@ angular.module('calendarModule', []).config(function($routeProvider) {
                             return data;
                         });
                     return {
-                        getThreeMonthList: function() {
+                        getCalendarInfo: function() {
                             return def.promise;
                         }
                     };
