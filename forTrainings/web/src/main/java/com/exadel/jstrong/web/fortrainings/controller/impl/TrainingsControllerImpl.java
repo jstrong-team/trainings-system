@@ -78,4 +78,7 @@ public class TrainingsControllerImpl implements TrainingsController {
         return events;
     }
 
+    @Override
+    public boolean isTrainer(int uId, int tId) {return trainingDAO.isTrainer(uId, tId);}
+
 }

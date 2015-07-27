@@ -334,7 +334,7 @@
             setTime: function setTime(unixDate) {
               var tempDate = new Date(unixDate);
               var newDate = new Date(tempDate.getTime() + (tempDate.getTimezoneOffset() * 60000));
-              newDate = moment(newDate).format('YYYY-MM-DD HH:mm:ss');
+              newDate = moment(newDate).format('YYYY-MM-DD HH:mm');
               var oldDate = ngModelController.$modelValue;
               ngModelController.$setViewValue(newDate);
 

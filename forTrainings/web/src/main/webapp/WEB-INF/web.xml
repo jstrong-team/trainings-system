@@ -33,6 +33,20 @@
     <url-pattern>/ui/*</url-pattern>
   </filter-mapping>
 
+  <filter>
+    <filter-name>TrainingsFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    <init-param>
+      <param-name>targetBeanName</param-name>
+      <param-value>TrainingsFilterBean</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>TrainingsFilter</filter-name>
+    <url-pattern>/ui/trainingPage/*</url-pattern>
+  </filter-mapping>
+
   <!--<servlet>-->
   <!--<servlet-name>employee</servlet-name>-->
   <!--<servlet-class>exadel.jsTrong.forTrainings.servlets.SigninServlet</servlet-class>-->

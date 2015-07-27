@@ -19,8 +19,8 @@ angular.module('navigationModule').controller('navigationController',['$rootScop
 
     $scope.doSearch = function() {
         $rootScope.inputSearchText = $scope.searchExpression;
-        console.log($scope.searchExpression + " --- input");
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
+            dateTimeFormat(data.data);
             $scope.searchResponse = data.data;
             if (data.data == '') {
                 $scope.noResultsFound = true;
@@ -60,5 +60,9 @@ angular.module('navigationModule').controller('navigationController',['$rootScop
         $location.url('/ui/news');
         $rootScope.inputSearchText ='';
         $scope.searchExpression='';
+    };
+
+    $scope.redirectToTrainingPage = function () {
+        $location.url('/ui/trainingPage/user');
     };
 }]);

@@ -1,6 +1,6 @@
-angular.module('calendarModule').controller('calendarController', ['$scope', 'threeMonthList', '$modal', function ($scope, threeMonthList, $modal) {
+angular.module('calendarModule').controller('calendarController', ['$scope', '$location', 'threeMonthList', '$modal', function ($scope, $location, threeMonthList, $modal) {
     $scope.days = getThreeMonthDays();
-    $scope.months = getThreeMoths();
+    $scope.months = getThreeMonths();
     $scope.$on('ngRepeatFinished', function () {
         markCurrentDay();
     });
@@ -16,7 +16,6 @@ angular.module('calendarModule').controller('calendarController', ['$scope', 'th
                 trainingsStr: function () {
                     var dateRe = /[0-9]{4}-[0-9]{2}-[0-9]{2}/ig;
                     var date = dateRe.exec(data);
-                    console.log(date);
                     return {
                         date: date[0],
                         threeMonthTrainings: $scope.threeMonthTrainings
@@ -27,7 +26,13 @@ angular.module('calendarModule').controller('calendarController', ['$scope', 'th
     };
 
     threeMonthList.getThreeMonthList().then(function (data) {
-        $scope.threeMonthTrainings = data;
+        dateTimeFormat(data);
         colorDayItems(data);
+        $scope.threeMonthTrainings = data;
+        $scope.description = dayDescription(data);
     });
+
+    $scope.redirectToTrainingPage = function () {
+        $location.url('/ui/trainingPage/user');
+    };
 }]);

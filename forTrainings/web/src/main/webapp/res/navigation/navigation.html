@@ -9,7 +9,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <li>
-                        <a href="" class="logo">
+                        <a href="/ui/trainings" class="logo">
                         <span>
                             Exadel<sup class="trademark"><sup> &reg</sup></sup>
                         </span>
@@ -26,12 +26,12 @@
                         <li><a href="" class="navBarText" ng-click="logout()">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
                         <li >
                             <form>
-                                    <input type="search"
-                                           class="form-control inputSearch"
-                                           ng-change="doSearch()"
-                                           placeholder="Search"
-                                           ng-model="searchExpression"
-                                           ng-model-options="{ debounce: 400 }">
+                                <input type="search"
+                                       class="form-control inputSearch"
+                                       ng-change="doSearch()"
+                                       placeholder="Search"
+                                       ng-model="searchExpression"
+                                       ng-model-options="{ debounce: 400 }">
                             </form>
                         </li>
                     </ul>
@@ -45,26 +45,20 @@
     </div>
 
     <ol  class="wrappered container" ng-show="searchExpression">
-        <!--<div class="col-md-2 col-md-offset-12 closeSearch">-->
-                <!--<span class="glyphicon glyphicon-remove"></span>-->
-        <!--</div>-->
-        <div class="searchText  border1" ng-repeat="training in searchResponse" >
-            <div >
-                <div class="col-md-7 col-md-offset-2">
-                    <a href="http://localhost:8080/ui/trainingPage/user"> {{training.name}} </a>
-                </div>
-                <div class="col-md-3">
-                </div>
-                <div class="col-md-4 col-md-offset-2">
-                    {{training.date}}
-                </div>
-                <div class="col-md-6">
+        <div class="searchText row" ng-repeat="training in searchResponse">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <h4><a href ng-click="redirectToTrainingPage()">{{training.name}}</a></h4>
+            </div>
+            <div class="col-md-3">
+                <div class="dateTime">
+                    <span class="glyphicon glyphicon-calendar" style="color: grey"></span> {{training.dateTime}} {{training.year}}
+                    <span class="glyphicon glyphicon-time" style="color: grey"></span> {{training.time}}
                 </div>
             </div>
-            <div class="col-md-7 col-md-offset-2" style="margin-top: 10px">
-                {{training.annotation}}
-                <p></p>
-            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-10 col-md-offset-1">{{training.annotation}}</div>
+            <hr>
         </div>
     </ol>
 </div>

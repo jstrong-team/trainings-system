@@ -1,6 +1,11 @@
 .modalMain{
     padding-top: 100px;
 }
+
 .modalBackground{
     opacity: 1 !important;
+}
+
+.modal-open {
+    overflow-y: hidden;
 }

@@ -170,4 +170,21 @@ public class Employee {
         this.notices = notices;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (o == null || getClass() != o.getClass()) {
+            return false;
+        } else {
+            Employee employee = (Employee) o;
+
+            return (employee.getId() == this.getId()) &&
+                    employee.getLogin().equals(this.getLogin()) &&
+                    employee.getPassword().equals(this.getPassword()) &&
+                    employee.getName().equals(this.getName()) &&
+                    employee.getMail().equals(this.getMail()) &&
+                    employee.getPhone().equals(this.getPhone());
+        }
+    }
 }

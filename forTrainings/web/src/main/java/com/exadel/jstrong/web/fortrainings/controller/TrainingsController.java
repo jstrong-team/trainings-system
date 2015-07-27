@@ -8,4 +8,5 @@ import java.util.List;
 public interface TrainingsController {
     List<Event> getAllTrainings(int userId);
     List<SearchEventUI> getSearchData(String str);
+    boolean isTrainer(int uId, int tId);
 }

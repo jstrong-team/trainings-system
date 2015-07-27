@@ -43,7 +43,16 @@ angular.module('trainingPageModule').controller('trainingPageController', ['$sco
                 }
             }
         });
+
         modalInstance.result.then(function (response) {
+            console.log(response);
+        }, function (error) {
+            console.log(error);
+        });
+    };
+
+    $scope.subscribe = function () {
+        $http.post('/rest/storagetraining/addsubscriber?id='+ $scope.training.id, $scope.feedback).then(function (response) {
             console.log(response);
         }, function (error) {
             console.log(error);

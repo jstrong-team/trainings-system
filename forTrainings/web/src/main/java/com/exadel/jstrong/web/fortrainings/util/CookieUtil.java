@@ -42,9 +42,18 @@ public class CookieUtil {
         return cookieMap;
     }
 
+    public static int getTrainingIdFromURL(String url) {
+        String token = url.substring(url.lastIndexOf('/'), url.length());
+        return (Integer.valueOf(token.substring(2, token.length() - 2)));
+    }
+
     public static int getUserId(HttpServletRequest request) {
         Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
         return ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+    }
+
+    public static String getTokenURL(String url) {
+        return url.substring(url.lastIndexOf('/'), url.length());
     }
 
 }
