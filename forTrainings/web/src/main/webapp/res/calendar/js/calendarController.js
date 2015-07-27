@@ -1,4 +1,4 @@
-angular.module('calendarModule').controller('calendarController', ['$scope', 'threeMonthList', '$modal', function ($scope, threeMonthList, $modal) {
+angular.module('calendarModule').controller('calendarController', ['$scope', '$location', 'threeMonthList', '$modal', function ($scope, $location, threeMonthList, $modal) {
     $scope.days = getThreeMonthDays();
     $scope.months = getThreeMonths();
     $scope.$on('ngRepeatFinished', function () {
@@ -26,8 +26,13 @@ angular.module('calendarModule').controller('calendarController', ['$scope', 'th
     };
 
     threeMonthList.getThreeMonthList().then(function (data) {
-        $scope.threeMonthTrainings = data;
+        dateTimeFormat(data);
         colorDayItems(data);
+        $scope.threeMonthTrainings = data;
         $scope.description = dayDescription(data);
     });
+
+    $scope.redirectToTrainingPage = function () {
+        $location.url('/ui/trainingPage/user');
+    };
 }]);

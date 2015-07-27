@@ -16,7 +16,12 @@
 .description {
     height: 50px;
     width: auto;
+    border-color: black;
     display: inline-block;
+}
+
+.descriptionItem {
+    padding-right: 20px;
 }
 
 .lineDescription {

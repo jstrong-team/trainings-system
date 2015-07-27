@@ -63,15 +63,6 @@ footer h5 {
     font-weight:900;
 }
 
-.border1{
-    /*background-color:#c7ddef ;*/
-    margin-top:15px;
-    /*margin-left:7px;*/
-    /*margin-right:7px;*/
-    /*border: 2px solid #c7ddef;*/
-    border-radius: 10px;
-}
-
 .overflow {
     overflow: auto;
     height: 400px;
@@ -79,32 +70,16 @@ footer h5 {
     background-color:white;
 }
 
-.searchText {
-    color:#555555;
-    font-size:14px;
-    align-items: center;
-    margin-top:10px;
-    font-weight:500;
-    /*height:200px;*/
-}
-
-
-
-.searchText a{
-    color:blue;
-    font-size:15px;
-    align-items: center;
-    font-weight:700;
-}
-
-
-
 .logo {
     color:white;
     font-size:34px;
     font-style: italic;
     align-items: center;
     font-weight:900;
+}
+
+.dateTime {
+    padding-top: 10px;
 }
 
 .logo:link, .logo:hover, .logo:active, .logo:visited {

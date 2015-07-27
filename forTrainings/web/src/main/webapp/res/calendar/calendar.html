@@ -29,7 +29,8 @@
                     <div ng-repeat="line in description">
                         <div class="lineDescription">
                             <div ng-repeat="item in line" class="description">
-                                <div class="description">{{item.name}}<br>{{item.date}}</div>
+                                <div class="descriptionItem"><strong><a href="" ng-click="redirectToTrainingPage()">{{item.name}}</a></strong><br>
+                                    <span class="glyphicon glyphicon-calendar" style="color: grey"></span> {{item.dateTime}} {{item.time}}</div>
                             </div>
                         </div>
                         <hr>

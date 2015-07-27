@@ -73,6 +73,13 @@ function getThreeMonths () {
     return result;
 }
 
+function dateTimeFormat (data) {
+    for (var i = 0; i < data.length; ++i) {
+        data[i].time = moment(data[i].date).format('HH:mm');
+        data[i].dateTime = moment(data[i].date).format('DD MMMM');
+    }
+}
+
 function colorDayItems (data) {
     var regexp = new RegExp('\\d\\d\\d\\d-\\d\\d-\\d\\d');
     for (var i = 0; i < data.length; ++i) {
