@@ -77,7 +77,7 @@ public class TrainingStorageSpringController {
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/addemployeefeedback", method = RequestMethod.POST)
     public void addFeedback(@RequestBody EmployeeFeedback ef, HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
         Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
