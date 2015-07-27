@@ -138,9 +138,6 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             Training training = getById(Training.class, trainingId);
             Hibernate.initialize(training.getSubscribes());
             List<Subscribe> subscribers = training.getSubscribes();
-            for (Subscribe s : subscribers) {
-                Hibernate.initialize(s.getEmployee());
-            }
             return subscribers;
         } catch (Throwable e){
             e.printStackTrace();

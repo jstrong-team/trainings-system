@@ -60,15 +60,15 @@ public class Employee {
 //    private List<Subscribe> subscribes;
 
     public List<Subscribe> getSubscribe() {
-        return subscribe;
+        return subscribes;
     }
 
     public void setSubscribe(List<Subscribe> subscribe) {
-        this.subscribe = subscribe;
+        this.subscribes = subscribe;
     }
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
-    private List<Subscribe> subscribe;
+    private List<Subscribe> subscribes;
 
     public Employee() {
     }

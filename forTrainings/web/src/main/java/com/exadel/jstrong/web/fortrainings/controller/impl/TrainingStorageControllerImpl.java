@@ -1,9 +1,6 @@
 package com.exadel.jstrong.web.fortrainings.controller.impl;
 
-import com.exadel.jstrong.fortrainings.core.dao.EmployeeFeedbackDAO;
-import com.exadel.jstrong.fortrainings.core.dao.MeetDAO;
-import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
-import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
+import com.exadel.jstrong.fortrainings.core.dao.*;
 import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Meet;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
@@ -33,6 +30,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     private SubscribeDAO sDAO;
     @Autowired
     private EmployeeFeedbackDAO emDAO;
+    @Autowired
+    private EmployeeDAO eDAO;
 
     @Override
     public void addTraining(Training training) {
@@ -123,7 +122,13 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     @Override
     public List<SubscriberUI> getSubscribers(int tId) {
         List<Subscribe> subscribers = tDAO.getSubscribers(tId);
-        return null;
+        List<SubscriberUI> subscribersUI = new ArrayList<>();
+        SubscriberUI subscriber = null;
+        for (Subscribe s: subscribers){
+            subscriber = new SubscriberUI(s.getId(), eDAO.getNameById(s.getEmployeeId()), s.getStatus(), s.getAddDate());
+            subscribersUI.add(subscriber);
+        }
+        return subscribersUI;
     }
 
 

@@ -1,7 +1,5 @@
 package com.exadel.jstrong.web.fortrainings.model;
 
-import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
-
 /**
  * Created by Maria on 24.07.2015.
  */
@@ -9,15 +7,17 @@ public class SubscriberUI {
 
     private int id;
     private String name;
-    private SubscribeStatus status;
+    private String status;
+    private String date;
 
     public SubscriberUI() {
     }
 
-    public SubscriberUI(int id, String name, SubscribeStatus status) {
+    public SubscriberUI(int id, String name, String status, String date) {
         this.id = id;
         this.name = name;
         this.status = status;
+        this.date = date;
     }
 
     public int getId() {
@@ -36,11 +36,11 @@ public class SubscriberUI {
         this.name = name;
     }
 
-    public SubscribeStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(SubscribeStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }
