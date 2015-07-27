@@ -1,5 +1,5 @@
 angular.module('trainingPageModule', []).config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/ui/trainingPage/:trainingId', {
+    $routeProvider.when('/ui/trainingPage/user/:trainingId', {
         templateUrl: 'res/trainingpage/user/training.html',
         controller: 'trainingPageController',
         resolve: {
