@@ -6,6 +6,7 @@ import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
 import com.exadel.jstrong.web.fortrainings.model.SearchEventUI;
+import com.exadel.jstrong.web.fortrainings.model.TrainingsUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +27,7 @@ public class TrainingsControllerImpl implements TrainingsController {
     }
 
     @Override
-    public List<Event> getAllTrainings(int userId) {
+    public TrainingsUI getAllTrainings(int userId) {
         Calendar calendarDateFrom = Calendar.getInstance();
         calendarDateFrom.set(Calendar.DAY_OF_MONTH, 1);
         calendarDateFrom.set(Calendar.HOUR, 0);
@@ -42,13 +43,25 @@ public class TrainingsControllerImpl implements TrainingsController {
         Date dateTo = calendarDateTo.getTime();
         String stringDateTo = dateFormat.format(dateTo);
 
-        //List<Event> userEvents = trainingDAO.getUserTrainingsLast3MonthIsUser(userId, stringDateFrom, stringDateTo);
         List<Event> events = trainingDAO.getTrainingsInDateScope(userId, stringDateFrom, stringDateTo);
-//        for(Event event : userEvents) {
-//            event.setIsUser(true);
-//        }
-//        userEvents.addAll(notUserEvents);
-        return events;
+        TrainingsUI tUI = new TrainingsUI();
+        tUI.setActualTrainingsHistory(events);
+
+        calendarDateTo = Calendar.getInstance();
+        calendarDateTo.set(Calendar.DAY_OF_MONTH, 1);
+        calendarDateTo.set(Calendar.HOUR, 0);
+        calendarDateTo.set(Calendar.MINUTE, 0);
+        calendarDateTo.set(Calendar.SECOND, 0);
+        dateTo = calendarDateTo.getTime();
+        stringDateTo = dateFormat.format(dateTo);
+        calendarDateFrom = calendarDateTo;
+        calendarDateFrom.set(Calendar.MONTH, currentMonth - 1);
+        dateTo = calendarDateFrom.getTime();
+        stringDateFrom = dateFormat.format(dateTo);
+        events = trainingDAO.getTrainingsInDateScope(userId, stringDateFrom, stringDateTo);
+        tUI.setPastTrainingsHistory(events);
+
+        return tUI;
     }
 
     @Override

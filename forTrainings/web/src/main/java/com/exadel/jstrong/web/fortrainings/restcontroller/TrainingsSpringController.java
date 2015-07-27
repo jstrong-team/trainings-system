@@ -4,6 +4,7 @@ import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
 import com.exadel.jstrong.web.fortrainings.model.SearchEventUI;
+import com.exadel.jstrong.web.fortrainings.model.TrainingsUI;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,16 +33,16 @@ public class TrainingsSpringController {
     private TrainingsController trainingsController;
 
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody List<Event> getHistory(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public @ResponseBody TrainingsUI getHistory(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
             int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
-            List<Event> events = trainingsController.getAllTrainings(id);
-            if(events == null) {
+            TrainingsUI trainingsUI = trainingsController.getAllTrainings(id);
+            if(trainingsUI == null) {
                 response.sendError(HttpServletResponse.SC_NO_CONTENT, "No data about events in db");
             }
             else {
-                return events;
+                return trainingsUI;
             }
         } catch (Exception e){
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
