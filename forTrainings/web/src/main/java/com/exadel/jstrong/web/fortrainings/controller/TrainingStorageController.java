@@ -3,6 +3,7 @@ package com.exadel.jstrong.web.fortrainings.controller;
 import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.exadel.jstrong.web.fortrainings.model.EmployeeFeedbackUI;
 import com.exadel.jstrong.web.fortrainings.model.SubscriberUI;
 import com.exadel.jstrong.web.fortrainings.model.TrainingUI;
 
@@ -17,6 +18,6 @@ public interface TrainingStorageController {
     boolean check(int uId, int tId);
     void addEmployeeFeedback(EmployeeFeedback ef);
     List<SubscriberUI> getSubscribers(int id);
-    List<EmployeeFeedback> getEmployeeFeedback(int id);
+    List<EmployeeFeedbackUI> getEmployeeFeedback(int id);
 }
 

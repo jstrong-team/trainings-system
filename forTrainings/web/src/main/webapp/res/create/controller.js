@@ -60,7 +60,7 @@
                     i = 0;
                     while (iterationDay.date() < moment($scope.lastDate).date() - 7) {
                         iterationDay = iterationDay.day(iterationDay.day() + i);
-                        var result = iterationDay.format('YYYY-MM-DD HH:mm:ss');
+                        var result = iterationDay.format('YYYY-MM-DD HH:mm');
                         $scope.createInfo.date.push(result);
                         i = 7;
                     }

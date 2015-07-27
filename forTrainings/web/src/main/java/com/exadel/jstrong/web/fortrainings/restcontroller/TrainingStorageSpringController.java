@@ -4,6 +4,7 @@ import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
+import com.exadel.jstrong.web.fortrainings.model.EmployeeFeedbackUI;
 import com.exadel.jstrong.web.fortrainings.model.SubscriberUI;
 import com.exadel.jstrong.web.fortrainings.model.TrainingUI;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
@@ -95,22 +96,14 @@ public class TrainingStorageSpringController {
         }
     }
 
-    @RequestMapping(value = "/kola2", method = RequestMethod.GET)
-    public @ResponseBody List<EmployeeFeedback> getFeedbacks(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/feedbacks", method = RequestMethod.GET)
+    public @ResponseBody List<EmployeeFeedbackUI> getFeedbacks(HttpServletRequest request, HttpServletResponse response) {
         try {
             int trainingId = Integer.parseInt(request.getParameter("id"));
-            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-            int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
-            //who can see anonimys/
-            //is admin?
-            //is trainer?
-            //is simple user
-
-            /*getFeedbacks*/
+            //ADMIN!!!
             return tsci.getEmployeeFeedback(trainingId);
         } catch (Exception e) {
             e.printStackTrace();
-            //response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
         return null;
     }
@@ -119,6 +112,18 @@ public class TrainingStorageSpringController {
     public @ResponseBody List<SubscriberUI> getSubscribers(HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
         return tsci.getSubscribers(trainingId);
+    }
+
+    @RequestMapping(value = "/role", method = RequestMethod.GET)
+    public @ResponseBody String getRole(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        int trainingId = Integer.parseInt(request.getParameter("id"));
+        if(tsci.isTrainer(userId, trainingId)) {
+            return "trainer";
+        } else {
+            return "user";
+        }
     }
 
 }
