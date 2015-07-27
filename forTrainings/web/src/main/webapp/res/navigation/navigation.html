@@ -48,13 +48,12 @@
         <div class="searchText row" ng-repeat="training in searchResponse">
             <div class="col-md-1"></div>
             <div class="col-md-8">
-                <h4><a href="/ui/trainingPage/user">{{training.name}}</a></h4>
+                <h4><a href ng-click="redirectToTrainingPage()">{{training.name}}</a></h4>
             </div>
             <div class="col-md-3">
                 <div class="dateTime">
-                    <span class="glyphicon glyphicon-calendar" style="color: grey"></span>
-                    <span class="glyphicon glyphicon-time" style="color: grey"></span>
-                    {{training.date}}
+                    <span class="glyphicon glyphicon-calendar" style="color: grey"></span> {{training.dateTime}} {{training.year}}
+                    <span class="glyphicon glyphicon-time" style="color: grey"></span> {{training.time}}
                 </div>
             </div>
             <div class="col-md-1"></div>
