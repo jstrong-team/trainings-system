@@ -4,3 +4,7 @@
 .modalBackground{
     opacity: 1 !important;
 }
+
+.modal-open {
+    overflow-y: scroll;
+}
