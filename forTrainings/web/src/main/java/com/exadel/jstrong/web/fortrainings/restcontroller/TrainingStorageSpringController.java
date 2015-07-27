@@ -5,6 +5,7 @@ import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.EmployeeFeedbackUI;
+import com.exadel.jstrong.web.fortrainings.model.RoleUI;
 import com.exadel.jstrong.web.fortrainings.model.SubscriberUI;
 import com.exadel.jstrong.web.fortrainings.model.TrainingUI;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
@@ -115,15 +116,17 @@ public class TrainingStorageSpringController {
     }
 
     @RequestMapping(value = "/role", method = RequestMethod.GET)
-    public @ResponseBody String getRole(HttpServletRequest request, HttpServletResponse response) {
+    public @ResponseBody RoleUI getRole(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
         int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
         int trainingId = Integer.parseInt(request.getParameter("id"));
+        RoleUI role = new RoleUI();
         if(tsci.isTrainer(userId, trainingId)) {
-            return "trainer";
+            role.setRole("trainer");
         } else {
-            return "user";
+            role.setRole("user");
         }
+        return role;
     }
 
 }
