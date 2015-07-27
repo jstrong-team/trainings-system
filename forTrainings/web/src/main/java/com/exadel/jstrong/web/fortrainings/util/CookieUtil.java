@@ -43,8 +43,8 @@ public class CookieUtil {
     }
 
     public static int getTrainingIdFromURL(String url) {
-        String token = url.substring(url.lastIndexOf('/'), url.length());
-        return (Integer.valueOf(token.substring(2, token.length() - 2)));
+        String token = url.substring(url.lastIndexOf('/') + 1, url.length());
+        return (Integer.valueOf(token));
     }
 
     public static int getUserId(HttpServletRequest request) {

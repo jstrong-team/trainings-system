@@ -10,6 +10,7 @@ import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
+import com.exadel.jstrong.web.fortrainings.model.EmployeeFeedbackUI;
 import com.exadel.jstrong.web.fortrainings.model.SubscriberUI;
 import com.exadel.jstrong.web.fortrainings.model.TrainingUI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,8 +110,14 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     @Override
-    public List<EmployeeFeedback> getEmployeeFeedback(int tId) {
-        return null;
+    public List<EmployeeFeedbackUI> getEmployeeFeedback(int tId) {
+        List<EmployeeFeedback> employeeFeedbacks = emDAO.getAllFeedbacks(tId);
+        List<EmployeeFeedbackUI> employeeFeedbackUIs = new ArrayList<EmployeeFeedbackUI>();
+        for(EmployeeFeedback ef :employeeFeedbacks) {
+            EmployeeFeedbackUI efUI = new EmployeeFeedbackUI(ef.getId(),ef.getEmployeeId(),ef.getTrainingId(),ef.getAddDate(),ef.isUnderstand(),ef.isInterested(),ef.isContinueWithThisTrainer(),ef.isSmthNew(),ef.isRecommend(),ef.getRate(),ef.getOther());
+            employeeFeedbackUIs.add(efUI);
+        }
+        return employeeFeedbackUIs;
     }
 
     @Override

@@ -8,8 +8,7 @@
 
        <context:annotation-config/>
        <mvc:annotation-driven/>
+
        <context:component-scan base-package="com.exadel.jstrong.web.fortrainings"/>
        <bean name="AuthenticationFilterBean" class="com.exadel.jstrong.web.fortrainings.filters.AuthenticationFilter"/>
-       <bean name="TrainingsFilterBean" class="com.exadel.jstrong.web.fortrainings.filters.TrainingsFilter"/>
-       <!--<context:component-scan base-package="com.exadel.jstrong.web.fortrainings.controller"/>-->
 </beans>
