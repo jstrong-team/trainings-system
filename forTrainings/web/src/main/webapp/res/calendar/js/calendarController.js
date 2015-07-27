@@ -3,6 +3,13 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
     $scope.months = getThreeMonths();
     $scope.$on('ngRepeatFinished', function () {
         markCurrentDay();
+        threeMonthList.getThreeMonthList().then(function (data) {
+            dateTimeFormat(data);
+            colorDayItems(data);
+            $scope.threeMonthTrainings = data;
+            $scope.description = dayDescription(data);
+        });
+
     });
 
     $scope.openModal = function (data) {
@@ -24,13 +31,6 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
             }
         });
     };
-
-    threeMonthList.getThreeMonthList().then(function (data) {
-        dateTimeFormat(data);
-        colorDayItems(data);
-        $scope.threeMonthTrainings = data;
-        $scope.description = dayDescription(data);
-    });
 
     $scope.redirectToTrainingPage = function () {
         $location.url('/ui/trainingPage/user');
