@@ -1,6 +1,5 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
-import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
 import com.exadel.jstrong.web.fortrainings.model.SearchEventUI;
@@ -45,6 +44,7 @@ public class TrainingsSpringController {
                 return trainingsUI;
             }
         } catch (Exception e){
+            e.printStackTrace();
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
         return null;

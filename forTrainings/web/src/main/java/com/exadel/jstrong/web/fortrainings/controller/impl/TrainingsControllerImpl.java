@@ -4,6 +4,7 @@ import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.dao.impl.TrainingDAOImpl;
 import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.exadel.jstrong.fortrainings.core.model.comparator.EventComp;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
 import com.exadel.jstrong.web.fortrainings.model.SearchEventUI;
 import com.exadel.jstrong.web.fortrainings.model.TrainingsUI;
@@ -11,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class TrainingsControllerImpl implements TrainingsController {
@@ -59,6 +57,7 @@ public class TrainingsControllerImpl implements TrainingsController {
         dateTo = calendarDateFrom.getTime();
         stringDateFrom = dateFormat.format(dateTo);
         events = trainingDAO.getTrainingsInDateScope(userId, stringDateFrom, stringDateTo);
+        Collections.sort(events, new EventComp());
         tUI.setPastTrainingsHistory(events);
 
         return tUI;
