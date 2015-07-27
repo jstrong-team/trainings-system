@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,10 @@ public abstract class BaseDAO<T> implements GenericDAO<T>{
     protected EntityManager em;
 
     @Override
-    public List<T> getAll() {
-        return null;
+    public List<T> getAll(Class<T> entityClass) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<T> query = cb.createQuery(entityClass);
+        return executeQuery(query);
     }
 
     @Override
@@ -59,4 +62,12 @@ public abstract class BaseDAO<T> implements GenericDAO<T>{
         }
     }
 
+    @Override
+    public T getById(Class<T> entityClass, int id) {
+        return em.find(entityClass, id);
+    }
+
+    public static String getCorrectDate(String date){
+        return date.substring(0, date.indexOf('.'));
+    }
 }

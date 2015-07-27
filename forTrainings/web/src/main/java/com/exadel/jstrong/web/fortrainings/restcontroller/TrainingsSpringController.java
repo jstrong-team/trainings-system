@@ -1,9 +1,9 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
 import com.exadel.jstrong.fortrainings.core.model.Event;
-import com.exadel.jstrong.fortrainings.core.model.SearchEvent;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
+import com.exadel.jstrong.web.fortrainings.model.SearchEventUI;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,10 +67,10 @@ public class TrainingsSpringController {
     }
 
     @RequestMapping(value = "/searchTrainings", method = RequestMethod.GET)
-    public @ResponseBody List<SearchEvent> getSearch(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public @ResponseBody List<SearchEventUI> getSearch(HttpServletRequest request, HttpServletResponse response) throws IOException {
             try {
             String str = request.getParameter("search");
-            List<SearchEvent> events = trainingsController.getSearchData(str);
+            List<SearchEventUI> events = trainingsController.getSearchData(str);
             if(events == null) {
                 response.sendError(HttpServletResponse.SC_NO_CONTENT, "No data about events in db");
             }

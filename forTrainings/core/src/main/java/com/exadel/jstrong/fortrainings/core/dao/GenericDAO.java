@@ -10,6 +10,6 @@ public interface GenericDAO<T> {
     boolean save (T entity);
     boolean delete (T entity);
     T update (T entity);
-    List<T> getAll();
-
+    List<T> getAll(Class<T> entityClass);
+    T getById(Class<T> entityClass, int id);
 }

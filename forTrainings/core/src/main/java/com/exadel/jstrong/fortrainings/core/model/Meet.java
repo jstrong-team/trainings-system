@@ -1,6 +1,7 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity
@@ -8,7 +9,8 @@ import javax.persistence.*;
 public class Meet {
 
     @Column
-    private String date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,6 +19,10 @@ public class Meet {
 
     @Column
     private int training_id;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "training_id", insertable = false, updatable = false)
+    private Training training;
 
     public int getId() {
         return id;
@@ -34,11 +40,19 @@ public class Meet {
         this.training_id = training_id;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Training getTraining() {
+        return training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
     }
 }

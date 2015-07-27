@@ -4,9 +4,10 @@ import com.exadel.jstrong.fortrainings.core.dao.EmployeeFeedbackDAO;
 import com.exadel.jstrong.fortrainings.core.dao.MeetDAO;
 import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
-import com.exadel.jstrong.fortrainings.core.dao.impl.MeetDAOImpl;
-import com.exadel.jstrong.fortrainings.core.dao.impl.TrainingDAOImpl;
-import com.exadel.jstrong.fortrainings.core.model.*;
+import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
+import com.exadel.jstrong.fortrainings.core.model.Meet;
+import com.exadel.jstrong.fortrainings.core.model.Subscribe;
+import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.SubscriberUI;
@@ -40,7 +41,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         Meet meet = new Meet();
         for (int i = 0; i<size;i++){
             meet.setTraining_id(id);
-            meet.setDate(dates.get(i));
+            //meet.setDate(dates.get(i));
             mDAO.add(meet);
         }
     }
@@ -52,7 +53,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<String> dates = new ArrayList<String>(size);
         String date = "";
         for (int i = 0; i < size; i++){
-            date = date.concat(meets.get(i).getDate());
+            //date = date.concat(meets.get(i).getDate());
             dates.add(date.substring(0, date.indexOf('.')));
             date = "";
         }

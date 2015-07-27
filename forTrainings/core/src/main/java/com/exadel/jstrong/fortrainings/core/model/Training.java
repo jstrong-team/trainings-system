@@ -48,6 +48,9 @@ public class Training {
     @Transient
     private List<String> date;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "training")
+    private List<Meet> meets;
+
     @Transient
     private boolean isSubscribe;
 
@@ -62,6 +65,14 @@ public class Training {
 
     public Training() {
         date = new ArrayList<>();
+    }
+
+    public List<Meet> getMeets() {
+        return meets;
+    }
+
+    public void setMeets(List<Meet> meets) {
+        this.meets = meets;
     }
 
     public void setDate(List<String> date){

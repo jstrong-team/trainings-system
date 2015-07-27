@@ -22,7 +22,6 @@ public class Event {
     }
 
     @Column
-
     private int training_id;
 
     @Column

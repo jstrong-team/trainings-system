@@ -4,14 +4,12 @@ import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Event;
-import com.exadel.jstrong.fortrainings.core.model.SearchEvent;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -24,26 +22,22 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     private static Logger logger = Logger.getLogger(TrainingDAOImpl.class.getName());
 
     @Override
-    public List<Event> getUserTrainingsLast3Month (int userId, String dateFrom, String dateTo) {
+    public List<Event> getTrainingsInDateScope(int userId, String dateFrom, String dateTo) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         List<Event> events = null;
         try {
-            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
             CriteriaQuery<Event> query = criteriaBuilder.createQuery(Event.class);
             Root<Event> root = query.from(Event.class);
             query.where(criteriaBuilder.between(root.<String>get("date"), dateFrom, dateTo));
             query.orderBy(criteriaBuilder.asc(root.get("date")));
             events = em.createQuery(query).getResultList();
 
-            String date = "";
             List<Integer> ids = (List<Integer>) em.createNativeQuery("SELECT training_id FROM subscribe WHERE employee_id = :id").setParameter("id", userId).getResultList();
-            Event event = null;
+            Event event;
             for(int i = 0; i < events.size(); i++) {
-                System.out.println(events.get(i).getDate());
                 event = events.get(i);
                 event.setIsSubscribe(ids.contains(event.getTraining_id()));
-                date = date.concat(event.getDate());
-                event.setDate(date.substring(0, date.length() - 2));
-                date = "";
+                event.setDate(getCorrectDate(event.getDate()));
             }
         } catch(Throwable e) {
             e.printStackTrace();
@@ -53,21 +47,25 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     }
 
     @Override
-    public List<SearchEvent> getSearchResponse(String st) {
-
-        Query query = em.createNativeQuery("SELECT meet.id, training.id as training_id, training.name, training.annotation, training.description, meet.date from  training join meet on meet.training_id = training.id where training.name like '%" + st + "%' or training.annotation like '%" + st + "%' or training.description like '%" + st + "%' order by meet.date", SearchEvent.class);
-
-        List<SearchEvent> events = query.getResultList();
-        String date = "";
-        SearchEvent event = null;
-        for(int i = 0; i < events.size(); i++) {
-            event = events.get(i);
-            date = date.concat(event.getDate());
-            event.setDate(date.substring(0, date.indexOf('.')));
-            date = "";
+    @Transactional
+    public List<Training> getSearchResponse(String st) {
+        List<Training> trainings = null;
+        try {
+            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+            CriteriaQuery<Training> query = criteriaBuilder.createQuery(Training.class);
+            Root<Training> root = query.from(Training.class);
+            Predicate p1 = criteriaBuilder.like(root.<String>get("name"), "%" + st + "%");
+            Predicate p2 = criteriaBuilder.like(root.<String>get("annotation"), "%" + st + "%");
+            Predicate p3 = criteriaBuilder.like(root.<String>get("description"), "%" + st + "%");
+            query.where(criteriaBuilder.or(p1, p2, p3));
+            trainings = em.createQuery(query).getResultList();
+            for (Training t: trainings){
+                t.getMeets().size();
+            }
+        } catch(Throwable e){
+            e.printStackTrace();
         }
-        return events;
-
+        return trainings;
     }
 
     @Override

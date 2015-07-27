@@ -20,8 +20,9 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
         return employee;
     }
 
+    @Override
     public String getNameById(int id){
-        Query query = em.createQuery("SELECT name FROM employee WHERE id = :id").setParameter("id", id);
+        Query query = em.createQuery("SELECT name FROM Employee WHERE id = :id").setParameter("id", id);
         return (String)query.getSingleResult();
     }
 }

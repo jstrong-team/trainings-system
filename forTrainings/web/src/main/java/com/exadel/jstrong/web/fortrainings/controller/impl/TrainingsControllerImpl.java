@@ -3,12 +3,14 @@ package com.exadel.jstrong.web.fortrainings.controller.impl;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.dao.impl.TrainingDAOImpl;
 import com.exadel.jstrong.fortrainings.core.model.Event;
-import com.exadel.jstrong.fortrainings.core.model.SearchEvent;
+import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
+import com.exadel.jstrong.web.fortrainings.model.SearchEventUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +43,7 @@ public class TrainingsControllerImpl implements TrainingsController {
         String stringDateTo = dateFormat.format(dateTo);
 
         //List<Event> userEvents = trainingDAO.getUserTrainingsLast3MonthIsUser(userId, stringDateFrom, stringDateTo);
-        List<Event> events = trainingDAO.getUserTrainingsLast3Month(userId, stringDateFrom, stringDateTo);
+        List<Event> events = trainingDAO.getTrainingsInDateScope(userId, stringDateFrom, stringDateTo);
 //        for(Event event : userEvents) {
 //            event.setIsUser(true);
 //        }
@@ -50,8 +52,10 @@ public class TrainingsControllerImpl implements TrainingsController {
     }
 
     @Override
-    public List<SearchEvent> getSearchData(String str) {
-        return trainingDAO.getSearchResponse(str);
+    public List<SearchEventUI> getSearchData(String str) {
+        List<Training> trainings =  trainingDAO.getSearchResponse(str);
+        List<SearchEventUI> events = new ArrayList<>();
+        return events;
     }
 
 }
