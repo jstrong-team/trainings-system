@@ -92,9 +92,9 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         s.setAddDate(dateFormat.format(date));
 
         if(tDAO.isApprove(tId)) {
-            s.setStatus(SubscribeStatus.APPROVE);
+            s.setStatus(SubscribeStatus.APPROVE.toString());
         } else {
-            s.setStatus(SubscribeStatus.WAIT);
+            s.setStatus(SubscribeStatus.WAIT.toString());
         }
         return s;
     }
@@ -122,19 +122,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
     @Override
     public List<SubscriberUI> getSubscribers(int tId) {
-        /*Training training = tDAO.getTrainingById(tId);
-        List<SubscriberUI> subscriberUIs = new ArrayList<>();
-        SubscriberUI subscriberUI = new SubscriberUI();
-        Employee employee = null;
-        List<Subscribe> subscribes = training.getSubscribes();
-        for(Subscribe s: subscribes) {
-            employee = s.getEmployee();
-            subscriberUI.setId(employee.getId());
-            subscriberUI.setName(employee.getName());
-            subscriberUI.setStatus(s.getStatus());
-            subscriberUIs.add(subscriberUI);
-        }
-        return subscriberUIs;*/
+        List<Subscribe> subscribers = tDAO.getSubscribers(tId);
         return null;
     }
 

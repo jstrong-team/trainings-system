@@ -22,18 +22,25 @@ public class EmployeeFeedback {
     @Column(name = "add_date")
     private String addDate;
 
+    @Column
     private boolean understand;
 
+    @Column
     private boolean interested;
 
+    @Column
     private boolean continueWithThisTrainer;
 
+    @Column
     private boolean smthNew;
 
+    @Column
     private boolean recommend;
 
+    @Column
     private int rate;
 
+    @Column
     private String other;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

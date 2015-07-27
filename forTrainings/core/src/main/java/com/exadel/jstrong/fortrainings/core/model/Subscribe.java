@@ -1,7 +1,5 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
-import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
-
 import javax.persistence.*;
 
 /**
@@ -21,9 +19,9 @@ public class Subscribe {
     @Column(name = "training_id")
     private int trainingId;
 
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private SubscribeStatus status;
+    private String status;
 
     @Column(name = "add_date")
     private String addDate;
@@ -39,6 +37,20 @@ public class Subscribe {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id", insertable = false, updatable = false)
     private Employee employee;
+
+    public Training getTraining() {
+        return training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "training_id", insertable = false, updatable = false)
+    private Training training;
+
+
 
 //    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    @JoinColumn(name = "training_id", insertable = false, updatable = false)
@@ -75,11 +87,11 @@ public class Subscribe {
         this.trainingId = trainingId;
     }
 
-    public SubscribeStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(SubscribeStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

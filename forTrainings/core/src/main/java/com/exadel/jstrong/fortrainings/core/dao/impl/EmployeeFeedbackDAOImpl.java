@@ -27,7 +27,7 @@ public class EmployeeFeedbackDAOImpl extends BaseDAO<EmployeeFeedback> implement
         try {
             CriteriaQuery<EmployeeFeedback> query = em.getCriteriaBuilder().createQuery(EmployeeFeedback.class);
             Root<EmployeeFeedback> root = query.from(EmployeeFeedback.class);
-            query.where(root.get("training_id").in(trainingId));
+            query.where(root.<Integer>get("trainingId").in(trainingId));
             return em.createQuery(query).getResultList();
         } catch(Throwable e){
             e.printStackTrace();

@@ -54,14 +54,22 @@ public class Training {
     @Transient
     private boolean isSubscribe;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribeTrainings")
-    private List<Employee> subscribers;
+//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribeTrainings")
+//    private List<Employee> subscribers;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "training")
     private List<EmployeeFeedback> feedbacks;
 
-//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "training")
-//    private List<Subscribe> subscribes;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "training")
+    private List<Subscribe> subscribes;
+
+    public List<Subscribe> getSubscribes() {
+        return subscribes;
+    }
+
+    public void setSubscribes(List<Subscribe> subscribes) {
+        this.subscribes = subscribes;
+    }
 
     public Training() {
         date = new ArrayList<>();
@@ -179,13 +187,13 @@ public class Training {
         this.trainer_id = trainer_id;
     }
 
-    public List<Employee> getSubscribers() {
-        return subscribers;
-    }
-
-    public void setSubscribers(List<Employee> subscribers) {
-        this.subscribers = subscribers;
-    }
+//    public List<Employee> getSubscribers() {
+//        return subscribers;
+//    }
+//
+//    public void setSubscribers(List<Employee> subscribers) {
+//        this.subscribers = subscribers;
+//    }
 
     public List<EmployeeFeedback> getFeedbacks() {
         return feedbacks;
