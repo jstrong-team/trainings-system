@@ -28,11 +28,16 @@
             <span>Place:</span>{{training.place}}<p></p>
             <span>Duration:</span>{{training.date}}<p></p>
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <button type="button" class="btn btn-primary " ng-click="openModal()">Leave feedback/subscribe</button>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <button type="button" class="btn btn-danger " ng-click="">unsubscribe</button>
+                </div>
+                <div class="col-md-4 col-md-offset-1">
+                    <button type="button" class="btn btn-primary " ng-click="subscribe()">subscribe</button>
                 </div>
                 <!--<button type="button" class="btn btn-primary " ng-click="openModal()">Leave feedback/subscribe</button>-->
                 <!--<button type="button" class="btn btn-danger " ng-click="">unsubscribe</button>-->
