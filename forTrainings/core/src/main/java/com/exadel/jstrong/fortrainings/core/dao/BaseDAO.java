@@ -33,13 +33,13 @@ public abstract class BaseDAO<T> implements GenericDAO<T>{
     }
 
     @Transactional
-    public boolean save (T entity){
+    public T save (T entity){
         try {
             em.persist(entity);
-            return true;
+            return entity;
         } catch (Throwable e){
             logger.warn("Entity doesn't save");
-            return false;
+            return null;
         }
     }
 

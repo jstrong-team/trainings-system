@@ -76,7 +76,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     @Override
-    public boolean addSubscriber(Subscribe s) {
+    public int addSubscriber(Subscribe s) {
         return sDAO.addSubscribe(s);
     }
 

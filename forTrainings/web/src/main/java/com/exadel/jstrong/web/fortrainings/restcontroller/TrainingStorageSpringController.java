@@ -66,7 +66,7 @@ public class TrainingStorageSpringController {
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
             int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
             if(!tsci.isTrainer(userId, trainingId)) {
-                if(!tsci.addSubscriber(tsci.buildSubscriber(userId, trainingId))) {
+                if(tsci.addSubscriber(tsci.buildSubscriber(userId, trainingId))==0) {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 }
             } else {

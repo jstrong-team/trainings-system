@@ -28,6 +28,18 @@ public class Subscribe {
     @Column(name = "add_date")
     private String addDate;
 
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id", insertable = false, updatable = false)
+    private Employee employee;
+
 //    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    @JoinColumn(name = "training_id", insertable = false, updatable = false)
 //    private Training training;

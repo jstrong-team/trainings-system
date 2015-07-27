@@ -59,6 +59,17 @@ public class Employee {
 //    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
 //    private List<Subscribe> subscribes;
 
+    public List<Subscribe> getSubscribe() {
+        return subscribe;
+    }
+
+    public void setSubscribe(List<Subscribe> subscribe) {
+        this.subscribe = subscribe;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+    private List<Subscribe> subscribe;
+
     public Employee() {
     }
 

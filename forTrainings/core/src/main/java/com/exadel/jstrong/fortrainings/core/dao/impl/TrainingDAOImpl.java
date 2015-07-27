@@ -4,6 +4,7 @@ import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Event;
+import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
@@ -71,15 +72,14 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     @Transactional
     public int add (Training training){
-        training = em.merge(training);
+        training = super.update(training);
         return training.getId();
     }
 
     @Override
     @Transactional
     public Training getTrainingById(int id) {
-        Training tr = null;
-        tr = em.find(Training.class, id);
+        Training tr = getById(Training.class, id);
         Hibernate.initialize(tr.getFeedbacks());
         return tr;
     }
@@ -129,5 +129,10 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             rate += ef.getRate();
         }
         return rate / feedbacks.size();
+    }
+
+    @Override
+    public List<Subscribe> getSubscribers(int trainingId) {
+        return null;
     }
 }

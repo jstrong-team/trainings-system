@@ -14,8 +14,10 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
 
     @Override
     @Transactional
-    public boolean addSubscribe(Subscribe subscribe){
-        return super.save(subscribe);
+    public int addSubscribe(Subscribe subscribe){
+        return super.save(subscribe).getId();
     }
+
+
 
 }

@@ -24,10 +24,14 @@ public class EmployeeFeedbackDAOImpl extends BaseDAO<EmployeeFeedback> implement
 
     @Override
     public List<EmployeeFeedback> getAllFeedbacks(int trainingId) {
-        CriteriaQuery<EmployeeFeedback> query = em.getCriteriaBuilder().createQuery(EmployeeFeedback.class);
-        Root<EmployeeFeedback> root = query.from(EmployeeFeedback.class);
-        query.where(root.get("training_id").in(trainingId));
-        return em.createQuery(query).getResultList();
-
+        try {
+            CriteriaQuery<EmployeeFeedback> query = em.getCriteriaBuilder().createQuery(EmployeeFeedback.class);
+            Root<EmployeeFeedback> root = query.from(EmployeeFeedback.class);
+            query.where(root.get("training_id").in(trainingId));
+            return em.createQuery(query).getResultList();
+        } catch(Throwable e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

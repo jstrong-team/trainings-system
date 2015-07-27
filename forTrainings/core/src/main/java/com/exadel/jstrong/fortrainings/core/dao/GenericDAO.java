@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface GenericDAO<T> {
 
-    boolean save (T entity);
+    T save (T entity);
     boolean delete (T entity);
     T update (T entity);
     List<T> getAll(Class<T> entityClass);
