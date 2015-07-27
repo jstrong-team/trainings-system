@@ -54,4 +54,7 @@ public class TrainingsControllerImpl implements TrainingsController {
         return trainingDAO.getSearchResponse(str);
     }
 
+    @Override
+    public boolean isTrainer(int uId, int tId) {return trainingDAO.isTrainer(uId, tId);}
+
 }
