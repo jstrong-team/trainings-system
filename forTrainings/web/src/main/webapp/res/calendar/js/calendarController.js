@@ -36,6 +36,7 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
     });
 
     $scope.redirectToTrainingPage = function (id) {
+        console.log(id);
         $location.url('/ui/trainingPage/user/' + id);
     };
 }]);

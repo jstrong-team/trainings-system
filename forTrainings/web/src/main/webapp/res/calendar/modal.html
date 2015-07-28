@@ -6,7 +6,7 @@
         <div class="row" ng-repeat="training in curtrainings = (trainings | filter:date)" >
             <div>
                 <div class="col-md-8 ">
-                    <h4><a href ng-click="redirectToTrainingPage(training.id)"> {{training.name}} </a></h4>
+                    <h4><a href ng-click="redirectToTrainingPage(training.training_id)"> {{training.name}} </a></h4>
                     {{training.annotation}}
                 </div>
                 <div class="col-md-4" style="padding-top: 2%">
