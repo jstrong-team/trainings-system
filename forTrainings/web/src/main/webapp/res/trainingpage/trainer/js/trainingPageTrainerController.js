@@ -1,6 +1,10 @@
-angular.module('trainingPageTrainerModule').controller('trainingPageTrainerController',['$scope','getTrainingInfo','getSubscribersService','getFeedbacksService', function($scope,getTrainingInfo,getSubscribersService,getFeedbacksService) {
+angular.module('trainingPageTrainerModule').controller('trainingPageTrainerController',['$scope','$location','getTrainingInfo','getSubscribersService','getFeedbacksService','editTrainingService', function($scope,$location,getTrainingInfo,getSubscribersService,getFeedbacksService,editTrainingService) {
 
     $scope.isCollapsed = false;
+
+    $scope.editTraining=function (){
+        $location.url('/ui/trainingPage/edit/'+$scope.training.id);
+    };
 
     getTrainingInfo().then(function(data, status, headers, config) {
         $scope.training=data.data;

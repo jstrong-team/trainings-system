@@ -56,7 +56,6 @@ angular.module('trainingPageModule').controller('trainingPageController', ['$sco
             $scope.training.dateTime.push(moment($scope.training.dates[j]).format('DD MMMM'));
             $scope.training.year.push(moment($scope.training.dates[j]).format('YYYY'));
         }
-        //$scope.subscribers = [];
         getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
             $scope.subscribers=data.data;
         }, function (error) {
