@@ -1,5 +1,5 @@
 angular.module('trainingPageTrainerModule', []).config(function($routeProvider) {
-    $routeProvider.when('/ui/trainingPage/trainer', {
+    $routeProvider.when('/ui/trainingPage/trainer/:trainingId', {
         templateUrl: 'res/trainingpage/trainer/training.html',
         controller: 'trainingPageTrainerController',
         resolve: {
@@ -13,7 +13,7 @@ angular.module('trainingPageTrainerModule', []).config(function($routeProvider) 
                 });
                 return  function() {
                     return def.promise;
-                }
+                };
             }]
         }
     });

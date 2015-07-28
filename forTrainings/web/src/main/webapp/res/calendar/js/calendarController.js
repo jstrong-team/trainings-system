@@ -31,7 +31,6 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
             $scope.threeMonthTrainings = data.actualTrainingsHistory;
             $scope.description = dayDescription(data.actualTrainingsHistory);
             $scope.pastTrainingHistory = data.pastTrainingsHistory
-            console.log(data.pastTrainingsHistory);
         });
 
     });
