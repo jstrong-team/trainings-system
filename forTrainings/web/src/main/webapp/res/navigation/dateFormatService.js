@@ -1,7 +1,5 @@
 angular.module('navigationModule').factory('dateFormatService', [function() {
     var result = function(data) {
-        console.log('__________________________________________2_');
-        console.log(data);
         for (var i = 0; i < data.length; ++i) {
             data[i].time=[];
             data[i].dateTime=[];
@@ -12,7 +10,6 @@ angular.module('navigationModule').factory('dateFormatService', [function() {
                 data[i].year.push(moment(data[i].dates[j]).format('YYYY'));
             }
         }
-        console.log('___________________________________________');
     };
     return result;
 }]);

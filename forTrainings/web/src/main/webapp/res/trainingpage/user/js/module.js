@@ -3,9 +3,29 @@ angular.module('trainingPageModule', []).config(['$routeProvider', function ($ro
         templateUrl: 'res/trainingpage/user/training.html',
         controller: 'trainingPageController',
         resolve: {
-            getTrainingInfo: ['$http', '$q','$routeParams', function ($http, $q,$routeParams) {
+            getTrainingInfo: ['$http', '$q','$routeParams','$location','$route', function ($http, $q,$routeParams,$location,$route) {
                 var def = $q.defer();
-                console.log($routeParams.trainingId);
+                console.log($route.current.params.trainingId);
+                $http.get('rest/storagetraining/role?id=' + $route.current.params.trainingId).then(function (data, status, headers, config){
+                    if (data.data.role === 'user') {
+                        $location.url('/ui/trainingPage/user/' + $route.current.params.trainingId);
+                        $http.get('rest/storagetraining/getTraining?id='+$route.current.params.trainingId).then(function (data, status, headers, config) {
+                            console.log(data);
+                        }, function (error) {
+                            console.error(error);
+                        });
+
+                    } else if (data.data.role === 'trainer') {
+                        $location.url('/ui/trainingPage/trainer/' + $route.current.params.trainingId);
+                    } else {
+                        $location.url('/ui/trainings');
+                    }
+                }, function (error) {
+                    console.error(error);
+                });
+
+
+
                 $http.get('rest/trainings/searchTrainings?search=java').then(function (data, status, headers, config) {
                     def.resolve(data);
                 }, function (error) {

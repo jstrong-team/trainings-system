@@ -34,10 +34,12 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             events = em.createQuery(query).getResultList();
 
             List<Integer> ids = (List<Integer>) em.createNativeQuery("SELECT training_id FROM subscribe WHERE employee_id = :id").setParameter("id", userId).getResultList();
+            List<Integer> trainerIds = (List<Integer>)em.createNativeQuery("SELECT id FROM training WHERE trainer_id =:uId").setParameter("uId", userId).getResultList();
             Event event;
             for(int i = 0; i < events.size(); i++) {
                 event = events.get(i);
                 event.setIsSubscribe(ids.contains(event.getTraining_id()));
+                event.setIsTrainer(trainerIds.contains(event.getTraining_id()));
                 event.setDate(getCorrectDate(event.getDate()));
             }
         } catch(Throwable e) {
@@ -128,7 +130,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         for(EmployeeFeedback ef: feedbacks) {
             rate += ef.getRate();
         }
-        if (feedbacks.size() != 0) {
+        if(feedbacks.size() != 0) {
             return rate / feedbacks.size();
         } else {
             return 0;

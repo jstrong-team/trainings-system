@@ -1,5 +1,8 @@
 angular.module('trainingPageModule').controller('trainingPageController', ['$scope', 'getTrainingInfo', '$http', '$modal', '$routeParams', function ($scope, getTrainingInfo, $http, $modal, $routeParams) {
 
+    (function(){
+    })();
+
     $scope.training = {
         name: 'JAVA SUPER DUPER TRAINING',
         annotation: '$apply() is used to execute an expression in angular from outside of the angular framework. ' +
@@ -60,8 +63,6 @@ angular.module('trainingPageModule').controller('trainingPageController', ['$sco
     };
 
     getTrainingInfo().then(function (data, status, headers, config) {
-        console.log("----------------------------");
-        console.log($routeParams.trainingId);
         //console.log(data);
         //$scope.training=data.data[0];
         //$scope.trainingDate=new Date(data.data[0].date);

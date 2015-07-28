@@ -36,6 +36,17 @@ public class Event {
     @Transient
     private boolean isSubscribe;
 
+    @Transient
+    private boolean isTrainer;
+
+    public boolean isTrainer() {
+        return isTrainer;
+    }
+
+    public void setIsTrainer(boolean isTrainer) {
+        this.isTrainer = isTrainer;
+    }
+
     public Event() {
     }
 
