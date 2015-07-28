@@ -128,7 +128,11 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         for(EmployeeFeedback ef: feedbacks) {
             rate += ef.getRate();
         }
-        return rate / feedbacks.size();
+        if (feedbacks.size() != 0) {
+            return rate / feedbacks.size();
+        } else {
+            return 0;
+        }
     }
 
     @Override
