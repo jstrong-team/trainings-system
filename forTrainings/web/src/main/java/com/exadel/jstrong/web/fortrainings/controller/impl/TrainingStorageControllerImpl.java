@@ -53,7 +53,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<String> dates = new ArrayList<String>(size);
         String date = "";
         for (int i = 0; i < size; i++){
-            //date = date.concat(meets.get(i).getDate());
+            date = date.concat(meets.get(i).getDate());
             dates.add(date.substring(0, date.indexOf('.')));
             date = "";
         }
