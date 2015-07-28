@@ -31,6 +31,24 @@ public class EmployeeNamedFeedbackUI {
 
     private String other;
 
+    private boolean isDelete;
+
+    public EmployeeNamedFeedbackUI(int id, String name, int employeeId, int trainingId, String addDate, boolean understand, boolean interested, boolean continueWithThisTrainer, boolean smthNew, boolean recommend, int rate, String other, boolean isDelete) {
+        this.id = id;
+        this.name = name;
+        this.employeeId = employeeId;
+        this.trainingId = trainingId;
+        this.addDate = addDate;
+        this.understand = understand;
+        this.interested = interested;
+        this.continueWithThisTrainer = continueWithThisTrainer;
+        this.smthNew = smthNew;
+        this.recommend = recommend;
+        this.rate = rate;
+        this.other = other;
+        this.isDelete = isDelete;
+    }
+
     public int getId() {
         return id;
     }

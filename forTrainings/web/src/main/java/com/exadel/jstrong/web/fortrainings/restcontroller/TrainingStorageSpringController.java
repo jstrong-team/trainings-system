@@ -4,10 +4,7 @@ import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
-import com.exadel.jstrong.web.fortrainings.model.EmployeeFeedbackUI;
-import com.exadel.jstrong.web.fortrainings.model.RoleUI;
-import com.exadel.jstrong.web.fortrainings.model.SubscriberUI;
-import com.exadel.jstrong.web.fortrainings.model.TrainingUI;
+import com.exadel.jstrong.web.fortrainings.model.*;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -98,18 +95,19 @@ public class TrainingStorageSpringController {
     }
 
     @RequestMapping(value = "/feedbacks", method = RequestMethod.GET)
-    public @ResponseBody List<EmployeeFeedbackUI> getFeedbacks(HttpServletRequest request, HttpServletResponse response) {
+    public @ResponseBody List<EmployeeNamedFeedbackUI> getFeedbacks(HttpServletRequest request, HttpServletResponse response) {
         try {
+            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+            int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
             int trainingId = Integer.parseInt(request.getParameter("id"));
-            //ADMIN!!!
-            return tsci.getEmployeeFeedback(trainingId);
+            return tsci.getEmployeeNamedFeedback(trainingId, ec.isAdmin(userId));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    @RequestMapping(value = "/kola3", method = RequestMethod.GET)
+    @RequestMapping(value = "/getSubscribers", method = RequestMethod.GET)
     public @ResponseBody List<SubscriberUI> getSubscribers(HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
         return tsci.getSubscribers(trainingId);
@@ -127,6 +125,32 @@ public class TrainingStorageSpringController {
             role.setRole("user");
         }
         return role;
+    }
+
+    @RequestMapping(value = "/editFeedback", method = RequestMethod.PUT)
+    public void editFeedback(@RequestBody EmployeeFeedback employeeFeedback, HttpServletRequest request, HttpServletResponse response) {
+        int trainingId = Integer.parseInt(request.getParameter("id"));
+        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        employeeFeedback.setEmployeeId(userId);
+        employeeFeedback.setTrainingId(trainingId);
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        employeeFeedback.setAddDate(dateFormat.format(date));
+
+        if(tsci.check(userId, employeeFeedback.getTrainingId())) {
+            tsci.addEmployeeFeedback(employeeFeedback);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/deleteFeedback", method = RequestMethod.DELETE)
+    public void deleteFeedback(HttpServletRequest request, HttpServletResponse response) {
+        int feedbackId = Integer.parseInt(request.getParameter("id"));
+        if(!tsci.deleteFeedback(feedbackId)) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 
 }

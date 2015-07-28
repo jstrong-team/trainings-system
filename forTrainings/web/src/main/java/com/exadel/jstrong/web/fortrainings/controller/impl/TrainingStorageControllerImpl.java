@@ -8,6 +8,7 @@ import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.EmployeeFeedbackUI;
+import com.exadel.jstrong.web.fortrainings.model.EmployeeNamedFeedbackUI;
 import com.exadel.jstrong.web.fortrainings.model.SubscriberUI;
 import com.exadel.jstrong.web.fortrainings.model.TrainingUI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,12 +109,27 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         emDAO.addFeedback(ef);
     }
 
-    @Override
-    public List<EmployeeFeedbackUI> getEmployeeFeedback(int tId) {
+//    @Override
+//    public List<EmployeeFeedbackUI> getEmployeeFeedback(int tId) {
+//        List<EmployeeFeedback> employeeFeedbacks = emDAO.getAllFeedbacks(tId);
+//        List<EmployeeFeedbackUI> employeeFeedbackUIs = new ArrayList<EmployeeFeedbackUI>();
+//        for(EmployeeFeedback ef :employeeFeedbacks) {
+//            EmployeeFeedbackUI efUI = new EmployeeFeedbackUI(ef.getId(),ef.getEmployeeId(),ef.getTrainingId(),ef.getAddDate(),ef.isUnderstand(),ef.isInterested(),ef.isContinueWithThisTrainer(),ef.isSmthNew(),ef.isRecommend(),ef.getRate(),ef.getOther(), ef.isDelete());
+//            employeeFeedbackUIs.add(efUI);
+//        }
+//        return employeeFeedbackUIs;
+//    }
+
+    public List<EmployeeNamedFeedbackUI> getEmployeeNamedFeedback(int tId, boolean isAdmin) {
         List<EmployeeFeedback> employeeFeedbacks = emDAO.getAllFeedbacks(tId);
-        List<EmployeeFeedbackUI> employeeFeedbackUIs = new ArrayList<EmployeeFeedbackUI>();
+        List<EmployeeNamedFeedbackUI> employeeFeedbackUIs = new ArrayList<EmployeeNamedFeedbackUI>();
         for(EmployeeFeedback ef :employeeFeedbacks) {
-            EmployeeFeedbackUI efUI = new EmployeeFeedbackUI(ef.getId(),ef.getEmployeeId(),ef.getTrainingId(),ef.getAddDate(),ef.isUnderstand(),ef.isInterested(),ef.isContinueWithThisTrainer(),ef.isSmthNew(),ef.isRecommend(),ef.getRate(),ef.getOther());
+            EmployeeNamedFeedbackUI efUI = null;
+            if(isAdmin) {
+                efUI = new EmployeeNamedFeedbackUI(ef.getId(), eDAO.getNameById(ef.getEmployeeId()), ef.getEmployeeId(), ef.getTrainingId(), ef.getAddDate(), ef.isUnderstand(), ef.isInterested(), ef.isContinueWithThisTrainer(), ef.isSmthNew(), ef.isRecommend(), ef.getRate(), ef.getOther(), ef.isDelete());
+            } else {
+                efUI = new EmployeeNamedFeedbackUI(ef.getId(), null, ef.getEmployeeId(), ef.getTrainingId(), ef.getAddDate(), ef.isUnderstand(), ef.isInterested(), ef.isContinueWithThisTrainer(), ef.isSmthNew(), ef.isRecommend(), ef.getRate(), ef.getOther(), ef.isDelete());
+            }
             employeeFeedbackUIs.add(efUI);
         }
         return employeeFeedbackUIs;
@@ -131,6 +147,10 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         return subscribersUI;
     }
 
+    @Override
+    public boolean deleteFeedback(int id) {
+        return emDAO.deleteFeedback(id);
+    }
 
 
 }

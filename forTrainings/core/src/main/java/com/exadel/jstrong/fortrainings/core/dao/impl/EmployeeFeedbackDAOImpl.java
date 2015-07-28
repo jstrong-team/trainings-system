@@ -6,6 +6,7 @@ import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
@@ -33,5 +34,18 @@ public class EmployeeFeedbackDAOImpl extends BaseDAO<EmployeeFeedback> implement
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteFeedback(int id) {
+        try {
+            Query query = em.createNativeQuery("UPDATE employee_feedback SET isDelete = true WHERE id =:fId").setParameter("fId", id);
+            query.executeUpdate();
+            return true;
+        } catch(Throwable e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

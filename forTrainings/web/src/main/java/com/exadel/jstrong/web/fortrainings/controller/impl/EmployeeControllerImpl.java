@@ -40,4 +40,8 @@ public class EmployeeControllerImpl implements EmployeeController {
     }
 
     public int getIdByToken(String token) {return tokenDAO.getIdByToken(token);}
+
+    public boolean isAdmin(int id) {
+        return employeeDao.isAdmin(id);
+    }
 }

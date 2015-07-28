@@ -28,7 +28,9 @@ public class EmployeeFeedbackUI {
 
     private String other;
 
-    public EmployeeFeedbackUI(int id, int employeeId, int trainingId, String addDate, boolean understand, boolean interested, boolean continueWithThisTrainer, boolean smthNew, boolean recommend, int rate, String other) {
+    private boolean isDelete;
+
+    public EmployeeFeedbackUI(int id, int employeeId, int trainingId, String addDate, boolean understand, boolean interested, boolean continueWithThisTrainer, boolean smthNew, boolean recommend, int rate, String other, boolean isDelete) {
         this.id = id;
         this.employeeId = employeeId;
         this.trainingId = trainingId;
@@ -40,6 +42,7 @@ public class EmployeeFeedbackUI {
         this.recommend = recommend;
         this.rate = rate;
         this.other = other;
+        this.isDelete = isDelete;
     }
 
     public int getId() {
