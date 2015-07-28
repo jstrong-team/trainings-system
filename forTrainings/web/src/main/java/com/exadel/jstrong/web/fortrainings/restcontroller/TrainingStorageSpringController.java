@@ -88,7 +88,7 @@ public class TrainingStorageSpringController {
         ef.setTrainingId(trainingId);
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        ef.setAddDate(dateFormat.format(date));
+        ef.setAddDate(date);
 
         if(tsci.check(userId, ef.getTrainingId())) {
             tsci.addEmployeeFeedback(ef);

@@ -1,5 +1,9 @@
 package com.exadel.jstrong.web.fortrainings.model;
 
+import com.exadel.jstrong.fortrainings.core.service.DateListSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,11 +22,11 @@ public class TrainingUI {
     private boolean internal;
     private boolean approve;
     private int trainer_id;
-    private List<String> dates;
+    private List<Date> dates;
     private boolean isSubscribe;
     private int rate;
 
-    public TrainingUI(int id, String name, String annotation, String description, String target, boolean paid, int max_participants, String place, boolean internal, boolean approve, int trainer_id, List<String> dates, boolean isSubscribe) {
+    public TrainingUI(int id, String name, String annotation, String description, String target, boolean paid, int max_participants, String place, boolean internal, boolean approve, int trainer_id, List<Date> dates, boolean isSubscribe) {
         this.id = id;
         this.name = name;
         this.annotation = annotation;
@@ -126,11 +130,12 @@ public class TrainingUI {
         this.trainer_id = trainer_id;
     }
 
-    public List<String> getdates() {
+    @JsonSerialize(using= DateListSerializer.class)
+    public List<Date> getdates() {
         return dates;
     }
 
-    public void setdates(List<String> dates) {
+    public void setdates(List<Date> dates) {
         this.dates = dates;
     }
 

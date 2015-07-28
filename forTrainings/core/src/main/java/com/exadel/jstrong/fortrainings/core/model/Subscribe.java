@@ -1,6 +1,7 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Maria on 23.07.2015.
@@ -24,7 +25,8 @@ public class Subscribe {
     private String status;
 
     @Column(name = "add_date")
-    private String addDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date addDate;
 
     public Employee getEmployee() {
         return employee;
@@ -95,11 +97,11 @@ public class Subscribe {
         this.status = status;
     }
 
-    public String getAddDate() {
+    public Date getAddDate() {
         return addDate;
     }
 
-    public void setAddDate(String addDate) {
+    public void setAddDate(Date addDate) {
         this.addDate = addDate;
     }
     

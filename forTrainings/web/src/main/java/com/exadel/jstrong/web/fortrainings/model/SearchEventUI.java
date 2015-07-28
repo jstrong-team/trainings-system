@@ -1,5 +1,9 @@
 package com.exadel.jstrong.web.fortrainings.model;
 
+import com.exadel.jstrong.fortrainings.core.service.DateListSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,17 +34,18 @@ public class SearchEventUI {
         this.annotation = annotation;
     }
 
-    public List<String> getDates() {
+    @JsonSerialize(using= DateListSerializer.class)
+    public List<Date> getDates() {
         return dates;
     }
 
-    public void setDates(List<String> dates) {
+    public void setDates(List<Date> dates) {
         this.dates = dates;
     }
 
     public int id;
     public String name;
     public String annotation;
-    public List<String> dates;
+    public List<Date> dates;
 
 }

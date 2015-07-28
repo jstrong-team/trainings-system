@@ -15,6 +15,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,13 +24,13 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     private static Logger logger = Logger.getLogger(TrainingDAOImpl.class.getName());
 
     @Override
-    public List<Event> getTrainingsInDateScope(int userId, String dateFrom, String dateTo) {
+    public List<Event> getTrainingsInDateScope(int userId, Date dateFrom, Date dateTo) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         List<Event> events = null;
         try {
             CriteriaQuery<Event> query = criteriaBuilder.createQuery(Event.class);
             Root<Event> root = query.from(Event.class);
-            query.where(criteriaBuilder.between(root.<String>get("date"), dateFrom, dateTo));
+            query.where(criteriaBuilder.between(root.<Date>get("date"), dateFrom, dateTo));
             query.orderBy(criteriaBuilder.asc(root.get("date")));
             events = em.createQuery(query).getResultList();
 
@@ -38,9 +39,9 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             Event event;
             for(int i = 0; i < events.size(); i++) {
                 event = events.get(i);
-                event.setIsSubscribe(ids.contains(event.getTraining_id()));
-                event.setIsTrainer(trainerIds.contains(event.getTraining_id()));
-                event.setDate(getCorrectDate(event.getDate()));
+                event.setIsSubscribe(ids.contains(event.getTrainingId()));
+                event.setIsTrainer(trainerIds.contains(event.getTrainingId()));
+                event.setDate(event.getDate());
             }
         } catch(Throwable e) {
             e.printStackTrace();
@@ -74,7 +75,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     @Transactional
     public int add (Training training){
-        training = super.update(training);
+        training = super.save(training);
         return training.getId();
     }
 

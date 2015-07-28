@@ -41,7 +41,7 @@ public class TrainingsControllerImpl implements TrainingsController {
         Date dateTo = calendarDateTo.getTime();
         String stringDateTo = dateFormat.format(dateTo);
 
-        List<Event> events = trainingDAO.getTrainingsInDateScope(userId, stringDateFrom, stringDateTo);
+        List<Event> events = trainingDAO.getTrainingsInDateScope(userId, dateFrom, dateTo);
         TrainingsUI tUI = new TrainingsUI();
         tUI.setActualTrainingsHistory(events);
 
@@ -56,7 +56,7 @@ public class TrainingsControllerImpl implements TrainingsController {
         calendarDateFrom.set(Calendar.MONTH, currentMonth - 1);
         dateTo = calendarDateFrom.getTime();
         stringDateFrom = dateFormat.format(dateTo);
-        events = trainingDAO.getTrainingsInDateScope(userId, stringDateFrom, stringDateTo);
+        events = trainingDAO.getTrainingsInDateScope(userId, dateTo, dateFrom);
         Collections.sort(events, new EventComp());
         tUI.setPastTrainingsHistory(events);
 
@@ -70,7 +70,7 @@ public class TrainingsControllerImpl implements TrainingsController {
         List<SearchEventUI> events = new ArrayList<>();
         SearchEventUI event;
         Training training;
-        List<String> dates;
+        List<Date> dates;
         int count;
         for (int i=0;i<size;i++){
             dates = new ArrayList<>();

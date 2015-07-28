@@ -36,7 +36,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     @Override
     public void addTraining(Training training) {
         int id = tDAO.add(training);
-        List<String> dates = training.getDate();
+        List<Date> dates = training.getDate();
         int size = dates.size();
         Meet meet = new Meet();
         for (int i = 0; i<size;i++){
@@ -50,12 +50,10 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     public TrainingUI getTraining(int tId, int uId) {
         List<Meet> meets = mDAO.getMeetsByTrainingId(tId);
         int size = meets.size();
-        List<String> dates = new ArrayList<String>(size);
+        List<Date> dates = new ArrayList<>(size);
         String date = "";
         for (int i = 0; i < size; i++){
-            date = date.concat(meets.get(i).getDate());
-            dates.add(date.substring(0, date.indexOf('.')));
-            date = "";
+            dates.add(meets.get(i).getDate());
         }
         Training training = tDAO.getTrainingById(tId);
         training.setDate(dates);
@@ -88,7 +86,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        s.setAddDate(dateFormat.format(date));
+        s.setAddDate(date);
 
         if(tDAO.isApprove(tId)) {
             s.setStatus(SubscribeStatus.APPROVE.toString());

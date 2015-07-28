@@ -4,11 +4,12 @@ import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 
+import java.util.Date;
 import java.util.List;
 
 public interface TrainingDAO extends GenericDAO<Training>{
 
-    List<Event> getTrainingsInDateScope(int userId, String dateFrom, String dateTo);
+    List<Event> getTrainingsInDateScope(int userId, Date dateFrom, Date dateTo);
     List<Training> getSearchResponse(String st);
     int add (Training training);
     boolean isSubscribeById(int employeeId, int trainingId);

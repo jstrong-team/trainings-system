@@ -1,7 +1,11 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
+import com.exadel.jstrong.fortrainings.core.service.DateListDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 /**
  * Created by Maria on 21.07.2015.
@@ -46,7 +50,7 @@ public class Training {
     private int trainer_id;
 
     @Transient
-    private List<String> date;
+    private List<Date> date;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "training")
     private List<Meet> meets;
@@ -72,7 +76,6 @@ public class Training {
     }
 
     public Training() {
-        date = new ArrayList<>();
     }
 
     public List<Meet> getMeets() {
@@ -83,8 +86,9 @@ public class Training {
         this.meets = meets;
     }
 
-    public void setDate(List<String> date){
-        this.date = new ArrayList<String>(date);
+    @JsonDeserialize(using= DateListDeserializer.class)
+    public void setDate(List<Date> date){
+        this.date = new ArrayList<>(date);
     }
 
     public boolean isSubscribe() {
@@ -99,7 +103,7 @@ public class Training {
         return approve;
     }
 
-    public List<String> getDate() {
+    public List<Date> getDate() {
         return date;
     }
 

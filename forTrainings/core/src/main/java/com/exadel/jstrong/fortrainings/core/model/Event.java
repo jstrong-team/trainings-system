@@ -1,8 +1,12 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
+import com.exadel.jstrong.fortrainings.core.service.DateSerializer;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "new_view")
@@ -13,16 +17,8 @@ public class Event {
     @Cascade({})
     private int id;
 
-    public int getTraining_id() {
-        return training_id;
-    }
-
-    public void setTraining_id(int training_id) {
-        this.training_id = training_id;
-    }
-
-    @Column
-    private int training_id;
+    @Column(name="training_id")
+    private int trainingId;
 
     @Column
     private String name;
@@ -31,7 +27,8 @@ public class Event {
     private String annotation;
 
     @Column
-    private String date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
 
     @Transient
     private boolean isSubscribe;
@@ -39,15 +36,24 @@ public class Event {
     @Transient
     private boolean isTrainer;
 
+    public Event() {
+    }
+
+    public int getTrainingId() {
+        return trainingId;
+    }
+
+    public void setTrainingId(int trainingId) {
+        this.trainingId = trainingId;
+    }
+
+    @JsonGetter("isTrainer")
     public boolean isTrainer() {
         return isTrainer;
     }
 
     public void setIsTrainer(boolean isTrainer) {
         this.isTrainer = isTrainer;
-    }
-
-    public Event() {
     }
 
     public int getId() {
@@ -74,14 +80,16 @@ public class Event {
         this.annotation = annotation;
     }
 
-    public String getDate() {
+    @JsonSerialize(using=DateSerializer.class)
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
+    @JsonGetter("isSubscribe")
     public boolean isSubscribe() {
         return isSubscribe;
     }
