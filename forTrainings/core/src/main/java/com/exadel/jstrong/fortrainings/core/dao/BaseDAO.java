@@ -53,6 +53,11 @@ public abstract class BaseDAO<T> implements GenericDAO<T>{
         }
     }
 
+    public boolean delete (Class<T> entityClass, int id){
+        T entity = em.find(entityClass, id);
+        return delete(entity);
+    }
+
     protected List<T> executeQuery(CriteriaQuery<T> query) {
         try {
             return em.createQuery(query).getResultList();

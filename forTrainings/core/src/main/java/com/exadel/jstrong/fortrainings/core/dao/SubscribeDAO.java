@@ -5,5 +5,7 @@ import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 public interface SubscribeDAO extends GenericDAO<Subscribe>{
 
     int addSubscribe(Subscribe subscribe);
+    boolean removeSubscriber(int userId, int trainingId);
+    boolean changeStatus();
 
 }

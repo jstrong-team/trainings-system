@@ -110,7 +110,9 @@ public class TrainingStorageSpringController {
     @RequestMapping(value = "/getSubscribers", method = RequestMethod.GET)
     public @ResponseBody List<SubscriberUI> getSubscribers(HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
-        return tsci.getSubscribers(trainingId);
+        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        return tsci.getSubscribers(userId, trainingId);
     }
 
     @RequestMapping(value = "/role", method = RequestMethod.GET)
@@ -119,7 +121,9 @@ public class TrainingStorageSpringController {
         int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
         int trainingId = Integer.parseInt(request.getParameter("id"));
         RoleUI role = new RoleUI();
-        if(tsci.isTrainer(userId, trainingId)) {
+        if(ec.isAdmin(userId)) {
+            role.setRole("admin");
+        } else if(tsci.isTrainer(userId, trainingId)) {
             role.setRole("trainer");
         } else {
             role.setRole("user");
@@ -127,6 +131,7 @@ public class TrainingStorageSpringController {
         return role;
     }
 
+    //fix!!!
     @RequestMapping(value = "/editFeedback", method = RequestMethod.PUT)
     public void editFeedback(@RequestBody EmployeeFeedback employeeFeedback, HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
@@ -141,6 +146,16 @@ public class TrainingStorageSpringController {
         if(tsci.check(userId, employeeFeedback.getTrainingId())) {
             tsci.addEmployeeFeedback(employeeFeedback);
         } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/removeSubscriber", method = RequestMethod.DELETE)
+    public void removeSubscriber(HttpServletRequest request, HttpServletResponse response) {
+        int trainingId = Integer.parseInt(request.getParameter("id"));
+        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        if(!tsci.deleteSuscriber(userId, trainingId)){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }

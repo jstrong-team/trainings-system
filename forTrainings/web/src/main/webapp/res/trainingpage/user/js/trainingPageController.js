@@ -51,6 +51,7 @@ angular.module('trainingPageModule').controller('trainingPageController', ['$sco
         $scope.training.time=[];
         $scope.training.dateTime=[];
         $scope.training.year=[];
+        console.log($scope.training);
         for(var j=0;j<$scope.training.dates.length;j++) {
             $scope.training.time.push(moment($scope.training.dates[j]).format('HH:mm'));
             $scope.training.dateTime.push(moment($scope.training.dates[j]).format('DD MMMM'));
