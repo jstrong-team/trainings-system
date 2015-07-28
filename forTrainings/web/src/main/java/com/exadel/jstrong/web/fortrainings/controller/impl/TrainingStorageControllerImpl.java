@@ -62,7 +62,9 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         training.setDate(dates);
         training.setIsSubscribe(tDAO.isSubscribeById(tId, uId));
 
-        TrainingUI trainingUI = new TrainingUI(training.getId(), training.getName(), training.getAnnotation(),
+        String name = eDAO.getNameById(training.getTrainer_id());
+
+        TrainingUI trainingUI = new TrainingUI(training.getId(), training.getName(), name, training.getAnnotation(),
                 training.getDescription(), training.getTarget(), training.isPaid(), training.getMax_participants(),
                 training.getPlace(), training.isInternal(), training.isApprove(), training.getTrainer_id(),
                 training.getDate(), training.isSubscribe());
