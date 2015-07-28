@@ -1,24 +1,6 @@
-angular.module('trainingPageModule').controller('trainingPageController', ['$scope', 'getTrainingInfo', '$http', '$modal', '$routeParams', function ($scope, getTrainingInfo, $http, $modal, $routeParams) {
+angular.module('trainingPageModule').controller('trainingPageController', ['$scope', 'getTrainingInfo', '$http', '$modal', '$routeParams','getSubscribersService', function ($scope, getTrainingInfo, $http, $modal, $routeParams,getSubscribersService) {
 
-    (function(){
-    })();
-
-    $scope.training = {
-        name: 'JAVA SUPER DUPER TRAINING',
-        annotation: '$apply() is used to execute an expression in angular from outside of the angular framework. ' +
-        '(For example from browser DOM events, setTimeout, XHR or third party libraries). Because we are calling ' +
-        'into the angular framework we need to perform proper scope life cycle of exception handling, executing watches.',
-        description: '$apply() is used to execute an expression in angular from ',
-        target: 'kids, bamby,white panda,black panda, anton grigoriev',
-        paid: true,
-        max_participants: 10,
-        date: ['2015-06-04 12:00:00'],
-        place: '243',
-        internal: true,
-        id: 2
-    };
-
-    $scope.paticipants = [{name: 'fedia', lastname: 'petrov'}];
+    $scope.isCollapsed = true;
 
     $scope.feedback = {
         understand: null,
@@ -63,8 +45,23 @@ angular.module('trainingPageModule').controller('trainingPageController', ['$sco
     };
 
     getTrainingInfo().then(function (data, status, headers, config) {
-        //console.log(data);
-        //$scope.training=data.data[0];
-        //$scope.trainingDate=new Date(data.data[0].date);
+        console.log('0000000000000000000');
+        console.log(data.data);
+        $scope.training=data.data;
+        $scope.training.time=[];
+        $scope.training.dateTime=[];
+        $scope.training.year=[];
+        for(var j=0;j<$scope.training.dates.length;j++) {
+            $scope.training.time.push(moment($scope.training.dates[j]).format('HH:mm'));
+            $scope.training.dateTime.push(moment($scope.training.dates[j]).format('DD MMMM'));
+            $scope.training.year.push(moment($scope.training.dates[j]).format('YYYY'));
+        }
+        //$scope.subscribers = [];
+        getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
+            $scope.subscribers=data.data;
+        }, function (error) {
+            console.log(error);
+        });
+        //getSubscribers
     });
 }]);

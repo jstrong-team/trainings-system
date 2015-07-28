@@ -109,7 +109,7 @@ public class TrainingStorageSpringController {
         return null;
     }
 
-    @RequestMapping(value = "/kola3", method = RequestMethod.GET)
+    @RequestMapping(value = "/getSubscribers", method = RequestMethod.GET)
     public @ResponseBody List<SubscriberUI> getSubscribers(HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
         return tsci.getSubscribers(trainingId);
