@@ -1,4 +1,4 @@
-angular.module('trainingPageModule').controller('trainingPageController', ['$scope', 'getTrainingInfo', '$http', '$modal', '$routeParams','getSubscribersService', function ($scope, getTrainingInfo, $http, $modal, $routeParams,getSubscribersService) {
+angular.module('trainingPageModule').controller('trainingPageController', ['$scope', 'getTrainingInfo', '$http', '$modal', '$routeParams','getSubscribersService','$route', function ($scope, getTrainingInfo, $http, $modal, $routeParams,getSubscribersService,$route) {
 
     $scope.isCollapsed = false;
 
@@ -37,6 +37,8 @@ angular.module('trainingPageModule').controller('trainingPageController', ['$sco
     };
 
     $scope.subscribe = function () {
+        console.log('/ui/trainingPage/user/'+$scope.training.id);
+        $route.reload();
         $http.post('/rest/storagetraining/addsubscriber?id='+ $scope.training.id, $scope.feedback).then(function (response) {
             console.log(response);
         }, function (error) {
