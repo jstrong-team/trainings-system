@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
+import java.util.List;
 
 @Service
 public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
@@ -24,5 +25,16 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
     public String getNameById(int id){
         Query query = em.createQuery("SELECT name FROM Employee WHERE id = :id").setParameter("id", id);
         return (String)query.getSingleResult();
+    }
+
+    @Override
+    public boolean isAdmin(int id) {
+        try {
+            List<String> roles = em.createNativeQuery("SELECT name FROM role, employee_role WHERE role.id = employee_role.role_id and employee_role.employee_id = :userId").setParameter("userId", id).getResultList();
+            return roles.contains("admin");
+        } catch (Throwable e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

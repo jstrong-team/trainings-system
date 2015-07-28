@@ -9,8 +9,7 @@ html, body {
 
 .inputSearch {
     margin-top: 8px;
-    width: 98%;
-    margin-left: 1%;
+    margin-bottom: 8px;
 }
 
 .wrapper {
@@ -35,7 +34,44 @@ footer h5 {
 
 .navBarBackground{
     background-color: #032539;
+    border-radius: 0;
     border: 0;
+}
+
+@media(max-width:767px)  {
+    .inputSearch {
+        margin-top: 0;
+        width: 98%;
+        margin-left: 1%;
+    }
+}
+
+@media(max-width:1200px)  {
+
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+
+    .navbar-collapse {
+        overflow-x: visible !important;
+    }
+
+    .navbar-collapse.in {
+        overflow-y: auto !important;
+    }
+
+    .collapse.in {
+        display: block !important;
+    }
+
+    .navbar-toggle {
+        display: block !important;
+    }
+
+    .navbar-header {
+        width: 100%;
+    }
+
 }
 
 .navbar-header {
@@ -78,6 +114,11 @@ footer h5 {
     font-weight:900;
 }
 
+.fullNavigationBar {
+    margin: 0;
+    width: 100%;
+}
+
 .dateTime {
     padding-top: 10px;
 }
@@ -85,6 +126,11 @@ footer h5 {
 .logo:link, .logo:hover, .logo:active, .logo:visited {
     text-decoration: none;
     color:white;
+}
+
+.userName:hover {
+    background-color: #032539 !important;
+    color: white;
 }
 
 .trademark {

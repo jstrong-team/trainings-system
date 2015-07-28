@@ -8,5 +8,5 @@ public interface EmployeeFeedbackDAO extends GenericDAO<EmployeeFeedback>{
 
     void addFeedback(EmployeeFeedback feedback);
     List<EmployeeFeedback> getAllFeedbacks(int trainingId);
-
+    boolean deleteFeedback(int id);
 }
