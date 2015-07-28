@@ -6,22 +6,24 @@
         <div class="col-md-2 " ng-controller="ratingController">
             <span class="rating">
                 <rating ng-model="training.rate"
-                 max="maxRating"
-                 readonly="true"
-                 on-leave="overStar=null">
+                        max="maxRating"
+                        readonly="true"
+                        on-leave="overStar=null">
                 </rating>
             </span>
         </div>
     </div>
 
     <div classs="row " style="padding-top: 50px">
-        <div class="col-md-7 well textBlock" >
+        <div class="col-md-7 well textBlock">
             <span>Annotation:</span>{{training.annotation}}<p></p>
             <!--<span>First date:</span>{{training.date[0]}}<p></p>-->
             <!--<span>Las date:</span>{{training.date[0]}}<p></p>-->
             <span>Description:</span>{{training.description}}<p></p>
             <span>Target audience:</span>{{training.target}}<p></p>
-            <span>Subscribers:</span><p></p>
+            <span>Subscribers:</span>
+
+            <p></p>
 
 
             <div class="panel panel-default table-responsive ">
@@ -53,14 +55,18 @@
         </div>
 
 
+        <div class="col-md-4 well textBlock">
+            <span>Trainer:</span>{{training.trainerName}}<p></p>
+            <span>Time:</span>
 
-        <div class="col-md-4 well textBlock" >
-            <span>Trainer:</span>Diadia fedia<p></p>
-            <span>Time:</span>{{training.date[0]}}<p></p>
+            <p></p>
             <span>Place:</span>{{training.place}}<p></p>
+
             <div class="row">
                 <div class="col-md-4">
-                    <button type="button" class="btn btn-primary " ng-click="openModal()" ng-if="training.isSubscribe">Leave feedback</button>
+                    <button type="button" class="btn btn-primary " ng-click="openModal()" ng-if="training.isSubscribe">
+                        Leave feedback
+                    </button>
                 </div>
                 <div class="col-md-4" ng-if="training.isSubscribe" ng-cloak>
                     <button type="button" class="btn btn-danger " ng-click="">unsubscribe</button>
@@ -71,36 +77,38 @@
             </div>
             <div class="row">
                 <div class="col-md-12 dateTime" ng-if="training.isSubscribe" ng-cloak>
-                    <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><span>Show dates list</span></button>
+                    <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><span>Show dates list</span>
+                    </button>
                     <div collapse="isCollapsed">
 
                         <!--<div class="panel panel-default">-->
-                            <table class="table">
-                                <tr>
-                                    <th>
-                                        #
-                                    </th>
-                                    <th>
-                                         date
-                                    </th>
-                                    <th>
-                                        time
-                                    </th>
-                                </tr>
-                                <tr ng-repeat="curTraining in training.dates">
-                                    <td>
-                                        {{$index}}
-                                    </td>
-                                    <td>
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    date
+                                </th>
+                                <th>
+                                    time
+                                </th>
+                            </tr>
+                            <tr ng-repeat="curTraining in training.dates">
+                                <td>
+                                    {{$index}}
+                                </td>
+                                <td>
                                         <span class="glyphicon glyphicon-calendar"
                                               style="color: grey"></span>
-                                        {{training.dateTime[$index]}} {{training.year[$index]}}
-                                    </td>
-                                    <td>
-                                        <span class="glyphicon glyphicon-time" style="color: grey"></span> {{training.time[$index]}}
-                                    </td>
-                                </tr>
-                            </table>
+                                    {{training.dateTime[$index]}} {{training.year[$index]}}
+                                </td>
+                                <td>
+                                    <span class="glyphicon glyphicon-time" style="color: grey"></span>
+                                    {{training.time[$index]}}
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -108,18 +116,14 @@
     </div>
 
 
-
     <!--<div classs="row " style="padding-top: 50px">-->
-        <!--<div class="col-md-7 well textBlock" >-->
+    <!--<div class="col-md-7 well textBlock" >-->
 
-        <!--</div>-->
-        <!--<div class="col-md-4 well textBlock" >-->
-
-        <!--</div>-->
     <!--</div>-->
+    <!--<div class="col-md-4 well textBlock" >-->
 
-
-
+    <!--</div>-->
+    <!--</div>-->
 
 
 </div>

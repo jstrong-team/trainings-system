@@ -1,32 +1,29 @@
-angular.module('trainingPageTrainerModule').controller('trainingPageTrainerController',['$scope','getTrainingInfo', function($scope,getTrainingInfo) {
+angular.module('trainingPageTrainerModule').controller('trainingPageTrainerController',['$scope','getTrainingInfo','getSubscribersService','getFeedbacksService', function($scope,getTrainingInfo,getSubscribersService,getFeedbacksService) {
 
-    $scope.currentRating='3';
+    $scope.isCollapsed = false;
 
     getTrainingInfo().then(function(data, status, headers, config) {
-        $scope.training=data.data[0];
-        $scope.trainingDate=new Date(data.data[0].date);
+        $scope.training=data.data;
+        $scope.training.time=[];
+        $scope.training.dateTime=[];
+        $scope.training.year=[];
+        for(var j=0;j<$scope.training.dates.length;j++) {
+            $scope.training.time.push(moment($scope.training.dates[j]).format('HH:mm'));
+            $scope.training.dateTime.push(moment($scope.training.dates[j]).format('DD MMMM'));
+            $scope.training.year.push(moment($scope.training.dates[j]).format('YYYY'));
+        }
+        getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
+            $scope.subscribers=data.data;
+        }, function (error) {
+            console.error(error);
+        });
+        getFeedbacksService($scope.training.id).then(function (data, status, headers, config) {
+            $scope.feedbacks=data.data;
+        }, function (error) {
+            console.error(error);
+        });
     });
 
-    $scope.feedbacks=[{
-        understand:false,
-        interested:false,
-        continueWithThisTrainer:true,
-        smthNew:true,
-        recommend:true,
-        rate:4,
-        other:'smth bav veeeeeeeeeeeeeeeeeeeeery'
-    },
-        {
-            understand:true,
-            interested:false,
-            continueWithThisTrainer:true,
-            smthNew:true,
-            recommend:true,
-            rate:4,
-            other:'smth bav veeeeeeeeeeeeeeeeeeeeery'
-        }];
-
-    $scope.newFeedbacks=[{}];
 }]);
 
 

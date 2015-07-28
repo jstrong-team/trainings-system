@@ -1,6 +1,6 @@
 angular.module('trainingPageModule').controller('trainingPageController', ['$scope', 'getTrainingInfo', '$http', '$modal', '$routeParams','getSubscribersService', function ($scope, getTrainingInfo, $http, $modal, $routeParams,getSubscribersService) {
 
-    $scope.isCollapsed = true;
+    $scope.isCollapsed = false;
 
     $scope.feedback = {
         understand: null,

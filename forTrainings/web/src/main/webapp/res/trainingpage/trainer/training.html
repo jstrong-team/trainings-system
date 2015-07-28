@@ -1,59 +1,157 @@
-<div class="container">
+<div class="container wrappered">
     <div classs="row ">
         <div class="col-md-6 col-md-offset-3 text-center">
             <span class="titleTrainingPage "> {{training.name}}</span>
         </div>
-        <div class="col-md-2 " >
+        <div class="col-md-2 " ng-controller="ratingController">
             <span class="rating">
-                <rating ng-model="currentRating"
-                        max="5">
-                </rating>{{overStar}}
+                <rating ng-model="training.rate"
+                        max="maxRating"
+                        readonly="true"
+                        on-leave="overStar=null">
+                </rating>
             </span>
         </div>
     </div>
+
     <div classs="row " style="padding-top: 50px">
         <div class="col-md-7 well textBlock" >
             <span>Annotation:</span>{{training.annotation}}<p></p>
-            <span>Date:</span>{{training.date}}<p></p>
-            <span>Target audience:</span>{{training.date}}<p></p>
-        </div>
-        <div class="col-md-4 well textBlock " >
-            <span>Trainer:</span>Diadia fedia<p></p>
-            <span>Time:</span>{{training.date}}<p></p>
-            <span>Place:</span>{{training.date}}<p></p>
-            <span>Duration:</span>{{training.date}}<p></p>
-            <button type="button" class="btn btn-primary ">Edit training info</button>
-        </div>
-    </div>
+            <!--<span>First date:</span>{{training.date[0]}}<p></p>-->
+            <!--<span>Las date:</span>{{training.date[0]}}<p></p>-->
+            <span>Description:</span>{{training.description}}<p></p>
+            <span>Target audience:</span>{{training.target}}<p></p>
+            <span>Subscribers:</span><p></p>
 
-        <div classs="row " ng-repeat="feedback in feedbacks">
-            <!--<hr>-->
-            <div class="col-md-11 commentBlock" >
-                <div>
-                    <rating ng-model="feedback.rate"
-                            readonly=true
-                            max="5">
-                    </rating>
+
+            <div class="panel panel-default table-responsive ">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            user
+                        </th>
+                        <th>
+                            status
+                        </th>
+                        <th ng-repeat="date in training.dates">
+                            {{$index+1}}
+                        </th>
+                    </tr>
+                    <tr ng-repeat="subscriber in subscribers">
+                        <td>{{$index+1}}</td>
+                        <td nowrap>{{subscriber.name}}</td>
+                        <td>{{subscriber.status}}</td>
+                        <td ng-repeat="date in training.dates">
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+
+            <span>Coments:</span><p></p>
+
+            <div class="panel panel-default " ng-repeat="coment in feedbacks">
+                <table class="table " >
+                    <tr >
+                        <td>
+                            <div>
+                                <rating ng-model="coment.rate"
+                                        readonly=true
+                                        max="5">
+                                </rating>
+                                <div>
+                                    <label class="control-label ">Understand all: {{coment.understand|yesNoFilter}}</label>
+                                </div>
+                                <div>
+                                    <label class="control-label ">Interested in: {{coment.interested|yesNoFilter}}</label>
+                                </div>
+                                <div>
+                                    <label class="control-label ">Like to learn from this coach: {{coment.continueWithThisTrainer|yesNoFilter}}</label>
+                                </div>
+                                <div>
+                                    <label class="control-label ">Learn something new: {{coment.smthNew|yesNoFilter}}</label>
+                                </div>
+                                <div>
+                                    <label class="control-label ">Recommend to your colleagues to visit this training: {{coment.recommend|yesNoFilter}}</label>
+                                </div>
+                                <div>
+                                    <label class="control-label ">Other: {{coment.other}}</label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+
+
+        </div>
+
+
+
+        <div class="col-md-4 well textBlock" >
+            <span>Trainer:</span>Diadia fedia<p></p>
+            <span>Time:</span>{{training.date[0]}}<p></p>
+            <span>Place:</span>{{training.place}}<p></p>
+            <div class="row">
+                <div class="col-md-4 ">
+                    <button type="button" class="btn btn-danger " ng-click="subscribe()">Edit training</button>
                 </div>
-                <div>
-                    <label class="control-label ">Understand all: {{feedback.understand|yesNoFilter}}</label>
+                <div class="col-md-4 ">
+                    <button type="button" class="btn btn-danger " ng-click="subscribe()">Remove training</button>
                 </div>
-                <div>
-                    <label class="control-label ">Interested in: {{feedback.interested|yesNoFilter}}</label>
-                </div>
-                <div>
-                    <label class="control-label ">Like to learn from this coach: {{feedback.continueWithThisTrainer|yesNoFilter}}</label>
-                </div>
-                <div>
-                    <label class="control-label ">Learn something new: {{feedback.smthNew|yesNoFilter}}</label>
-                </div>
-                <div>
-                    <label class="control-label ">Recommend to your colleagues to visit this training: {{feedback.recommend|yesNoFilter}}</label>
-                </div>
-                <div>
-                    <label class="control-label ">Other: {{feedback.other}}</label>
+            </div>
+            <div class="row">
+                <div class="col-md-12 dateTime">
+                    <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><span>Show dates list</span></button>
+                    <div collapse="isCollapsed">
+
+                        <!--<div class="panel panel-default">-->
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    date
+                                </th>
+                                <th>
+                                    time
+                                </th>
+                            </tr>
+                            <tr ng-repeat="curTraining in training.dates">
+                                <td>
+                                    {{$index}}
+                                </td>
+                                <td>
+                                        <span class="glyphicon glyphicon-calendar"
+                                              style="color: grey"></span>
+                                    {{training.dateTime[$index]}} {{training.year[$index]}}
+                                </td>
+                                <td>
+                                    <span class="glyphicon glyphicon-time" style="color: grey"></span> {{training.time[$index]}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+
+
+
+
+
+
+
+
+
 
 </div>

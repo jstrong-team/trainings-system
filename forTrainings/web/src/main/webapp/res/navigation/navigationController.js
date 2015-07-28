@@ -1,4 +1,4 @@
-angular.module('navigationModule').controller('navigationController', ['$rootScope', '$scope', '$location', 'doSearchService', 'doLogoutService', 'dateFormatService', function ($rootScope, $scope, $location, doSearchService, doLogoutService, dateFormatService) {
+angular.module('navigationModule').controller('navigationController', ['$rootScope', '$scope', '$location', 'doSearchService', 'doLogoutService', 'dateFormatService','goToTrainingPage', function ($rootScope, $scope, $location, doSearchService, doLogoutService, dateFormatService,goToTrainingPage) {
 
     $scope.isActive = function (viewLocation) {
         return viewLocation === $location.path();
