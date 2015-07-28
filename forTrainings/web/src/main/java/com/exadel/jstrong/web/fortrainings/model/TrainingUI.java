@@ -18,11 +18,11 @@ public class TrainingUI {
     private boolean internal;
     private boolean approve;
     private int trainer_id;
-    private List<String> date;
+    private List<String> dates;
     private boolean isSubscribe;
     private int rate;
 
-    public TrainingUI(int id, String name, String annotation, String description, String target, boolean paid, int max_participants, String place, boolean internal, boolean approve, int trainer_id, List<String> date, boolean isSubscribe) {
+    public TrainingUI(int id, String name, String annotation, String description, String target, boolean paid, int max_participants, String place, boolean internal, boolean approve, int trainer_id, List<String> dates, boolean isSubscribe) {
         this.id = id;
         this.name = name;
         this.annotation = annotation;
@@ -34,7 +34,7 @@ public class TrainingUI {
         this.internal = internal;
         this.approve = approve;
         this.trainer_id = trainer_id;
-        this.date = date;
+        this.dates = dates;
         this.isSubscribe = isSubscribe;
     }
 
@@ -126,12 +126,12 @@ public class TrainingUI {
         this.trainer_id = trainer_id;
     }
 
-    public List<String> getDate() {
-        return date;
+    public List<String> getdates() {
+        return dates;
     }
 
-    public void setDate(List<String> date) {
-        this.date = date;
+    public void setdates(List<String> dates) {
+        this.dates = dates;
     }
 
     public boolean isSubscribe() {
