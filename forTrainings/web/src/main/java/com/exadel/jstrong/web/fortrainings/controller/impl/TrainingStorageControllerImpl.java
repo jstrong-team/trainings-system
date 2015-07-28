@@ -58,7 +58,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         }
         Training training = tDAO.getTrainingById(tId);
         training.setDate(dates);
-        training.setIsSubscribe(tDAO.isSubscribeById(tId, uId));
+        training.setIsSubscribe(tDAO.isSubscribeById(uId, tId));
 
         String name = eDAO.getNameById(training.getTrainer_id());
 
@@ -136,13 +136,19 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     @Override
-    public List<SubscriberUI> getSubscribers(int tId) {
+    public List<SubscriberUI> getSubscribers(int uId, int tId) {
         List<Subscribe> subscribers = tDAO.getSubscribers(tId);
         List<SubscriberUI> subscribersUI = new ArrayList<>();
         SubscriberUI subscriber = null;
         for (Subscribe s: subscribers){
             subscriber = new SubscriberUI(s.getId(), eDAO.getNameById(s.getEmployeeId()), s.getStatus(), s.getAddDate());
-            subscribersUI.add(subscriber);
+            if("deleted".compareToIgnoreCase(subscriber.getStatus()) == 0) {
+                if(eDAO.isAdmin(uId)) {
+                    subscribersUI.add(subscriber);
+                }
+            } else {
+                subscribersUI.add(subscriber);
+            }
         }
         return subscribersUI;
     }
@@ -152,5 +158,12 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         return emDAO.deleteFeedback(id);
     }
 
-
+    @Override
+    public boolean deleteSuscriber(int userId, int trainingId) {
+        if(sDAO.removeSubscriber(userId, trainingId) && sDAO.changeStatus()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -18,9 +18,10 @@ public interface TrainingStorageController {
     int addSubscriber(Subscribe s);
     boolean check(int uId, int tId);
     void addEmployeeFeedback(EmployeeFeedback ef);
-    List<SubscriberUI> getSubscribers(int id);
+    List<SubscriberUI> getSubscribers(int uId, int tId);
 //    List<EmployeeFeedbackUI> getEmployeeFeedback(int id);
     List<EmployeeNamedFeedbackUI> getEmployeeNamedFeedback(int id, boolean isAdmin);
     boolean deleteFeedback(int id);
+    boolean deleteSuscriber(int userId, int trainingId);
 }
 
