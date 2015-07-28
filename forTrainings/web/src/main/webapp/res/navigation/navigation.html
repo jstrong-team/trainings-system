@@ -1,6 +1,6 @@
 <div ng-controller="navigationController">
     <nav class="navbar navBarBackground">
-        <div class="container">
+        <div class="container fullNavigationBar">
             <div class="row">
                 <div class="navbar-header col-md-2">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -23,8 +23,8 @@
                         <li ng-class="{ active: isActive('/ui/news')}"><a href=""  class="navBarText" ng-click="goToNews()">News</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="" class="navBarText" ng-click="logout()">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
-                        <li >
+
+                        <li>
                             <form>
                                 <input type="search"
                                        class="form-control inputSearch"
@@ -34,6 +34,8 @@
                                        ng-model-options="{ debounce: 400 }">
                             </form>
                         </li>
+                        <li><a class="navBarText userName">{{name}} <span class="glyphicon glyphicon-user"></span></a></li>
+                        <li><a href="" class="navBarText" ng-click="logout()">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
                     </ul>
                 </div>
             </div>

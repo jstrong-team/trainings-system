@@ -5,12 +5,13 @@ angular.module('trainingPageModule', []).config(['$routeProvider', function ($ro
         resolve: {
             getTrainingInfo: ['$http', '$q','$routeParams','$location','$route', function ($http, $q,$routeParams,$location,$route) {
                 var def = $q.defer();
-                console.log($route.current.params.trainingId);
+                //console.log($route.current.params.trainingId);
                 $http.get('rest/storagetraining/role?id=' + $route.current.params.trainingId).then(function (data, status, headers, config){
                     if (data.data.role === 'user') {
                         $location.url('/ui/trainingPage/user/' + $route.current.params.trainingId);
                         $http.get('rest/storagetraining/getTraining?id='+$route.current.params.trainingId).then(function (data, status, headers, config) {
-                            console.log(data);
+                            //console.log(data);
+                            def.resolve(data);
                         }, function (error) {
                             console.error(error);
                         });
@@ -20,14 +21,6 @@ angular.module('trainingPageModule', []).config(['$routeProvider', function ($ro
                     } else {
                         $location.url('/ui/trainings');
                     }
-                }, function (error) {
-                    console.error(error);
-                });
-
-
-
-                $http.get('rest/trainings/searchTrainings?search=java').then(function (data, status, headers, config) {
-                    def.resolve(data);
                 }, function (error) {
                     console.error(error);
                 });

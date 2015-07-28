@@ -13,6 +13,7 @@ public class TrainingUI {
 
     private int id;
     private String name;
+    private String trainerName;
     private String annotation;
     private String description;
     private String target;
@@ -26,9 +27,18 @@ public class TrainingUI {
     private boolean isSubscribe;
     private int rate;
 
-    public TrainingUI(int id, String name, String annotation, String description, String target, boolean paid, int max_participants, String place, boolean internal, boolean approve, int trainer_id, List<Date> dates, boolean isSubscribe) {
+    public String getTrainerName() {
+        return trainerName;
+    }
+
+    public void setTrainerName(String trainerName) {
+        this.trainerName = trainerName;
+    }
+
+    public TrainingUI(int id, String name, String trainerName, String annotation, String description, String target, boolean paid, int max_participants, String place, boolean internal, boolean approve, int trainer_id, List<Date> dates, boolean isSubscribe) {
         this.id = id;
         this.name = name;
+        this.trainerName = trainerName;
         this.annotation = annotation;
         this.description = description;
         this.target = target;

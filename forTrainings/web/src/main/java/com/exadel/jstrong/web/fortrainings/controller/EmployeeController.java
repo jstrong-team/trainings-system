@@ -7,4 +7,5 @@ public interface EmployeeController {
     void updateToken(int id, String token);
     boolean checkToken (String token);
     int getIdByToken(String token);
+    boolean isAdmin(int id);
 }
