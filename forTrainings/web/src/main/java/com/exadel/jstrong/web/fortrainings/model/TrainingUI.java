@@ -1,6 +1,9 @@
 package com.exadel.jstrong.web.fortrainings.model;
 
+import com.exadel.jstrong.fortrainings.core.service.DateDeserializer;
 import com.exadel.jstrong.fortrainings.core.service.DateListSerializer;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.Date;
@@ -145,10 +148,12 @@ public class TrainingUI {
         return dates;
     }
 
+    @JsonDeserialize(using= DateDeserializer.class)
     public void setdates(List<Date> dates) {
         this.dates = dates;
     }
 
+    @JsonGetter("isSubscribe")
     public boolean isSubscribe() {
         return isSubscribe;
     }

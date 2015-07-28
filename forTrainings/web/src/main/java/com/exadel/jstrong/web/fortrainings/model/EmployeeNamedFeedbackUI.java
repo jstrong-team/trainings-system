@@ -1,6 +1,11 @@
 package com.exadel.jstrong.web.fortrainings.model;
 
-import javax.persistence.Column;
+import com.exadel.jstrong.fortrainings.core.service.DateDeserializer;
+import com.exadel.jstrong.fortrainings.core.service.DateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import java.util.Date;
 
 /**
  * Created by Администратор on 27.07.2015.
@@ -15,7 +20,7 @@ public class EmployeeNamedFeedbackUI {
 
     private int trainingId;
 
-    private String addDate;
+    private Date addDate;
 
     private boolean understand;
 
@@ -33,7 +38,7 @@ public class EmployeeNamedFeedbackUI {
 
     private boolean isDelete;
 
-    public EmployeeNamedFeedbackUI(int id, String name, int employeeId, int trainingId, String addDate, boolean understand, boolean interested, boolean continueWithThisTrainer, boolean smthNew, boolean recommend, int rate, String other, boolean isDelete) {
+    public EmployeeNamedFeedbackUI(int id, String name, int employeeId, int trainingId, Date addDate, boolean understand, boolean interested, boolean continueWithThisTrainer, boolean smthNew, boolean recommend, int rate, String other, boolean isDelete) {
         this.id = id;
         this.name = name;
         this.employeeId = employeeId;
@@ -81,11 +86,13 @@ public class EmployeeNamedFeedbackUI {
         this.trainingId = trainingId;
     }
 
-    public String getAddDate() {
+    @JsonSerialize(using= DateSerializer.class)
+    public Date getAddDate() {
         return addDate;
     }
 
-    public void setAddDate(String addDate) {
+    @JsonDeserialize(using=DateDeserializer.class)
+    public void setAddDate(Date addDate) {
         this.addDate = addDate;
     }
 

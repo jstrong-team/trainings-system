@@ -82,9 +82,14 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     @Transactional
     public Training getTrainingById(int id) {
-        Training tr = getById(Training.class, id);
-        Hibernate.initialize(tr.getFeedbacks());
-        return tr;
+        try {
+            Training tr = getById(Training.class, id);
+            Hibernate.initialize(tr.getFeedbacks());
+            return tr;
+        } catch(Throwable e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
