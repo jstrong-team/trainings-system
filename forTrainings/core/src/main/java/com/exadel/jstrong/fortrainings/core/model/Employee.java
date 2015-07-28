@@ -194,8 +194,7 @@ public class Employee {
                     employee.getLogin().equals(this.getLogin()) &&
                     employee.getPassword().equals(this.getPassword()) &&
                     employee.getName().equals(this.getName()) &&
-                    employee.getMail().equals(this.getMail()) &&
-                    employee.getPhone().equals(this.getPhone());
+                    employee.getMail().equals(this.getMail());
         }
     }
 }

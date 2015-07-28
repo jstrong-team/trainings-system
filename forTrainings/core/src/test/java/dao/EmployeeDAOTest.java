@@ -24,5 +24,12 @@ public class EmployeeDAOTest extends BaseDAOTest {
         Employee actualEmployee = employeeDAO.selectByAuthorization("masha", "c3cc6e312d2bad42cf535aac3a259abd");
         Assert.assertEquals(expectedEmployee, actualEmployee);
     }
-}
 
+    @Test
+    @DatabaseSetup(INITIAL_DATA_LOCATION + "/get.xml")
+    public void testSelectNameById() {
+        String expectedName = "Maria Grakova";
+        String actualName = employeeDAO.getNameById(2);
+        Assert.assertEquals(expectedName, actualName);
+    }
+}

@@ -1,8 +1,5 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
-/**
- * Created by Администратор on 21.07.2015.
- */
 import javax.persistence.*;
 
 @Entity
