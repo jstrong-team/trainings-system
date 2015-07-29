@@ -22,7 +22,7 @@ public class DateListDeserializer extends JsonDeserializer<List<Date>>
                 dates.add(format.parse(jsonparser.nextTextValue()));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
         return dates;
     }

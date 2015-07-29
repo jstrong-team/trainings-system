@@ -19,7 +19,7 @@ public class DateDeserializer extends JsonDeserializer<Date>
         try {
             return format.parse(date);
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            return null;
         }
 
     }
