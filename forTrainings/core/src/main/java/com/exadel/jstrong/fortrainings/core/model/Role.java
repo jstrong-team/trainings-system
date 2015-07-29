@@ -20,6 +20,9 @@ public class Role {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
     private List<Employee> employees;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "role")
+    private List<EmployeeNotice> employeeNotices;
+
     public Role() {
     }
 
@@ -41,5 +44,13 @@ public class Role {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    public List<EmployeeNotice> getEmployeeNotices() {
+        return employeeNotices;
+    }
+
+    public void setEmployeeNotices(List<EmployeeNotice> employeeNotices) {
+        this.employeeNotices = employeeNotices;
     }
 }
