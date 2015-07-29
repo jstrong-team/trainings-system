@@ -23,6 +23,7 @@ public class EmployeeFeedbackDAOImpl extends BaseDAO<EmployeeFeedback> implement
         super.update(feedback);
     }
 
+    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     public List<EmployeeFeedback> getAllFeedbacks(int trainingId) {
         try {
@@ -36,6 +37,7 @@ public class EmployeeFeedbackDAOImpl extends BaseDAO<EmployeeFeedback> implement
         }
     }
 
+    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     @Transactional
     public boolean deleteFeedback(int id) {

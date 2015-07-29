@@ -166,4 +166,21 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             return false;
         }
     }
+
+    @Override
+    public void editTraining(TrainingUI training) {
+        Training t = new Training();
+        t.setId(training.getId());
+        t.setAnnotation(training.getAnnotation());
+        t.setDescription(training.getDescription());
+        t.setDate(training.getdates());
+        t.setInternal(training.isInternal());
+        t.setMax_participants(training.getMax_participants());
+        t.setName(training.getName());
+        t.setPlace(training.getPlace());
+        t.setPaid(training.isPaid());
+        t.setTarget(training.getTarget());
+        t.setTrainer_id(training.getTrainer_id());
+        tDAO.editTraining(t);
+    }
 }

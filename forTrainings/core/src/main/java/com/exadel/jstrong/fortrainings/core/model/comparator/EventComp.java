@@ -9,6 +9,7 @@ import java.util.Comparator;
  */
 public class EventComp implements Comparator<Event> {
 
+    //TODO: why do they are equal is exception occurred?
     @Override
     public int compare(Event firstEvent, Event secondEvent){
         try {

@@ -2,17 +2,15 @@
     var services = [
         '$scope',
         'createService',
-        '$location'
+        '$location',
+        'validationService',
+        'multipleDatesService'
     ];
-    var controller = function ($scope, createService, $location) {
+    var controller = function ($scope, createService, $location, validationService, multipleDatesService) {
         $scope.createInfo = {
             name: null, annotation: null, description: null, target: null, paid: true,
             max_participants: null, date: [], place: null, internal: true
         };
-
-        $scope.isTrainingPeriodic = '';
-
-        $scope.error = null;
 
         $scope.days = [
             {name: 'Sun:', day: 0},
@@ -25,8 +23,13 @@
         ];
 
         $scope.selectedDays = [];
+        $scope.isTrainingPeriodic = '';
+        $scope.errorDateValidation = '';
+        $scope.firstDate = '';
+        $scope.lastDate = '';
 
         $scope.toggleSelection = function toggleSelection(day) {
+
             var idx = $scope.selectedDays.indexOf(day.day);
 
             if (idx > -1) {
@@ -39,35 +42,23 @@
         };
 
         $scope.submitForm = function () {
-            if ($scope.isTrainingPeriodic !== '') {
-                if (Date.parse($scope.firstDate) > Date.parse($scope.lastDate)) {
-                    $scope.firstDate = '';
-                    $scope.lastDate = '';
-                    return;
-                }
-                $scope.createInfo.date.push($scope.firstDate);
-                $scope.createInfo.date.push($scope.lastDate);
-
-                for (var d = 0; d < $scope.selectedDays.length; ++d) {
-                    var i = 0;
-                    var nextDay = moment($scope.firstDate).day(moment($scope.firstDate).day() + 1);
-                    var iterationDay = nextDay;
-                    while ($scope.selectedDays[d] != iterationDay.day()) {
-                        ++i;
-                        iterationDay = moment($scope.firstDate).day(moment($scope.firstDate).day() + i + 1);
-                    }
-
-                    i = 0;
-                    while (iterationDay.date() < moment($scope.lastDate).date() - 7) {
-                        iterationDay = iterationDay.day(iterationDay.day() + i);
-                        var result = iterationDay.format('YYYY-MM-DD HH:mm');
-                        $scope.createInfo.date.push(result);
-                        i = 7;
-                    }
-                }
+            if ($scope.isTrainingPeriodic === '') {
+                $scope.errorDateValidation = validationService.oneTime($scope.firstDate);
 
             } else {
+                $scope.errorDateValidation = validationService.periodic($scope.firstDate, $scope.lastDate);
+            }
+            if ($scope.errorDateValidation !== '') {
+                $scope.firstDate = '';
+                $scope.lastDate = '';
+                return;
+            }
+
+            if ($scope.isTrainingPeriodic === '') {
                 $scope.createInfo.date.push($scope.firstDate);
+
+            } else {
+                $scope.createInfo.date = multipleDatesService.multiple($scope.firstDate, $scope.lastDate, $scope.selectedDays);
             }
 
             console.log($scope.createInfo);

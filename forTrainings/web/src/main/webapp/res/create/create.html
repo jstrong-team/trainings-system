@@ -3,21 +3,21 @@
     <form class="form-horizontal createTraining" name="createTraining" role="form" ng-submit="submitForm()">
         <div class="col-md-6">
             <div class="form-group">
-                <label class="control-label col-md-4" for="name">Training name:</label>
+                <label class="control-label col-md-4 required" for="name">Training name</label>
                 <div class="col-md-8">
                     <input type="text" class="form-control" id="name" ng-model="createInfo.name" placeholder="Training name" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" for="annotation">Annotation:</label>
+                <label class="control-label col-md-4 required" for="annotation">Annotation</label>
                 <div class="col-md-8">
                     <input type="text" class="form-control" id="annotation" ng-model="createInfo.annotation" placeholder="Annotation" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4">Type:</label>
+                <label class="control-label col-md-4">Type</label>
                 <div class="col-md-8">
                     <select ng-model="isTrainingPeriodic" class="form-control">
                         <option value='true'>Periodic</option>
@@ -27,8 +27,8 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" for="firstDate" ng-hide="isTrainingPeriodic">Date:</label>
-                <label class="control-label col-md-4" for="firstDate" ng-show="isTrainingPeriodic">First training:</label>
+                <label class="control-label col-md-4 required" for="firstDate" ng-hide="isTrainingPeriodic">Date</label>
+                <label class="control-label col-md-4 required" for="firstDate" ng-show="isTrainingPeriodic">First training</label>
                 <div class="col-md-8">
                     <div class="dropdown">
                         <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">
@@ -43,16 +43,17 @@
                             <datetimepicker data-ng-model="firstDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
                         </ul>
                     </div>
+                    <p ng-show="errorDateValidation" class="text-danger">{{errorDateValidation}}</p>
                 </div>
             </div>
 
             <div class="form-group" ng-show="isTrainingPeriodic">
-                <label class="control-label col-md-4" for="lastDate">Last training</label>
+                <label class="control-label col-md-4 required" for="lastDate">Last training</label>
                 <div class="col-md-8">
                     <div class="dropdown">
                         <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
                             <div class="input-group">
-                                <input type="text" class="form-control" id="lastDate" placeholder="Pick a date" name="lastDate" ng-model="lastDate">
+                                <input type="text" ng-if="isTrainingPeriodic" class="form-control" id="lastDate" placeholder="Pick a date" name="lastDate" ng-model="lastDate" required>
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </span>
@@ -62,10 +63,11 @@
                             <datetimepicker data-ng-model="lastDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
                         </ul>
                     </div>
+                    <p ng-show="errorDateValidation" class="text-danger">{{errorDateValidation}}</p>
                 </div>
             </div>
             <div class="form-group" ng-show="isTrainingPeriodic">
-                <label class="control-label col-md-4">Days:</label>
+                <label class="control-label col-md-4">Days</label>
                 <div class="col-md-">
                     <div class="col-md-1" ng-repeat="day in days">
                         {{day.name}}<input
@@ -79,21 +81,21 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" for="place">Place:</label>
+                <label class="control-label col-md-4" for="place">Place</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="place" ng-model="createInfo.place" placeholder="Type a place" required>
+                    <input type="text" class="form-control" id="place" ng-model="createInfo.place" placeholder="Type a place">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" for="audience">Audience:</label>
+                <label class="control-label col-md-4 required" for="audience">Audience</label>
                 <div class="col-md-8">
                     <input type="text" class="form-control" id="audience" ng-model="createInfo.target" placeholder="Audience" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" for="maxParticipants">Max number:</label>
+                <label class="control-label col-md-4 required" for="maxParticipants">Max number</label>
                 <div class="col-md-8">
                     <input type="number" class="form-control" id="maxParticipants" min="0" ng-model="createInfo.max_participants" placeholder="Max number of participants" required>
                 </div>
@@ -102,7 +104,7 @@
         <div class="col-md-6">
 
             <div class="form-group">
-                <label class="control-label col-md-4" for="description">Description:</label>
+                <label class="control-label col-md-4 required" for="description">Description</label>
                 <div class="col-md-8">
                     <textarea type="text" rows="6" class="form-control" id="description" ng-model="createInfo.description" placeholder="Description" required></textarea>
                 </div>

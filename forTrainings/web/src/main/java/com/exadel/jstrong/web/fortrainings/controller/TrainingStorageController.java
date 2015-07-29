@@ -23,5 +23,6 @@ public interface TrainingStorageController {
     List<EmployeeNamedFeedbackUI> getEmployeeNamedFeedback(int id, boolean isAdmin);
     boolean deleteFeedback(int id);
     boolean deleteSuscriber(int userId, int trainingId);
+    void editTraining(TrainingUI training);
 }
 

@@ -181,6 +181,8 @@ public class Employee {
         this.notices = notices;
     }
 
+
+    //TODO: id is a unique key. (PRIMARY KEY). Why do we check login and pass and ...?
     @Override
     public boolean equals(Object o) {
         if (this == o) {

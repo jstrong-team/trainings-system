@@ -78,6 +78,24 @@ public class Training {
     public Training() {
     }
 
+    public Training(Training training) {
+        this.name = training.name;
+        this.annotation = training.annotation;
+        this.description = training.description;
+        this.target = training.target;
+        this.paid = training.paid;
+        this.max_participants = training.max_participants;
+        this.place = training.place;
+        this.internal = training.internal;
+        this.approve = training.approve;
+        this.trainer_id = training.trainer_id;
+        this.date = training.date;
+        this.meets = training.meets;
+        this.isSubscribe = training.isSubscribe;
+        this.feedbacks = training.feedbacks;
+        this.subscribes = training.subscribes;
+    }
+
     public List<Meet> getMeets() {
         return meets;
     }

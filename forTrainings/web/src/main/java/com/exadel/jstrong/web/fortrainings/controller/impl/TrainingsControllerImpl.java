@@ -24,6 +24,10 @@ public class TrainingsControllerImpl implements TrainingsController {
         trainingDAO = new TrainingDAOImpl();
     }
 
+    //TODO: double database request? Why? Could we do this without treating DB?
+    //TODO: and
+    //TODO: 1) getTrainingsInDateScope(userId, dateFrom, dateTo);
+    //TODO: 2) getTrainingsInDateScope(userId, dateTo, dateFrom); ????
     @Override
     public TrainingsUI getAllTrainings(int userId) {
         Calendar calendarDateFrom = Calendar.getInstance();

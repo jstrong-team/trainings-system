@@ -16,6 +16,7 @@ public class EmployeeControllerImpl implements EmployeeController {
     @Autowired
     private TokenDAO tokenDAO;
 
+    //TODO: why we checks password and login here? We got an entity using login and pass
     public EmployeeUI authorization(String login, String password) {
 
         Employee employee = employeeDao.selectByAuthorization(login, password);
