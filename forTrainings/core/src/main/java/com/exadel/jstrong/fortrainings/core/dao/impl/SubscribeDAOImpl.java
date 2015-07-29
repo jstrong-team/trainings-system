@@ -2,15 +2,11 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
-import com.exadel.jstrong.fortrainings.core.model.Meet;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 /**
  * Created by Anton on 23.07.2015.
@@ -24,6 +20,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
         return super.save(subscribe).getId();
     }
 
+    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     public boolean removeSubscriber(int userId, int trainingId) {
         try {
@@ -36,6 +33,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
         return false;
     }
 
+    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     public boolean changeStatus() {
         try {

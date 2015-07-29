@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 
 /**
  * Created by Maria on 20.07.2015.
@@ -31,6 +30,7 @@ public class TokenDAOImpl extends BaseDAO<Token> implements TokenDAO {
         return token;
     }
 
+    //TODO: add logger. Check finally block
     @Override
     public boolean checkToken(String value) {
         try {
