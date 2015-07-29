@@ -38,3 +38,11 @@ textarea {
         float: right;
     }
 }
+
+.dateInputField{
+    padding-top: 10px;
+}
+
+.dateInputButton{
+    width:100%;
+}
