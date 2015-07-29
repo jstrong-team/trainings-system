@@ -168,5 +168,9 @@ public class TrainingStorageSpringController {
         }
     }
 
+    @RequestMapping(value = "/editTraining", method = RequestMethod.PUT)
+    public void editTraining(@RequestBody TrainingUI trainingUI, HttpServletRequest request, HttpServletResponse response) {
+        tsci.editTraining(trainingUI);
+    }
 }
 

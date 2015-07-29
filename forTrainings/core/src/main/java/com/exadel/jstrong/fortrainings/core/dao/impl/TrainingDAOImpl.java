@@ -11,6 +11,7 @@ import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -155,5 +156,24 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    @Transactional
+    public void editTraining(Training training) {
+        int oldID, newID;
+
+        oldID = training.getId();
+
+        Training newTraining = new Training(training);
+        newTraining.setApprove(false);
+        newID = add(newTraining);
+
+        Query query = em.createNativeQuery("INSERT INTO training_version VALUES (?,?)");
+        query.setParameter(1, oldID);
+        query.setParameter(2, newID);
+        int res = query.executeUpdate();
+        if (res == 0)
+            logger.warn("NO record inserted into training_version table.");
     }
 }

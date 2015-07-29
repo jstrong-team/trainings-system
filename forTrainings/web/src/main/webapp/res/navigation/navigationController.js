@@ -65,7 +65,7 @@ angular.module('navigationModule').controller('navigationController', ['$rootSco
     };
 
     $scope.redirectToTrainingPage = function (id) {
-        getRole(id).then(function (data, status, headers, config) {
+        goToTrainingPage(id).then(function (data, status, headers, config) {
             if (data.data.role === 'user') {
                 $location.url('/ui/trainingPage/user/' + id);
                 $rootScope.inputSearchText = '';
