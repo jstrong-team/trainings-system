@@ -51,7 +51,16 @@ public class TrainingStorageSpringController {
             int tId = Integer.parseInt(request.getParameter("id"));
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
             int uId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
-            return tsci.getTraining(tId, uId);
+            TrainingUI trainingUI = tsci.getTraining(tId, uId);
+            if(trainingUI.isApprove()) {
+                return trainingUI;
+            } else {
+                if(ec.isAdmin(uId)) {
+                    return trainingUI;
+                } else {
+                    response.setStatus(HttpServletResponse.SC_CONFLICT);
+                }
+            }
         }catch(Exception e){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
