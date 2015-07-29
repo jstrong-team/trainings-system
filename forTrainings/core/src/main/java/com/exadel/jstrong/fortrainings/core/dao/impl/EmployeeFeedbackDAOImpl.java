@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -19,10 +21,14 @@ public class EmployeeFeedbackDAOImpl extends BaseDAO<EmployeeFeedback> implement
 
     @Override
     @Transactional
-    public void addFeedback(EmployeeFeedback feedback){
-        super.update(feedback);
+    public void addFeedback(EmployeeFeedback feedback) {
+        int id = contains(feedback.getEmployeeId(), feedback.getTrainingId());
+        if (id != 0) {
+            feedback.setId(id);
+        }
+        super.update(feedback).getId();
     }
-
+    
     //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     public List<EmployeeFeedback> getAllFeedbacks(int trainingId) {
@@ -49,5 +55,22 @@ public class EmployeeFeedbackDAOImpl extends BaseDAO<EmployeeFeedback> implement
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public int contains(int userId, int trainingId) {
+        try {
+            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+            CriteriaQuery<EmployeeFeedback> query = criteriaBuilder.createQuery(EmployeeFeedback.class);
+            Root<EmployeeFeedback> root = query.from(EmployeeFeedback.class);
+            Predicate p1 = criteriaBuilder.equal(root.<Integer>get("trainingId"), trainingId);
+            Predicate p2 = criteriaBuilder.equal(root.<Integer>get("employeeId"), userId);
+            query.where(criteriaBuilder.or(p1, p2));
+            EmployeeFeedback employeeFeedback = em.createQuery(query).getSingleResult();
+            return employeeFeedback.getId();
+        } catch (Throwable e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 }
