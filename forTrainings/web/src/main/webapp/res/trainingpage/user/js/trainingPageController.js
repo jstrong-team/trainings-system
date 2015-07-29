@@ -1,4 +1,4 @@
-angular.module('trainingPageModule').controller('trainingPageController', ['$scope', 'getTrainingInfo', '$http', '$modal', '$routeParams','getSubscribersService','$route', function ($scope, getTrainingInfo, $http, $modal, $routeParams,getSubscribersService,$route) {
+angular.module('trainingPageModule').controller('trainingPageController', ['$scope', 'getTrainingInfo', '$http', '$modal', '$routeParams','getSubscribersService','$route','unsubscribeService', function ($scope, getTrainingInfo, $http, $modal, $routeParams,getSubscribersService,$route,unsubscribeService) {
 
     $scope.isCollapsed = false;
 
@@ -35,14 +35,23 @@ angular.module('trainingPageModule').controller('trainingPageController', ['$sco
             console.log(error);
         });
     };
-
+    //TODO:  move http post in service
     $scope.subscribe = function () {
         console.log('/ui/trainingPage/user/'+$scope.training.id);
         $route.reload();
         $http.post('/rest/storagetraining/addsubscriber?id='+ $scope.training.id, $scope.feedback).then(function (response) {
-            console.log(response);
+            //console.log(response);
         }, function (error) {
             console.log(error);
+        });
+    };
+
+    $scope.unsubscribe=function(){
+        unsubscribeService($scope.training.id).then(function(response){
+            console.log(response);
+            $route.reload();
+        },function(error){
+            console.error(error);
         });
     };
 

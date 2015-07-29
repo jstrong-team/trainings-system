@@ -69,7 +69,7 @@
                     </button>
                 </div>
                 <div class="col-md-4" ng-if="training.isSubscribe" ng-cloak>
-                    <button type="button" class="btn btn-danger " ng-click="">unsubscribe</button>
+                    <button type="button" class="btn btn-danger " ng-click="unsubscribe()">unsubscribe</button>
                 </div>
                 <div class="col-md-4 " ng-if="!training.isSubscribe" ng-cloak>
                     <button type="button" class="btn btn-primary " ng-click="subscribe()">subscribe</button>
