@@ -1,1 +1,92 @@
-<h1>sdasdasd</h1>
+<div class="container wrappered" ng-controller="createController">
+    <h1 class="text-center createTraining">Edit training</h1>
+    <form class="form-horizontal createTraining" name="createTraining" role="form" ng-submit="submitForm()">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="name">Training name</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" id="name" ng-model="editInfo.name" placeholder="Training name" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4 " for="annotation">Annotation</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" id="annotation" ng-model="editInfo.annotation" placeholder="Annotation" required>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="place">Place</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" id="place" ng-model="editInfo.place" placeholder="Type a place">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4 " for="audience">Audience</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" id="audience" ng-model="editInfo.target" placeholder="Audience" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="maxParticipants">Max number</label>
+                <div class="col-md-8">
+                    <input type="number" class="form-control" id="maxParticipants" min="0" ng-model="editInfo.max_participants" placeholder="Max number of participants" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="maxParticipants">Dates</label>
+                <div class="col-md-8" ng-repeat="date in editInfo.dates">
+                    <input type="number" class="form-control" id="maxParticipants" min="0" ng-model="date" placeholder="Max number of participants" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label class="control-label col-md-4 " for="description">Description</label>
+                <div class="col-md-8">
+                    <textarea type="text" rows="6" class="form-control" id="description" ng-model="editInfo.description" placeholder="Description" required></textarea>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 radioForm" >
+                <div class="form-group">
+                    <label class="control-label col-md-8">Internal / External:</label>
+                    <div class="col-md-4">
+                        <div class="radio">
+                            <label><input type="radio" ng-value="true" name="internalExternal" ng-model="editInfo.internal">internal</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" ng-value="false" name="internalExternal" ng-model="editInfo.internal">external</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-8">Paid / Free:</label>
+                    <div class="col-md-4">
+                        <div class="radio">
+                            <label><input type="radio" ng-value="true" name="paidFree" ng-model="editInfo.paid">paid</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" ng-value="false" name="paidFree" ng-model="editInfo.paid">free</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div>
+                        <button type="submit" class="btn btn-md submitButton">Apply changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
