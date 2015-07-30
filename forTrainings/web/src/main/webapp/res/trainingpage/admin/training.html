@@ -15,47 +15,35 @@
     </div>
 
     <div classs="row " style="padding-top: 50px">
-        <div class="col-md-7 well textBlock" >
+        <div class="col-md-7 well textBlock">
             <span>Annotation:</span>{{training.annotation}}<p></p>
             <span>Description:</span>{{training.description}}<p></p>
             <span>Target audience:</span>{{training.target}}<p></p>
-            <span>Subscribers:</span><p></p>
-
+            <span>Subscribers:</span>
+            <p></p>
 
             <div class="panel panel-default table-responsive ">
                 <table class="table table-bordered">
                     <tr>
-                        <th>
-                            #
-                        </th>
-                        <th>
-                            user
-                        </th>
-                        <th>
-                            status
-                        </th>
-                        <th ng-repeat="date in training.dates">
-                            {{$index+1}}
-                        </th>
+                        <th>#</th>
+                        <th>user</th>
+                        <th>status</th>
+                        <th ng-repeat="date in training.dates">{{$index+1}}</th>
                     </tr>
                     <tr ng-repeat="subscriber in subscribers">
                         <td>{{$index+1}}</td>
                         <td nowrap>{{subscriber.name}}</td>
                         <td>{{subscriber.status}}</td>
-                        <td ng-repeat="date in training.dates">
-
-                        </td>
+                        <td ng-repeat="date in training.dates"></td>
                     </tr>
                 </table>
             </div>
 
-
-
-            <span>Coments:</span><p></p>
-
+            <span>Coments:</span>
+            <p></p>
             <div class="panel panel-default " ng-repeat="coment in feedbacks">
-                <table class="table " >
-                    <tr >
+                <table class="table ">
+                    <tr>
                         <td>
                             <div>
                                 <rating ng-model="coment.rate"
@@ -63,19 +51,24 @@
                                         max="5">
                                 </rating>
                                 <div>
-                                    <label class="control-label ">Understand all: {{coment.understand|yesNoFilter}}</label>
+                                    <label class="control-label ">Understand all:
+                                        {{coment.understand|yesNoFilter}}</label>
                                 </div>
                                 <div>
-                                    <label class="control-label ">Interested in: {{coment.interested|yesNoFilter}}</label>
+                                    <label class="control-label ">Interested in:
+                                        {{coment.interested|yesNoFilter}}</label>
                                 </div>
                                 <div>
-                                    <label class="control-label ">Like to learn from this coach: {{coment.continueWithThisTrainer|yesNoFilter}}</label>
+                                    <label class="control-label ">Like to learn from this coach:
+                                        {{coment.continueWithThisTrainer|yesNoFilter}}</label>
                                 </div>
                                 <div>
-                                    <label class="control-label ">Learn something new: {{coment.smthNew|yesNoFilter}}</label>
+                                    <label class="control-label ">Learn something new:
+                                        {{coment.smthNew|yesNoFilter}}</label>
                                 </div>
                                 <div>
-                                    <label class="control-label ">Recommend to your colleagues to visit this training: {{coment.recommend|yesNoFilter}}</label>
+                                    <label class="control-label ">Recommend to your colleagues to visit this training:
+                                        {{coment.recommend|yesNoFilter}}</label>
                                 </div>
                                 <div>
                                     <label class="control-label ">Other: {{coment.other}}</label>
@@ -87,23 +80,38 @@
             </div>
         </div>
 
-
-
-        <div class="col-md-4 well textBlock" >
-            <span>Trainer:</span>Diadia fedia<p></p>
+        <div class="col-md-4 well textBlock buttons">
+            <span>Trainer:</span>{{training.trainerName}}<p></p>
             <span>Time:</span>{{training.date[0]}}<p></p>
             <span>Place:</span>{{training.place}}<p></p>
+
             <div class="row">
-                <div class="col-md-4 ">
-                    <button type="button" class="btn btn-danger " ng-click="editTraining()">Edit training</button>
+                <div class="col-md-5 " ng-if="!training.isSubscribe" ng-cloak>
+                    <button type="button" class="btn btn-primary " ng-click="subscribe()">subscribe</button>
                 </div>
-                <div class="col-md-4 ">
+                <div class="col-md-5">
+                    <button type="button" class="btn btn-primary " ng-click="openModal()" ng-if="training.isSubscribe">
+                        Leave feedback
+                    </button>
+                </div>
+                <div class="col-md-5" ng-if="training.isSubscribe" ng-cloak>
+                    <button type="button" class="btn btn-danger " ng-click="unsubscribe()">unsubscribe</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5 ">
+                    <button type="button" class="btn btn-primary " ng-click="editTraining()">Edit training</button>
+                </div>
+                <div class="col-md-5 ">
                     <button type="button" class="btn btn-danger " ng-click="subscribe()">Remove training</button>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-12 dateTime">
-                    <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><span>Show dates list</span></button>
+                    <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><span>Show dates list</span>
+                    </button>
                     <div collapse="isCollapsed">
 
                         <!--<div class="panel panel-default">-->
@@ -129,7 +137,8 @@
                                     {{training.dateTime[$index]}} {{training.year[$index]}}
                                 </td>
                                 <td>
-                                    <span class="glyphicon glyphicon-time" style="color: grey"></span> {{training.time[$index]}}
+                                    <span class="glyphicon glyphicon-time" style="color: grey"></span>
+                                    {{training.time[$index]}}
                                 </td>
                             </tr>
                         </table>
@@ -138,14 +147,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
 
 
 </div>

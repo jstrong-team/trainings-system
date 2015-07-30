@@ -7,7 +7,7 @@ angular.module('trainingEditModule', []).config(['$routeProvider', function ($ro
                 var def = $q.defer();
                 var id=$route.current.params.trainingId;
                 getRole(id).then(function (data, status, headers, config){
-                    if (data.data.role === 'trainer') {
+                    if (data.data.role === 'trainer'||data.data.role === 'admin') {
                         getTrainingData(id).then(function (data, status, headers, config) {
                             console.log(data);
                             def.resolve(data);

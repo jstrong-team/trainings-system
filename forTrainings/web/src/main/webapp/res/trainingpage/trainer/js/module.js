@@ -17,6 +17,8 @@ angular.module('trainingPageTrainerModule', []).config(function($routeProvider) 
 
                     } else if (data.data.role === 'user') {
                         $location.url('/ui/trainingPage/user/' + id);
+                    }else if (data.data.role === 'admin') {
+                        $location.url('/ui/trainingPage/admin/' + id);
                     } else {
                         $location.url('/ui/trainings');
                     }
