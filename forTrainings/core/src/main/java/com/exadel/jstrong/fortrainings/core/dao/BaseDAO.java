@@ -72,6 +72,7 @@ public abstract class BaseDAO<T> implements GenericDAO<T>{
         return em.find(entityClass, id);
     }
 
+    //TODO: what is the purpose of this method in DAO?
     public static String getCorrectDate(String date){
         return date.substring(0, date.indexOf('.'));
     }

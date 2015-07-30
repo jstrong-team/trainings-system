@@ -17,6 +17,7 @@
                     <a href="" ng-repeat-start="x in days" on-finish-render="ngRepeatFinished">
                         <div class="dayItem fulldate_{{x.year}}-{{x.month}}-{{x.date}} day-{{x.day}} month-{{x.month}}">
                             <p>{{x.date}}</p>
+                            <span class="isTrainer"></span>
                         </div>
                     </a>
                     <hr ng-if="(($index+1) % 7) == 0">

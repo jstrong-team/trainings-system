@@ -27,6 +27,7 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
         return (String)query.getSingleResult();
     }
 
+    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     public boolean isAdmin(int id) {
         try {

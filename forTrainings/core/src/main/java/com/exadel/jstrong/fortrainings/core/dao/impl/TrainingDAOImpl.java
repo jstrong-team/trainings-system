@@ -24,6 +24,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
 
     private static Logger logger = Logger.getLogger(TrainingDAOImpl.class.getName());
 
+    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     public List<Event> getTrainingsInDateScope(int userId, Date dateFrom, Date dateTo) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -51,6 +52,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         return events;
     }
 
+    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     @Transactional
     public List<Training> getSearchResponse(String st) {
@@ -81,6 +83,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         return training.getId();
     }
 
+    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     @Transactional
     public Training getTrainingById(int id) {
@@ -94,6 +97,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         return null;
     }
 
+    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     public boolean isSubscribeById (int employeeId, int trainingId){
 
@@ -145,6 +149,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         }
     }
 
+    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     @Transactional
     public List<Subscribe> getSubscribers(int trainingId) {

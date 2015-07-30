@@ -163,7 +163,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
     @Override
     public boolean deleteSuscriber(int userId, int trainingId) {
-        if(sDAO.removeSubscriber(userId, trainingId) && sDAO.changeStatus()) {
+        if(sDAO.removeSubscriber(userId, trainingId) && sDAO.changeStatus(trainingId)) {
             return true;
         } else {
             return false;

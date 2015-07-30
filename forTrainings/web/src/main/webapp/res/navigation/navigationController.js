@@ -1,4 +1,4 @@
-angular.module('navigationModule').controller('navigationController', ['$rootScope', '$scope', '$location', 'doSearchService', 'doLogoutService', 'dateFormatService','getRole', function ($rootScope, $scope, $location, doSearchService, doLogoutService, dateFormatService,getRole) {
+angular.module('navigationModule').controller('navigationController', ['$rootScope', '$scope', '$location', 'doSearchService', 'doLogoutService', 'dateFormatService', 'getRole', function ($rootScope, $scope, $location, doSearchService, doLogoutService, dateFormatService, getRole) {
 
     $scope.isActive = function (viewLocation) {
         return viewLocation === $location.path();
@@ -21,6 +21,9 @@ angular.module('navigationModule').controller('navigationController', ['$rootSco
 
     $scope.doSearch = function () {
         $rootScope.inputSearchText = $scope.searchExpression;
+        if ($scope.searchExpression === '') {
+            $scope.noResultsFound = false;
+        }
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
             dateFormatService(data.data);
             $scope.searchResponse = data.data;
@@ -65,7 +68,7 @@ angular.module('navigationModule').controller('navigationController', ['$rootSco
     };
 
     $scope.redirectToTrainingPage = function (id) {
-        goToTrainingPage(id).then(function (data, status, headers, config) {
+        getRole(id).then(function (data, status, headers, config) {
             if (data.data.role === 'user') {
                 $location.url('/ui/trainingPage/user/' + id);
                 $rootScope.inputSearchText = '';

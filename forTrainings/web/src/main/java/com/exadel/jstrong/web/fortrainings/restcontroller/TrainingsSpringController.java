@@ -31,6 +31,7 @@ public class TrainingsSpringController {
     @Autowired
     private TrainingsController trainingsController;
 
+    //TODO: replace e.printStackTrace --> logger.warn/error
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody TrainingsUI getHistory(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
@@ -50,6 +51,7 @@ public class TrainingsSpringController {
         return null;
     }
 
+    //TODO: add error login
     @RequestMapping(value = "/logOut", method = RequestMethod.DELETE)
     public void logOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
@@ -67,6 +69,7 @@ public class TrainingsSpringController {
         }
     }
 
+    //TODO: add error logging
     @RequestMapping(value = "/searchTrainings", method = RequestMethod.GET)
     public @ResponseBody List<SearchEventUI> getSearch(HttpServletRequest request, HttpServletResponse response) throws IOException {
             try {

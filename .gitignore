@@ -134,3 +134,10 @@ crashlytics-build.properties
 
 # JShint
 .jshintrc
+
+# Bower
+node_modules
+dist
+.tmp
+.sass-cache
+bower_components

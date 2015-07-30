@@ -30,7 +30,7 @@ public class TrainingStorageSpringController {
     @Autowired
     private EmployeeController ec;
 
-
+    //TODO: replace e.printStackTrace --> logger.warn/error
     @RequestMapping(method = RequestMethod.POST)
     public void addTraining(@RequestBody Training training, HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
@@ -45,19 +45,30 @@ public class TrainingStorageSpringController {
         }
     }
 
+    //TODO: add error logging
     @RequestMapping(value = "/getTraining", method = RequestMethod.GET)
     public @ResponseBody TrainingUI getTraining (HttpServletRequest request, HttpServletResponse response) {
         try{
             int tId = Integer.parseInt(request.getParameter("id"));
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
             int uId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
-            return tsci.getTraining(tId, uId);
+            TrainingUI trainingUI = tsci.getTraining(tId, uId);
+            if(trainingUI.isApprove()) {
+                return trainingUI;
+            } else {
+                if(ec.isAdmin(uId)) {
+                    return trainingUI;
+                } else {
+                    response.setStatus(HttpServletResponse.SC_CONFLICT);
+                }
+            }
         }catch(Exception e){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
         return null;
     }
 
+    //TODO: add error logigng
     @RequestMapping(value = "/addsubscriber", method = RequestMethod.POST)
     public void addSubscriber(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -76,6 +87,7 @@ public class TrainingStorageSpringController {
         }
     }
 
+    //TODO: add error logging
     @RequestMapping(value = "/addemployeefeedback", method = RequestMethod.POST)
     public void addFeedback(@RequestBody EmployeeFeedback ef, HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
@@ -94,6 +106,7 @@ public class TrainingStorageSpringController {
         }
     }
 
+    //TODO: replace e.printStackTrace --> logger.warn/error
     @RequestMapping(value = "/feedbacks", method = RequestMethod.GET)
     public @ResponseBody List<EmployeeNamedFeedbackUI> getFeedbacks(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -131,7 +144,7 @@ public class TrainingStorageSpringController {
         return role;
     }
 
-    //fix!!!
+    //fix!!! --> you can use //FIXME
     @RequestMapping(value = "/editFeedback", method = RequestMethod.PUT)
     public void editFeedback(@RequestBody EmployeeFeedback employeeFeedback, HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));

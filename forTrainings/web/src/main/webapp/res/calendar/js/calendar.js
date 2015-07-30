@@ -101,6 +101,21 @@ function colorDayItems(data) {
     }
 }
 
+function addTrainerIcon (data) {
+    var regexp = new RegExp('\\d\\d\\d\\d-\\d\\d-\\d\\d');
+    for (var i = 0; i < data.length; ++i) {
+        var selector = '.fulldate_' + data[i].date.match(regexp)[0];
+        var element = document.querySelector(selector);
+        var icon = element.getElementsByClassName('isTrainer')[0];
+
+        var hasClassIsTrainer = icon.classList.contains('glyphicon');
+
+        if (data[i].isTrainer === true && hasClassIsTrainer === false) {
+            icon.className += ' glyphicon glyphicon-user';
+        }
+    }
+}
+
 function dayDescription(data) {
     var description = [];
     var indexResponse = 0;

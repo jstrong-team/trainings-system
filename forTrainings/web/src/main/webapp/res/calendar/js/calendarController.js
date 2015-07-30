@@ -26,9 +26,10 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
         markCurrentDay();
         calendarList.getCalendarInfo().then(function (data) {
             console.log(data);
+            colorDayItems(data.actualTrainingsHistory);
+            addTrainerIcon(data.actualTrainingsHistory);
             dateTimeFormat(data.actualTrainingsHistory);
             dateTimeFormat(data.pastTrainingsHistory);
-            colorDayItems(data.actualTrainingsHistory);
             $scope.threeMonthTrainings = data.actualTrainingsHistory;
             $scope.description = dayDescription(data.actualTrainingsHistory);
             $scope.pastTrainingHistory = data.pastTrainingsHistory

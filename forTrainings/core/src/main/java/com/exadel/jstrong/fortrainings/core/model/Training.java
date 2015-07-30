@@ -67,6 +67,9 @@ public class Training {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "training")
     private List<Subscribe> subscribes;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "training")
+    private List<Notice> notices;
+
     public List<Subscribe> getSubscribes() {
         return subscribes;
     }
@@ -223,5 +226,13 @@ public class Training {
 
     public void setFeedbacks(List<EmployeeFeedback> feedbacks) {
         this.feedbacks = feedbacks;
+    }
+
+    public List<Notice> getNotices() {
+        return notices;
+    }
+
+    public void setNotices(List<Notice> notices) {
+        this.notices = notices;
     }
 }

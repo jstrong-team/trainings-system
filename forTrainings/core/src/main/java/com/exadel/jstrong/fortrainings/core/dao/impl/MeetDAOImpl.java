@@ -27,6 +27,7 @@ public class MeetDAOImpl extends BaseDAO<Meet> implements MeetDAO {
         em.merge(meet);
     }
 
+    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     public List<Meet> getMeetsByTrainingId(int trainingId){
         try {
