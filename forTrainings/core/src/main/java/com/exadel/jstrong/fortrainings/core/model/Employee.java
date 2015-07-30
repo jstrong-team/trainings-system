@@ -70,6 +70,9 @@ public class Employee {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
     private List<Subscribe> subscribes;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+    private List<EmployeeNotice> employeeNotices;
+
     public Employee() {
     }
 
@@ -181,6 +184,16 @@ public class Employee {
         this.notices = notices;
     }
 
+    public List<EmployeeNotice> getEmployeeNotices() {
+        return employeeNotices;
+    }
+
+    public void setEmployeeNotices(List<EmployeeNotice> employeeNotices) {
+        this.employeeNotices = employeeNotices;
+    }
+
+
+    //TODO: id is a unique key. (PRIMARY KEY). Why do we check login and pass and ...?
     @Override
     public boolean equals(Object o) {
         if (this == o) {

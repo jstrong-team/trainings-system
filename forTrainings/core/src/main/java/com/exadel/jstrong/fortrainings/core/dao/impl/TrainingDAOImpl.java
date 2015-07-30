@@ -77,6 +77,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Transactional
     public int add (Training training){
         training = super.save(training);
+        Hibernate.initialize(training);
         return training.getId();
     }
 

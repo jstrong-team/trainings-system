@@ -7,12 +7,12 @@ import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
-import com.exadel.jstrong.web.fortrainings.model.EmployeeFeedbackUI;
 import com.exadel.jstrong.web.fortrainings.model.EmployeeNamedFeedbackUI;
 import com.exadel.jstrong.web.fortrainings.model.SubscriberUI;
 import com.exadel.jstrong.web.fortrainings.model.TrainingUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,16 +35,19 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     private EmployeeDAO eDAO;
 
     @Override
+    @Transactional
     public void addTraining(Training training) {
         int id = tDAO.add(training);
         List<Date> dates = training.getDate();
         int size = dates.size();
+        List<Meet> meets = new ArrayList<>();
         Meet meet = new Meet();
         for (int i = 0; i<size;i++){
             meet.setTraining_id(id);
             meet.setDate(dates.get(i));
-            mDAO.add(meet);
+            meets.add(meet);
         }
+        training.setMeets(meets);
     }
 
     @Override

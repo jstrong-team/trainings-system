@@ -1,7 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.model;
 
-import com.exadel.jstrong.fortrainings.core.service.DateDeserializer;
-import com.exadel.jstrong.fortrainings.core.service.DateSerializer;
+import com.exadel.jstrong.fortrainings.core.jsonutil.DateDeserializer;
+import com.exadel.jstrong.fortrainings.core.jsonutil.DateSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

@@ -1,8 +1,8 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
 import com.exadel.jstrong.fortrainings.core.model.Account;
-import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
+import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import com.google.gson.JsonParseException;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 

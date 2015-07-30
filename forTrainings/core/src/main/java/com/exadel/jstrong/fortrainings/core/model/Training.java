@@ -1,6 +1,6 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
-import com.exadel.jstrong.fortrainings.core.service.DateListDeserializer;
+import com.exadel.jstrong.fortrainings.core.jsonutil.DateListDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;

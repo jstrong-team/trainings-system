@@ -1,6 +1,6 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
-import com.exadel.jstrong.fortrainings.core.service.DateSerializer;
+import com.exadel.jstrong.fortrainings.core.jsonutil.DateSerializer;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.annotations.Cascade;
