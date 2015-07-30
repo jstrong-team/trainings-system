@@ -1,13 +1,17 @@
 package com.exadel.jstrong.fortrainings.core.dao;
 
+import com.exadel.jstrong.fortrainings.core.model.Meet;
 import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,9 +26,17 @@ public abstract class BaseDAO<T> implements GenericDAO<T>{
 
     @Override
     public List<T> getAll(Class<T> entityClass) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<T> query = cb.createQuery(entityClass);
-        return executeQuery(query);
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<T> cq = cb.createQuery(entityClass);
+            Root<T> rootEntry = cq.from(entityClass);
+            CriteriaQuery<T> all = cq.select(rootEntry);
+            TypedQuery<T> allQuery = em.createQuery(all);
+            return allQuery.getResultList();
+        } catch (Throwable e) {
+            logger.warn("Throwable");
+        }
+        return null;
     }
 
     @Override

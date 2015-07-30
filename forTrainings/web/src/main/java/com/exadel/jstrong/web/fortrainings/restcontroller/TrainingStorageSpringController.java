@@ -214,6 +214,11 @@ public class TrainingStorageSpringController {
         }
     }
 
+//    @RequestMapping(value = "/getReport", method = RequestMethod.GET)
+//    public {
+//
+//    }
+
 
 }
 
