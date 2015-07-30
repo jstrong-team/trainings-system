@@ -17,8 +17,7 @@ public class Noticer implements Runnable{
 
     @Override
     public void run(){
-        System.out.println("NOTICER RUN");
-        System.out.println("My messae: " + message);
+
     }
 
 }

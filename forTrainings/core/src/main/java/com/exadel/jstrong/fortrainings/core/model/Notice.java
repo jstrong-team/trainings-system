@@ -20,12 +20,27 @@ public class Notice {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Column(name = "theme")
+    private String theme;
+
     @Column(name = "text")
     private String text;
 
     @Column(name = "add_date")
     @Temporal(TemporalType.TIMESTAMP)
-    Date addDate;
+    private Date addDate;
+
+    @Column(name = "sender_id")
+    private int senderId;
+
+    @Column(name = "transaction_id")
+    private int transactionId;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "training_id")
+    private int trainingId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "training_id", insertable = false, updatable = false)
@@ -35,6 +50,38 @@ public class Notice {
     private List<EmployeeNotice> employeeNotices;
 
     public Notice() {
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public int getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(int senderId) {
+        this.senderId = senderId;
+    }
+
+    public int getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(int transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Notice(String text) {
@@ -80,5 +127,13 @@ public class Notice {
     @JsonDeserialize(using=DateDeserializer.class)
     public void setAddDate(Date addDate) {
         this.addDate = addDate;
+    }
+
+    public int getTrainingId() {
+        return trainingId;
+    }
+
+    public void setTrainingId(int trainingId) {
+        this.trainingId = trainingId;
     }
 }

@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Maria on 20.07.2015.
@@ -26,6 +27,7 @@ public class LoginSpringController {
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody EmployeeUI login(@RequestBody Account rempl, HttpServletResponse response) throws ServletException, IOException {
         try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String login = rempl.getLogin();
             String password = DigestUtils.md5Hex(rempl.getPassword());
             if(login != null && password != null) {
