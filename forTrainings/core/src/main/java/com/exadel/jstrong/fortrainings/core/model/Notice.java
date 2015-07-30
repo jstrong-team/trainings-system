@@ -34,7 +34,7 @@ public class Notice {
     private int senderId;
 
     @Column(name = "transaction_id")
-    private int transactionId;
+    private Integer transactionId;
 
     @Column(name = "status")
     private String status;
@@ -68,11 +68,11 @@ public class Notice {
         this.senderId = senderId;
     }
 
-    public int getTransactionId() {
+    public Integer getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(int transactionId) {
+    public void setTransactionId(Integer transactionId) {
         this.transactionId = transactionId;
     }
 

@@ -1,9 +1,7 @@
 package com.exadel.jstrong.fortrainings.core.dao;
 
-import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.EmployeeNotice;
 import com.exadel.jstrong.fortrainings.core.model.Notice;
-import com.exadel.jstrong.fortrainings.core.model.Training;
 
 import java.util.List;
 
@@ -12,8 +10,9 @@ import java.util.List;
  */
 public interface EmployeeNoticeDAO extends GenericDAO<EmployeeNotice> {
 
-    List<Notice> getEmployeeNotices(Employee employee);
-    List<Notice> getTrainingNotices(Training training);
+    List<Notice> getEmployeeActualNotices(int userId);
+    List<Notice> getEmployeeFirstHistoryNotices(int userId);
+    List<Notice> getTrainingNotices(int trainingId);
     List<Notice> getCompletedEmployeeNotices();
     int getNoticeCount(int userId);
 }

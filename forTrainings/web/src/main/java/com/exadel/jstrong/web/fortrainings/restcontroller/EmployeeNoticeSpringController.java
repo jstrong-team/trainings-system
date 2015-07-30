@@ -3,6 +3,7 @@ package com.exadel.jstrong.web.fortrainings.restcontroller;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeNoticeController;
 import com.exadel.jstrong.web.fortrainings.model.NoticeCountUI;
+import com.exadel.jstrong.web.fortrainings.model.NoticesUI;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,5 +41,19 @@ public class EmployeeNoticeSpringController {
             e.printStackTrace();
         }
         return n;
+    }
+
+    @RequestMapping(value = "/noticeHistory", method = RequestMethod.GET)
+    public @ResponseBody
+    NoticesUI getEmployeeNotices(HttpServletRequest request, HttpServletResponse response) {
+        NoticesUI notices = null;
+        try {
+            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+            int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            notices = employeeNoticeController.getEmployeeNotices(id);
+        } catch(Throwable e){
+            e.printStackTrace();
+        }
+        return notices;
     }
 }

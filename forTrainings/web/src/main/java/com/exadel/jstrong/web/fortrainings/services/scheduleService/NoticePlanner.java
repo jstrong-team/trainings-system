@@ -68,4 +68,8 @@ public class NoticePlanner implements Runnable {
         }
     }
 
+    private void destroy(){
+        executor.shutdown();
+    }
+
 }

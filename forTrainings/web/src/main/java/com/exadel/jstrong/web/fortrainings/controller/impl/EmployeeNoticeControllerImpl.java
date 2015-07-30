@@ -2,15 +2,27 @@ package com.exadel.jstrong.web.fortrainings.controller.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeNoticeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.impl.EmployeeNoticeDAOImpl;
+import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeNoticeController;
 import com.exadel.jstrong.web.fortrainings.model.NoticeCountUI;
+import com.exadel.jstrong.web.fortrainings.model.NoticeUI;
+import com.exadel.jstrong.web.fortrainings.model.NoticesUI;
+import com.exadel.jstrong.web.fortrainings.model.comparator.NoticeUIComp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by stas on 30.07.15.
  */
 @Component
 public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
+
+    @Autowired
+    private EmployeeNoticeDAO employeeNoticeDAO;
 
     @Override
     public NoticeCountUI getNoticeCount(int userId) {
@@ -23,5 +35,45 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
             e.printStackTrace();
             return noticeCount;
         }
+    }
+
+    @Override
+    public NoticesUI getEmployeeNotices(int userId) {
+        NoticesUI result = new NoticesUI();
+        try {
+            List<Notice> notices = employeeNoticeDAO.getEmployeeActualNotices(userId);
+            List<NoticeUI> noticesUI = new ArrayList<>();
+            NoticeUI noticeUI;
+            for (Notice n : notices) {
+                noticeUI = new NoticeUI();
+                noticeUI.setId(n.getId());
+                noticeUI.setSenderId(n.getSenderId());
+                noticeUI.setStatus(n.getStatus());
+                noticeUI.setTheme(n.getTheme());
+                noticeUI.setText(n.getText());
+                noticeUI.setTransactionId(n.getTransactionId());
+                noticeUI.setAddDate(n.getAddDate());
+                noticesUI.add(noticeUI);
+            }
+            result.setActualNotices(noticesUI);
+            notices = employeeNoticeDAO.getEmployeeFirstHistoryNotices(userId);
+            noticesUI = new ArrayList<>();
+            for (Notice n : notices) {
+                noticeUI = new NoticeUI();
+                noticeUI.setId(n.getId());
+                noticeUI.setSenderId(n.getSenderId());
+                noticeUI.setStatus(n.getStatus());
+                noticeUI.setTheme(n.getTheme());
+                noticeUI.setText(n.getText());
+                noticeUI.setTransactionId(n.getTransactionId());
+                noticeUI.setAddDate(n.getAddDate());
+                noticesUI.add(noticeUI);
+            }
+            Collections.sort(noticesUI, new NoticeUIComp());
+            result.setHistoryNotices(noticesUI);
+        } catch(Throwable e){
+            e.printStackTrace();
+        }
+        return result;
     }
 }
