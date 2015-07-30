@@ -82,15 +82,15 @@
             <span>Time:</span>
             <p></p>
             <span>Place:</span>{{training.place}}<p></p>
-            <div class="row">
-                <div class="col-md-4 ">
-                    <button type="button" class="btn btn-primary " ng-click="editTraining()">Edit training</button>
+            <div class="row buttons">
+                <div class="col-md-6 ">
+                    <button type="button" class="btn  btn-default " ng-click="editTraining()">Edit training</button>
                 </div>
-                <div class="col-md-4 ">
+                <div class="col-md-6 ">
                     <button type="button" class="btn btn-danger " ng-click="subscribe()">Remove training</button>
                 </div>
             </div>
-            <div class="row">
+            <div class="row buttons">
                 <div class="col-md-12 dateTime">
                     <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><span>Show dates list</span></button>
                     <div collapse="isCollapsed">

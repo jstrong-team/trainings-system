@@ -86,31 +86,31 @@
             <span>Place:</span>{{training.place}}<p></p>
 
             <div class="row">
-                <div class="col-md-5 " ng-if="!training.isSubscribe" ng-cloak>
-                    <button type="button" class="btn btn-primary " ng-click="subscribe()">subscribe</button>
+                <div class="col-md-6 " ng-if="!training.isSubscribe" ng-cloak>
+                    <button type="button" class="btn  btn-default" ng-click="subscribe()">subscribe</button>
                 </div>
-                <div class="col-md-5">
-                    <button type="button" class="btn btn-primary " ng-click="openModal()" ng-if="training.isSubscribe">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-default " ng-click="openModal()" ng-if="training.isSubscribe">
                         Leave feedback
                     </button>
                 </div>
-                <div class="col-md-5" ng-if="training.isSubscribe" ng-cloak>
+                <div class="col-md-6" ng-if="training.isSubscribe" ng-cloak>
                     <button type="button" class="btn btn-danger " ng-click="unsubscribe()">unsubscribe</button>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-5 ">
-                    <button type="button" class="btn btn-primary " ng-click="editTraining()">Edit training</button>
+                <div class="col-md-6 ">
+                    <button type="button" class="btn btn-default " ng-click="editTraining()">Edit training</button>
                 </div>
-                <div class="col-md-5 ">
+                <div class="col-md-6 ">
                     <button type="button" class="btn btn-danger " ng-click="subscribe()">Remove training</button>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12 dateTime">
-                    <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><span>Show dates list</span>
+                    <button class="btn btn-default dateInputButton" ng-click="isCollapsed = !isCollapsed"><span>Show dates list</span>
                     </button>
                     <div collapse="isCollapsed">
 

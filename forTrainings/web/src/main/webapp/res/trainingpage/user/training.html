@@ -50,23 +50,25 @@
             <p></p>
             <span>Place:</span>{{training.place}}<p></p>
 
-            <div class="row">
-                <div class="col-md-4">
-                    <button type="button" class="btn btn-primary " ng-click="openModal()" ng-show="training.isSubscribe">
+            <div class="row buttons">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-default " ng-click="openModal()" ng-show="training.isSubscribe">
                         Leave feedback
                     </button>
                 </div>
-                <div class="col-md-4" ng-show="training.isSubscribe" >
+                <div class="col-md-6" ng-show="training.isSubscribe" >
                     <button type="button" class="btn btn-danger " ng-click="unsubscribe()">unsubscribe</button>
                 </div>
-                <div class="col-md-4 " ng-show="!training.isSubscribe" >
-                    <button type="button" class="btn btn-primary " ng-click="subscribe()">subscribe</button>
+                <div class="col-md-6 " ng-show="!training.isSubscribe" >
+                    <button type="button" class="btn btn-default " ng-click="subscribe()">subscribe</button>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 dateTime"  ng-cloak>
+                <div class="col-md-12 buttons"  ng-cloak>
                     <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><span>Show dates list</span>
                     </button>
+                </div>
+                <div class="col-md-12 dateTime">
                     <div collapse="isCollapsed">
 
                         <!--<div class="panel panel-default">-->
