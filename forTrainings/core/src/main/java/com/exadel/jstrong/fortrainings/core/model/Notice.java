@@ -24,6 +24,7 @@ public class Notice {
     private String text;
 
     @Column(name = "add_date")
+    @Temporal(TemporalType.TIMESTAMP)
     Date addDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
