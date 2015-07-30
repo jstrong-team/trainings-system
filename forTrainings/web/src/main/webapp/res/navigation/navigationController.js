@@ -17,16 +17,20 @@
 
         };
 
-        //(function () {
-        //    $http.get('rest/trainings').then(
-        //        function(data){
-        //            $scope.badgeCount = data.data;
-        //        },
-        //        function(data, status){
-        //            console.log(status);
-        //        });
-        //
-        //})();
+        //$scope.badgeCount = null;
+        $scope.badgeCount = 7;
+        (function () {
+            $http.get('rest/badgeCount').then(
+                function(data){
+                    if (data.data.badgeCount !== 0) {
+                        $scope.badgeCount = data.data.badgeCount;
+                    }
+                },
+                function(data, status){
+                    console.log(status);
+                });
+
+        })();
 
         $scope.isAdmin = '';
 
