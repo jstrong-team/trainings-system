@@ -12,17 +12,18 @@ import java.util.List;
 
 public interface TrainingStorageController {
     TrainingUI getTraining(int tId, int uId);
-    void addTraining(Training training);
+    int addTraining(Training training);
     Subscribe buildSubscriber(int uId, int tId);
     boolean isTrainer(int uId, int tId);
     int addSubscriber(Subscribe s);
     boolean check(int uId, int tId);
     void addEmployeeFeedback(EmployeeFeedback ef);
     List<SubscriberUI> getSubscribers(int uId, int tId);
-//    List<EmployeeFeedbackUI> getEmployeeFeedback(int id);
     List<EmployeeNamedFeedbackUI> getEmployeeNamedFeedback(int id, boolean isAdmin);
     boolean deleteFeedback(int id);
     boolean deleteSuscriber(int userId, int trainingId);
-    void editTraining(TrainingUI training);
+    void editTraining(int oldTrainingId, Training training);
+    void changeStatus(int trainingId);
+    int approveTraining(int transactionId);
 }
 

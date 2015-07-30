@@ -2,6 +2,7 @@ package com.exadel.jstrong.fortrainings.core.dao;
 
 import com.exadel.jstrong.fortrainings.core.model.Meet;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,6 +12,9 @@ public interface MeetDAO extends GenericDAO<Meet>{
 
     void add(Meet meet);
     List<Meet> getMeetsByTrainingId(int id);
-    public boolean isGoing(int trainingId);
+
+    boolean isGoing(int trainingId);
+    void removeMeets(int trainingId);
+    List<Meet> getMeetsInDateScope(Date dateFrom, Date dateTo);
 
 }

@@ -1,15 +1,16 @@
 package com.exadel.jstrong.web.fortrainings.controller.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.*;
-import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
-import com.exadel.jstrong.fortrainings.core.model.Meet;
-import com.exadel.jstrong.fortrainings.core.model.Subscribe;
-import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.exadel.jstrong.fortrainings.core.model.*;
 import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
+import com.exadel.jstrong.web.fortrainings.model.EmployeeFeedbackUI;
 import com.exadel.jstrong.web.fortrainings.model.EmployeeNamedFeedbackUI;
 import com.exadel.jstrong.web.fortrainings.model.SubscriberUI;
 import com.exadel.jstrong.web.fortrainings.model.TrainingUI;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,10 +34,12 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     private EmployeeFeedbackDAO emDAO;
     @Autowired
     private EmployeeDAO eDAO;
+    @Autowired
+    private TransactionDAO transactionDAO;
 
     @Override
     @Transactional
-    public void addTraining(Training training) {
+    public int addTraining(Training training) {
         int id = tDAO.add(training);
         List<Date> dates = training.getDate();
         int size = dates.size();
@@ -48,6 +51,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             meets.add(meet);
         }
         training.setMeets(meets);
+        return id;
     }
 
     @Override
@@ -170,20 +174,69 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         }
     }
 
+    //TODO
     @Override
-    public void editTraining(TrainingUI training) {
-        Training t = new Training();
-        t.setId(training.getId());
-        t.setAnnotation(training.getAnnotation());
-        t.setDescription(training.getDescription());
-        t.setDate(training.getdates());
-        t.setInternal(training.isInternal());
-        t.setMax_participants(training.getMax_participants());
-        t.setName(training.getName());
-        t.setPlace(training.getPlace());
-        t.setPaid(training.isPaid());
-        t.setTarget(training.getTarget());
-        t.setTrainer_id(training.getTrainer_id());
-        tDAO.editTraining(t);
+    @Transactional
+    public void editTraining(int oldTrainingId, Training training) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        training.setId(oldTrainingId);
+        String json = gson.toJson(training);
+        List<Transaction> meets = new ArrayList<>();
+
+        Transaction transaction = new Transaction();
+        transaction.setEntityName("training");
+        transaction.setOldId(oldTrainingId);
+        transaction.setJson(json);
+        int id = transactionDAO.add(transaction);
+
+        List<Date> dates = training.getDate();
+        int size = dates.size();
+
+        Meet meet = null;
+        Transaction transactionMeet = null;
+
+        for (int i = 0; i < size; i++) {
+            meet = new Meet();
+            transactionMeet = new Transaction();
+            meet.setTraining_id(oldTrainingId);
+            meet.setDate(dates.get(i));
+            String jsonMeet = gson.toJson(meet);
+            transactionMeet.setJson(jsonMeet);
+            transactionMeet.setOldId(oldTrainingId);
+            transactionMeet.setEntityName("meet");
+            transactionMeet.setParentId(id);
+            transactionDAO.add(transactionMeet);
+        }
+    }
+
+    @Override
+    @Transactional
+    public int approveTraining(int transactionId) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Transaction transaction = transactionDAO.getTransactionById(transactionId);
+        int oldTrainingId = transaction.getOldId();
+        Training data = gson.fromJson(transaction.getJson(), Training.class);
+        Hibernate.initialize(data);
+        data.setApprove(true);
+        Training oldTraining = tDAO.getTrainingById(oldTrainingId);
+        mDAO.removeMeets(oldTrainingId);
+
+        int id = tDAO.updateTraining(data);
+
+        List<Transaction> meets = transactionDAO.getTransactionsByParent(transaction.getId());
+        int size = meets.size();
+        Meet meet = null;
+        for(int i = 0; i < size; ++i) {
+            meet = new Meet();
+            meet = gson.fromJson(meets.get(i).getJson(), Meet.class);
+            meet.setTraining_id(id);
+            mDAO.add(meet);
+        }
+        return id;
+    }
+
+    @Override
+    public void changeStatus(int trainingId) {
+
     }
 }
