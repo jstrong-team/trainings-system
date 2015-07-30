@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Anton on 29.07.2015.
@@ -23,8 +25,8 @@ public class NoticePlanner implements Runnable {
 
     private void init() {
         try {
-            //executor = Executors.newSingleThreadScheduledExecutor();
-            //executor.scheduleAtFixedRate(this, 0, 30, TimeUnit.MINUTES);
+            executor = Executors.newSingleThreadScheduledExecutor();
+            executor.scheduleAtFixedRate(this, 0, 30, TimeUnit.MINUTES);
         } catch (Throwable e) {
             logger.warn(e.getMessage());
         }
@@ -33,7 +35,7 @@ public class NoticePlanner implements Runnable {
     @Override
     public void run() {
         try {
-
+            createSchedule(getNotices());
         } catch (Throwable e) {
             logger.warn(e.getMessage());
         }
@@ -46,20 +48,23 @@ public class NoticePlanner implements Runnable {
         int minute = calendar.get(Calendar.MINUTE);
         calendar.set(Calendar.HOUR, hour + 3);
         Date dateFrom = calendar.getTime();
-        calendar.set(Calendar.MINUTE, minute + 20);
+        calendar.set(Calendar.MINUTE, minute + 30);
         Date dateTo = calendar.getTime();
         List<Meet> meets = meetDAO.getMeetsInDateScope(dateFrom, dateTo);
         List<Notice> notices = new ArrayList<>();
         for (Meet m: meets){
-            NoticeFactory.getMeetIn3HourNotice(m, m.getTraining());
+            notices.add(NoticeFactory.getMeetIn3HourNotice(m, m.getTraining()));
         }
         return notices;
     }
 
     private void createSchedule(List<Notice> notices){
         Noticer noticer;
+        long delay;
         for (Notice n: notices){
-
+            noticer = new Noticer(n);
+            delay = n.getAddDate().getTime() - (new Date()).getTime();
+            executor.schedule(noticer, delay, TimeUnit.MILLISECONDS);
         }
     }
 

@@ -4,6 +4,8 @@ import com.exadel.jstrong.fortrainings.core.model.Meet;
 import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 
+import java.util.Date;
+
 /**
  * Created by Anton on 30.07.2015.
  */
@@ -16,6 +18,10 @@ public class NoticeFactory {
         notice.setSenderId(1);
         notice.setStatus("info");
         notice.setTrainingId(training.getId());
+        Date date = meet.getDate();
+        int hour = date.getHours();
+        date.setHours(hour - 3);
+        notice.setAddDate(date);
         return notice;
     }
 

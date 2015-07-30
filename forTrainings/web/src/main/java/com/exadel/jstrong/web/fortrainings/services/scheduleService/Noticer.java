@@ -1,22 +1,32 @@
 package com.exadel.jstrong.web.fortrainings.services.scheduleservice;
 
+import com.exadel.jstrong.fortrainings.core.model.Notice;
+
 /**
  * Created by Anton on 29.07.2015.
  */
 public class Noticer implements Runnable{
 
-    private String message;
+    private Notice notice;
 
-    public String getMessage() {
-        return message;
+    public Noticer(Notice notice) {
+        this.notice = notice;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public Notice getNotice() {
+        return notice;
+    }
+
+    public void setNotice(Notice notice) {
+        this.notice = notice;
     }
 
     @Override
     public void run(){
+
+    }
+
+    private void sendNotice(){
 
     }
 
