@@ -144,6 +144,19 @@ public class TrainingStorageSpringController {
         return role;
     }
 
+    @RequestMapping(value = "isAdmin", method = RequestMethod.GET)
+    public @ResponseBody RoleUI getRoleAdmin(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        RoleUI role = new RoleUI();
+        if(ec.isAdmin(userId)) {
+            role.setRole("admin");
+        } else {
+            role.setRole("");
+        }
+        return role;
+    }
+
     //fix!!! --> you can use //FIXME
     @RequestMapping(value = "/editFeedback", method = RequestMethod.PUT)
     public void editFeedback(@RequestBody EmployeeFeedback employeeFeedback, HttpServletRequest request, HttpServletResponse response) {

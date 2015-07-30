@@ -78,3 +78,7 @@
 .rightForm{
    border-left: 2px solid #555555;
 }
+
+.buttons button{
+   margin-top:5px;
+}

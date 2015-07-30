@@ -1,6 +1,6 @@
 <div class="container wrappered" ng-controller="createController">
     <h1 class="text-center createTraining">Edit training</h1>
-    <form class="form-horizontal createTraining" name="createTraining" role="form" ng-submit="submitForm()">
+    <form class="form-horizontal createTraining" name="createTraining" role="form" ng-submit="applyCahnges()">
         <div class="col-md-6">
             <div class="form-group">
                 <label class="control-label col-md-4" for="name">Training name</label>
@@ -39,10 +39,25 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" for="maxParticipants">Dates</label>
-                <div class="col-md-8" ng-repeat="date in editInfo.dates">
-                    <input type="number" class="form-control" id="maxParticipants" min="0" ng-model="date" placeholder="Max number of participants" required>
+                <label class="control-label col-md-4">Dates</label>
+                <div class="col-md-8">
+                    <input type="button" class="btn btn-default dateInputButton" value="Show dates list" ng-click="isCollapsed = !isCollapsed"/>
                 </div>
+                <div collapse="isCollapsed">
+                    <div class="col-md-8 col-md-offset-4 dateInputField"  ng-repeat="curdate in editInfo.dates track by $index">
+                        <div class="col-md-8">
+                            <input class="form-control" ng-model="editInfo.dates[$index]"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="button" class="btn btn-default" value="+" ng-click="addDate($index)"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="button" class="btn btn-default" value="-" ng-click="removeDate($index)"/>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
         <div class="col-md-6">

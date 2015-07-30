@@ -1,4 +1,4 @@
-angular.module('calendarModule').controller('calendarModalCtrl', ['$scope', '$modalInstance', 'trainingsStr', '$location', function ($scope, $modalInstance, trainingsStr, $location) {
+angular.module('calendarModule').controller('calendarModalCtrl', ['$scope', '$modalInstance', 'trainingsStr', 'trainingRedirectService', function ($scope, $modalInstance, trainingsStr, trainingRedirectService) {
 
     $scope.date = trainingsStr.date;
     $scope.trainings = trainingsStr.threeMonthTrainings;
@@ -14,6 +14,6 @@ angular.module('calendarModule').controller('calendarModalCtrl', ['$scope', '$mo
 
     $scope.redirectToTrainingPage = function (id) {
         $modalInstance.close();
-        $location.url('/ui/trainingPage/user/' + id);
+        trainingRedirectService(id);
     };
 }]);

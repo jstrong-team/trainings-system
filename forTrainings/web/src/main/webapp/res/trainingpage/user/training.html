@@ -17,27 +17,17 @@
     <div classs="row " style="padding-top: 50px">
         <div class="col-md-7 well textBlock">
             <span>Annotation:</span>{{training.annotation}}<p></p>
-            <!--<span>First date:</span>{{training.date[0]}}<p></p>-->
-            <!--<span>Las date:</span>{{training.date[0]}}<p></p>-->
             <span>Description:</span>{{training.description}}<p></p>
             <span>Target audience:</span>{{training.target}}<p></p>
             <span>Subscribers:</span>
-
             <p></p>
-
 
             <div class="panel panel-default table-responsive ">
                 <table class="table table-bordered">
                     <tr>
-                        <th>
-                            #
-                        </th>
-                        <th>
-                            user
-                        </th>
-                        <th>
-                            status
-                        </th>
+                        <th>#</th>
+                        <th>user</th>
+                        <th>status</th>
                         <th ng-repeat="date in training.dates">
                             {{$index+1}}
                         </th>
@@ -46,9 +36,7 @@
                         <td>{{$index+1}}</td>
                         <td nowrap>{{subscriber.name}}</td>
                         <td>{{subscriber.status}}</td>
-                        <td ng-repeat="date in training.dates">
-
-                        </td>
+                        <td ng-repeat="date in training.dates"></td>
                     </tr>
                 </table>
             </div>
@@ -64,14 +52,14 @@
 
             <div class="row">
                 <div class="col-md-4">
-                    <button type="button" class="btn btn-primary " ng-click="openModal()" ng-if="training.isSubscribe">
+                    <button type="button" class="btn btn-primary " ng-click="openModal()" ng-show="training.isSubscribe">
                         Leave feedback
                     </button>
                 </div>
-                <div class="col-md-4" ng-if="training.isSubscribe" ng-cloak>
+                <div class="col-md-4" ng-show="training.isSubscribe" >
                     <button type="button" class="btn btn-danger " ng-click="unsubscribe()">unsubscribe</button>
                 </div>
-                <div class="col-md-4 " ng-if="!training.isSubscribe" ng-cloak>
+                <div class="col-md-4 " ng-show="!training.isSubscribe" >
                     <button type="button" class="btn btn-primary " ng-click="subscribe()">subscribe</button>
                 </div>
             </div>
@@ -84,23 +72,15 @@
                         <!--<div class="panel panel-default">-->
                         <table class="table">
                             <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    date
-                                </th>
-                                <th>
-                                    time
-                                </th>
+                                <th>#</th>
+                                <th>date</th>
+                                <th>time</th>
                             </tr>
                             <tr ng-repeat="curTraining in training.dates">
                                 <td>
                                     {{$index}}
                                 </td>
-                                <td>
-                                        <span class="glyphicon glyphicon-calendar"
-                                              style="color: grey"></span>
+                                <td><span class="glyphicon glyphicon-calendar" style="color: grey"></span>
                                     {{training.dateTime[$index]}} {{training.year[$index]}}
                                 </td>
                                 <td>
@@ -114,17 +94,6 @@
             </div>
         </div>
     </div>
-
-
-    <!--<div classs="row " style="padding-top: 50px">-->
-    <!--<div class="col-md-7 well textBlock" >-->
-
-    <!--</div>-->
-    <!--<div class="col-md-4 well textBlock" >-->
-
-    <!--</div>-->
-    <!--</div>-->
-
 
 </div>
 

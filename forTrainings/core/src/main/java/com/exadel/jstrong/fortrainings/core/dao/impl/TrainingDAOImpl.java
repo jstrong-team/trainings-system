@@ -6,6 +6,7 @@ import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.exadel.jstrong.fortrainings.core.model.comparator.SubscriberComp;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +40,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             query.orderBy(criteriaBuilder.asc(root.get("date")));
             events = em.createQuery(query).getResultList();
 
-            List<Integer> ids = (List<Integer>) em.createNativeQuery("SELECT training_id FROM subscribe WHERE employee_id = :id").setParameter("id", userId).getResultList();
+            List<Integer> ids = (List<Integer>) em.createNativeQuery("SELECT training_id FROM subscribe WHERE employee_id = :id AND status='Approve'").setParameter("id", userId).getResultList();
             List<Integer> trainerIds = (List<Integer>)em.createNativeQuery("SELECT id FROM training WHERE trainer_id =:uId").setParameter("uId", userId).getResultList();
             Event event;
             for(int i = 0; i < events.size(); i++) {
@@ -130,7 +134,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public boolean isApprove(int trainingId) {
         int maxParticipants = (Integer)em.createNativeQuery("SELECT max_participants FROM training WHERE id = :id").setParameter("id", trainingId).getSingleResult();
-        int realParticipants = em.createNativeQuery("SELECT * FROM subscribe WHERE training_id = :id and status = 'approve'").setParameter("id", trainingId).getResultList().size();
+        int realParticipants = em.createNativeQuery("SELECT * FROM subscribe WHERE training_id = :id and status = 'Approve'").setParameter("id", trainingId).getResultList().size();
         return (maxParticipants > realParticipants);
     }
 
@@ -157,6 +161,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             Training training = getById(Training.class, trainingId);
             Hibernate.initialize(training.getSubscribes());
             List<Subscribe> subscribers = training.getSubscribes();
+            Collections.sort(subscribers, new SubscriberComp());
             return subscribers;
         } catch (Throwable e){
             e.printStackTrace();

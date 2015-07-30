@@ -1,3 +1,16 @@
-.newsTitle {
-    padding-top: 200px;
+/*.newsTitle {*/
+    /*padding-top: 200px;*/
+/*}*/
+
+.news {
+     padding-bottom: 0;
+    margin-bottom: 0;
+ }
+
+.alert {
+    margin-bottom: 10px;
+}
+
+.searchFilter {
+    margin-bottom: 10px;
 }

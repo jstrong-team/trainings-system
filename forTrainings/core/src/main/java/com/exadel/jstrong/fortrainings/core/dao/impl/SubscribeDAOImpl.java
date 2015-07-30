@@ -35,7 +35,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
     @Transactional
     public boolean removeSubscriber(int userId, int trainingId) {
         try {
-            Query query = em.createNativeQuery("update subscribe set status='deleted' where employee_id =:uId and training_id =:tId").setParameter("uId", userId).setParameter("tId", trainingId);
+            Query query = em.createNativeQuery("update subscribe set status='Deleted' where employee_id =:uId and training_id =:tId").setParameter("uId", userId).setParameter("tId", trainingId);
             query.executeUpdate();
             return true;
         } catch(Throwable e) {
@@ -49,7 +49,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
     @Transactional
     public boolean changeStatus(int trainingId) {
         try {
-            Query query = em.createNativeQuery("update subscribe set status='approve' where status='wait' and training_id =:tId order by add_date limit 1").setParameter("tId", trainingId);
+            Query query = em.createNativeQuery("update subscribe set status='Approve' where status='Wait' and training_id =:tId order by add_date limit 1").setParameter("tId", trainingId);
             query.executeUpdate();
             return true;
         } catch(Throwable e) {

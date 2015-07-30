@@ -1,22 +1,20 @@
-angular.module('trainingPageModule', []).config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/ui/trainingPage/user/:trainingId', {
-        templateUrl: 'res/trainingpage/user/training.html',
-        controller: 'trainingPageController',
+angular.module('trainingPageAdminModule', []).config(function($routeProvider) {
+    $routeProvider.when('/ui/trainingPage/admin/:trainingId', {
+        templateUrl: 'res/trainingpage/admin/training.html',
+        controller: 'trainingPageAdminController',
         resolve: {
-            getTrainingInfo: ['$http', '$q','$routeParams','$location','$route','getRole','getTrainingData', function ($http, $q,$routeParams,$location,$route,getRole,getTrainingData) {
+            getTrainingInfo: ['$http', '$q','$routeParams','$location','$route', 'getRole','getTrainingData',function ($http, $q,$routeParams,$location,$route,getRole,getTrainingData) {
                 var def = $q.defer();
                 var id=$route.current.params.trainingId;
                 getRole(id).then(function (data, status, headers, config){
-                    if (data.data.role === 'user') {
+                    if (data.data.role === 'admin') {
                         getTrainingData(id).then(function (data, status, headers, config) {
                             def.resolve(data);
                         }, function (error) {
                             console.error(error);
                         });
-                    } else if (data.data.role === 'trainer') {
-                        $location.url('/ui/trainingPage/trainer/' + id);
-                    } else if (data.data.role === 'admin') {
-                        $location.url('/ui/trainingPage/admin/' + id);
+                    } else if (data.data.role === 'user') {
+                        $location.url('/ui/trainingPage/user/' + id);
                     } else {
                         $location.url('/ui/trainings');
                     }
@@ -29,4 +27,4 @@ angular.module('trainingPageModule', []).config(['$routeProvider', function ($ro
             }]
         }
     });
-}]);
+});
