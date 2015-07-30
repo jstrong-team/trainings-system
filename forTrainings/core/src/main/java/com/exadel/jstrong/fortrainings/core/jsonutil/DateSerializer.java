@@ -1,4 +1,4 @@
-package com.exadel.jstrong.fortrainings.core.service;
+package com.exadel.jstrong.fortrainings.core.jsonutil;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

@@ -11,7 +11,6 @@ import com.exadel.jstrong.web.fortrainings.model.TrainingsUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Component
@@ -30,37 +29,25 @@ public class TrainingsControllerImpl implements TrainingsController {
     //TODO: 2) getTrainingsInDateScope(userId, dateTo, dateFrom); ????
     @Override
     public TrainingsUI getAllTrainings(int userId) {
-        Calendar calendarDateFrom = Calendar.getInstance();
-        calendarDateFrom.set(Calendar.DAY_OF_MONTH, 1);
-        calendarDateFrom.set(Calendar.HOUR, 0);
-        calendarDateFrom.set(Calendar.MINUTE, 0);
-        calendarDateFrom.set(Calendar.SECOND, 0);
-        int currentMonth = calendarDateFrom.get(Calendar.MONTH);
-        Date dateFrom = calendarDateFrom.getTime();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String stringDateFrom = dateFormat.format(dateFrom);
-        Calendar calendarDateTo = calendarDateFrom;
-        calendarDateTo.set(Calendar.MONTH, currentMonth + 3);
-        Date dateTo = calendarDateTo.getTime();
-        String stringDateTo = dateFormat.format(dateTo);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        Date dateFrom = calendar.getTime();
+        calendar.set(Calendar.MONTH, currentMonth + 3);
+        Date dateTo = calendar.getTime();
 
         List<Event> events = trainingDAO.getTrainingsInDateScope(userId, dateFrom, dateTo);
         TrainingsUI tUI = new TrainingsUI();
         tUI.setActualTrainingsHistory(events);
 
-        calendarDateTo = Calendar.getInstance();
-        calendarDateTo.set(Calendar.DAY_OF_MONTH, 1);
-        calendarDateTo.set(Calendar.HOUR, 0);
-        calendarDateTo.set(Calendar.MINUTE, 0);
-        calendarDateTo.set(Calendar.SECOND, 0);
-        dateTo = calendarDateTo.getTime();
-        stringDateTo = dateFormat.format(dateTo);
-        calendarDateFrom = calendarDateTo;
-        calendarDateFrom.set(Calendar.MONTH, currentMonth - 1);
-        dateTo = calendarDateFrom.getTime();
-        stringDateFrom = dateFormat.format(dateTo);
-        events = trainingDAO.getTrainingsInDateScope(userId, dateTo, dateFrom);
+        calendar.set(Calendar.MONTH, currentMonth);
+        dateTo = calendar.getTime();
+        calendar.set(Calendar.MONTH, currentMonth - 1);
+        dateFrom = calendar.getTime();
+        events = trainingDAO.getTrainingsInDateScope(userId, dateFrom, dateTo);
         Collections.sort(events, new EventComp());
         tUI.setPastTrainingsHistory(events);
 

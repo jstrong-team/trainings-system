@@ -1,4 +1,4 @@
-package com.exadel.jstrong.fortrainings.core.service;
+package com.exadel.jstrong.fortrainings.core.jsonutil;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -19,7 +19,7 @@ public class DateDeserializer extends JsonDeserializer<Date>
         try {
             return format.parse(date);
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            return null;
         }
 
     }

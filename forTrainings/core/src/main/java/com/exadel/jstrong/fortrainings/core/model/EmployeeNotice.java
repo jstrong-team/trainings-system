@@ -1,8 +1,6 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by stas on 29.07.15.
@@ -14,9 +12,6 @@ public class EmployeeNotice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-    @Column(name = "text")
-    Date addDate;
 
     @Column(name = "complete")
     boolean complete;
@@ -39,14 +34,6 @@ public class EmployeeNotice {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Date getAddDate() {
-        return addDate;
-    }
-
-    public void setAddDate(Date addDate) {
-        this.addDate = addDate;
     }
 
     public boolean getComplete() {

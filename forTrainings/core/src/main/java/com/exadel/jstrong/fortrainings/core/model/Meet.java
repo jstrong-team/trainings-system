@@ -1,6 +1,8 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
-import com.exadel.jstrong.fortrainings.core.service.DateSerializer;
+import com.exadel.jstrong.fortrainings.core.jsonutil.DateDeserializer;
+import com.exadel.jstrong.fortrainings.core.jsonutil.DateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
@@ -43,11 +45,12 @@ public class Meet {
         this.training_id = training_id;
     }
 
-    @JsonSerialize(using= DateSerializer.class)
+    @JsonSerialize(using=DateSerializer.class)
     public Date getDate() {
         return date;
     }
 
+    @JsonDeserialize(using= DateDeserializer.class)
     public void setDate(Date date) {
         this.date = date;
     }

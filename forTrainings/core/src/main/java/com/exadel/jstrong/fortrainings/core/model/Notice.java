@@ -1,6 +1,12 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
+import com.exadel.jstrong.fortrainings.core.jsonutil.DateDeserializer;
+import com.exadel.jstrong.fortrainings.core.jsonutil.DateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,6 +22,10 @@ public class Notice {
 
     @Column(name = "text")
     private String text;
+
+    @Column(name = "add_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    Date addDate;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "training_id", insertable = false, updatable = false)
@@ -60,5 +70,15 @@ public class Notice {
 
     public void setEmployeeNotices(List<EmployeeNotice> employeeNotices) {
         this.employeeNotices = employeeNotices;
+    }
+
+    @JsonSerialize(using= DateSerializer.class)
+    public Date getAddDate() {
+        return addDate;
+    }
+
+    @JsonDeserialize(using=DateDeserializer.class)
+    public void setAddDate(Date addDate) {
+        this.addDate = addDate;
     }
 }
