@@ -89,11 +89,13 @@ DROP TABLE IF EXISTS `employee_notice`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `employee_notice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `employee_id` int(11) NOT NULL,
   `notice_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `complete` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
   KEY `fk_employee_employee_notice_idx` (`employee_id`),
   KEY `fk_notice_employee_notice_idx` (`notice_id`),
   KEY `fk_role_employee_notice_idx` (`role_id`),

@@ -21,6 +21,9 @@ angular.module('navigationModule').controller('navigationController', ['$rootSco
 
     $scope.doSearch = function () {
         $rootScope.inputSearchText = $scope.searchExpression;
+        if ($scope.searchExpression === '') {
+            $scope.noResultsFound = false;
+        }
         doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
             dateFormatService(data.data);
             $scope.searchResponse = data.data;

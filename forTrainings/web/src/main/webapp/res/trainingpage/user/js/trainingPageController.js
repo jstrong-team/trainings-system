@@ -56,7 +56,6 @@ angular.module('trainingPageModule').controller('trainingPageController', ['$sco
     };
 
     getTrainingInfo().then(function (data, status, headers, config) {
-        console.log('0000000000000000000');
         console.log(data.data);
         $scope.training=data.data;
         $scope.training.time=[];
