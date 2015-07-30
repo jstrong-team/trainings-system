@@ -6,7 +6,6 @@ import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
-import com.exadel.jstrong.fortrainings.core.model.comparator.SubscriberComp;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -81,7 +80,13 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Transactional
     public int add (Training training){
         training = super.save(training);
-        Hibernate.initialize(training);
+        return training.getId();
+    }
+
+    @Override
+    @Transactional
+    public int updateTraining(Training training) {
+        training = super.update(training);
         return training.getId();
     }
 
@@ -111,7 +116,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
                 return false;
             }
         } catch (Throwable e) {
-            e.printStackTrace();
+            logger.info("Doesn't subscribe!");
         }
         return false;
     }
@@ -132,7 +137,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public boolean isApprove(int trainingId) {
         int maxParticipants = (Integer)em.createNativeQuery("SELECT max_participants FROM training WHERE id = :id").setParameter("id", trainingId).getSingleResult();
-        int realParticipants = em.createNativeQuery("SELECT * FROM subscribe WHERE training_id = :id and status = 'Approve'").setParameter("id", trainingId).getResultList().size();
+        int realParticipants = em.createNativeQuery("SELECT * FROM subscribe WHERE training_id = :id and status = 'approve'").setParameter("id", trainingId).getResultList().size();
         return (maxParticipants > realParticipants);
     }
 
@@ -159,7 +164,6 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             Training training = getById(Training.class, trainingId);
             Hibernate.initialize(training.getSubscribes());
             List<Subscribe> subscribers = training.getSubscribes();
-            Collections.sort(subscribers, new SubscriberComp());
             return subscribers;
         } catch (Throwable e){
             e.printStackTrace();
@@ -185,4 +189,18 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         if (res == 0)
             logger.warn("NO record inserted into training_version table.");
     }
+
+
+    public void changeStatus(int trainingId) {
+        try {
+            Query query = em.createNativeQuery("update training set approve=true training_id =:tId").setParameter("tId", trainingId);
+            int res = query.executeUpdate();
+            if(res == 0) {
+                logger.info("No meets to change");
+            }
+        } catch (Throwable e) {
+            logger.warn("Throwable exception.");
+        }
+    }
+
 }

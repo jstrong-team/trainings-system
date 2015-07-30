@@ -24,6 +24,9 @@ import java.util.Map;
 @RequestMapping(value="/storagetraining")
 public class TrainingStorageSpringController {
 
+    private final String APPROVE = "approve";
+    private final String CANCEL = "cansel";
+
     @Autowired
     private TrainingStorageController tsci;
 
@@ -195,8 +198,22 @@ public class TrainingStorageSpringController {
     }
 
     @RequestMapping(value = "/editTraining", method = RequestMethod.PUT)
-    public void editTraining(@RequestBody TrainingUI trainingUI, HttpServletRequest request, HttpServletResponse response) {
-        tsci.editTraining(trainingUI);
+    public void editTraining(@RequestBody Training training, HttpServletRequest request, HttpServletResponse response) {
+        int oldTrainingId = Integer.parseInt(request.getParameter("id"));
+
+        tsci.editTraining(oldTrainingId, training);
     }
+
+    @RequestMapping(value = "/approve", method = RequestMethod.PUT)
+    public void adminRequest(@RequestBody ApproveUI approveUI, HttpServletRequest request, HttpServletResponse response) {
+        if(APPROVE.compareToIgnoreCase(approveUI.getAdminAnswer()) == 0) {
+            tsci.approveTraining(approveUI.getNewTrainingId());
+        } else {
+//            tsci.removeTraining(approveUI.getNewTrainingId());
+
+        }
+    }
+
+
 }
 
