@@ -1,4 +1,4 @@
-angular.module('calendarModule').controller('calendarController', ['$scope', '$location', 'calendarList', '$modal', function ($scope, $location, calendarList, $modal) {
+angular.module('calendarModule').controller('calendarController', ['$scope', '$location', 'calendarList', '$modal','trainingRedirectService', function ($scope, $location, calendarList, $modal,trainingRedirectService) {
     $scope.days = getThreeMonthDays();
     $scope.months = getThreeMonths();
 
@@ -38,7 +38,6 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
     });
 
     $scope.redirectToTrainingPage = function (id) {
-        console.log(id);
-        $location.url('/ui/trainingPage/user/' + id);
+        trainingRedirectService(id);
     };
 }]);

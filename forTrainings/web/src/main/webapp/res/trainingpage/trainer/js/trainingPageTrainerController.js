@@ -39,7 +39,6 @@
                 console.error(error);
             });
         });
-
     };
     controller.$injet=services;
     angular.module('trainingPageTrainerModule').controller('trainingPageTrainerController',controller);

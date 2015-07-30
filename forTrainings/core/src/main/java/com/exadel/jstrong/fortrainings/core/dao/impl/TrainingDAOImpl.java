@@ -6,6 +6,7 @@ import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.exadel.jstrong.fortrainings.core.model.comparator.SubscriberComp;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -156,6 +160,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             Training training = getById(Training.class, trainingId);
             Hibernate.initialize(training.getSubscribes());
             List<Subscribe> subscribers = training.getSubscribes();
+            Collections.sort(subscribers, new SubscriberComp());
             return subscribers;
         } catch (Throwable e){
             e.printStackTrace();

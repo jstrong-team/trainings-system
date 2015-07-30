@@ -1,4 +1,4 @@
-angular.module('navigationModule').controller('navigationController', ['$rootScope', '$scope', '$location', 'doSearchService', 'doLogoutService', 'dateFormatService', 'getRole', function ($rootScope, $scope, $location, doSearchService, doLogoutService, dateFormatService, getRole) {
+angular.module('navigationModule').controller('navigationController', ['$rootScope', '$scope', '$location', 'doSearchService', 'doLogoutService', 'dateFormatService', 'getRole','trainingRedirectService', function ($rootScope, $scope, $location, doSearchService, doLogoutService, dateFormatService, getRole,trainingRedirectService) {
 
     $scope.isActive = function (viewLocation) {
         return viewLocation === $location.path();
@@ -68,19 +68,8 @@ angular.module('navigationModule').controller('navigationController', ['$rootSco
     };
 
     $scope.redirectToTrainingPage = function (id) {
-        getRole(id).then(function (data, status, headers, config) {
-            if (data.data.role === 'user') {
-                $location.url('/ui/trainingPage/user/' + id);
-                $rootScope.inputSearchText = '';
-                $scope.searchExpression = '';
-            }
-            if (data.data.role === 'trainer') {
-                $location.url('/ui/trainingPage/user/' + id);
-                $rootScope.inputSearchText = '';
-                $scope.searchExpression = '';
-            }
-        }, function (error) {
-            console.error(error);
-        });
+        trainingRedirectService(id);
+        $rootScope.inputSearchText = '';
+        $scope.searchExpression = '';
     };
 }]);

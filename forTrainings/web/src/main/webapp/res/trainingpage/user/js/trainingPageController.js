@@ -41,7 +41,16 @@
         $scope.subscribe = function () {
             console.log('/ui/trainingPage/user/'+$scope.training.id);
             subscribeService($scope.training.id, $scope.feedback).then(function (response) {
-                $route.reload();
+
+                //TODO:edit
+                getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
+                    $scope.subscribers=data.data;
+                    $scope.training.isSubscribe=true;
+                    //$scope.$apply();
+                }, function (error) {
+                    console.log(error);
+                });
+
             }, function (error) {
                 console.log(error);
             });
@@ -50,7 +59,15 @@
         $scope.unsubscribe=function(){
             unsubscribeService($scope.training.id).then(function(response){
                 console.log(response);
-                $route.reload();
+
+                //TODO: edit
+                getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
+                    $scope.subscribers=data.data;
+                    $scope.training.isSubscribe=false;
+                }, function (error) {
+                    console.log(error);
+                });
+
             },function(error){
                 console.error(error);
             });

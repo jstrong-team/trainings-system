@@ -52,14 +52,14 @@
 
             <div class="row">
                 <div class="col-md-4">
-                    <button type="button" class="btn btn-primary " ng-click="openModal()" ng-if="training.isSubscribe">
+                    <button type="button" class="btn btn-primary " ng-click="openModal()" ng-show="training.isSubscribe">
                         Leave feedback
                     </button>
                 </div>
-                <div class="col-md-4" ng-if="training.isSubscribe" ng-cloak>
+                <div class="col-md-4" ng-show="training.isSubscribe" >
                     <button type="button" class="btn btn-danger " ng-click="unsubscribe()">unsubscribe</button>
                 </div>
-                <div class="col-md-4 " ng-if="!training.isSubscribe" ng-cloak>
+                <div class="col-md-4 " ng-show="!training.isSubscribe" >
                     <button type="button" class="btn btn-primary " ng-click="subscribe()">subscribe</button>
                 </div>
             </div>
