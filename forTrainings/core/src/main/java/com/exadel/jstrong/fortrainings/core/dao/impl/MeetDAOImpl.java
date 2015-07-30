@@ -58,4 +58,18 @@ public class MeetDAOImpl extends BaseDAO<Meet> implements MeetDAO {
         return !result.isEmpty();
     }
 
+    @Override
+    public List<Meet> getMeetsInDateScope(Date dateFrom, Date dateTo) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        List<Meet> events = null;
+        try {
+            CriteriaQuery<Meet> query = criteriaBuilder.createQuery(Meet.class);
+            Root<Meet> root = query.from(Meet.class);
+            query.where(criteriaBuilder.between(root.<Date>get("date"), dateFrom, dateTo));
+            events = em.createQuery(query).getResultList();
+        } catch(Throwable e) {
+            e.printStackTrace();
+        }
+        return events;
+    }
 }
