@@ -38,4 +38,9 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
             return false;
         }
     }
+
+    @Override
+    public List<Employee> getAllUsers() {
+        return super.getAll(Employee.class);
+    }
 }

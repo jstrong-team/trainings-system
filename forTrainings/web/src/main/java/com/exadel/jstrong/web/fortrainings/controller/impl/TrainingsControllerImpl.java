@@ -1,15 +1,20 @@
 package com.exadel.jstrong.web.fortrainings.controller.impl;
 
+import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.dao.impl.TrainingDAOImpl;
+import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.fortrainings.core.model.comparator.EventComp;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
+import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
 import com.exadel.jstrong.web.fortrainings.model.SearchEventUI;
 import com.exadel.jstrong.web.fortrainings.model.TrainingsUI;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -18,6 +23,8 @@ public class TrainingsControllerImpl implements TrainingsController {
 
     @Autowired
     private TrainingDAO trainingDAO;
+    @Autowired
+    private EmployeeDAO employeeDAO;
 
     public TrainingsControllerImpl() {
         trainingDAO = new TrainingDAOImpl();
@@ -83,5 +90,24 @@ public class TrainingsControllerImpl implements TrainingsController {
 
     @Override
     public boolean isTrainer(int uId, int tId) {return trainingDAO.isTrainer(uId, tId);}
+
+    @Override
+    @Transactional
+    public List<EmployeeUI> getUsersToReport() {
+        List<EmployeeUI> employeeUIs = new ArrayList<>();
+        List<Employee> employees = employeeDAO.getAllUsers();
+        EmployeeUI employeeUI = null;
+        int id;
+        String name;
+        for(Employee employee: employees) {
+            employeeUI = new EmployeeUI();
+            id = employee.getId();
+            name = employee.getName();
+            employeeUI.setId(id);
+            employeeUI.setName(name);
+            employeeUIs.add(employeeUI);
+        }
+        return employeeUIs;
+    }
 
 }
