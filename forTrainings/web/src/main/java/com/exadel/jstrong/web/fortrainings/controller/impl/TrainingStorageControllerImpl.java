@@ -95,9 +95,9 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         s.setAddDate(date);
 
         if(tDAO.isApprove(tId)) {
-            s.setStatus(SubscribeStatus.APPROVE.toString());
+            s.setStatus(SubscribeStatus.Approve.toString());
         } else {
-            s.setStatus(SubscribeStatus.WAIT.toString());
+            s.setStatus(SubscribeStatus.Wait.toString());
         }
         return s;
     }
