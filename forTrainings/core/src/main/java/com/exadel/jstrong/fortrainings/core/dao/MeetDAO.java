@@ -11,6 +11,7 @@ public interface MeetDAO extends GenericDAO<Meet>{
 
     void add(Meet meet);
     List<Meet> getMeetsByTrainingId(int id);
-    public boolean isGoing(int trainingId);
-
+    boolean isGoing(int trainingId);
+    void removeMeets(int trainingId);
+//    void changeTrainingId(int oldTrainingId, int newTrainingId);
 }
