@@ -8,9 +8,7 @@
         'doLogoutService',
         'dateFormatService',
         'getRole'
-        ];
-
-    console.log("1")
+    ];
 
     var controller = function ($rootScope, $scope, $location, $http, doSearchService, doLogoutService, dateFormatService, getRole) {
 
@@ -19,20 +17,15 @@
 
         };
 
-        //$scope.badgeCount = null;
-        $scope.badgeCount = 7;
-        //(function () {
-            $http.get('rest/badgeCount').then(
-                function(data){
-                    if (data.data.badgeCount !== 0) {
-                        $scope.badgeCount = data.data.badgeCount;
-                    }
-                },
-                function(data, status){
-                    console.log(status);
-                });
-
-        //})();
+        $http.get('rest/badgeCount').then(
+            function(data){
+                if (data.data.badgeCount !== 0) {
+                    $scope.badgeCount = data.data.badgeCount;
+                }
+            },
+            function(data, status){
+                console.log(status);
+            });
 
         $scope.isAdmin = '';
 

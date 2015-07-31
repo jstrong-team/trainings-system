@@ -14,3 +14,8 @@
 .searchFilter {
     margin-bottom: 10px;
 }
+
+.pagination > .active > a,
+.dropDownButton {
+    background-color: #2E729F;
+}
