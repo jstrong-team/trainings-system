@@ -10,6 +10,8 @@
         'getRole'
         ];
 
+    console.log("1")
+
     var controller = function ($rootScope, $scope, $location, $http, doSearchService, doLogoutService, dateFormatService, getRole) {
 
         $scope.isActive = function (viewLocation) {
@@ -19,7 +21,7 @@
 
         //$scope.badgeCount = null;
         $scope.badgeCount = 7;
-        (function () {
+        //(function () {
             $http.get('rest/badgeCount').then(
                 function(data){
                     if (data.data.badgeCount !== 0) {
@@ -30,7 +32,7 @@
                     console.log(status);
                 });
 
-        })();
+        //})();
 
         $scope.isAdmin = '';
 
@@ -49,13 +51,13 @@
 
         $rootScope.inputSearchText = '';
 
-        $scope.location = $location;
+        //$scope.location = $location;
 
         $scope.searchResponse = null;
 
         $scope.noResultsFound = false;
 
-        $scope.navigation = {url: '/res/navigation/navigation.html'};
+        //$scope.navigation = {url: '/res/navigation/navigation.html'};
 
         $scope.name = localStorage.getItem('name');
 
