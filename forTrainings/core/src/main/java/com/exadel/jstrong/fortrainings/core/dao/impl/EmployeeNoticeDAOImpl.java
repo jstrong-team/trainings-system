@@ -23,7 +23,7 @@ public class EmployeeNoticeDAOImpl extends BaseDAO<EmployeeNotice> implements Em
         try {
             List<Notice> results = em.createNativeQuery("SELECT * FROM notice WHERE notice.id IN (SELECT id FROM employee_notice en WHERE en.complete = false AND en.employee_id = :id)", Notice.class).setParameter("id", userId).getResultList();
             return results;
-        } catch(Throwable e) {
+        } catch (Throwable e) {
             return new ArrayList<Notice>();
         }
     }
@@ -31,9 +31,9 @@ public class EmployeeNoticeDAOImpl extends BaseDAO<EmployeeNotice> implements Em
     @Override
     public List<Notice> getEmployeeHistoryNoticesByPage(int userId, int limitFrom, int limitCount) {
         try {
-            List<Notice> results = (List<Notice>)em.createNativeQuery("SELECT * FROM notice WHERE notice.id IN (SELECT id FROM employee_notice en WHERE en.complete = false AND en.employee_id = :id) ORDER BY notice.add_date LIMIT :l1, :l2", Notice.class).setParameter("id", userId).setParameter("l1", limitFrom).setParameter("l2",limitCount).getResultList();
+            List<Notice> results = (List<Notice>) em.createNativeQuery("SELECT * FROM notice WHERE notice.id IN (SELECT id FROM employee_notice en WHERE en.complete = false AND en.employee_id = :id) ORDER BY notice.add_date LIMIT :l1, :l2", Notice.class).setParameter("id", userId).setParameter("l1", limitFrom).setParameter("l2", limitCount).getResultList();
             return results;
-        } catch(Throwable e) {
+        } catch (Throwable e) {
             return new ArrayList<Notice>();
         }
     }
@@ -67,7 +67,9 @@ public class EmployeeNoticeDAOImpl extends BaseDAO<EmployeeNotice> implements Em
     @Override
     public int getHistoryNoticeCount(int userId) {
         try {
-            return (int) em.createNativeQuery("SELECT COUNT(*) FROM employee_notice WHERE employee_id = :id AND complete = 1").setParameter("id", userId).getSingleResult();
+            List<EmployeeNotice> result;
+            result = em.createNativeQuery("SELECT * FROM employee_notice WHERE employee_id = :id AND complete = 1").setParameter("id", userId).getResultList();
+            return result.size();
         } catch (Throwable e) {
             return 0;
         }
