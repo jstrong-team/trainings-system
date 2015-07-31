@@ -17,7 +17,7 @@ public class Training {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    private int id;
+    private Integer id;
 
     @Column
     private String name;
@@ -32,22 +32,22 @@ public class Training {
     private String target;
 
     @Column(columnDefinition = "TINYINT(4)")
-    private boolean paid;
+    private Boolean paid;
 
     @Column
-    private int max_participants;
+    private Integer max_participants;
 
     @Column
     private String place;
 
     @Column(columnDefinition = "TINYINT(4)")
-    private boolean internal;
+    private Boolean Integerernal;
 
     @Column(columnDefinition = "TINYINT(4)")
-    private boolean approve;
+    private Boolean approve;
 
     @Column
-    private int trainer_id;
+    private Integer trainer_id;
 
     @Transient
     private List<Date> date;
@@ -56,7 +56,7 @@ public class Training {
     private List<Meet> meets;
 
     @Transient
-    private boolean isSubscribe;
+    private Boolean isSubscribe;
 
 //    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribeTrainings")
 //    private List<Employee> subscribers;
@@ -89,7 +89,7 @@ public class Training {
         this.paid = training.paid;
         this.max_participants = training.max_participants;
         this.place = training.place;
-        this.internal = training.internal;
+        this.Integerernal = training.Integerernal;
         this.approve = training.approve;
         this.trainer_id = training.trainer_id;
         this.date = training.date;
@@ -112,15 +112,15 @@ public class Training {
         this.date = new ArrayList<>(date);
     }
 
-    public boolean isSubscribe() {
+    public Boolean isSubscribe() {
         return isSubscribe;
     }
 
-    public void setIsSubscribe(boolean isSubscribe) {
+    public void setIsSubscribe(Boolean isSubscribe) {
         this.isSubscribe = isSubscribe;
     }
 
-    public boolean isApprove() {
+    public Boolean isApprove() {
         return approve;
     }
 
@@ -128,23 +128,23 @@ public class Training {
         return date;
     }
 
-    public void setApprove(boolean approve) {
+    public void setApprove(Boolean approve) {
         this.approve = approve;
     }
 
-    public boolean isInternal() {
-        return internal;
+    public Boolean isInternal() {
+        return Integerernal;
     }
 
-    public void setInternal(boolean internal) {
-        this.internal = internal;
+    public void setInternal(Boolean Integerernal) {
+        this.Integerernal = Integerernal;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -180,19 +180,19 @@ public class Training {
         this.target = target;
     }
 
-    public boolean isPaid() {
+    public Boolean isPaid() {
         return paid;
     }
 
-    public void setPaid(boolean paid) {
+    public void setPaid(Boolean paid) {
         this.paid = paid;
     }
 
-    public int getMax_participants() {
+    public Integer getMax_participants() {
         return max_participants;
     }
 
-    public void setMax_participants(int max_participants) {
+    public void setMax_participants(Integer max_participants) {
         this.max_participants = max_participants;
     }
 
@@ -204,11 +204,11 @@ public class Training {
         this.place = place;
     }
 
-    public int getTrainer_id() {
+    public Integer getTrainer_id() {
         return trainer_id;
     }
 
-    public void setTrainer_id(int trainer_id) {
+    public void setTrainer_id(Integer trainer_id) {
         this.trainer_id = trainer_id;
     }
 
