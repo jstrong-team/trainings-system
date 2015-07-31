@@ -6,34 +6,34 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Date;
 
 /**
- * Created by Администратор on 27.07.2015.
+ * Created by пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ on 27.07.2015.
  */
 public class EmployeeFeedbackUI {
-    private int id;
+    private Integer id;
 
-    private int employeeId;
+    private Integer employeeId;
 
-    private int trainingId;
+    private Integer trainingId;
 
     private Date addDate;
 
-    private boolean understand;
+    private Boolean understand;
 
-    private boolean interested;
+    private Boolean interested;
 
-    private boolean continueWithThisTrainer;
+    private Boolean continueWithThisTrainer;
 
-    private boolean smthNew;
+    private Boolean smthNew;
 
-    private boolean recommend;
+    private Boolean recommend;
 
-    private int rate;
+    private Integer rate;
 
     private String other;
 
-    private boolean isDelete;
+    private Boolean isDelete;
 
-    public EmployeeFeedbackUI(int id, int employeeId, int trainingId, Date addDate, boolean understand, boolean interested, boolean continueWithThisTrainer, boolean smthNew, boolean recommend, int rate, String other, boolean isDelete) {
+    public EmployeeFeedbackUI(Integer id, Integer employeeId, Integer trainingId, Date addDate, Boolean understand, Boolean interested, Boolean continueWithThisTrainer, Boolean smthNew, Boolean recommend, Integer rate, String other, Boolean isDelete) {
         this.id = id;
         this.employeeId = employeeId;
         this.trainingId = trainingId;
@@ -48,27 +48,27 @@ public class EmployeeFeedbackUI {
         this.isDelete = isDelete;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getEmployeeId() {
+    public Integer getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 
-    public int getTrainingId() {
+    public Integer getTrainingId() {
         return trainingId;
     }
 
-    public void setTrainingId(int trainingId) {
+    public void setTrainingId(Integer trainingId) {
         this.trainingId = trainingId;
     }
 
@@ -81,51 +81,51 @@ public class EmployeeFeedbackUI {
         this.addDate = addDate;
     }
 
-    public boolean isUnderstand() {
+    public Boolean isUnderstand() {
         return understand;
     }
 
-    public void setUnderstand(boolean understand) {
+    public void setUnderstand(Boolean understand) {
         this.understand = understand;
     }
 
-    public boolean isInterested() {
+    public Boolean isInterested() {
         return interested;
     }
 
-    public void setInterested(boolean interested) {
+    public void setInterested(Boolean interested) {
         this.interested = interested;
     }
 
-    public boolean isContinueWithThisTrainer() {
+    public Boolean isContinueWithThisTrainer() {
         return continueWithThisTrainer;
     }
 
-    public void setContinueWithThisTrainer(boolean continueWithThisTrainer) {
+    public void setContinueWithThisTrainer(Boolean continueWithThisTrainer) {
         this.continueWithThisTrainer = continueWithThisTrainer;
     }
 
-    public boolean isSmthNew() {
+    public Boolean isSmthNew() {
         return smthNew;
     }
 
-    public void setSmthNew(boolean smthNew) {
+    public void setSmthNew(Boolean smthNew) {
         this.smthNew = smthNew;
     }
 
-    public boolean isRecommend() {
+    public Boolean isRecommend() {
         return recommend;
     }
 
-    public void setRecommend(boolean recommend) {
+    public void setRecommend(Boolean recommend) {
         this.recommend = recommend;
     }
 
-    public int getRate() {
+    public Integer getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(Integer rate) {
         this.rate = rate;
     }
 

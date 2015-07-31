@@ -7,25 +7,29 @@
         'doSearchService',
         'doLogoutService',
         'dateFormatService',
-        'getRole'
+        'getRole',
+        'getBadgeService'
     ];
 
-    var controller = function ($rootScope, $scope, $location, $http, doSearchService, doLogoutService, dateFormatService, getRole) {
+    var controller = function ($rootScope, $scope, $location, $http, doSearchService, doLogoutService, dateFormatService, getRole, getBadgeService) {
 
         $scope.isActive = function (viewLocation) {
             return viewLocation === $location.path();
 
         };
 
-        $http.get('rest/badgeCount').then(
-            function(data){
-                if (data.data.badgeCount !== 0) {
-                    $scope.badgeCount = data.data.badgeCount;
+        var recountBadge = function () {
+            getBadgeService.badgeCount().then(
+                function (data) {
+                    $scope.badgeCount = data;
+                },
+                function (data, status) {
+                    console.log(status);
                 }
-            },
-            function(data, status){
-                console.log(status);
-            });
+            );
+        };
+
+        recountBadge();
 
         $scope.isAdmin = '';
 
@@ -33,7 +37,6 @@
             $http.get('rest/storagetraining/isAdmin').then(
                 function(data){
                     $scope.isAdmin = data.data.role;
-                    console.log($scope.isAdmin);
                 },
                 function(data, status){
                     console.log(status);
@@ -44,13 +47,9 @@
 
         $rootScope.inputSearchText = '';
 
-        //$scope.location = $location;
-
         $scope.searchResponse = null;
 
         $scope.noResultsFound = false;
-
-        //$scope.navigation = {url: '/res/navigation/navigation.html'};
 
         $scope.name = localStorage.getItem('name');
 
@@ -62,7 +61,7 @@
             doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
                 dateFormatService(data.data);
                 $scope.searchResponse = data.data;
-                if (data.data == '') {
+                if (data.data === '') {
                     $scope.noResultsFound = true;
                 } else {
                     $scope.noResultsFound = false;
@@ -86,30 +85,35 @@
         };
 
         $scope.goToTrainings = function () {
+            recountBadge();
             $location.url('/ui/trainings');
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';
         };
 
         $scope.createTraining = function () {
+            recountBadge();
             $location.url('/ui/create');
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';
         };
 
         $scope.goToNews = function () {
+            recountBadge();
             $location.url('/ui/news');
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';
         };
 
         $scope.goToReports = function () {
+            recountBadge();
             $location.url('/ui/admin/reports');
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';
         };
 
         $scope.redirectToTrainingPage = function (id) {
+            recountBadge();
             trainingRedirectService(id);
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';

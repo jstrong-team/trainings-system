@@ -10,15 +10,19 @@
         $http.get('/rest/trainings/users').then(
             function(data){
                 $scope.employeeList = data.data;
+                console.log($scope.employeeList);
             },
             function(data, status){
                 console.log(status);
             });
 
-        $scope.getEmployeeInfo = function () {
-            $http.get('/rest/storagetraining/getReport').then(
+        $scope.getEmployeeReport = function () {
+            var id = (JSON.parse($scope.item)).id;
+
+            $http.get('/rest/storagetraining/getReport?id=' + id).then(
                 function(data){
                     $scope.employeeInfo = data.data;
+                    console.log($scope.employeeInfo);
                 },
                 function(data, status){
                     console.log(status);
@@ -36,7 +40,6 @@
 
             document.body.innerHTML = originalContents;
         };
-
 
     };
 
