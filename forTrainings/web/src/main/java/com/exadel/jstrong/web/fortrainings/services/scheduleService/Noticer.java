@@ -61,7 +61,10 @@ public class Noticer implements Runnable {
     private void sendNotice() {
         try {
             notice = noticeDAO.addNotice(notice);
+            //Hibernate.initialize(notice);
+            //List<EmployeeNotice> employeeNotices = getSubscribersNotices(notice.getTrainingId(), notice.getId());
             getSubscribersNotices(notice.getTrainingId(), notice.getId());
+            //notice.setEmployeeNotices(employeeNotices);
             logger.info("Send notice");
         } catch (Throwable e) {
             logger.warn(e.toString());
@@ -69,20 +72,25 @@ public class Noticer implements Runnable {
     }
 
     @Transactional
+    //private List<EmployeeNotice> getSubscribersNotices(int trainingId, int noticeId) {
     private void getSubscribersNotices(int trainingId, int noticeId) {
         logger.info("Send notice to subscribers");
         try {
             List<Subscribe> subscribers = subscribeDAO.getSubscribersByStatus(trainingId, "Approve");
             EmployeeNotice employeeNotice;
+            //List<EmployeeNotice> employeeNotices = new ArrayList<>();
             for (Subscribe s : subscribers) {
                 employeeNotice = new EmployeeNotice();
                 employeeNotice.setEmployeeId(s.getEmployeeId());
                 employeeNotice.setNoticeId(noticeId);
                 employeeNotice.setComplete(false);
                 employeeNoticeDAO.add(employeeNotice);
+                //employeeNotices.add(employeeNotice);
             }
+            //return employeeNotices;
         } catch (Throwable e) {
             logger.warn(e.toString());
+            //return new ArrayList<EmployeeNotice>();
         }
     }
 

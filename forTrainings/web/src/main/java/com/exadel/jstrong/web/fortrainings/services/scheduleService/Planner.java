@@ -29,6 +29,7 @@ public class Planner implements Runnable {
     @Autowired
     private ApplicationContext context;
 
+    private int plannerDelay = 30;
     public static ScheduledExecutorService executor;
     private Logger logger = Logger.getLogger(Planner.class.getName());
 
@@ -36,7 +37,7 @@ public class Planner implements Runnable {
         logger.info("Planner init");
         try {
             executor = Executors.newSingleThreadScheduledExecutor();
-            executor.scheduleAtFixedRate(this, 0, 30, TimeUnit.MINUTES);
+            executor.scheduleAtFixedRate(this, 0, plannerDelay, TimeUnit.MINUTES);
         } catch (Throwable e) {
             logger.warn(e.getMessage());
         }
@@ -60,7 +61,7 @@ public class Planner implements Runnable {
             int minute = calendar.get(Calendar.MINUTE);
             calendar.set(Calendar.HOUR, hour + 3);
             Date dateFrom = calendar.getTime();
-            calendar.set(Calendar.MINUTE, minute + 30);
+            calendar.set(Calendar.MINUTE, minute + plannerDelay);
             Date dateTo = calendar.getTime();
             List<Meet> meets = meetDAO.getMeetsInDateScope(dateFrom, dateTo);
             List<Notice> notices = new ArrayList<>();

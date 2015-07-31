@@ -21,4 +21,5 @@ public class NoticeDAOImpl extends BaseDAO<Notice> implements NoticeDAO {
             return new Notice();
         }
     }
+
 }
