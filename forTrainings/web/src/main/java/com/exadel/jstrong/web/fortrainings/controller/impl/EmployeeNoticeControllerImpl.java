@@ -100,4 +100,9 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
         noticesHistory.setHistory(noticesUI);
         return noticesHistory;
     }
+
+    @Override
+    public boolean markNoticeAsComplete(int userId, int noticeId) {
+        return employeeNoticeDAO.markAsComplete(userId, noticeId);
+    }
 }

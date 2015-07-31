@@ -6,9 +6,15 @@ import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.model.EmployeeNotice;
 import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.fortrainings.core.model.Training;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +78,25 @@ public class EmployeeNoticeDAOImpl extends BaseDAO<EmployeeNotice> implements Em
             return result.size();
         } catch (Throwable e) {
             return 0;
+        }
+    }
+
+    @Override
+    @Transactional
+    public boolean markAsComplete(int userId, int noticeId) {
+        try {
+            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+            CriteriaQuery<EmployeeNotice> query = criteriaBuilder.createQuery(EmployeeNotice.class);
+            Root<EmployeeNotice> root = query.from(EmployeeNotice.class);
+            Predicate uId = root.get("employeeId").in(userId);
+            Predicate nId = root.get("noticeId").in(noticeId);
+            query.where(criteriaBuilder.and(uId, nId));
+            EmployeeNotice en = em.createQuery(query).getSingleResult();
+            Hibernate.initialize(en);
+            en.setComplete(true);
+            return true;
+        } catch(Throwable e){
+            return false;
         }
     }
 }

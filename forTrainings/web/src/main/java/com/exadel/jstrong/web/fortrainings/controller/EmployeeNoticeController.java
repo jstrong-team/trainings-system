@@ -12,4 +12,5 @@ public interface EmployeeNoticeController {
     NoticeCountUI getNoticeCount(int userId);
     NoticesUI getEmployeeNotices(int userId, int count);
     NoticesHistoryUI getEmployeeNoticesHistoryByPage(int id, int count, int page);
+    boolean markNoticeAsComplete(int userId, int noticeId);
 }

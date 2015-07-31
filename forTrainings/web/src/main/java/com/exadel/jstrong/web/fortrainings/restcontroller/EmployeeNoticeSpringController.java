@@ -76,20 +76,18 @@ public class EmployeeNoticeSpringController {
         return notices;
     }
 
-//    @RequestMapping(value = "/noticeHistory", method = RequestMethod.GET)
-//    public @ResponseBody
-//    NoticesHistoryUI (HttpServletRequest request, HttpServletResponse response) {
-//        NoticesHistoryUI notices = null;
-//        try {
-//            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-//            int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
-//            int count = Integer.parseInt(request.getParameter("count"));
-//            int page = Integer.parseInt(request.getParameter("page"));
-//            notices = employeeNoticeController.getEmployeeNoticesHistoryByPage(id, count, page);
-//        } catch(Throwable e){
-//            e.printStackTrace();
-//        }
-//        return notices;
-//    }
+    @RequestMapping(value = "/complete", method = RequestMethod.POST)
+    public void markAsComplete(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+            int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            int noticeId = Integer.parseInt(request.getParameter("id"));
+            if(!employeeNoticeController.markNoticeAsComplete(id, noticeId)){
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+            }
+        } catch(Throwable e){
+            e.printStackTrace();
+        }
+    }
 
 }
