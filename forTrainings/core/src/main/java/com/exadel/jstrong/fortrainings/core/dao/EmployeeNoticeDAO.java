@@ -11,7 +11,7 @@ import java.util.List;
 public interface EmployeeNoticeDAO extends GenericDAO<EmployeeNotice> {
 
     List<Notice> getEmployeeActualNotices(int userId);
-    List<Notice> getEmployeeFirstHistoryNotices(int userId);
+    List<Notice> getEmployeeHistoryNoticesByPage(int userId, int limitFrom, int limitCount);
     List<Notice> getTrainingNotices(int trainingId);
     List<Notice> getCompletedEmployeeNotices();
     int getNoticeCount(int userId);

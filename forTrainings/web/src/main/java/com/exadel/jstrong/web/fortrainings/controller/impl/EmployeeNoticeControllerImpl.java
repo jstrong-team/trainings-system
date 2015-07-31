@@ -6,6 +6,7 @@ import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeNoticeController;
 import com.exadel.jstrong.web.fortrainings.model.NoticeCountUI;
 import com.exadel.jstrong.web.fortrainings.model.NoticeUI;
+import com.exadel.jstrong.web.fortrainings.model.NoticesHistoryUI;
 import com.exadel.jstrong.web.fortrainings.model.NoticesUI;
 import com.exadel.jstrong.web.fortrainings.model.comparator.NoticeUIComp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +32,14 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
             EmployeeNoticeDAO employeeNotice = new EmployeeNoticeDAOImpl();
             noticeCount.setBadgeCount(employeeNotice.getNoticeCount(userId));
             return noticeCount;
-        }catch(Throwable e){
+        } catch (Throwable e) {
             e.printStackTrace();
             return noticeCount;
         }
     }
 
     @Override
-    public NoticesUI getEmployeeNotices(int userId) {
+    public NoticesUI getEmployeeNotices(int userId, int count) {
         NoticesUI result = new NoticesUI();
         try {
             List<Notice> notices = employeeNoticeDAO.getEmployeeActualNotices(userId);
@@ -56,7 +57,7 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
                 noticesUI.add(noticeUI);
             }
             result.setActualNotices(noticesUI);
-            notices = employeeNoticeDAO.getEmployeeFirstHistoryNotices(userId);
+            notices = employeeNoticeDAO.getEmployeeHistoryNoticesByPage(userId, 0, count);
             noticesUI = new ArrayList<>();
             for (Notice n : notices) {
                 noticeUI = new NoticeUI();
@@ -72,9 +73,31 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
             Collections.sort(noticesUI, new NoticeUIComp());
             result.setHistoryNotices(noticesUI);
             result.setHistoryCount(employeeNoticeDAO.getHistoryNoticeCount(userId));
-        } catch(Throwable e){
+        } catch (Throwable e) {
             e.printStackTrace();
         }
         return result;
+    }
+
+    @Override
+    public NoticesHistoryUI getEmployeeNoticesHistoryByPage(int id, int count, int page) {
+        NoticesHistoryUI noticesHistory = new NoticesHistoryUI();
+        int limitFrom = (page - 1) * count;
+        List<Notice> notices = employeeNoticeDAO.getEmployeeHistoryNoticesByPage(id, limitFrom, count);
+        List<NoticeUI> noticesUI = new ArrayList<>();
+        NoticeUI noticeUI;
+        for (Notice n : notices) {
+            noticeUI = new NoticeUI();
+            noticeUI.setId(n.getId());
+            noticeUI.setSenderId(n.getSenderId());
+            noticeUI.setStatus(n.getStatus());
+            noticeUI.setTheme(n.getTheme());
+            noticeUI.setText(n.getText());
+            noticeUI.setTransactionId(n.getTransactionId());
+            noticeUI.setAddDate(n.getAddDate());
+            noticesUI.add(noticeUI);
+        }
+        noticesHistory.setHistory(noticesUI);
+        return noticesHistory;
     }
 }
