@@ -82,6 +82,7 @@
 .buttons button{
    margin-top:5px;
    width:100%;
+   min-height: 30px;
 }
 
 .dateEditInput{
@@ -107,4 +108,13 @@
 .editDatesButton:hover{
    color: white;
    background-color: #006dcc;
+}
+
+.modalInput{
+   margin: 10px;
+   width:90%;
+}
+
+.modalWrapper{
+   margin-top: 10px;
 }
