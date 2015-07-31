@@ -11,5 +11,5 @@
 
        <context:component-scan base-package="com.exadel.jstrong.web.fortrainings"/>
        <bean name="AuthenticationFilterBean" class="com.exadel.jstrong.web.fortrainings.filters.AuthenticationFilter"/>
-       <bean name="PlannerBean" class="com.exadel.jstrong.web.fortrainings.services.scheduleservice_.NoticePlanner" init-method="init"/>
+       <bean name="PlannerBean" class="com.exadel.jstrong.web.fortrainings.services.scheduleservice.NoticePlanner" init-method="init"/>
 </beans>

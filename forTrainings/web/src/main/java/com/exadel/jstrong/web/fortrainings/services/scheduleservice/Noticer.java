@@ -1,4 +1,4 @@
-package com.exadel.jstrong.web.fortrainings.services.scheduleservice_;
+package com.exadel.jstrong.web.fortrainings.services.scheduleservice;
 
 /**
  * Created by Anton on 29.07.2015.

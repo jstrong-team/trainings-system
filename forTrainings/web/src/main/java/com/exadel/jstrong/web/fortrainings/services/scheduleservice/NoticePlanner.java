@@ -1,4 +1,4 @@
-package com.exadel.jstrong.web.fortrainings.services.scheduleservice_;
+package com.exadel.jstrong.web.fortrainings.services.scheduleservice;
 
 import com.exadel.jstrong.fortrainings.core.model.Notice;
 import org.apache.log4j.Logger;
