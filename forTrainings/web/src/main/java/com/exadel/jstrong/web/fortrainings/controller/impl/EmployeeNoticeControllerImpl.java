@@ -7,6 +7,7 @@ import com.exadel.jstrong.web.fortrainings.model.NoticeCountUI;
 import com.exadel.jstrong.web.fortrainings.model.NoticeUI;
 import com.exadel.jstrong.web.fortrainings.model.NoticesHistoryUI;
 import com.exadel.jstrong.web.fortrainings.model.NoticesUI;
+import com.exadel.jstrong.web.fortrainings.model.comparator.ActualNoticeUIComp;
 import com.exadel.jstrong.web.fortrainings.model.comparator.NoticeUIComp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -54,6 +55,7 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
                 noticeUI.setAddDate(n.getAddDate());
                 noticesUI.add(noticeUI);
             }
+            Collections.sort(noticesUI, new ActualNoticeUIComp());
             result.setActualNotices(noticesUI);
             notices = employeeNoticeDAO.getEmployeeHistoryNoticesByPage(userId, 0, count);
             noticesUI = new ArrayList<>();

@@ -1,6 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.model.comparator;
 
 import com.exadel.jstrong.web.fortrainings.model.NoticeUI;
+import com.exadel.jstrong.web.fortrainings.model.status.NoticeStatus;
 
 import java.util.Comparator;
 
@@ -14,9 +15,8 @@ public class ActualNoticeUIComp implements Comparator<NoticeUI> {
         if (a.getStatus().equals(b.getStatus())){
             return b.getAddDate().compareTo(a.getAddDate());
         } else {
-
+            return NoticeStatus.getStatusPriority(a.getStatus()) - NoticeStatus.getStatusPriority(b.getStatus());
         }
-        return 0;
     }
 
 }
