@@ -33,11 +33,7 @@ angular.module('trainingEditModule').controller('editController', ['$scope', '$r
     };
 
     $scope.applyCahnges = function () {
-        //console.log($routeParams);
         editService($routeParams.trainingId ,$scope.editInfo);
     };
-
-
-
 
 }]);
