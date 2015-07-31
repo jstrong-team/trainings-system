@@ -3,7 +3,7 @@ package com.exadel.jstrong.fortrainings.core.model;
 import javax.persistence.*;
 
 /**
- * Created by Администратор on 30.07.2015.
+ * Created by пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ on 30.07.2015.
  */
 @Entity
 @Table(name = "transaction")
@@ -11,13 +11,13 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    private int id;
+    private Integer id;
 
     @Column(name = "parent_id")
-    private int parentId;
+    private Integer parentId;
 
     @Column(name = "old_id")
-    private int oldId;
+    private Integer oldId;
 
     @Column
     private String json;
@@ -25,27 +25,27 @@ public class Transaction {
     @Column(name = "entity_name")
     private String entityName;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(int parentId) {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 
-    public int getOldId() {
+    public Integer getOldId() {
         return oldId;
     }
 
-    public void setOldId(int oldId) {
+    public void setOldId(Integer oldId) {
         this.oldId = oldId;
     }
 

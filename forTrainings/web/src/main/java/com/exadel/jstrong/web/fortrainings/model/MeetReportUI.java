@@ -8,11 +8,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Date;
 
 /**
- * Created by Администратор on 30.07.2015.
+ * Created by пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ on 30.07.2015.
  */
 public class MeetReportUI {
     private Date date;
-    private boolean absent;
+    private Boolean absent;
     private String reason;
     private String trainingName;
 
@@ -34,11 +34,11 @@ public class MeetReportUI {
         this.date = date;
     }
 
-    public boolean isAbsent() {
+    public Boolean isAbsent() {
         return absent;
     }
 
-    public void setAbsent(boolean absent) {
+    public void setAbsent(Boolean absent) {
         this.absent = absent;
     }
 

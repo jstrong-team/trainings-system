@@ -23,7 +23,7 @@ public class LoginSpringController {
     @Autowired
     private EmployeeController employeeController;
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public @ResponseBody EmployeeUI login(@RequestBody Account rempl, HttpServletResponse response) throws ServletException, IOException {
         try {
             String login = rempl.getLogin();
@@ -35,6 +35,7 @@ public class LoginSpringController {
                 } else {
                     String token = CookieUtil.generateToken();
                     Cookie cookie = new Cookie("token", token);
+                    cookie.setPath("/");
                     cookie.setMaxAge(-1);
                     response.addCookie(cookie);
                     employeeController.updateToken(employeeUI.getId(), token);

@@ -5,8 +5,8 @@ import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeNoticeController;
 import com.exadel.jstrong.web.fortrainings.model.NoticeCountUI;
 import com.exadel.jstrong.web.fortrainings.model.NoticeUI;
-import com.exadel.jstrong.web.fortrainings.model.NoticesHistoryUI;
 import com.exadel.jstrong.web.fortrainings.model.NoticesUI;
+import com.exadel.jstrong.web.fortrainings.model.comparator.ActualNoticeUIComp;
 import com.exadel.jstrong.web.fortrainings.model.comparator.NoticeUIComp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,8 +37,9 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
     }
 
     @Override
-    public NoticesUI getEmployeeNotices(int userId, int count) {
+    public NoticesUI getEmployeeNotices(int userId, int count, int page) {
         NoticesUI result = new NoticesUI();
+        int limitFrom = (page - 1) * count;
         try {
             List<Notice> notices = employeeNoticeDAO.getEmployeeActualNotices(userId);
             List<NoticeUI> noticesUI = new ArrayList<>();
@@ -54,8 +55,9 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
                 noticeUI.setAddDate(n.getAddDate());
                 noticesUI.add(noticeUI);
             }
+            Collections.sort(noticesUI, new ActualNoticeUIComp());
             result.setActualNotices(noticesUI);
-            notices = employeeNoticeDAO.getEmployeeHistoryNoticesByPage(userId, 0, count);
+            notices = employeeNoticeDAO.getEmployeeHistoryNoticesByPage(userId, limitFrom, count);
             noticesUI = new ArrayList<>();
             for (Notice n : notices) {
                 noticeUI = new NoticeUI();
@@ -75,28 +77,6 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
             e.printStackTrace();
         }
         return result;
-    }
-
-    @Override
-    public NoticesHistoryUI getEmployeeNoticesHistoryByPage(int id, int count, int page) {
-        NoticesHistoryUI noticesHistory = new NoticesHistoryUI();
-        int limitFrom = (page - 1) * count;
-        List<Notice> notices = employeeNoticeDAO.getEmployeeHistoryNoticesByPage(id, limitFrom, count);
-        List<NoticeUI> noticesUI = new ArrayList<>();
-        NoticeUI noticeUI;
-        for (Notice n : notices) {
-            noticeUI = new NoticeUI();
-            noticeUI.setId(n.getId());
-            noticeUI.setSenderId(n.getSenderId());
-            noticeUI.setStatus(n.getStatus());
-            noticeUI.setTheme(n.getTheme());
-            noticeUI.setText(n.getText());
-            noticeUI.setTransactionId(n.getTransactionId());
-            noticeUI.setAddDate(n.getAddDate());
-            noticesUI.add(noticeUI);
-        }
-        noticesHistory.setHistory(noticesUI);
-        return noticesHistory;
     }
 
     @Override

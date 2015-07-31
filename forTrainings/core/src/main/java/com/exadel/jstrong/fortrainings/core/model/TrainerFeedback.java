@@ -11,13 +11,13 @@ public class TrainerFeedback {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
 
     @Column(name = "employee_id")
-    private int employeeId;
+    private Integer employeeId;
 
     @Column(name = "training_id")
-    private int trainingId;
+    private Integer trainingId;
 
     private String text;
 
@@ -31,27 +31,27 @@ public class TrainerFeedback {
     public TrainerFeedback() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getEmployeeId() {
+    public Integer getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 
-    public int getTrainingId() {
+    public Integer getTrainingId() {
         return trainingId;
     }
 
-    public void setTrainingId(int trainingId) {
+    public void setTrainingId(Integer trainingId) {
         this.trainingId = trainingId;
     }
 

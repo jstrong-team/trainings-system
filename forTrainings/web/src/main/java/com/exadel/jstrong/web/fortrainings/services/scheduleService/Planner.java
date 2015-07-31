@@ -6,6 +6,7 @@ import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.web.fortrainings.services.noticeservice.NoticeFactory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +25,9 @@ public class Planner implements Runnable {
 
     @Autowired
     MeetDAO meetDAO;
+
+    @Autowired
+    private ApplicationContext context;
 
     public static ScheduledExecutorService executor;
     private Logger logger = Logger.getLogger(Planner.class.getName());
@@ -49,6 +53,7 @@ public class Planner implements Runnable {
     }
 
     private List<Notice> getNotices(){
+        logger.info("Get meet in 3 hour");
         try {
             Calendar calendar = Calendar.getInstance();
             int hour = calendar.get(Calendar.HOUR);
@@ -64,21 +69,25 @@ public class Planner implements Runnable {
             }
             return notices;
         } catch(Throwable e){
+            logger.warn(e.toString());
             return new ArrayList<Notice>();
         }
     }
 
     private void createSchedule(List<Notice> notices){
+        logger.info("Create schedule");
         try {
             Noticer noticer;
             long delay;
             for (Notice n : notices) {
-                noticer = new Noticer(n);
+                noticer = context.getBean(Noticer.class);
+                noticer.setNotice(n);
                 delay = n.getAddDate().getTime() - (new Date()).getTime();
-                executor.schedule(noticer, delay, TimeUnit.MILLISECONDS);
+                //executor.schedule(noticer, delay, TimeUnit.MILLISECONDS);
+                executor.schedule(noticer, 10, TimeUnit.MILLISECONDS);
             }
         } catch(Throwable e){
-            logger.info("Error");
+            logger.warn(e.toString());
         }
     }
 

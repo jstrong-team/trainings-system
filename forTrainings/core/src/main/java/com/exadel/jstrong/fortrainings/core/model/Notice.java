@@ -18,7 +18,7 @@ public class Notice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "theme")
     private String theme;
@@ -31,7 +31,7 @@ public class Notice {
     private Date addDate;
 
     @Column(name = "sender_id")
-    private int senderId;
+    private Integer senderId;
 
     @Column(name = "transaction_id")
     private Integer transactionId;
@@ -40,7 +40,7 @@ public class Notice {
     private String status;
 
     @Column(name = "training_id")
-    private int trainingId;
+    private Integer trainingId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "training_id", insertable = false, updatable = false)
@@ -60,11 +60,11 @@ public class Notice {
         this.theme = theme;
     }
 
-    public int getSenderId() {
+    public Integer getSenderId() {
         return senderId;
     }
 
-    public void setSenderId(int senderId) {
+    public void setSenderId(Integer senderId) {
         this.senderId = senderId;
     }
 
@@ -87,11 +87,11 @@ public class Notice {
     public Notice(String text) {
         this.text = text;
     }
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -129,11 +129,11 @@ public class Notice {
         this.addDate = addDate;
     }
 
-    public int getTrainingId() {
+    public Integer getTrainingId() {
         return trainingId;
     }
 
-    public void setTrainingId(int trainingId) {
+    public void setTrainingId(Integer trainingId) {
         this.trainingId = trainingId;
     }
 }

@@ -12,8 +12,8 @@ import java.util.Date;
  */
 public class NoticeUI {
 
-    private int id;
-    private int senderId;
+    private Integer id;
+    private Integer senderId;
     private Integer transactionId;
     private String theme;
     private String text;
@@ -30,19 +30,19 @@ public class NoticeUI {
         this.addDate = addDate;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getSenderId() {
+    public Integer getSenderId() {
         return senderId;
     }
 
-    public void setSenderId(int senderId) {
+    public void setSenderId(Integer senderId) {
         this.senderId = senderId;
     }
 

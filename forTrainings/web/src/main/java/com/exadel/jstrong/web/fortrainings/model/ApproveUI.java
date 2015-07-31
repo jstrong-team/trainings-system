@@ -1,26 +1,26 @@
 package com.exadel.jstrong.web.fortrainings.model;
 
 /**
- * Created by Администратор on 29.07.2015.
+ * Created by пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ on 29.07.2015.
  */
 public class ApproveUI {
-    private int newTrainingId;
-    private int oldTrainingId;
+    private Integer newTrainingId;
+    private Integer oldTrainingId;
     private String adminAnswer;
 
-    public int getNewTrainingId() {
+    public Integer getNewTrainingId() {
         return newTrainingId;
     }
 
-    public void setNewTrainingId(int newTrainingId) {
+    public void setNewTrainingId(Integer newTrainingId) {
         this.newTrainingId = newTrainingId;
     }
 
-    public int getOldTrainingId() {
+    public Integer getOldTrainingId() {
         return oldTrainingId;
     }
 
-    public void setOldTrainingId(int oldTrainingId) {
+    public void setOldTrainingId(Integer oldTrainingId) {
         this.oldTrainingId = oldTrainingId;
     }
 

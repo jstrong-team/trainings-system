@@ -4,36 +4,36 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by Администратор on 31.07.2015.
+ * Created by пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ on 31.07.2015.
  */
 @Entity
 @Table(name = "participant")
 public class Participant {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
     @Column(name = "subscribe_id")
-    private int subscribeId;
+    private Integer subscribeId;
     @Column(name = "absent")
-    private boolean absent;
+    private Boolean absent;
     @Column(name = "date")
     private Date date;
     @Column(name = "reason")
     private String reason;
 
-    public int getSubscribeId() {
+    public Integer getSubscribeId() {
         return subscribeId;
     }
 
-    public void setSubscribeId(int subscribeId) {
+    public void setSubscribeId(Integer subscribeId) {
         this.subscribeId = subscribeId;
     }
 
-    public boolean isAbsent() {
+    public Boolean isAbsent() {
         return absent;
     }
 
-    public void setAbsent(boolean absent) {
+    public void setAbsent(Boolean absent) {
         this.absent = absent;
     }
 

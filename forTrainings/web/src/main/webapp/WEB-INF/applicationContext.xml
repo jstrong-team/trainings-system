@@ -10,6 +10,7 @@
        <mvc:annotation-driven/>
 
        <context:component-scan base-package="com.exadel.jstrong.web.fortrainings"/>
-       <bean name="AuthenticationFilterBean" class="com.exadel.jstrong.web.fortrainings.filters.AuthenticationFilter"/>
+       <bean name="authenticationFilter" class="com.exadel.jstrong.web.fortrainings.filters.AuthenticationFilter"/>
+       <bean name="authenticationFilterV2" class="com.exadel.jstrong.web.fortrainings.filters.AuthenticationFilterV2"/>
        <bean name="PlannerBean" class="com.exadel.jstrong.web.fortrainings.services.scheduleservice.Planner" init-method="init" destroy-method="destroy"/>
 </beans>
