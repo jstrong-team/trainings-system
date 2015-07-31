@@ -1,17 +1,17 @@
 <div class="container wrappered">
     <!--<h2 class="text-center newsTitle"><small>Here will be news soon!</small></h2>-->
-    <h1 class="text-center createTraining news">News</h1>
+    <h1 class="text-center createTraining newsTitle">News</h1>
 
     <div class="col-md-12">
-        <div class="dropdown searchFilter">
-            <button class="btn btn-primary dropdown-toggle dropDownButton" type="button" data-toggle="dropdown">Show news by
-                <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li><a href="#">Trainings</a></li>
-                <li><a href="#">Feedbacks</a></li>
-                <li><a href="#">Approval</a></li>
-            </ul>
-        </div>
+        <!--<div class="dropdown searchFilter">-->
+            <!--<button class="btn btn-primary dropdown-toggle dropDownButton" type="button" data-toggle="dropdown">Show news by-->
+                <!--<span class="caret"></span></button>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a href="#">Trainings</a></li>-->
+                <!--<li><a href="#">Feedbacks</a></li>-->
+                <!--<li><a href="#">Approval</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
 
         <div class="alert alert-{{actualItem.status}} fade in" ng-repeat="actualItem in actualCurrentListItems">
             <a href="#" ng-click="removeActualItem(actualItem.id)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -31,21 +31,21 @@
             <tr ng-repeat="item in historyCurrentListItems">
                 <td>{{item.theme}}</td>
                 <td>{{item.text}}</td>
-                <td>{{item.data}}</td>
+                <td>{{item.addDate}}</td>
             </tr>
             </tbody>
         </table>
 
-
         <div class="text-center">
             <pagination
+                    class="pagination-sm"
                     total-items="totalItems"
                     ng-model="currentPage"
-                    max-size="maxSize"
-                    class="pagination-sm"
+                    items-per-page="itemsPerPage"
                     boundary-links="true"
+                    direction-links="false"
                     rotate="false"
-                    num-pages="numPages">
+                    max-size="maxSize">
             </pagination>
         </div>
     </div>

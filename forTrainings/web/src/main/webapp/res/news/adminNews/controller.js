@@ -8,7 +8,8 @@
     var controller = function ($scope, $http) {
 
 
-        var CURRENT_ITEMS_COUNT = 10;
+        var ITEMS_PER_PAGE = 15;
+        $scope.itemsPerPage = ITEMS_PER_PAGE;
 
 
         //$scope.actualCurrentListItems = null;
@@ -17,7 +18,7 @@
         //$scope.bigTotalItems = null;
 
         $scope.currentPage = 1;
-        $scope.maxSize = 10;
+        $scope.maxSize = 5;
 
         //$http.get('/rest/news/notice?count=' + CURRENT_ITEMS_COUNT).then(
         //    function(data){
@@ -31,7 +32,7 @@
         //    });
 
         $scope.$watch('currentPage', function(newPage){
-            $http.get('/rest/news/noticeHistory?count=' + CURRENT_ITEMS_COUNT + '&page=' + newPage).then(
+            $http.get('/rest/news/notice?count=' + ITEMS_PER_PAGE + '&page=' + newPage).then(
                 function(data){
                     $scope.actualCurrentListItems = data.data.actualNotices;
 
