@@ -98,6 +98,12 @@ function colorDayItems(data) {
                 element.className += ' willNotGo';
             }
         }
+
+        if (hasClassWillGo === false && hasClassWillNotGo === true) {
+            if (data[i].isSubscribe === true) {
+                element.className += ' willGo';
+            }
+        }
     }
 }
 

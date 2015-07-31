@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class SubscriberUI {
 
-    private int id;
+    private Integer id;
     private String name;
     private String status;
 
@@ -19,18 +19,18 @@ public class SubscriberUI {
     public SubscriberUI() {
     }
 
-    public SubscriberUI(int id, String name, String status, Date date) {
+    public SubscriberUI(Integer id, String name, String status, Date date) {
         this.id = id;
         this.name = name;
         this.status = status;
         this.date = date;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

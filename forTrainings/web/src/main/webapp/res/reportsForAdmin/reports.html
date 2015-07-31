@@ -1,3 +1,50 @@
-<div class="container wrappered" ng-controller="newsController">
-    <h2 class="text-center reportsTitle"><small>Here will be reports!</small></h2>
+<div class="container wrappered" ng-controller="reportsController">
+    <h1 class="text-center reportsTitle">Activity report</h1>
+
+    <div class="col-md-3"></div>
+    <div class="col-md-6 form">
+        <label for="sel">Select employee:</label>
+        <select class="form-control" onchange="getEmployeeReport()" id="sel" required>
+            <option disabled selected>Employee name</option>
+            <option ng-repeat="item in employeeList">{{item.name}}</option>
+        </select>
+    </div>
+    <div class="col-md-3"></div>
+
+    <div class="reportTable" id="printableArea">
+        <div class="col-md-2"></div>
+        <table class="col-md-8 table">
+            <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="active">
+                <td>John</td>
+                <td>Doe</td>
+                <td>john@example.com</td>
+            </tr>
+            <tr>
+                <td>Mary</td>
+                <td>Moe</td>
+                <td>mary@example.com</td>
+            </tr>
+            <tr class="active">
+                <td>July</td>
+                <td>Dooley</td>
+                <td>july@example.com</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="col-md-2 form"></div>
+    </div>
+
+    <button type="button" class="btn btn-md printButton" ng-click="printService('printableArea')">
+        <span class="glyphicon glyphicon-print"></span>
+        Print report
+    </button>
+
 </div>

@@ -18,14 +18,29 @@ public class Notice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
+
+    @Column(name = "theme")
+    private String theme;
 
     @Column(name = "text")
     private String text;
 
     @Column(name = "add_date")
     @Temporal(TemporalType.TIMESTAMP)
-    Date addDate;
+    private Date addDate;
+
+    @Column(name = "sender_id")
+    private Integer senderId;
+
+    @Column(name = "transaction_id")
+    private Integer transactionId;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "training_id")
+    private Integer trainingId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "training_id", insertable = false, updatable = false)
@@ -37,14 +52,46 @@ public class Notice {
     public Notice() {
     }
 
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public Integer getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(Integer senderId) {
+        this.senderId = senderId;
+    }
+
+    public Integer getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(Integer transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Notice(String text) {
         this.text = text;
     }
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -80,5 +127,13 @@ public class Notice {
     @JsonDeserialize(using=DateDeserializer.class)
     public void setAddDate(Date addDate) {
         this.addDate = addDate;
+    }
+
+    public Integer getTrainingId() {
+        return trainingId;
+    }
+
+    public void setTrainingId(Integer trainingId) {
+        this.trainingId = trainingId;
     }
 }

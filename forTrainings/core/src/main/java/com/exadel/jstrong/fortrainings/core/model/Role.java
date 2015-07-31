@@ -12,7 +12,7 @@ public class Role {
 
     @Id
     @Column
-    private int id;
+    private Integer id;
 
     @Column
     private String name;
@@ -20,17 +20,15 @@ public class Role {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
     private List<Employee> employees;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "role")
-    private List<EmployeeNotice> employeeNotices;
 
     public Role() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -46,11 +44,4 @@ public class Role {
         this.employees = employees;
     }
 
-    public List<EmployeeNotice> getEmployeeNotices() {
-        return employeeNotices;
-    }
-
-    public void setEmployeeNotices(List<EmployeeNotice> employeeNotices) {
-        this.employeeNotices = employeeNotices;
-    }
 }

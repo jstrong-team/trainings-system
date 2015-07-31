@@ -10,7 +10,7 @@
         'trainingRedirectService'
         ];
 
-    var controller = function ($rootScope, $scope, $location, $http, doSearchService, doLogoutService, dateFormatService, trainingRedirectService) {
+    var controller = function ($rootScope, $scope, $location, $http, doSearchService, doLogoutService, dateFormatService, getRole) {
 
         $scope.isActive = function (viewLocation) {
             return viewLocation === $location.path();
@@ -38,10 +38,10 @@
             $http.get('rest/storagetraining/isAdmin').then(
                 function(data){
                     $scope.isAdmin = data.data.role;
-                    //console.log($scope.isAdmin);
+                    console.log($scope.isAdmin);
                 },
-                function(error){
-                    console.error(error);
+                function(data, status){
+                    console.log(status);
                 });
         })();
 
@@ -73,7 +73,7 @@
                     $scope.noResultsFound = false;
                 }
             }, function (error) {
-                console.error(error);
+                console.log(error);
             });
         };
 
@@ -82,11 +82,11 @@
             $scope.searchExpression = '';
             localStorage.clear();
             $scope.isAdmin = '';
-            doLogoutService().then(function () {
-                //console.log(data);
+            doLogoutService().then(function (data) {
+                console.log(data);
                 $location.url('/ui');
             }, function (error) {
-                console.error(error);
+                console.log(error);
             });
         };
 

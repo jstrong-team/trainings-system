@@ -32,6 +32,6 @@ public class TrainingDAOTest extends BaseDAOTest {
         training.setApprove(true);
         training.setMax_participants(30);
 
-        trainingDAO.editTraining(training);
+        //trainingDAO.editTraining(training);
     }
 }

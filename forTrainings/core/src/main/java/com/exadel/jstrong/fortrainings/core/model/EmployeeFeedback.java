@@ -15,46 +15,46 @@ public class EmployeeFeedback {
 
     @Id
     @Column
-    private int id;
+    private Integer id;
 
     @Column(name = "employee_id")
-    private int employeeId;
+    private Integer employeeId;
 
     @Column(name = "training_id")
-    private int trainingId;
+    private Integer trainingId;
 
     @Column(name = "add_date")
     private Date addDate;
 
     @Column
-    private boolean understand;
+    private Boolean understand;
 
     @Column
-    private boolean interested;
+    private Boolean interested;
 
     @Column
-    private boolean continueWithThisTrainer;
+    private Boolean continueWithThisTrainer;
 
     @Column
-    private boolean smthNew;
+    private Boolean smthNew;
 
     @Column
-    private boolean recommend;
+    private Boolean recommend;
 
     @Column
-    private int rate;
+    private Integer rate;
 
     @Column
     private String other;
 
     @Column
-    private boolean isDelete;
+    private Boolean isDelete;
 
-    public boolean isDelete() {
+    public Boolean isDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(boolean isDelete) {
+    public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
     }
 
@@ -65,27 +65,27 @@ public class EmployeeFeedback {
     public EmployeeFeedback() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getEmployeeId() {
+    public Integer getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 
-    public int getTrainingId() {
+    public Integer getTrainingId() {
         return trainingId;
     }
 
-    public void setTrainingId(int trainingId) {
+    public void setTrainingId(Integer trainingId) {
         this.trainingId = trainingId;
     }
 
@@ -98,51 +98,51 @@ public class EmployeeFeedback {
         this.addDate = addDate;
     }
 
-    public boolean isUnderstand() {
+    public Boolean isUnderstand() {
         return understand;
     }
 
-    public void setUnderstand(boolean understand) {
+    public void setUnderstand(Boolean understand) {
         this.understand = understand;
     }
 
-    public boolean isInterested() {
+    public Boolean isInterested() {
         return interested;
     }
 
-    public void setInterested(boolean interested) {
+    public void setInterested(Boolean interested) {
         this.interested = interested;
     }
 
-    public boolean isContinueWithThisTrainer() {
+    public Boolean isContinueWithThisTrainer() {
         return continueWithThisTrainer;
     }
 
-    public void setContinueWithThisTrainer(boolean continueWithThisTrainer) {
+    public void setContinueWithThisTrainer(Boolean continueWithThisTrainer) {
         this.continueWithThisTrainer = continueWithThisTrainer;
     }
 
-    public boolean isSmthNew() {
+    public Boolean isSmthNew() {
         return smthNew;
     }
 
-    public void setSmthNew(boolean smthNew) {
+    public void setSmthNew(Boolean smthNew) {
         this.smthNew = smthNew;
     }
 
-    public boolean isRecommend() {
+    public Boolean isRecommend() {
         return recommend;
     }
 
-    public void setRecommend(boolean recommend) {
+    public void setRecommend(Boolean recommend) {
         this.recommend = recommend;
     }
 
-    public int getRate() {
+    public Integer getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(Integer rate) {
         this.rate = rate;
     }
 

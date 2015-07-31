@@ -2,10 +2,7 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
-import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
-import com.exadel.jstrong.fortrainings.core.model.Event;
-import com.exadel.jstrong.fortrainings.core.model.Subscribe;
-import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.exadel.jstrong.fortrainings.core.model.*;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -16,6 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -200,6 +198,33 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         } catch (Throwable e) {
             logger.warn("Throwable exception.");
         }
+    }
+
+    @Override
+    public String getTrainingName(int trainingId) {
+        try {
+            String name = em.createNativeQuery("select name from training where id=:tId").setParameter("tId", trainingId).getSingleResult().toString();
+            return name;
+        } catch (Throwable e) {
+            logger.warn("Throwable exception.");
+        }
+        return null;
+    }
+
+    @Override
+    public List<Participant> getAllBySubscribeId(int subscribeId) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        List<Participant> participants = null;
+        try {
+            CriteriaQuery<Participant> query = criteriaBuilder.createQuery(Participant.class);
+            Root<Participant> root = query.from(Participant.class);
+            query.where(criteriaBuilder.equal(root.<Integer>get("subscribeId"), subscribeId));
+            participants = em.createQuery(query).getResultList();
+            return participants;
+        } catch(Throwable e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

@@ -15,10 +15,10 @@ public class Event {
     @Id
     @Column
     @Cascade({})
-    private int id;
+    private Integer id;
 
     @Column(name="training_id")
-    private int trainingId;
+    private Integer trainingId;
 
     @Column
     private String name;
@@ -31,36 +31,36 @@ public class Event {
     private Date date;
 
     @Transient
-    private boolean isSubscribe;
+    private Boolean isSubscribe;
 
     @Transient
-    private boolean isTrainer;
+    private Boolean isTrainer;
 
     public Event() {
     }
 
-    public int getTrainingId() {
+    public Integer getTrainingId() {
         return trainingId;
     }
 
-    public void setTrainingId(int trainingId) {
+    public void setTrainingId(Integer trainingId) {
         this.trainingId = trainingId;
     }
 
     @JsonGetter("isTrainer")
-    public boolean isTrainer() {
+    public Boolean isTrainer() {
         return isTrainer;
     }
 
-    public void setIsTrainer(boolean isTrainer) {
+    public void setIsTrainer(Boolean isTrainer) {
         this.isTrainer = isTrainer;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -90,11 +90,11 @@ public class Event {
     }
 
     @JsonGetter("isSubscribe")
-    public boolean isSubscribe() {
+    public Boolean isSubscribe() {
         return isSubscribe;
     }
 
-    public void setIsSubscribe(boolean isSubscribe) {
+    public void setIsSubscribe(Boolean isSubscribe) {
         this.isSubscribe = isSubscribe;
     }
 }

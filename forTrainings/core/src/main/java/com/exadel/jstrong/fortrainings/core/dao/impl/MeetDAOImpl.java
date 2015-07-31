@@ -3,8 +3,8 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.MeetDAO;
 import com.exadel.jstrong.fortrainings.core.model.Meet;
-import com.exadel.jstrong.fortrainings.core.model.Training;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +15,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -54,10 +55,10 @@ public class MeetDAOImpl extends BaseDAO<Meet> implements MeetDAO {
         Root<Meet> root = query.from(Meet.class);
 
         Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Predicate p1 = root.get("training_id").in(trainingId);
-        Predicate p2 = cb.lessThan(root.<String>get("date"), dateFormat.format(date));
+        Predicate p2 = cb.lessThan(root.<Date>get("date"), date);
         query.where(em.getCriteriaBuilder().and(p1, p2));
         List<Meet> result = executeQuery(query);
         return !result.isEmpty();
@@ -78,17 +79,22 @@ public class MeetDAOImpl extends BaseDAO<Meet> implements MeetDAO {
     }
 
     @Override
+    @Transactional
     public List<Meet> getMeetsInDateScope(Date dateFrom, Date dateTo) {
-        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         List<Meet> events = null;
         try {
+            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
             CriteriaQuery<Meet> query = criteriaBuilder.createQuery(Meet.class);
             Root<Meet> root = query.from(Meet.class);
             query.where(criteriaBuilder.between(root.<Date>get("date"), dateFrom, dateTo));
             events = em.createQuery(query).getResultList();
+            for (Meet m: events){
+                Hibernate.initialize(m.getTraining());
+            }
+            return events;
         } catch(Throwable e) {
             e.printStackTrace();
+            return new ArrayList<Meet>();
         }
-        return events;
     }
 }

@@ -11,36 +11,38 @@ public class EmployeeNotice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "complete")
-    boolean complete;
+    private Boolean complete;
+
+    @Column(name = "employee_id")
+    private Integer employeeId;
+
+    @Column(name = "notice_id")
+    private Integer noticeId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "notice_id", insertable = false, updatable = false)
     private Notice notice;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id", insertable = false, updatable = false)
-    private Role role;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id", insertable = false, updatable = false)
     private Employee employee;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public boolean getComplete() {
+    public Boolean getComplete() {
         return complete;
     }
 
-    public void setComplete(boolean complete) {
+    public void setComplete(Boolean complete) {
         this.complete = complete;
     }
 
@@ -52,19 +54,31 @@ public class EmployeeNotice {
         this.notice = notice;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public Employee getEmployee() {
         return employee;
     }
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public Boolean isComplete() {
+        return complete;
+    }
+
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public Integer getNoticeId() {
+        return noticeId;
+    }
+
+    public void setNoticeId(Integer noticeId) {
+        this.noticeId = noticeId;
     }
 }

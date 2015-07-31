@@ -2,6 +2,7 @@ package com.exadel.jstrong.web.fortrainings.restcontroller;
 
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
+import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
 import com.exadel.jstrong.web.fortrainings.model.SearchEventUI;
 import com.exadel.jstrong.web.fortrainings.model.TrainingsUI;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
@@ -61,6 +62,7 @@ public class TrainingsSpringController {
             if (token != null) {
                 temp = new Cookie(CookieUtil.TOKEN, CookieUtil.generateToken());
                 temp.setPath("/");
+                temp.setMaxAge(0);
                 response.addCookie(temp);
             }
             response.setStatus(HttpServletResponse.SC_OK);
@@ -86,6 +88,11 @@ public class TrainingsSpringController {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
         return null;
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public List<EmployeeUI> getUsers(HttpServletRequest request, HttpServletResponse response) {
+        return trainingsController.getUsersToReport();
     }
 
 }

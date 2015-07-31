@@ -4,10 +4,7 @@ import com.exadel.jstrong.fortrainings.core.dao.*;
 import com.exadel.jstrong.fortrainings.core.model.*;
 import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
-import com.exadel.jstrong.web.fortrainings.model.EmployeeFeedbackUI;
-import com.exadel.jstrong.web.fortrainings.model.EmployeeNamedFeedbackUI;
-import com.exadel.jstrong.web.fortrainings.model.SubscriberUI;
-import com.exadel.jstrong.web.fortrainings.model.TrainingUI;
+import com.exadel.jstrong.web.fortrainings.model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.hibernate.Hibernate;
@@ -233,6 +230,42 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             mDAO.add(meet);
         }
         return id;
+    }
+
+    @Override
+    public List<MeetReportUI> getMeetReportUIs(int employeeId) {
+        List<Subscribe> subscribes = sDAO.getSubscribersByEmployeeId(employeeId);
+        List<MeetReportUI> meetReportUIs = new ArrayList<>();
+
+        MeetReportUI meetReportUI = null;
+        for(Subscribe s :subscribes) {
+            int trainingId = s.getTrainingId();
+            List<Participant> participants = tDAO.getAllBySubscribeId(s.getId());
+            for (Participant p : participants) {
+                meetReportUI = new MeetReportUI();
+                meetReportUI.setAbsent(p.isAbsent());
+                meetReportUI.setDate(p.getDate());
+                meetReportUI.setReason(p.getReason());
+                meetReportUI.setTrainingName(tDAO.getTrainingName(trainingId));
+                meetReportUIs.add(meetReportUI);
+            }
+        }
+        return meetReportUIs;
+    }
+
+    @Override
+    public List<TrainingReportUI> getReportUI(int employeeId) {
+        List<Subscribe> subscribes = sDAO.getSubscribersByEmployeeId(employeeId);
+        List<TrainingReportUI> trainingReportUIs = new ArrayList<>();
+        TrainingReportUI trainingReportUI = null;
+        for(Subscribe s :subscribes) {
+            trainingReportUI = new TrainingReportUI();
+            trainingReportUI.setMeetReportUIs(getMeetReportUIs(s.getId()));
+            int trainingId = s.getTrainingId();
+            trainingReportUI.setTrainingName(tDAO.getTrainingName(trainingId));
+            trainingReportUIs.add(trainingReportUI);
+        }
+        return trainingReportUIs;
     }
 
     @Override

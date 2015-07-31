@@ -3,10 +3,7 @@ package com.exadel.jstrong.web.fortrainings.controller;
 import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
-import com.exadel.jstrong.web.fortrainings.model.EmployeeFeedbackUI;
-import com.exadel.jstrong.web.fortrainings.model.EmployeeNamedFeedbackUI;
-import com.exadel.jstrong.web.fortrainings.model.SubscriberUI;
-import com.exadel.jstrong.web.fortrainings.model.TrainingUI;
+import com.exadel.jstrong.web.fortrainings.model.*;
 
 import java.util.List;
 
@@ -25,5 +22,7 @@ public interface TrainingStorageController {
     void editTraining(int oldTrainingId, Training training);
     void changeStatus(int trainingId);
     int approveTraining(int transactionId);
+    List<MeetReportUI> getMeetReportUIs(int subscribeId);
+    List<TrainingReportUI> getReportUI(int employeeId);
 }
 
