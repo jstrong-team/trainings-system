@@ -41,8 +41,9 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<Date> dates = training.getDate();
         int size = dates.size();
         List<Meet> meets = new ArrayList<>();
-        Meet meet = new Meet();
+        Meet meet = null;
         for (int i = 0; i<size;i++){
+            meet = new Meet();
             meet.setTraining_id(id);
             meet.setDate(dates.get(i));
             meets.add(meet);
@@ -164,7 +165,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
     @Override
     public boolean deleteSuscriber(int userId, int trainingId) {
-        if(sDAO.removeSubscriber(userId, trainingId) && sDAO.changeStatus(trainingId)) {
+        if(sDAO.removeSubscriber(userId, trainingId) && sDAO.changeStatusToApprove(trainingId)) {
             return true;
         } else {
             return false;
@@ -213,9 +214,11 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         Transaction transaction = transactionDAO.getTransactionById(transactionId);
         int oldTrainingId = transaction.getOldId();
         Training data = gson.fromJson(transaction.getJson(), Training.class);
+        int newMaxParticipant = data.getMax_participants();
         Hibernate.initialize(data);
         data.setApprove(true);
         Training oldTraining = tDAO.getTrainingById(oldTrainingId);
+//        int oldMaxParticipant = oldTraining.getMax_participants();
         mDAO.removeMeets(oldTrainingId);
 
         int id = tDAO.updateTraining(data);
@@ -228,6 +231,18 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             meet = gson.fromJson(meets.get(i).getJson(), Meet.class);
             meet.setTraining_id(id);
             mDAO.add(meet);
+        }
+        int countApprove = sDAO.getApproveCount(oldTrainingId);
+        if(countApprove > newMaxParticipant) {
+            int count = countApprove - newMaxParticipant;
+            for(int i = 0; i < count; ++i) {
+                sDAO.changeStatusToWait(id);
+            }
+        } else {
+            int count = newMaxParticipant - countApprove;
+            for(int i = 0; i < count; ++i) {
+                sDAO.changeStatusToApprove(id);
+            }
         }
         return id;
     }
@@ -269,7 +284,9 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     @Override
-    public void changeStatus(int trainingId) {
+    public void changeTrainingStatus(int trainingId) {
 
     }
+
+//    public void remove
 }

@@ -225,7 +225,5 @@ public class TrainingStorageSpringController {
         }
         return null;
     }
-
-
 }
 
