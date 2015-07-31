@@ -18,10 +18,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Anton on 29.07.2015.
  */
-public class NoticePlanner implements Runnable {
+public class Planner implements Runnable {
 
     public static ScheduledExecutorService executor;
-    private Logger logger = Logger.getLogger(NoticePlanner.class.getName());
+    private Logger logger = Logger.getLogger(Planner.class.getName());
 
     private void init() {
         try {
