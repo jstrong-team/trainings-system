@@ -7,7 +7,7 @@
         'doSearchService',
         'doLogoutService',
         'dateFormatService',
-        'trainingRedirectService'
+        'trainingRedirectService',
         'getBadgeService'
     ];
 
