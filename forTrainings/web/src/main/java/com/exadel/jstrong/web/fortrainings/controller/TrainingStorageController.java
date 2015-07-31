@@ -20,7 +20,7 @@ public interface TrainingStorageController {
     boolean deleteFeedback(int id);
     boolean deleteSuscriber(int userId, int trainingId);
     void editTraining(int oldTrainingId, Training training);
-    void changeStatus(int trainingId);
+    void changeTrainingStatus(int trainingId);
     int approveTraining(int transactionId);
     List<MeetReportUI> getMeetReportUIs(int subscribeId);
     List<TrainingReportUI> getReportUI(int employeeId);

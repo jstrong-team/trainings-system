@@ -1,5 +1,6 @@
 package com.exadel.jstrong.web.fortrainings.services.scheduleservice;
 
+import com.exadel.jstrong.fortrainings.core.dao.EmployeeNoticeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.NoticeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
 import com.exadel.jstrong.fortrainings.core.model.EmployeeNotice;
@@ -12,7 +13,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +31,9 @@ public class Noticer implements Runnable {
 
     @Autowired
     NoticeDAO noticeDAO;
+
+    @Autowired
+    EmployeeNoticeDAO employeeNoticeDAO;
 
     public Noticer() {
     }
@@ -58,30 +61,36 @@ public class Noticer implements Runnable {
     private void sendNotice() {
         try {
             notice = noticeDAO.addNotice(notice);
-            List<EmployeeNotice> employeeNotices = getSubscribersNotices(notice.getTrainingId(), notice.getId());
-            notice.setEmployeeNotices(employeeNotices);
+            //Hibernate.initialize(notice);
+            //List<EmployeeNotice> employeeNotices = getSubscribersNotices(notice.getTrainingId(), notice.getId());
+            getSubscribersNotices(notice.getTrainingId(), notice.getId());
+            //notice.setEmployeeNotices(employeeNotices);
             logger.info("Send notice");
         } catch (Throwable e) {
             logger.warn(e.toString());
         }
     }
 
-    private List<EmployeeNotice> getSubscribersNotices(int trainingId, int noticeId) {
+    @Transactional
+    //private List<EmployeeNotice> getSubscribersNotices(int trainingId, int noticeId) {
+    private void getSubscribersNotices(int trainingId, int noticeId) {
         logger.info("Send notice to subscribers");
         try {
             List<Subscribe> subscribers = subscribeDAO.getSubscribersByStatus(trainingId, "Approve");
-            List<EmployeeNotice> employeeNotices = new ArrayList<>();
             EmployeeNotice employeeNotice;
+            //List<EmployeeNotice> employeeNotices = new ArrayList<>();
             for (Subscribe s : subscribers) {
                 employeeNotice = new EmployeeNotice();
                 employeeNotice.setEmployeeId(s.getEmployeeId());
                 employeeNotice.setNoticeId(noticeId);
-                employeeNotices.add(employeeNotice);
+                employeeNotice.setComplete(false);
+                employeeNoticeDAO.add(employeeNotice);
+                //employeeNotices.add(employeeNotice);
             }
-            return employeeNotices;
+            //return employeeNotices;
         } catch (Throwable e) {
             logger.warn(e.toString());
-            return new ArrayList<EmployeeNotice>();
+            //return new ArrayList<EmployeeNotice>();
         }
     }
 
