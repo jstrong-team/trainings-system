@@ -1,7 +1,6 @@
 package com.exadel.jstrong.web.fortrainings.controller.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeNoticeDAO;
-import com.exadel.jstrong.fortrainings.core.dao.impl.EmployeeNoticeDAOImpl;
 import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeNoticeController;
 import com.exadel.jstrong.web.fortrainings.model.NoticeCountUI;
@@ -29,8 +28,7 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
     public NoticeCountUI getNoticeCount(int userId) {
         NoticeCountUI noticeCount = new NoticeCountUI();
         try {
-            EmployeeNoticeDAO employeeNotice = new EmployeeNoticeDAOImpl();
-            noticeCount.setBadgeCount(employeeNotice.getNoticeCount(userId));
+            noticeCount.setBadgeCount(employeeNoticeDAO.getNoticeCount(userId));
             return noticeCount;
         } catch (Throwable e) {
             e.printStackTrace();

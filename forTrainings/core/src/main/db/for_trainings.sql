@@ -101,7 +101,7 @@ CREATE TABLE `employee_notice` (
   KEY `fk_notice_employee_notice_idx` (`notice_id`),
   CONSTRAINT `fk_employee_employee_notice` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_notice_employee_notice` FOREIGN KEY (`notice_id`) REFERENCES `notice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,7 +110,7 @@ CREATE TABLE `employee_notice` (
 
 LOCK TABLES `employee_notice` WRITE;
 /*!40000 ALTER TABLE `employee_notice` DISABLE KEYS */;
-INSERT INTO `employee_notice` VALUES (1,1,1,1),(2,1,2,0);
+INSERT INTO `employee_notice` VALUES (1,7,1,1),(2,7,2,0),(3,7,3,0),(4,7,4,0),(5,7,5,0),(6,7,6,0),(7,7,7,1),(8,7,8,1),(9,7,9,1),(10,7,10,1),(11,7,11,0),(12,7,12,0),(13,7,13,1),(14,7,14,1),(15,7,15,1),(16,7,16,1),(17,7,17,1);
 /*!40000 ALTER TABLE `employee_notice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,7 +255,7 @@ CREATE TABLE `notice` (
   PRIMARY KEY (`id`),
   KEY `fk_training_notice_idx` (`training_id`),
   CONSTRAINT `fk_training_notice` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -264,7 +264,7 @@ CREATE TABLE `notice` (
 
 LOCK TABLES `notice` WRITE;
 /*!40000 ALTER TABLE `notice` DISABLE KEYS */;
-INSERT INTO `notice` VALUES (1,1,'gvb','cbgcb','2015-07-07 21:00:00',2,'warn',NULL),(2,2,'fg','fgdfg','2015-09-07 21:00:00',3,'warn',NULL);
+INSERT INTO `notice` VALUES (1,1,'gvb','cbgcb','2015-07-31 07:30:58',2,'warning',NULL),(2,2,'fg','fgdfg','2015-07-31 07:30:58',3,'warning',NULL),(3,1,'sdg','sdg','2015-11-08 21:00:00',4,'info',NULL),(4,1,'ef','ef','2015-11-08 21:00:00',2,'info',NULL),(5,1,'sd','sdav','2015-11-08 21:00:00',2,'info',NULL),(6,1,'agf','afeafe','2015-11-08 21:00:00',2,'info',NULL),(7,1,'df','sadf','2015-11-08 21:00:00',3,'info',NULL),(8,1,'adff','asfafs','2015-11-08 21:00:00',5,'info',NULL),(9,1,'dsf','adf','2015-11-08 21:00:00',2,'info',NULL),(10,2,'saf','feewqf','2015-11-08 21:00:00',5,'info',NULL),(11,3,'srgwrhetah','zvsdgs','2015-11-08 21:00:00',6,'info',NULL),(12,3,'time transfer','meet time transfer from 12:00 to 13:00','2015-07-31 08:11:05',4,'warning',NULL),(13,2,'addition successfully completed','you was added to the Core Java training participants list','2015-07-31 08:15:18',5,'success',NULL),(14,14,'feedback','this was awesome training','2015-09-11 21:00:00',1,'info',NULL),(15,1,'addition successfully completed','you was added to the English training participants list','2015-07-31 08:15:18',1,'success',NULL),(16,2,'date transfer','meet date transfer from 2015-10-12 to 2015-10-13','2015-07-31 08:15:18',7,'warning',NULL),(17,3,'addition successfully completed','you was added to the Advanced Java training participants list','2015-10-11 21:00:00',7,'success',NULL);
 /*!40000 ALTER TABLE `notice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,13 +277,13 @@ DROP TABLE IF EXISTS `participant`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `participant` (
   `subscribe_id` int(11) NOT NULL,
-  `meet_id` int(11) NOT NULL,
-  `absent` tinyint(4) NOT NULL,
-  `reason` text NOT NULL,
-  PRIMARY KEY (`subscribe_id`,`meet_id`),
-  KEY `meet_id_idx` (`meet_id`),
-  CONSTRAINT `fk_meet_participant` FOREIGN KEY (`meet_id`) REFERENCES `meet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_subscribe_particicpant` FOREIGN KEY (`subscribe_id`) REFERENCES `subscribe` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `absent` tinyint(4) DEFAULT '0',
+  `reason` text,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
+  KEY `fk_subscribe_participant_idx` (`subscribe_id`),
+  CONSTRAINT `fk_subscribe_participant` FOREIGN KEY (`subscribe_id`) REFERENCES `subscribe` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -424,7 +424,7 @@ CREATE TABLE `token` (
 
 LOCK TABLES `token` WRITE;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
-INSERT INTO `token` VALUES (1,'3007152200131252875663',1),(2,'token',2),(3,'token',3),(4,'240715155508-2059738913',4),(5,'token',5),(6,'token',6),(7,'token',7),(8,'2907151047191192705113',8),(9,'240715155455295800428',9);
+INSERT INTO `token` VALUES (1,'3107151009471718381849',1),(2,'token',2),(3,'token',3),(4,'240715155508-2059738913',4),(5,'token',5),(6,'token',6),(7,'token',7),(8,'2907151047191192705113',8),(9,'240715155455295800428',9);
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -573,4 +573,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-30 22:37:07
+-- Dump completed on 2015-07-31 11:29:03

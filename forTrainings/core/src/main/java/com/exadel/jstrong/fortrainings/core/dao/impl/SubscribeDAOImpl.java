@@ -102,7 +102,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
             CriteriaQuery<Subscribe> query = em.getCriteriaBuilder().createQuery(Subscribe.class);
             Root<Subscribe> root = query.from(Subscribe.class);
 
-            Predicate uId = root.get("training_id").in(trainingId);
+            Predicate uId = root.get("trainingId").in(trainingId);
             Predicate tId = root.get("status").in(status);
 
             query.where(em.getCriteriaBuilder().and(uId, tId));
