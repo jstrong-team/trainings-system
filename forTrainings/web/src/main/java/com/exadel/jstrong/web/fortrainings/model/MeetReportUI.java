@@ -1,5 +1,10 @@
 package com.exadel.jstrong.web.fortrainings.model;
 
+import com.exadel.jstrong.fortrainings.core.jsonutil.DateDeserializer;
+import com.exadel.jstrong.fortrainings.core.jsonutil.DateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.Date;
 
 /**
@@ -10,4 +15,29 @@ public class MeetReportUI {
     private boolean absent;
     private String reason;
 
+    @JsonSerialize(using = DateSerializer.class)
+    public Date getDate() {
+        return date;
+    }
+
+    @JsonDeserialize(using = DateDeserializer.class)
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public boolean isAbsent() {
+        return absent;
+    }
+
+    public void setAbsent(boolean absent) {
+        this.absent = absent;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
 }
