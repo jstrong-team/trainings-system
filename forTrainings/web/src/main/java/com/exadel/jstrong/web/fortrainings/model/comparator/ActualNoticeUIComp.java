@@ -15,7 +15,7 @@ public class ActualNoticeUIComp implements Comparator<NoticeUI> {
         if (a.getStatus().equals(b.getStatus())){
             return b.getAddDate().compareTo(a.getAddDate());
         } else {
-            return NoticeStatus.getStatusPriority(a.getStatus()) - NoticeStatus.getStatusPriority(b.getStatus());
+            return NoticeStatus.getStatusPriority(b.getStatus()) - NoticeStatus.getStatusPriority(a.getStatus());
         }
     }
 
