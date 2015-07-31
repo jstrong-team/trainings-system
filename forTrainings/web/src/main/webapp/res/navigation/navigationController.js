@@ -17,7 +17,7 @@
 
         };
 
-        $http.get('rest/badgeCount').then(
+        $http.get('rest/news/badgeCount').then(
             function(data){
                 if (data.data.badgeCount !== 0) {
                     $scope.badgeCount = data.data.badgeCount;

@@ -1,5 +1,6 @@
 package com.exadel.jstrong.web.fortrainings.services.scheduleservice;
 
+import com.exadel.jstrong.fortrainings.core.dao.NoticeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
 import com.exadel.jstrong.fortrainings.core.model.EmployeeNotice;
 import com.exadel.jstrong.fortrainings.core.model.Notice;
@@ -22,6 +23,9 @@ public class Noticer implements Runnable{
     @Autowired
     SubscribeDAO subscribeDAO;
 
+    @Autowired
+    NoticeDAO noticeDAO;
+
     public Noticer(){};
 
     public Noticer(Notice notice) {
@@ -43,8 +47,9 @@ public class Noticer implements Runnable{
 
     @Transactional
     private void sendNotice(){
+        notice = noticeDAO.addNotice(notice);
         List<EmployeeNotice> employeeNotices = getSubscribersNotices(notice.getTrainingId(), notice.getId());
-
+        notice.setEmployeeNotices(employeeNotices);
     }
 
     private List<EmployeeNotice> getSubscribersNotices(int trainingId, int noticeId){
