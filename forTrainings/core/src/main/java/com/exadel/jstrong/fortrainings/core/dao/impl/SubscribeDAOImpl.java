@@ -2,6 +2,9 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
+import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
+import com.exadel.jstrong.fortrainings.core.model.Meet;
+
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +80,23 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
     }
 
     @Override
+
+    public List<Subscribe> getSubscribersByEmployeeId(int employeeId) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        List<Subscribe> subscribes = null;
+        try {
+            CriteriaQuery<Subscribe> query = criteriaBuilder.createQuery(Subscribe.class);
+            Root<Subscribe> root = query.from(Subscribe.class);
+            query.where(criteriaBuilder.equal(root.<Integer>get("employeeId"), employeeId));
+            subscribes = em.createQuery(query).getResultList();
+            return subscribes;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public List<Subscribe> getSubscribersByStatus(int trainingId, String status){
         try {
             CriteriaQuery<Subscribe> query = em.getCriteriaBuilder().createQuery(Subscribe.class);
@@ -89,6 +110,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
         } catch(Throwable e){
             return new ArrayList<Subscribe>();
         }
+
     }
 
 }

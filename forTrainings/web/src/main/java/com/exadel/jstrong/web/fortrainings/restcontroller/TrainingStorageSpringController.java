@@ -204,6 +204,7 @@ public class TrainingStorageSpringController {
         tsci.editTraining(oldTrainingId, training);
     }
 
+    //FIXME
     @RequestMapping(value = "/approve", method = RequestMethod.PUT)
     public void adminRequest(@RequestBody ApproveUI approveUI, HttpServletRequest request, HttpServletResponse response) {
         if(APPROVE.compareToIgnoreCase(approveUI.getAdminAnswer()) == 0) {
@@ -214,10 +215,16 @@ public class TrainingStorageSpringController {
         }
     }
 
-//    @RequestMapping(value = "/getReport", method = RequestMethod.GET)
-//    public {
-//
-//    }
+    @RequestMapping(value = "/getReport", method = RequestMethod.GET)
+    public @ResponseBody List<TrainingReportUI> getReport (HttpServletRequest request, HttpServletResponse response) {
+        int employeeId = Integer.parseInt(request.getParameter("id"));
+        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        if(ec.isAdmin(userId)) {
+            return tsci.getReportUI(employeeId);
+        }
+        return null;
+    }
 
 
 }

@@ -10,5 +10,7 @@ public interface SubscribeDAO extends GenericDAO<Subscribe>{
     boolean removeSubscriber(int userId, int trainingId);
     boolean changeStatus(int trainingId);
     int contains(int userId, int trainingId);
+    List<Subscribe> getSubscribersByEmployeeId(int employeeId);
     List<Subscribe> getSubscribersByStatus(int trainingId, String status);
+
 }

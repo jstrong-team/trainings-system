@@ -1,6 +1,7 @@
 package com.exadel.jstrong.fortrainings.core.dao;
 
 import com.exadel.jstrong.fortrainings.core.model.Event;
+import com.exadel.jstrong.fortrainings.core.model.Participant;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 
@@ -21,4 +22,6 @@ public interface TrainingDAO extends GenericDAO<Training>{
    // boolean isSubscriber(int userId, int trainingId);
     void editTraining(Training training);
     int updateTraining(Training training);
+    String getTrainingName(int trainingId);
+    List<Participant> getAllBySubscribeId(int subscribeId);
 }
