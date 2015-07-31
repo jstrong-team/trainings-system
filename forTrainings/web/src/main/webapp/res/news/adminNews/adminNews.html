@@ -12,35 +12,35 @@
                 <li><a href="#">Approval</a></li>
             </ul>
         </div>
-        <div class="alert alert-danger fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Here will be how news!</strong>
+
+        <div class="alert alert-{{actualItem.status}} fade in" ng-repeat="actualItem in actualCurrentListItems">
+            <a href="#" ng-click="removeActualItem(actualItem.id)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{actualItem.theme}}: </strong>{{actualItem.text}}
         </div>
-        <div class="alert alert-danger fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Today english training!</strong>
-        </div>
-        <div class="alert alert-danger fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Here will be how news!</strong>
-        </div>
-        <div class="alert alert-danger fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Today english training!</strong>
-        </div>
-        <div class="alert alert-danger fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Here will be how news!</strong>
-        </div>
-        <div class="alert alert-danger fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Today english training!</strong>
-        </div>
+
+
+        <table class="table table-striped table-bordered table-bordered">
+            <thead>
+            <tr>
+                <th>Theme</th>
+                <th>Text</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in historyCurrentListItems">
+                <td>{{item.theme}}</td>
+                <td>{{item.text}}</td>
+                <td>{{item.data}}</td>
+            </tr>
+            </tbody>
+        </table>
+
 
         <div class="text-center">
             <pagination
-                    total-items="bigTotalItems"
-                    ng-model="bigCurrentPage"
+                    total-items="totalItems"
+                    ng-model="currentPage"
                     max-size="maxSize"
                     class="pagination-sm"
                     boundary-links="true"
