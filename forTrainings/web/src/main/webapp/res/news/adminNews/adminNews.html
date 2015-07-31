@@ -14,7 +14,7 @@
         <!--</div>-->
 
         <div class="alert alert-{{actualItem.status}} fade in" ng-repeat="actualItem in actualCurrentListItems">
-            <a href="#" ng-click="removeActualItem(actualItem.id)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <a href="#" ng-dblclick="" ng-click="removeActualItem(actualItem.id)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>{{actualItem.theme}}: </strong>{{actualItem.text}}
         </div>
 
