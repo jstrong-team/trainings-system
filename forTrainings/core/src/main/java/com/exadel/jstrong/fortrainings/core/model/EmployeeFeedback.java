@@ -27,19 +27,19 @@ public class EmployeeFeedback {
     private Date addDate;
 
     @Column
-    private boolean understand;
+    private Boolean understand;
 
     @Column
-    private boolean interested;
+    private Boolean interested;
 
     @Column
-    private boolean continueWithThisTrainer;
+    private Boolean continueWithThisTrainer;
 
     @Column
-    private boolean smthNew;
+    private Boolean smthNew;
 
     @Column
-    private boolean recommend;
+    private Boolean recommend;
 
     @Column
     private int rate;
@@ -48,13 +48,13 @@ public class EmployeeFeedback {
     private String other;
 
     @Column
-    private boolean isDelete;
+    private Boolean isDelete;
 
-    public boolean isDelete() {
+    public Boolean isDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(boolean isDelete) {
+    public void setIsDelete(Boolean isDelete) {
         this.isDelete = isDelete;
     }
 
@@ -98,43 +98,43 @@ public class EmployeeFeedback {
         this.addDate = addDate;
     }
 
-    public boolean isUnderstand() {
+    public Boolean isUnderstand() {
         return understand;
     }
 
-    public void setUnderstand(boolean understand) {
+    public void setUnderstand(Boolean understand) {
         this.understand = understand;
     }
 
-    public boolean isInterested() {
+    public Boolean isInterested() {
         return interested;
     }
 
-    public void setInterested(boolean interested) {
+    public void setInterested(Boolean interested) {
         this.interested = interested;
     }
 
-    public boolean isContinueWithThisTrainer() {
+    public Boolean isContinueWithThisTrainer() {
         return continueWithThisTrainer;
     }
 
-    public void setContinueWithThisTrainer(boolean continueWithThisTrainer) {
+    public void setContinueWithThisTrainer(Boolean continueWithThisTrainer) {
         this.continueWithThisTrainer = continueWithThisTrainer;
     }
 
-    public boolean isSmthNew() {
+    public Boolean isSmthNew() {
         return smthNew;
     }
 
-    public void setSmthNew(boolean smthNew) {
+    public void setSmthNew(Boolean smthNew) {
         this.smthNew = smthNew;
     }
 
-    public boolean isRecommend() {
+    public Boolean isRecommend() {
         return recommend;
     }
 
-    public void setRecommend(boolean recommend) {
+    public void setRecommend(Boolean recommend) {
         this.recommend = recommend;
     }
 

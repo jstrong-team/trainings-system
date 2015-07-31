@@ -14,6 +14,15 @@ public class MeetReportUI {
     private Date date;
     private boolean absent;
     private String reason;
+    private String trainingName;
+
+    public String getTrainingName() {
+        return trainingName;
+    }
+
+    public void setTrainingName(String trainingName) {
+        this.trainingName = trainingName;
+    }
 
     @JsonSerialize(using = DateSerializer.class)
     public Date getDate() {

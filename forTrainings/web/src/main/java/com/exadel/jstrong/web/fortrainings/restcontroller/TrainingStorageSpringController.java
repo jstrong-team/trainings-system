@@ -216,12 +216,12 @@ public class TrainingStorageSpringController {
     }
 
     @RequestMapping(value = "/getReport", method = RequestMethod.GET)
-    public @ResponseBody List<TrainingReportUI> getReport (HttpServletRequest request, HttpServletResponse response) {
+    public @ResponseBody List<MeetReportUI> getReport (HttpServletRequest request, HttpServletResponse response) {
         int employeeId = Integer.parseInt(request.getParameter("id"));
         Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
         int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
         if(ec.isAdmin(userId)) {
-            return tsci.getReportUI(employeeId);
+            return tsci.getMeetReportUIs(employeeId);
         }
         return null;
     }

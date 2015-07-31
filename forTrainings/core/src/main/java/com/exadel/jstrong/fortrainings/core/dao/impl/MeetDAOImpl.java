@@ -54,10 +54,10 @@ public class MeetDAOImpl extends BaseDAO<Meet> implements MeetDAO {
         Root<Meet> root = query.from(Meet.class);
 
         Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Predicate p1 = root.get("training_id").in(trainingId);
-        Predicate p2 = cb.lessThan(root.<String>get("date"), dateFormat.format(date));
+        Predicate p2 = cb.lessThan(root.<Date>get("date"), date);
         query.where(em.getCriteriaBuilder().and(p1, p2));
         List<Meet> result = executeQuery(query);
         return !result.isEmpty();
