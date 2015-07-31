@@ -5,13 +5,13 @@ package com.exadel.jstrong.web.fortrainings.model;
  */
 public class CompleteMarkUI {
 
-    private int noticeId;
+    private int id;
 
-    public int getNoticeId() {
-        return noticeId;
+    public int getId() {
+        return id;
     }
 
-    public void setNoticeId(int noticeId) {
-        this.noticeId = noticeId;
+    public void setId(int id) {
+        this.id = id;
     }
 }

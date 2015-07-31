@@ -79,7 +79,7 @@ public class EmployeeNoticeSpringController {
         try {
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
             int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
-            if(!employeeNoticeController.markNoticeAsComplete(id, mark.getNoticeId())){
+            if(!employeeNoticeController.markNoticeAsComplete(id, mark.getId())){
                 response.setStatus(HttpServletResponse.SC_CONFLICT);
             }
         } catch(Throwable e){
