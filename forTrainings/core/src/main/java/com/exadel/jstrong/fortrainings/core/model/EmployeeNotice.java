@@ -11,16 +11,16 @@ public class EmployeeNotice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "complete")
-    private boolean complete;
+    private Boolean complete;
 
     @Column(name = "employee_id")
-    private int employeeId;
+    private Integer employeeId;
 
     @Column(name = "notice_id")
-    private int noticeId;
+    private Integer noticeId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "notice_id", insertable = false, updatable = false)
@@ -30,19 +30,19 @@ public class EmployeeNotice {
     @JoinColumn(name = "employee_id", insertable = false, updatable = false)
     private Employee employee;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public boolean getComplete() {
+    public Boolean getComplete() {
         return complete;
     }
 
-    public void setComplete(boolean complete) {
+    public void setComplete(Boolean complete) {
         this.complete = complete;
     }
 
@@ -62,23 +62,23 @@ public class EmployeeNotice {
         this.employee = employee;
     }
 
-    public boolean isComplete() {
+    public Boolean isComplete() {
         return complete;
     }
 
-    public int getEmployeeId() {
+    public Integer getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 
-    public int getNoticeId() {
+    public Integer getNoticeId() {
         return noticeId;
     }
 
-    public void setNoticeId(int noticeId) {
+    public void setNoticeId(Integer noticeId) {
         this.noticeId = noticeId;
     }
 }

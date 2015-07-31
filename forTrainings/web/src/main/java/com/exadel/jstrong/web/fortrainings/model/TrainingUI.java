@@ -14,21 +14,21 @@ import java.util.List;
  */
 public class TrainingUI {
 
-    private int id;
+    private Integer id;
     private String name;
     private String trainerName;
     private String annotation;
     private String description;
     private String target;
-    private boolean paid;
-    private int max_participants;
+    private Boolean paid;
+    private Integer max_participants;
     private String place;
-    private boolean internal;
-    private boolean approve;
-    private int trainer_id;
+    private Boolean interested;
+    private Boolean approve;
+    private Integer trainer_id;
     private List<Date> dates;
-    private boolean isSubscribe;
-    private int rate;
+    private Boolean isSubscribe;
+    private Integer rate;
 
     public String getTrainerName() {
         return trainerName;
@@ -38,7 +38,7 @@ public class TrainingUI {
         this.trainerName = trainerName;
     }
 
-    public TrainingUI(int id, String name, String trainerName, String annotation, String description, String target, boolean paid, int max_participants, String place, boolean internal, boolean approve, int trainer_id, List<Date> dates, boolean isSubscribe) {
+    public TrainingUI(Integer id, String name, String trainerName, String annotation, String description, String target, Boolean paid, Integer max_participants, String place, Boolean interested, Boolean approve, Integer trainer_id, List<Date> dates, Boolean isSubscribe) {
         this.id = id;
         this.name = name;
         this.trainerName = trainerName;
@@ -48,18 +48,18 @@ public class TrainingUI {
         this.paid = paid;
         this.max_participants = max_participants;
         this.place = place;
-        this.internal = internal;
+        this.interested = interested;
         this.approve = approve;
         this.trainer_id = trainer_id;
         this.dates = dates;
         this.isSubscribe = isSubscribe;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -95,19 +95,19 @@ public class TrainingUI {
         this.target = target;
     }
 
-    public boolean isPaid() {
+    public Boolean isPaid() {
         return paid;
     }
 
-    public void setPaid(boolean paid) {
+    public void setPaid(Boolean paid) {
         this.paid = paid;
     }
 
-    public int getMax_participants() {
+    public Integer getMax_participants() {
         return max_participants;
     }
 
-    public void setMax_participants(int max_participants) {
+    public void setMax_participants(Integer max_participants) {
         this.max_participants = max_participants;
     }
 
@@ -119,27 +119,27 @@ public class TrainingUI {
         this.place = place;
     }
 
-    public boolean isInternal() {
-        return internal;
+    public Boolean isInternal() {
+        return interested;
     }
 
-    public void setInternal(boolean internal) {
-        this.internal = internal;
+    public void setInternal(Boolean interested) {
+        this.interested = interested;
     }
 
-    public boolean isApprove() {
+    public Boolean isApprove() {
         return approve;
     }
 
-    public void setApprove(boolean approve) {
+    public void setApprove(Boolean approve) {
         this.approve = approve;
     }
 
-    public int getTrainer_id() {
+    public Integer getTrainer_id() {
         return trainer_id;
     }
 
-    public void setTrainer_id(int trainer_id) {
+    public void setTrainer_id(Integer trainer_id) {
         this.trainer_id = trainer_id;
     }
 
@@ -154,19 +154,19 @@ public class TrainingUI {
     }
 
     @JsonGetter("isSubscribe")
-    public boolean isSubscribe() {
+    public Boolean isSubscribe() {
         return isSubscribe;
     }
 
-    public void setIsSubscribe(boolean isSubscribe) {
+    public void setIsSubscribe(Boolean isSubscribe) {
         this.isSubscribe = isSubscribe;
     }
 
-    public int getRate() {
+    public Integer getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(Integer rate) {
         this.rate = rate;
     }
 }

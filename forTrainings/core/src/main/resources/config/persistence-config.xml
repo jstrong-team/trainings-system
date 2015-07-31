@@ -37,7 +37,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/for_trainings" />
         <property name="username" value="root" />
-        <property name="password" value="password" />
+        <property name="password" value="12345" />
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

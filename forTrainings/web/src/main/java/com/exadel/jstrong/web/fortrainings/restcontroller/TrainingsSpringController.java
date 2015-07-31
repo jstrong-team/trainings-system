@@ -62,6 +62,7 @@ public class TrainingsSpringController {
             if (token != null) {
                 temp = new Cookie(CookieUtil.TOKEN, CookieUtil.generateToken());
                 temp.setPath("/");
+                temp.setMaxAge(0);
                 response.addCookie(temp);
             }
             response.setStatus(HttpServletResponse.SC_OK);

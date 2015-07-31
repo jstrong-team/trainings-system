@@ -20,28 +20,28 @@ public class Meet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    private int id;
+    private Integer id;
 
     @Column
-    private int training_id;
+    private Integer training_id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "training_id", insertable = false, updatable = false)
     private Training training;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getTraining_id() {
+    public Integer getTraining_id() {
         return training_id;
     }
 
-    public void setTraining_id(int training_id) {
+    public void setTraining_id(Integer training_id) {
         this.training_id = training_id;
     }
 
