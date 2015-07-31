@@ -37,7 +37,7 @@ public class EmployeeNoticeDAOImpl extends BaseDAO<EmployeeNotice> implements Em
     @Override
     public List<Notice> getEmployeeHistoryNoticesByPage(int userId, int limitFrom, int limitCount) {
         try {
-            List<Notice> results = (List<Notice>) em.createNativeQuery("SELECT * FROM notice WHERE notice.id IN (SELECT id FROM employee_notice en WHERE en.complete = false AND en.employee_id = :id) ORDER BY notice.add_date LIMIT :l1, :l2", Notice.class).setParameter("id", userId).setParameter("l1", limitFrom).setParameter("l2", limitCount).getResultList();
+            List<Notice> results = (List<Notice>) em.createNativeQuery("SELECT * FROM notice WHERE notice.id IN (SELECT id FROM employee_notice en WHERE en.complete = true AND en.employee_id = :id) ORDER BY notice.add_date LIMIT :l1, :l2", Notice.class).setParameter("id", userId).setParameter("l1", limitFrom).setParameter("l2", limitCount).getResultList();
             return results;
         } catch (Throwable e) {
             return new ArrayList<Notice>();

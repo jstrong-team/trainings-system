@@ -1,7 +1,6 @@
 package com.exadel.jstrong.web.fortrainings.controller;
 
 import com.exadel.jstrong.web.fortrainings.model.NoticeCountUI;
-import com.exadel.jstrong.web.fortrainings.model.NoticesHistoryUI;
 import com.exadel.jstrong.web.fortrainings.model.NoticesUI;
 
 /**
@@ -10,7 +9,6 @@ import com.exadel.jstrong.web.fortrainings.model.NoticesUI;
 public interface EmployeeNoticeController {
 
     NoticeCountUI getNoticeCount(int userId);
-    NoticesUI getEmployeeNotices(int userId, int count);
-    NoticesHistoryUI getEmployeeNoticesHistoryByPage(int id, int count, int page);
+    NoticesUI getEmployeeNotices(int userId, int count, int page);
     boolean markNoticeAsComplete(int userId, int noticeId);
 }
