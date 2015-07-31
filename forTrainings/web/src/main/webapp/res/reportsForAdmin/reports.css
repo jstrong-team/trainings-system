@@ -1,3 +1,13 @@
 .reportsTitle {
-    padding-top: 200px;
+    padding-bottom: 40px;
+}
+
+.reportTable {
+    padding-top: 100px;
+}
+
+.printButton {
+    float: right;
+    background-color: #2E729F;
+    color: #ffffff;
 }

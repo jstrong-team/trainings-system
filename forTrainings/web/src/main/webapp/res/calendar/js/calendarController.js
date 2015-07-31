@@ -2,8 +2,6 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
     $scope.days = getThreeMonthDays();
     $scope.months = getThreeMonths();
 
-    console.log("2");
-
     $scope.openModal = function (data) {
         $modal.open({
             animation: true,
