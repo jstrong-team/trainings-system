@@ -233,19 +233,23 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     @Override
-    public List<MeetReportUI> getMeetReportUIs(int subscribeId) {
+    public List<MeetReportUI> getMeetReportUIs(int employeeId) {
+        List<Subscribe> subscribes = sDAO.getSubscribersByEmployeeId(employeeId);
         List<MeetReportUI> meetReportUIs = new ArrayList<>();
-        List<Participant> participants = tDAO.getAllBySubscribeId(subscribeId);
+
         MeetReportUI meetReportUI = null;
-
-        for(Participant p : participants) {
-            meetReportUI = new MeetReportUI();
-            meetReportUI.setAbsent(p.isAbsent());
-            meetReportUI.setDate(p.getDate());
-            meetReportUI.setReason(p.getReason());
-            meetReportUIs.add(meetReportUI);
+        for(Subscribe s :subscribes) {
+            int trainingId = s.getTrainingId();
+            List<Participant> participants = tDAO.getAllBySubscribeId(s.getId());
+            for (Participant p : participants) {
+                meetReportUI = new MeetReportUI();
+                meetReportUI.setAbsent(p.isAbsent());
+                meetReportUI.setDate(p.getDate());
+                meetReportUI.setReason(p.getReason());
+                meetReportUI.setTrainingName(tDAO.getTrainingName(trainingId));
+                meetReportUIs.add(meetReportUI);
+            }
         }
-
         return meetReportUIs;
     }
 

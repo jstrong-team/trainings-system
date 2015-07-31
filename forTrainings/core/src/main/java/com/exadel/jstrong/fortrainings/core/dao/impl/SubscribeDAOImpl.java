@@ -110,7 +110,6 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
         } catch(Throwable e){
             return new ArrayList<Subscribe>();
         }
-
     }
 
 }
