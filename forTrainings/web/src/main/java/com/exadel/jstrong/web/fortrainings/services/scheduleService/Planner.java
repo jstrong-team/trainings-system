@@ -83,8 +83,7 @@ public class Planner implements Runnable {
                 noticer = context.getBean(Noticer.class);
                 noticer.setNotice(n);
                 delay = n.getAddDate().getTime() - (new Date()).getTime();
-                //executor.schedule(noticer, delay, TimeUnit.MILLISECONDS);
-                executor.schedule(noticer, 10, TimeUnit.MILLISECONDS);
+                executor.schedule(noticer, delay, TimeUnit.MILLISECONDS);
             }
         } catch(Throwable e){
             logger.warn(e.toString());

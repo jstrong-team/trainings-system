@@ -6,6 +6,7 @@ import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.model.EmployeeNotice;
 import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.fortrainings.core.model.Training;
+import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,8 @@ import java.util.List;
  */
 @Service
 public class EmployeeNoticeDAOImpl extends BaseDAO<EmployeeNotice> implements EmployeeNoticeDAO {
+
+    Logger logger = Logger.getLogger(EmployeeNoticeDAO.class);
 
     @Override
     public List<Notice> getEmployeeActualNotices(int userId) {
@@ -99,6 +102,18 @@ public class EmployeeNoticeDAOImpl extends BaseDAO<EmployeeNotice> implements Em
             return true;
         } catch (Throwable e) {
             return false;
+        }
+    }
+
+    @Override
+    @Transactional
+    public int add(EmployeeNotice employeeNotice) {
+        try {
+            employeeNotice = save(employeeNotice);
+            return employeeNotice.getId();
+        } catch(Throwable e){
+            logger.warn(e.toString());
+            return 0;
         }
     }
 }
