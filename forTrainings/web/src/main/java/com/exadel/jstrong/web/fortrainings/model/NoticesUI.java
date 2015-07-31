@@ -10,6 +10,16 @@ public class NoticesUI {
     private List<NoticeUI> actualNotices;
     private List<NoticeUI> historyNotices;
 
+    public int getHistoryCount() {
+        return historyCount;
+    }
+
+    public void setHistoryCount(int historyCount) {
+        this.historyCount = historyCount;
+    }
+
+    private int historyCount;
+
     public List<NoticeUI> getActualNotices() {
         return actualNotices;
     }
@@ -25,4 +35,6 @@ public class NoticesUI {
     public void setHistoryNotices(List<NoticeUI> historyNotices) {
         this.historyNotices = historyNotices;
     }
+
+
 }

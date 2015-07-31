@@ -58,6 +58,15 @@ public class EmployeeNoticeDAOImpl extends BaseDAO<EmployeeNotice> implements Em
     @Override
     public int getNoticeCount(int userId) {
         try {
+            return (int) em.createNativeQuery("SELECT COUNT(*) FROM employee_notice WHERE employee_id = :id AND complete = 0").setParameter("id", userId).getSingleResult();
+        } catch (Throwable e) {
+            return 0;
+        }
+    }
+
+    @Override
+    public int getHistoryNoticeCount(int userId) {
+        try {
             return (int) em.createNativeQuery("SELECT COUNT(*) FROM employee_notice WHERE employee_id = :id AND complete = 1").setParameter("id", userId).getSingleResult();
         } catch (Throwable e) {
             return 0;

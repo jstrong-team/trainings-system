@@ -71,6 +71,7 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
             }
             Collections.sort(noticesUI, new NoticeUIComp());
             result.setHistoryNotices(noticesUI);
+            result.setHistoryCount(employeeNoticeDAO.getHistoryNoticeCount(userId));
         } catch(Throwable e){
             e.printStackTrace();
         }
