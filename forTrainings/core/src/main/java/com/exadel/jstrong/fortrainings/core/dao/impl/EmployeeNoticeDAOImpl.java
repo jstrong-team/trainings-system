@@ -6,6 +6,7 @@ import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.model.EmployeeNotice;
 import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.fortrainings.core.model.Training;
+import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,10 +25,12 @@ import java.util.List;
 @Service
 public class EmployeeNoticeDAOImpl extends BaseDAO<EmployeeNotice> implements EmployeeNoticeDAO {
 
+    Logger logger = Logger.getLogger(EmployeeNoticeDAO.class);
+
     @Override
     public List<Notice> getEmployeeActualNotices(int userId) {
         try {
-            List<Notice> results = em.createNativeQuery("SELECT * FROM notice WHERE notice.id IN (SELECT id FROM employee_notice en WHERE en.complete = false AND en.employee_id = :id)", Notice.class).setParameter("id", userId).getResultList();
+            List<Notice> results = em.createNativeQuery("SELECT * FROM notice WHERE notice.id IN (SELECT en.notice_id FROM employee_notice en WHERE en.complete = false AND en.employee_id = :id)", Notice.class).setParameter("id", userId).getResultList();
             return results;
         } catch (Throwable e) {
             return new ArrayList<Notice>();
@@ -37,7 +40,7 @@ public class EmployeeNoticeDAOImpl extends BaseDAO<EmployeeNotice> implements Em
     @Override
     public List<Notice> getEmployeeHistoryNoticesByPage(int userId, int limitFrom, int limitCount) {
         try {
-            List<Notice> results = (List<Notice>) em.createNativeQuery("SELECT * FROM notice WHERE notice.id IN (SELECT id FROM employee_notice en WHERE en.complete = true AND en.employee_id = :id) ORDER BY notice.add_date LIMIT :l1, :l2", Notice.class).setParameter("id", userId).setParameter("l1", limitFrom).setParameter("l2", limitCount).getResultList();
+            List<Notice> results = (List<Notice>) em.createNativeQuery("SELECT * FROM notice WHERE notice.id IN (SELECT en.notice_id FROM employee_notice en WHERE en.complete = true AND en.employee_id = :id) ORDER BY notice.add_date LIMIT :l1, :l2", Notice.class).setParameter("id", userId).setParameter("l1", limitFrom).setParameter("l2", limitCount).getResultList();
             return results;
         } catch (Throwable e) {
             return new ArrayList<Notice>();
@@ -99,6 +102,18 @@ public class EmployeeNoticeDAOImpl extends BaseDAO<EmployeeNotice> implements Em
             return true;
         } catch (Throwable e) {
             return false;
+        }
+    }
+
+    @Override
+    @Transactional
+    public int add(EmployeeNotice employeeNotice) {
+        try {
+            employeeNotice = save(employeeNotice);
+            return employeeNotice.getId();
+        } catch(Throwable e){
+            logger.warn(e.toString());
+            return 0;
         }
     }
 }

@@ -17,5 +17,6 @@ public interface EmployeeNoticeDAO extends GenericDAO<EmployeeNotice> {
     int getNoticeCount(int userId);
     int getHistoryNoticeCount(int userId);
     boolean markAsComplete(int userId, int noticeId);
+    int add(EmployeeNotice employeeNotice);
 }
 
