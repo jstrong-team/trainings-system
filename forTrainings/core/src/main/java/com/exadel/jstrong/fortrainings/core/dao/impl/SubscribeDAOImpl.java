@@ -51,9 +51,34 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
     //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     @Transactional
-    public boolean changeStatus(int trainingId) {
+    public boolean changeStatusToApprove(int trainingId) {
         try {
             Query query = em.createNativeQuery("update subscribe set status='Approve' where status='Wait' and training_id =:tId order by add_date limit 1").setParameter("tId", trainingId);
+            query.executeUpdate();
+            return true;
+        } catch(Throwable e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public int getApproveCount(int trainingId) {
+        try {
+            Query query = em.createNativeQuery("select * from subscribe where training_id =:tId and status='Approve'").setParameter("tId", trainingId);
+            int count = query.getResultList().size();
+            return count;
+        } catch(Throwable e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    @Transactional
+    public boolean changeStatusToWait(int trainingId) {
+        try {
+            Query query = em.createNativeQuery("update subscribe set status='Wait' where status='Approve' and training_id =:tId order by add_date desc limit 1").setParameter("tId", trainingId);
             query.executeUpdate();
             return true;
         } catch(Throwable e) {
