@@ -3,6 +3,8 @@ package com.exadel.jstrong.web.fortrainings.restcontroller;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeNoticeController;
 import com.exadel.jstrong.web.fortrainings.model.NoticeCountUI;
+import com.exadel.jstrong.web.fortrainings.model.NoticesHistoryUI;
+import com.exadel.jstrong.web.fortrainings.model.NoticesUI;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import java.util.Map;
 
 
 @RestController
+@RequestMapping(value = "/news")
 public class EmployeeNoticeSpringController {
 
     @Autowired
@@ -41,4 +44,50 @@ public class EmployeeNoticeSpringController {
         }
         return n;
     }
+
+    @RequestMapping(value = "/notice", method = RequestMethod.GET)
+    public @ResponseBody
+    NoticesUI getEmployeeNotices(HttpServletRequest request, HttpServletResponse response) {
+        NoticesUI notices = null;
+        try {
+            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+            int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            int count = Integer.parseInt(request.getParameter("count"));
+            notices = employeeNoticeController.getEmployeeNotices(id, count);
+        } catch(Throwable e){
+            e.printStackTrace();
+        }
+        return notices;
+    }
+
+    @RequestMapping(value = "/noticeHistory", method = RequestMethod.GET)
+    public @ResponseBody
+    NoticesHistoryUI getEmployeeNoticesHistory(HttpServletRequest request, HttpServletResponse response) {
+        NoticesHistoryUI notices = null;
+        try {
+            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+            int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            int count = Integer.parseInt(request.getParameter("count"));
+            int page = Integer.parseInt(request.getParameter("page"));
+            notices = employeeNoticeController.getEmployeeNoticesHistoryByPage(id, count, page);
+        } catch(Throwable e){
+            e.printStackTrace();
+        }
+        return notices;
+    }
+
+    @RequestMapping(value = "/complete", method = RequestMethod.POST)
+    public void markAsComplete(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+            int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            int noticeId = Integer.parseInt(request.getParameter("id"));
+            if(!employeeNoticeController.markNoticeAsComplete(id, noticeId)){
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+            }
+        } catch(Throwable e){
+            e.printStackTrace();
+        }
+    }
+
 }

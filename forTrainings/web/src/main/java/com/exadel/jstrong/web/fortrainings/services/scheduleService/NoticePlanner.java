@@ -4,6 +4,7 @@ import com.exadel.jstrong.fortrainings.core.dao.MeetDAO;
 import com.exadel.jstrong.fortrainings.core.dao.impl.MeetDAOImpl;
 import com.exadel.jstrong.fortrainings.core.model.Meet;
 import com.exadel.jstrong.fortrainings.core.model.Notice;
+import com.exadel.jstrong.web.fortrainings.services.noticeservice.NoticeFactory;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ public class NoticePlanner implements Runnable {
     private Logger logger = Logger.getLogger(NoticePlanner.class.getName());
 
     private void init() {
-        System.out.println("INIT");
         try {
             executor = Executors.newSingleThreadScheduledExecutor();
             executor.scheduleAtFixedRate(this, 0, 30, TimeUnit.MINUTES);
@@ -35,7 +35,7 @@ public class NoticePlanner implements Runnable {
     @Override
     public void run() {
         try {
-
+            createSchedule(getNotices());
         } catch (Throwable e) {
             logger.warn(e.getMessage());
         }
@@ -48,15 +48,28 @@ public class NoticePlanner implements Runnable {
         int minute = calendar.get(Calendar.MINUTE);
         calendar.set(Calendar.HOUR, hour + 3);
         Date dateFrom = calendar.getTime();
-        calendar.set(Calendar.MINUTE, minute + 20);
+        calendar.set(Calendar.MINUTE, minute + 30);
         Date dateTo = calendar.getTime();
         List<Meet> meets = meetDAO.getMeetsInDateScope(dateFrom, dateTo);
         List<Notice> notices = new ArrayList<>();
+        for (Meet m: meets){
+            notices.add(NoticeFactory.getMeetIn3HourNotice(m, m.getTraining()));
+        }
         return notices;
     }
 
-    private void createSchedule(){
-        
+    private void createSchedule(List<Notice> notices){
+        Noticer noticer;
+        long delay;
+        for (Notice n: notices){
+            noticer = new Noticer(n);
+            delay = n.getAddDate().getTime() - (new Date()).getTime();
+            executor.schedule(noticer, delay, TimeUnit.MILLISECONDS);
+        }
+    }
+
+    private void destroy(){
+        executor.shutdown();
     }
 
 }

@@ -14,15 +14,17 @@ public class EmployeeNotice {
     private int id;
 
     @Column(name = "complete")
-    boolean complete;
+    private boolean complete;
+
+    @Column(name = "employee_id")
+    private int employeeId;
+
+    @Column(name = "notice_id")
+    private int noticeId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "notice_id", insertable = false, updatable = false)
     private Notice notice;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id", insertable = false, updatable = false)
-    private Role role;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id", insertable = false, updatable = false)
@@ -52,19 +54,31 @@ public class EmployeeNotice {
         this.notice = notice;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public Employee getEmployee() {
         return employee;
     }
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public int getNoticeId() {
+        return noticeId;
+    }
+
+    public void setNoticeId(int noticeId) {
+        this.noticeId = noticeId;
     }
 }

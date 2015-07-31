@@ -1,10 +1,10 @@
-<div class="container wrappered" ng-controller="newsController">
+<div class="container wrappered">
     <!--<h2 class="text-center newsTitle"><small>Here will be news soon!</small></h2>-->
     <h1 class="text-center createTraining news">News</h1>
 
     <div class="col-md-12">
         <div class="dropdown searchFilter">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Show news by
+            <button class="btn btn-primary dropdown-toggle dropDownButton" type="button" data-toggle="dropdown">Show news by
                 <span class="caret"></span></button>
             <ul class="dropdown-menu">
                 <li><a href="#">Trainings</a></li>
@@ -36,31 +36,17 @@
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Today english training!</strong>
         </div>
-        <div class="alert alert-danger fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Here will be how news!</strong>
-        </div>
-        <div class="alert alert-danger fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Today english training!</strong>
-        </div>
-        <div class="alert alert-danger fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Here will be how news!</strong>
-        </div>
-        <div class="alert alert-danger fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Today english training!</strong>
-        </div>
-        <div class="alert alert-danger fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Here will be how news!</strong>
-        </div>
-        <div class="alert alert-danger fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Today english training!</strong>
-        </div>
 
-
+        <div class="text-center">
+            <pagination
+                    total-items="bigTotalItems"
+                    ng-model="bigCurrentPage"
+                    max-size="maxSize"
+                    class="pagination-sm"
+                    boundary-links="true"
+                    rotate="false"
+                    num-pages="numPages">
+            </pagination>
+        </div>
     </div>
 </div>
