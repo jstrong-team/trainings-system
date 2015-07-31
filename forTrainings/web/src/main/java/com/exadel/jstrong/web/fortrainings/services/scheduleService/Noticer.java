@@ -1,6 +1,6 @@
 package com.exadel.jstrong.web.fortrainings.services.scheduleservice;
 
-import com.exadel.jstrong.fortrainings.core.dao.impl.SubscribeDAOImpl;
+import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
 import com.exadel.jstrong.fortrainings.core.model.EmployeeNotice;
 import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
@@ -20,7 +20,9 @@ public class Noticer implements Runnable{
     private Notice notice;
 
     @Autowired
-    SubscribeDAOImpl subscribeDAO;
+    SubscribeDAO subscribeDAO;
+
+    public Noticer(){};
 
     public Noticer(Notice notice) {
         this.notice = notice;
