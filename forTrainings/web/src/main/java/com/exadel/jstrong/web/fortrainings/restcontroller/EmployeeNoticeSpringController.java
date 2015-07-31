@@ -4,7 +4,6 @@ import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeNoticeController;
 import com.exadel.jstrong.web.fortrainings.model.CompleteMarkUI;
 import com.exadel.jstrong.web.fortrainings.model.NoticeCountUI;
-import com.exadel.jstrong.web.fortrainings.model.NoticesHistoryUI;
 import com.exadel.jstrong.web.fortrainings.model.NoticesUI;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,23 +50,8 @@ public class EmployeeNoticeSpringController {
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
             int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
             int count = Integer.parseInt(request.getParameter("count"));
-            notices = employeeNoticeController.getEmployeeNotices(id, count);
-        } catch(Throwable e){
-            e.printStackTrace();
-        }
-        return notices;
-    }
-
-    @RequestMapping(value = "/noticeHistory", method = RequestMethod.GET)
-    public @ResponseBody
-    NoticesHistoryUI getEmployeeNoticesHistory(HttpServletRequest request, HttpServletResponse response) {
-        NoticesHistoryUI notices = null;
-        try {
-            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-            int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
-            int count = Integer.parseInt(request.getParameter("count"));
             int page = Integer.parseInt(request.getParameter("page"));
-            notices = employeeNoticeController.getEmployeeNoticesHistoryByPage(id, count, page);
+            notices = employeeNoticeController.getEmployeeNotices(id, count, page);
         } catch(Throwable e){
             e.printStackTrace();
         }
