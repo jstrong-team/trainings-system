@@ -17,7 +17,12 @@
             });
 
         $scope.getEmployeeReport = function () {
-            var id = (JSON.parse($scope.item)).id;
+            var obj = JSON.parse($scope.item);
+            var id = obj.id;
+            var name = obj.name;
+            $scope.selectedEmployee = name;
+            var elem = document.getElementById('employeeInput');
+            elem.style.paddingTop = '0px';
 
             $http.get('/rest/storagetraining/getReport?id=' + id).then(
                 function(data){
