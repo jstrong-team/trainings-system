@@ -8,7 +8,7 @@
     var controller = function ($scope, $http) {
 
 
-        var ITEMS_PER_PAGE = 15;
+        var ITEMS_PER_PAGE = 10;
         $scope.itemsPerPage = ITEMS_PER_PAGE;
 
 
