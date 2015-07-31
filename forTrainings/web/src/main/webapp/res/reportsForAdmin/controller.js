@@ -10,15 +10,24 @@
         $http.get('/rest/trainings/users').then(
             function(data){
                 $scope.employeeList = data.data;
+                console.log($scope.employeeList);
             },
             function(data, status){
                 console.log(status);
             });
 
-        $scope.getEmployeeInfo = function () {
-            $http.get('/rest/storagetraining/getReport').then(
+        $scope.getEmployeeReport = function () {
+            var obj = JSON.parse($scope.item);
+            var id = obj.id;
+            var name = obj.name;
+            $scope.selectedEmployee = name;
+            var elem = document.getElementById('employeeInput');
+            elem.style.paddingTop = '0px';
+
+            $http.get('/rest/storagetraining/getReport?id=' + id).then(
                 function(data){
                     $scope.employeeInfo = data.data;
+                    console.log($scope.employeeInfo);
                 },
                 function(data, status){
                     console.log(status);
@@ -36,7 +45,6 @@
 
             document.body.innerHTML = originalContents;
         };
-
 
     };
 
