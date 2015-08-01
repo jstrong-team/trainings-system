@@ -15,7 +15,6 @@
 <script src="/bower_components/angular-spinner/angular-spinner.js"></script>
 <script src="/bower_components/angular-loading-spinner/angular-loading-spinner.js"></script>
 
-
 <link href="/res/login/css/login.css" rel="stylesheet">
 <script src="/res/login/js/module.js"></script>
 <script src="/res/login/js/controller.js"></script>
@@ -106,6 +105,7 @@
 
 <div class="wrapper">
     <span us-spinner="{radius:20, width:8, length: 10}"></span>
+    <loader key="my-spinner"></loader>
     <div ng-controller="indexController" ng-cloak>
         <div ng-include="navigation.url" ng-if="location.path() !== '/ui/'"></div>
     </div>
