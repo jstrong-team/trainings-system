@@ -71,7 +71,7 @@
             doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
                 dateFormatService(data.data);
                 $scope.searchResponse = data.data;
-                if (data.data === '') {
+                if (data.data.length === 0) {
                     $scope.noResultsFound = true;
                 } else {
                     $scope.noResultsFound = false;
