@@ -99,6 +99,7 @@
             $location.url('/ui/trainings');
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';
+            $scope.noResultsFound = false;
         };
 
         $scope.createTraining = function () {
@@ -106,6 +107,7 @@
             $location.url('/ui/create');
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';
+            $scope.noResultsFound = false;
         };
 
         $scope.goToNews = function () {
@@ -113,6 +115,7 @@
             $location.url('/ui/news');
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';
+            $scope.noResultsFound = false;
         };
 
         $scope.goToReports = function () {
@@ -120,6 +123,7 @@
             $location.url('/ui/admin/reports');
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';
+            $scope.noResultsFound = false;
         };
 
         $scope.redirectToTrainingPage = function (id) {
@@ -127,6 +131,7 @@
             trainingRedirectService(id);
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';
+            $scope.noResultsFound = false;
         };
     };
 

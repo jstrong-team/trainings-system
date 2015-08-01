@@ -170,3 +170,7 @@ footer h5 {
     float: right;
     padding-right: 0.6%;
 }
+
+.noResultsFound {
+    padding-top: 20%;
+}
