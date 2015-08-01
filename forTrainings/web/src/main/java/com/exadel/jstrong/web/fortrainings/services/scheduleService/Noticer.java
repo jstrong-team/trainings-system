@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,8 +39,6 @@ public class Noticer implements Runnable {
     public Noticer() {
     }
 
-    ;
-
     public Noticer(Notice notice) {
         this.notice = notice;
     }
@@ -61,36 +60,33 @@ public class Noticer implements Runnable {
     private void sendNotice() {
         try {
             notice = noticeDAO.addNotice(notice);
-            //Hibernate.initialize(notice);
-            //List<EmployeeNotice> employeeNotices = getSubscribersNotices(notice.getTrainingId(), notice.getId());
-            getSubscribersNotices(notice.getTrainingId(), notice.getId());
-            //notice.setEmployeeNotices(employeeNotices);
             logger.info("Send notice");
+            List<EmployeeNotice> employeeNotices = getSubscribersNotices(notice.getTrainingId(), notice.getId());
+            noticeDAO.addEmployeeNotices(notice.getId(), employeeNotices);
+            logger.info("Send employee notices");
         } catch (Throwable e) {
             logger.warn(e.toString());
         }
     }
 
     @Transactional
-    //private List<EmployeeNotice> getSubscribersNotices(int trainingId, int noticeId) {
-    private void getSubscribersNotices(int trainingId, int noticeId) {
-        logger.info("Send notice to subscribers");
+    private List<EmployeeNotice> getSubscribersNotices(int trainingId, int noticeId) {
+        logger.info("Get subscribers");
         try {
             List<Subscribe> subscribers = subscribeDAO.getSubscribersByStatus(trainingId, "Approve");
             EmployeeNotice employeeNotice;
-            //List<EmployeeNotice> employeeNotices = new ArrayList<>();
+            List<EmployeeNotice> employeeNotices = new ArrayList<>();
             for (Subscribe s : subscribers) {
                 employeeNotice = new EmployeeNotice();
                 employeeNotice.setEmployeeId(s.getEmployeeId());
                 employeeNotice.setNoticeId(noticeId);
                 employeeNotice.setComplete(false);
-                employeeNoticeDAO.add(employeeNotice);
-                //employeeNotices.add(employeeNotice);
+                employeeNotices.add(employeeNotice);
             }
-            //return employeeNotices;
+            return employeeNotices;
         } catch (Throwable e) {
             logger.warn(e.toString());
-            //return new ArrayList<EmployeeNotice>();
+            return new ArrayList<EmployeeNotice>();
         }
     }
 

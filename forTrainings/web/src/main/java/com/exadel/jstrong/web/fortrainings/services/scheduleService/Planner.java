@@ -47,13 +47,13 @@ public class Planner implements Runnable {
     public void run() {
         try {
             logger.info("Planner iteration run");
-            createSchedule(getNotices());
+            createSchedule(getNoticesIn3Hour());
         } catch (Throwable e) {
             logger.warn(e.toString());
         }
     }
 
-    private List<Notice> getNotices(){
+    private List<Notice> getNoticesIn3Hour(){
         logger.info("Get meet in 3 hour");
         try {
             Calendar calendar = Calendar.getInstance();
