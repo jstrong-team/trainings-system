@@ -18,10 +18,10 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li ng-class="{ active: isActive('/ui/trainings')}"><a href=""  class="navBarText" ng-click="goToTrainings()">Calendar</a></li>
-                        <li ng-class="{ active: isActive('/ui/create')}"><a href=""  class="navBarText" ng-click="createTraining()">Create training</a></li>
-                        <li ng-class="{ active: isActive('/ui/news')}"><a href=""  class="navBarText" ng-click="goToNews()">News <span class="badge">{{badgeCount}}</span></a></li>
-                        <li ng-if="isAdmin" ng-class="{ active: isActive('/ui/reports')}"><a href=""  class="navBarText" ng-click="goToReports()">Reports</a></li>
+                        <li ng-class="{ active: isActive('/ui/trainings')}"><a href=""  class="navBarText" ng-click="goToTrainings()">{{ 'HEADER_CALENDAR' | translate }}</a></li>
+                        <li ng-class="{ active: isActive('/ui/create')}"><a href=""  class="navBarText" ng-click="createTraining()">{{ 'HEADER_CREATE_TRAINING' | translate }}</a></li>
+                        <li ng-class="{ active: isActive('/ui/news')}"><a href=""  class="navBarText" ng-click="goToNews()">{{ 'HEADER_NEWS' | translate }} <span class="badge">{{badgeCount}}</span></a></li>
+                        <li ng-if="isAdmin" ng-class="{ active: isActive('/ui/reports')}"><a href=""  class="navBarText" ng-click="goToReports()">{{ 'HEADER_REPORTS' | translate }}</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
 
@@ -30,18 +30,25 @@
                                 <input type="search"
                                        class="form-control inputSearch"
                                        ng-change="doSearch()"
-                                       placeholder="Search"
+                                       placeholder="{{ 'HEADER_SEARCH_PLACEHOLDER' | translate }}"
                                        ng-model="searchExpression"
                                        ng-model-options="{ debounce: 400 }">
                             </form>
                         </li>
                         <li><a class="navBarText userName">{{name}} <span class="glyphicon glyphicon-user"></span></a></li>
-                        <li><a href="" class="navBarText" ng-click="logout()">Log out <span class="glyphicon glyphicon-log-out"></span></a></li>
+                        <li><a href="" class="navBarText" ng-click="logout()">{{ 'HEADER_LOG_OUT' | translate }} <span class="glyphicon glyphicon-log-out"></span></a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
+
+    <a href="" ng-click="changeLanguage('en')" class="englishButton">
+        <img src="/res/navigation/png/en.png" alt="en" class="englishImg">
+    </a>
+    <a href="" ng-click="changeLanguage('ru')" class="russianButton">
+        <img src="/res/navigation/png/ru.png" alt="ru" class="russianImg">
+    </a>
 
     <div ng-show="noResultsFound">
         <h2 class="text-center newsTitle" style="padding-top: 200px"><small>Oops! We have not found such expressions :)</small></h2>

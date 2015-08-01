@@ -1,6 +1,6 @@
 <div class="container wrappered">
     <!--<h2 class="text-center newsTitle"><small>Here will be news soon!</small></h2>-->
-    <h1 class="text-center createTraining newsTitle">News</h1>
+    <h1 class="text-center createTraining newsTitle">{{ 'MAIN_TITLE_NEWS' | translate }}</h1>
 
     <div class="col-md-12">
         <!--<div class="dropdown searchFilter">-->
@@ -14,7 +14,7 @@
         <!--</div>-->
 
         <div class="alert alert-{{actualItem.status}} fade in" ng-repeat="actualItem in actualCurrentListItems">
-            <a href="#" ng-click="removeActualItem(actualItem.id)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <a href="#" ng-dblclick="" ng-click="removeActualItem(actualItem.id)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>{{actualItem.theme}}: </strong>{{actualItem.text}}
         </div>
 

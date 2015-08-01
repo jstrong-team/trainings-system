@@ -212,14 +212,6 @@ public class Training {
         this.trainer_id = trainer_id;
     }
 
-//    public List<Employee> getSubscribers() {
-//        return subscribers;
-//    }
-//
-//    public void setSubscribers(List<Employee> subscribers) {
-//        this.subscribers = subscribers;
-//    }
-
     public List<EmployeeFeedback> getFeedbacks() {
         return feedbacks;
     }

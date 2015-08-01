@@ -18,6 +18,8 @@
 
         };
 
+        $scope.badgeCount = null;
+
         var recountBadge = function () {
             getBadgeService.badgeCount().then(
                 function (data) {
@@ -30,6 +32,14 @@
         };
 
         recountBadge();
+
+        $scope.$on('removeNewsItem', function() {
+            if ($scope.badgeCount === 1) {
+                $scope.badgeCount = null;
+            } else {
+                --$scope.badgeCount;
+            }
+        });
 
         $scope.isAdmin = '';
 

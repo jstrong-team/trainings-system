@@ -40,6 +40,7 @@ public class TrainingStorageSpringController {
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
             int id = ec.getIdByToken(cookies.get("token").getValue());
             training.setTrainer_id(id);
+            training.setApprove(false);
             tsci.addTraining(training);
 
         } catch (Exception e) {
