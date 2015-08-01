@@ -1,6 +1,5 @@
 package com.exadel.jstrong.fortrainings.core.model.comparator;
 
-import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 
 import java.util.Comparator;
@@ -12,7 +11,7 @@ public class SubscriberComp implements Comparator<Subscribe> {
     @Override
     public int compare(Subscribe firstSubscribe, Subscribe secondSubscribe){
         try {
-            return firstSubscribe.getAddDate().compareTo(secondSubscribe.getAddDate());
+            return secondSubscribe.getAddDate().compareTo(firstSubscribe.getAddDate());
         } catch(Exception e){
             return 0;
         }

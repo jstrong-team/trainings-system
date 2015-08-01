@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface NoticeDAO {
 
-    Notice addNotice(Notice notice);
+    int addNotice(Notice notice);
     void addEmployeeNotices(int noticeId, List<EmployeeNotice> employeeNotices);
 
 }

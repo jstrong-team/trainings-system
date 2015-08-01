@@ -17,11 +17,12 @@ public class NoticeDAOImpl extends BaseDAO<Notice> implements NoticeDAO {
 
     @Override
     @Transactional
-    public Notice addNotice(Notice notice) {
+    public int addNotice(Notice notice) {
         try {
-            return save(notice);
+            notice =  save(notice);
+            return notice.getId();
         } catch(Throwable e){
-            return new Notice();
+            return 0;
         }
     }
 

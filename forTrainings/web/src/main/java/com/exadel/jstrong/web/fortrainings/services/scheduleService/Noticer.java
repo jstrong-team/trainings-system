@@ -6,6 +6,7 @@ import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
 import com.exadel.jstrong.fortrainings.core.model.EmployeeNotice;
 import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
+import com.exadel.jstrong.web.fortrainings.services.mailservice.Sender;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -59,11 +60,13 @@ public class Noticer implements Runnable {
     @Transactional
     private void sendNotice() {
         try {
-            notice = noticeDAO.addNotice(notice);
             logger.info("Send notice");
+            noticeDAO.addNotice(notice);
             List<EmployeeNotice> employeeNotices = getSubscribersNotices(notice.getTrainingId(), notice.getId());
-            noticeDAO.addEmployeeNotices(notice.getId(), employeeNotices);
             logger.info("Send employee notices");
+            noticeDAO.addEmployeeNotices(notice.getId(), employeeNotices);
+            logger.info("Send mails");
+            Sender.send(notice, subscribeDAO.getSubscribersEmailsByStatus(notice.getTrainingId(), "Approve"));
         } catch (Throwable e) {
             logger.warn(e.toString());
         }
