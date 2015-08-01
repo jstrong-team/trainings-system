@@ -140,7 +140,7 @@
 }
 
 .scrollTable2{
-   width: 600px;
+   max-width: 600px;
    overflow-x: scroll;
    border-radius: 0;
 }
