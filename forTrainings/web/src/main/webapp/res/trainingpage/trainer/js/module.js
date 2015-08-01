@@ -10,6 +10,7 @@ angular.module('trainingPageTrainerModule', []).config(function($routeProvider) 
                     if (data.data.role === 'trainer') {
                         $location.url('/ui/trainingPage/trainer/' + id);
                         getTrainingData(id).then(function (data, status, headers, config) {
+                            console.log(data);
                             def.resolve(data);
                         }, function (error) {
                             console.error(error);

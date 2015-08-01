@@ -15,35 +15,70 @@
     </div>
 
     <div classs="row " style="padding-top: 50px">
-        <div class="col-md-7 well textBlock" >
-            <span>Annotation:</span>{{training.annotation}}<p></p>
-            <span>Description:</span>{{training.description}}<p></p>
-            <span>Target audience:</span>{{training.target}}<p></p>
-            <span>Subscribers:</span><p></p>]
-            <div tooltip-placement="top" tooltip-popup-delay='3000' tooltip="double click to leave absent reason" class="panel panel-default table-responsive ">
-                <table class="table table-bordered">
-                    <tr>
-                        <th>#</th>
-                        <th> user</th>
-                        <th>status</th>
-                        <th ng-repeat="date in training.dates">
-                            {{$index+1}}
-                        </th>
-                    </tr>
-                    <tr ng-repeat="subscriber in subscribers">
-                        <td>{{$index+1}}</td>
-                        <td nowrap>{{subscriber.name}}</td>
-                        <td>{{subscriber.status}}</td>
-                        <td table-catch-directive ng-repeat="date in training.dates" class="{{subscriber.id+' '+date}}">
-                        </td>
-                    </tr>
-                </table>
+        <div class="col-md-7 newWell textBlock" >
+            <div class="breakText">
+                <span>Annotation:<br></span>{{training.annotation}}
+            </div>
+            <div class="breakText">
+                <span>Description:<br></span>{{training.description}}
+            </div>
+            <div class="breakText">
+                <span>Target audience:<br></span>{{training.target}}
+            </div>
+
+            <div class="breakText">
+                <span>Subscribers:</span>
             </div>
 
 
-            <span>Coments:</span><p></p>
+            <table>
+                <tr>
+                    <td class=>
+                        <div tooltip-placement="top"
+                             tooltip-popup-delay='3000'
+                             tooltip="double click to leave absent reason"
+                             class="panel panel-default table-responsive scrollTable1">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>#</th>
+                                </tr>
+                                <tr ng-repeat="subscriber in subscribers">
+                                    <td >{{$index+1}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                    <td >
+                        <div tooltip-placement="top"
+                             tooltip-popup-delay='3000'
+                             tooltip="double click to leave absent reason"
+                             class="panel panel-default table-responsive scrollTable2">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th> user</th>
+                                    <th>status</th>
+                                    <th ng-repeat="date in training.dates">
+                                        {{$index+1}}
+                                    </th>
+                                </tr>
+                                <tr ng-repeat="subscriber in subscribers">
+                                    <td nowrap>{{subscriber.name}}</td>
+                                    <td>{{subscriber.status}}</td>
+                                    <td table-catch-directive ng-repeat="date in training.dates" class="{{subscriber.id+' '+date}}">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
+            <div class="breakText ">
+                <span>Coments:</span>
+            </div>
             <div class="panel panel-default " ng-repeat="coment in feedbacks">
-                <table class="table " >
+                <table class="table" >
                     <tr >
                         <td>
                             <div>
@@ -75,12 +110,17 @@
         </div>
 
 
+        <div class="col-md-4 newWell textBlock" >
+            <div class="breakText">
+                <span>Trainer:</span>{{training.trainerName}}
+            </div>
+            <div class="breakText">
+                <span>Time:</span>
+            </div>
+            <div class="breakText">
+                <span>Place:</span>{{training.place}}
+            </div>
 
-        <div class="col-md-4 well textBlock" >
-            <span>Trainer:</span>{{training.trainerName}}<p></p>
-            <span>Time:</span>
-            <p></p>
-            <span>Place:</span>{{training.place}}<p></p>
             <div class="row buttons">
                 <div class="col-md-6 ">
                     <button type="button" class="btn  btn-default " ng-click="editTraining()">Edit training</button>
@@ -123,6 +163,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 textBlock newWell">
+
         </div>
     </div>
 

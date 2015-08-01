@@ -15,6 +15,11 @@
 <script src="/bower_components/angular-spinner/angular-spinner.js"></script>
 <script src="/bower_components/angular-loading-spinner/angular-loading-spinner.js"></script>
 
+<!--i18n-->
+<script src="/bower_components/angular-translate/angular-translate.js"></script>
+<script src="/res/i18n/module.js"></script>
+<script src="/res/i18n/controller.js"></script>
+
 
 <link href="/res/login/css/login.css" rel="stylesheet">
 <script src="/res/login/js/module.js"></script>
@@ -88,6 +93,7 @@
 <link href="/res/reportsForAdmin/reports.css" rel="stylesheet">
 <script src="/res/reportsForAdmin/module.js"></script>
 <script src="/res/reportsForAdmin/controller.js"></script>
+<script src="/res/reportsForAdmin/printpage/printPageModule.js"></script>
 
 <link href="/res/footer/footer.css" rel="stylesheet">
 <script src="/res/index.js"></script>
@@ -104,8 +110,9 @@
 
 <body>
 
-<div class="wrapper">
+<div class="wrapper" ng-controller="TranslateController">
     <span us-spinner="{radius:20, width:8, length: 10}"></span>
+    <loader key="my-spinner"></loader>
     <div ng-controller="indexController" ng-cloak>
         <div ng-include="navigation.url" ng-if="location.path() !== '/ui/'"></div>
     </div>

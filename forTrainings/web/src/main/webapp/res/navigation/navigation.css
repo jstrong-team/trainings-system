@@ -158,3 +158,15 @@ footer h5 {
 .searchResBox{
     padding-bottom: 20px
 }
+
+.russianImg,
+.englishImg {
+    border: 1px solid darkgrey;
+}
+
+.russianButton,
+.englishButton {
+    margin-top: -15px;
+    float: right;
+    padding-right: 0.6%;
+}

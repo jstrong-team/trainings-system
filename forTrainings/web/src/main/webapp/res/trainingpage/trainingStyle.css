@@ -11,23 +11,30 @@
 }
 
 .textBlock{
-   padding-top:40px;
+   padding-top:10px;
    padding-left:10px;
    margin-left:10px;
    min-height:280px;
    font-size:16px;;
 }
 
+.LeftTextBlock{
+   /*margin-bottom: 5px;*/
+}
+
+.breakText{
+   white-space: pre-line;
+}
 
 .textBlock span{
    font-size:18px;
    font-weight:700;
 }
 
-
-.textBlock p{
-   font-size:5px;
+.textBlock pre{
+   font-size:14px;
    font-weight:700;
+
 }
 
 .textBlock th{
@@ -117,4 +124,30 @@
 
 .modalWrapper{
    margin-top: 10px;
+}
+
+.newWell{
+   border: 1px solid #e3e3e3;
+   border-radius: 4px;
+}
+
+
+
+.scrollTable1{
+   width:50px;
+   overflow-x: scroll;
+   border-radius: 0;
+}
+
+.scrollTable2{
+   max-width: 600px;
+   overflow-x: scroll;
+   border-radius: 0;
+}
+
+.scrollTable2 tr{
+   height: 40px;
+}
+.scrollTable1 tr{
+   height: 40px;
 }

@@ -1,11 +1,12 @@
 (function () {
 
     var services = [
+        '$rootScope',
         '$scope',
         '$http'
     ];
 
-    var controller = function ($scope, $http) {
+    var controller = function ($rootScope, $scope, $http) {
 
 
         var ITEMS_PER_PAGE = 10;
@@ -19,17 +20,6 @@
 
         $scope.currentPage = 1;
         $scope.maxSize = 5;
-
-        //$http.get('/rest/news/notice?count=' + CURRENT_ITEMS_COUNT).then(
-        //    function(data){
-        //        $scope.actualCurrentListItems = data.data.actualNotices;
-        //
-        //        $scope.totalItems = data.data.historyCount;
-        //        $scope.historyCurrentListItems = data.data.historyNotices;
-        //    },
-        //    function(data, status){
-        //        console.log(status);
-        //    });
 
         $scope.$watch('currentPage', function(newPage){
             $http.get('/rest/news/notice?count=' + ITEMS_PER_PAGE + '&page=' + newPage).then(
@@ -45,11 +35,9 @@
         });
 
         $scope.removeActualItem = function (id) {
-            console.log(id);
             $http.post('/rest/news/complete', {id: id}).then(
                 function(data, status){
-                    console.log(data);
-                    console.log(status);
+                    $rootScope.$broadcast('removeNewsItem');
                 },
                 function(data, status){
                     console.log(status);
