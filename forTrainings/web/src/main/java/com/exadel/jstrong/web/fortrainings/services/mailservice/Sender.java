@@ -32,22 +32,22 @@ public class Sender {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
-        Session session = Session.getInstance(props, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(USERNAME, PASSWORD);
-            }
-        });
     }
 
     public static boolean send(Notice notice, String email) {
         try {
+            Session session = Session.getInstance(props, new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(USERNAME, PASSWORD);
+                }
+            });
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(SENDER));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
             message.setSubject(notice.getTheme());
             message.setText(notice.getText());
             Transport.send(message);
-            return  true;
+            return true;
         } catch (MessagingException e) {
             logger.warn("Message didn't send");
             return false;
@@ -56,11 +56,16 @@ public class Sender {
 
     public static boolean send(Notice notice, List<String> emails) {
         try {
+            Session session = Session.getInstance(props, new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(USERNAME, PASSWORD);
+                }
+            });
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(SENDER));
             message.setSubject(notice.getTheme());
             message.setText(notice.getText());
-            for (String email: emails) {
+            for (String email : emails) {
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
                 Transport.send(message);
             }
@@ -73,6 +78,11 @@ public class Sender {
 
     public static boolean sendWithFile(Notice notice, String email, String filename) {
         try {
+            Session session = Session.getInstance(props, new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(USERNAME, PASSWORD);
+                }
+            });
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(SENDER));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
@@ -97,6 +107,11 @@ public class Sender {
 
     public static boolean sendWithFile(Notice notice, List<String> emails, String filename) {
         try {
+            Session session = Session.getInstance(props, new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(USERNAME, PASSWORD);
+                }
+            });
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(SENDER));
             message.setSubject(notice.getTheme());
@@ -110,7 +125,7 @@ public class Sender {
             mp.addBodyPart(p1);
             mp.addBodyPart(p2);
             message.setContent(mp);
-            for (String email: emails) {
+            for (String email : emails) {
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
                 Transport.send(message);
             }
