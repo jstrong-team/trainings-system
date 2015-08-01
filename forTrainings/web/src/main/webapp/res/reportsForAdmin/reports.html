@@ -34,10 +34,11 @@
         </table>
         <div class="col-md-2"></div>
 
-        <button type="button" class="btn btn-md printButton" ng-click="printService('printableArea')">
-            <span class="glyphicon glyphicon-print"></span>
-            Print report
-        </button>
-
     </div>
+
+    <button ng-if="selectedEmployee" type="button" class="btn btn-md printButton" ng-click="printService('printableArea')">
+        <span class="glyphicon glyphicon-print"></span>
+        Print report
+    </button>
+
 </div>

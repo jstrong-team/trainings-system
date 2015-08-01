@@ -16,11 +16,18 @@
 
     <div classs="row " style="padding-top: 50px">
         <div class="col-md-7 well textBlock">
-            <span>Annotation:</span>{{training.annotation}}<p></p>
-            <span>Description:</span>{{training.description}}<p></p>
-            <span>Target audience:</span>{{training.target}}<p></p>
-            <span>Subscribers:</span>
-            <p></p>
+            <div class="breakText">
+                <span>Annotation:<br></span>{{training.annotation}}
+            </div>
+            <div class="breakText">
+                <span>Description:<br></span>{{training.description}}
+            </div>
+            <div class="breakText">
+                <span>Target audience:<br></span>{{training.target}}
+            </div>
+            <div class="breakText">
+                <span>Subscribers:</span>
+            </div>
 
             <div tooltip-placement="top" tooltip-popup-delay='3000' tooltip="double click to leave absent reason" class="panel panel-default table-responsive ">
                 <table class="table table-bordered">
