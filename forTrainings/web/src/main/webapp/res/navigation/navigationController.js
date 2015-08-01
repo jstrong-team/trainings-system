@@ -7,11 +7,11 @@
         'doSearchService',
         'doLogoutService',
         'dateFormatService',
-        'getRole',
+        'trainingRedirectService',
         'getBadgeService'
     ];
 
-    var controller = function ($rootScope, $scope, $location, $http, doSearchService, doLogoutService, dateFormatService, getRole, getBadgeService) {
+    var controller = function ($rootScope, $scope, $location, $http, doSearchService, doLogoutService, dateFormatService, trainingRedirectService, getBadgeService) {
 
         $scope.isActive = function (viewLocation) {
             return viewLocation === $location.path();

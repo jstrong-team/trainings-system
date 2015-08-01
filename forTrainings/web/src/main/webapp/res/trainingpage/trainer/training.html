@@ -19,10 +19,8 @@
             <span>Annotation:</span>{{training.annotation}}<p></p>
             <span>Description:</span>{{training.description}}<p></p>
             <span>Target audience:</span>{{training.target}}<p></p>
-            <span>Subscribers:</span><p></p>
-
-
-            <div class="panel panel-default table-responsive ">
+            <span>Subscribers:</span><p></p>]
+            <div tooltip-placement="top" tooltip-popup-delay='3000' tooltip="double click to leave absent reason" class="panel panel-default table-responsive ">
                 <table class="table table-bordered">
                     <tr>
                         <th>#</th>
@@ -36,7 +34,8 @@
                         <td>{{$index+1}}</td>
                         <td nowrap>{{subscriber.name}}</td>
                         <td>{{subscriber.status}}</td>
-                        <td ng-repeat="date in training.dates"></td>
+                        <td table-catch-directive ng-repeat="date in training.dates" class="{{subscriber.id+' '+date}}">
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -82,15 +81,15 @@
             <span>Time:</span>
             <p></p>
             <span>Place:</span>{{training.place}}<p></p>
-            <div class="row">
-                <div class="col-md-4 ">
-                    <button type="button" class="btn btn-primary " ng-click="editTraining()">Edit training</button>
+            <div class="row buttons">
+                <div class="col-md-6 ">
+                    <button type="button" class="btn  btn-default " ng-click="editTraining()">Edit training</button>
                 </div>
-                <div class="col-md-4 ">
+                <div class="col-md-6 ">
                     <button type="button" class="btn btn-danger " ng-click="subscribe()">Remove training</button>
                 </div>
             </div>
-            <div class="row">
+            <div class="row buttons">
                 <div class="col-md-12 dateTime">
                     <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed"><span>Show dates list</span></button>
                     <div collapse="isCollapsed">

@@ -1,6 +1,6 @@
 angular.module('trainingPageModule').factory('trainingRedirectService',['$location','getRole',function($location,getRole){
     var redirect=function(id){
-        console.log('trainingRedirectService');
+        //console.log('trainingRedirectService');
         getRole(id).then(function (data, status, headers, config){
             var role=data.data.role;
             switch (role) {

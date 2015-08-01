@@ -81,4 +81,40 @@
 
 .buttons button{
    margin-top:5px;
+   width:100%;
+   min-height: 30px;
+}
+
+.dateEditInput{
+   padding-left: 0px;
+}
+
+.editDatesButton {
+   background-color: #2E729F;
+   color: white;
+}
+
+@media screen and (min-width: 992px) {
+   .editDatesButton {
+      float: right;
+   }
+}
+
+.editDatesButton:focus{
+   background-color: #2E729F;
+   color: white;
+}
+
+.editDatesButton:hover{
+   color: white;
+   background-color: #006dcc;
+}
+
+.modalInput{
+   margin: 10px;
+   width:90%;
+}
+
+.modalWrapper{
+   margin-top: 10px;
 }
