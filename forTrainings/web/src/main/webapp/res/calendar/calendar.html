@@ -1,6 +1,6 @@
 <div class="container wrappered">
     <div class="row">
-        <div class="col-md-12 text-center"><h1>{{ 'MAIN_TITLE_CALENDAR' | translate }}<br><br></h1></div>
+        <div class="col-md-12 text-center"><h1>{{ 'CALENDAR_MAIN_TITLE' | translate }}<br><br></h1></div>
             <div class="col-md-5 col-sm-5">
                 <div class="months">
                     <div ng-repeat-start="x in months">
@@ -38,7 +38,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h2><br>Past trainings</h2>
+            <h2><br>{{ 'CALENDAR_RECENT_TRAININGS_TITLE' | translate}}</h2>
             <ul class="pastMeetings">
                 <li ng-repeat="lastTraining in pastTrainingHistory">
                     <a href="" ng-click="redirectToTrainingPage(lastTraining.id)"><h3>{{lastTraining.name}}</h3></a>

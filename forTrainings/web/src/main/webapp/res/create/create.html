@@ -1,39 +1,39 @@
 <div class="container wrappered" ng-controller="createController">
-    <h1 class="text-center createTraining">{{ 'MAIN_TITLE_CREATE_TRAINING' | translate }}</h1>
-    <form class="form-horizontal createTraining" name="createTraining" role="form" ng-submit="submitForm()">
+    <h1 class="text-center createTraining">{{ 'CREATE_TRAINING_MAIN_TITLE' | translate }}</h1>
+    <form class="form-horizontal createTraining" name="createTraining" role="form" ng-submit="submitForm()" novalidate>
         <div class="col-md-6">
             <div class="form-group">
-                <label class="control-label col-md-4 required" for="name">Training name</label>
+                <label class="control-label col-md-4 required" for="name">{{ 'CREATE_TRAINING_TRAINING' | translate }}</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="name" ng-model="createInfo.name" placeholder="Training name" required>
+                    <input type="text" class="form-control" id="name" ng-model="createInfo.name" placeholder="{{ 'CREATE_TRAINING_TRAINING_PLACEHOLDER' | translate }}" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4 required" for="annotation">Annotation</label>
+                <label class="control-label col-md-4 required" for="annotation">{{ 'CREATE_TRAINING_ANNOTATION' | translate }}</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="annotation" ng-model="createInfo.annotation" placeholder="Annotation" required>
+                    <input type="text" class="form-control" id="annotation" ng-model="createInfo.annotation" placeholder="{{ 'CREATE_TRAINING_ANNOTATION_PLACEHOLDER' | translate }}" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4">Type</label>
+                <label class="control-label col-md-4">{{ 'CREATE_TRAINING_TYPE' | translate}}</label>
                 <div class="col-md-8">
                     <select ng-model="isTrainingPeriodic" class="form-control">
-                        <option value='true'>Periodic</option>
-                        <option value=''>One time</option>
+                        <option value=''>{{ 'CREATE_TRAINING_TYPE_OPTION_ONE_TIME' | translate}}</option>
+                        <option value='true'>{{ 'CREATE_TRAINING_TYPE_OPTION_PERIODIC' | translate}}</option>
                     </select>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4 required" for="firstDate" ng-hide="isTrainingPeriodic">Date</label>
-                <label class="control-label col-md-4 required" for="firstDate" ng-show="isTrainingPeriodic">First training</label>
+                <label class="control-label col-md-4 required" for="firstDate" ng-hide="isTrainingPeriodic">{{ 'CREATE_TRAINING_DATA' | translate }}</label>
+                <label class="control-label col-md-4 required" for="firstDate" ng-show="isTrainingPeriodic">{{ 'CREATE_TRAINING_DATA_FIRST' | translate }}</label>
                 <div class="col-md-8">
                     <div class="dropdown">
                         <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">
                             <div class="input-group">
-                                <input type="text" class="form-control" id="firstDate" placeholder="YYYY-MM-DD hh:mm" name="firstDate" ng-model="firstDate" required>
+                                <input type="text" class="form-control" id="firstDate" placeholder="{{ 'CREATE_TRAINING_DATA_PLACEHOLDER' | translate }}" name="firstDate" ng-model="firstDate" required>
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </span>
@@ -43,17 +43,17 @@
                             <datetimepicker data-ng-model="firstDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
                         </ul>
                     </div>
-                    <p ng-show="errorDateValidation" class="text-danger">{{errorDateValidation}}</p>
+                    <p ng-show="errorDateValidation" class="text-danger">{{ errorDateValidation | translate }}</p>
                 </div>
             </div>
 
             <div class="form-group" ng-show="isTrainingPeriodic">
-                <label class="control-label col-md-4 required" for="lastDate">Last training</label>
+                <label class="control-label col-md-4 required" for="lastDate">{{ 'CREATE_TRAINING_DATA_LAST' | translate }}</label>
                 <div class="col-md-8">
                     <div class="dropdown">
                         <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
                             <div class="input-group">
-                                <input type="text" ng-if="isTrainingPeriodic" class="form-control" id="lastDate" placeholder="YYYY-MM-DD hh:mm" name="lastDate" ng-model="lastDate" required>
+                                <input type="text" ng-if="isTrainingPeriodic" class="form-control" id="lastDate" placeholder="{{ 'CREATE_TRAINING_DATA_PLACEHOLDER' | translate }}" name="lastDate" ng-model="lastDate" required>
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </span>
@@ -63,14 +63,14 @@
                             <datetimepicker data-ng-model="lastDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
                         </ul>
                     </div>
-                    <p ng-show="errorDateValidation" class="text-danger">{{errorDateValidation}}</p>
+                    <p ng-show="errorDateValidation" class="text-danger">{{ errorDateValidation | translate }}</p>
                 </div>
             </div>
             <div class="form-group" ng-show="isTrainingPeriodic">
-                <label class="control-label col-md-4">Days</label>
+                <label class="control-label col-md-4">{{ 'CREATE_TRAINING_DATA_DAYS' | translate }}</label>
                 <div class="col-md-">
                     <div class="col-md-1" ng-repeat="day in days">
-                        {{day.name}}<input
+                        {{ day.name | translate }}:<input
                             type="checkbox"
                             value="day.name"
                             ng-checked="selectedDays.indexOf(day.day) > -1"
@@ -81,57 +81,57 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" for="place">Place</label>
+                <label class="control-label col-md-4" for="place">{{ 'CREATE_TRAINING_PLACE' | translate }}</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="place" ng-model="createInfo.place" placeholder="Type a place">
+                    <input type="text" class="form-control" id="place" ng-model="createInfo.place" placeholder="{{ 'CREATE_TRAINING_PLACE_PLACEHOLDER' | translate }}">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4 required" for="audience">Audience</label>
+                <label class="control-label col-md-4 required" for="audience">{{ 'CREATE_TRAINING_TARGET_AUDIENCE' | translate }}</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="audience" ng-model="createInfo.target" placeholder="Audience" required>
+                    <input type="text" class="form-control" id="audience" ng-model="createInfo.target" placeholder="{{ 'CREATE_TRAINING_TARGET_AUDIENCE_PLACEHOLDER' | translate }}" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4 required" for="maxParticipants">Max number</label>
+                <label class="control-label col-md-4 required" for="maxParticipants">{{ 'CREATE_TRAININGS_MAX_PARTICIPANTS' | translate }}</label>
                 <div class="col-md-8">
-                    <input type="number" class="form-control" id="maxParticipants" min="0" ng-model="createInfo.max_participants" placeholder="Max number of participants" required>
+                    <input type="number" class="form-control" id="maxParticipants" min="0" ng-model="createInfo.max_participants" placeholder="{{ 'CREATE_TRAININGS_MAX_PARTICIPANTS_PLACEHOLDER' | translate }}" required>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
 
             <div class="form-group">
-                <label class="control-label col-md-4 required" for="description">Description</label>
+                <label class="control-label col-md-4 required" for="description">{{ 'CREATE_TRAINING_DESCRIPTION' | translate }}</label>
                 <div class="col-md-8">
-                    <textarea type="text" rows="6" class="form-control" id="description" ng-model="createInfo.description" placeholder="Description" required></textarea>
+                    <textarea type="text" rows="6" class="form-control" id="description" ng-model="createInfo.description" placeholder="{{ 'CREATE_TRAINING_DESCRIPTION_PLACEHOLDER' | translate }}" required></textarea>
                 </div>
             </div>
 
 
             <div class="col-md-6 radioForm" >
                 <div class="form-group">
-                    <label class="control-label col-md-8">Internal / External:</label>
+                    <label class="control-label col-md-8">{{ 'CREATE_TRAINING_INTERNAL' | translate }} / {{ 'CREATE_TRAINING_EXTERNAL' | translate }}:</label>
                     <div class="col-md-4">
                         <div class="radio">
-                            <label><input type="radio" ng-value="true" name="internalExternal" ng-model="createInfo.internal">internal</label>
+                            <label><input type="radio" ng-value="true" name="internalExternal" ng-model="createInfo.internal">{{ 'CREATE_TRAINING_INTERNAL' | translate }}</label>
                         </div>
                         <div class="radio">
-                            <label><input type="radio" ng-value="false" name="internalExternal" ng-model="createInfo.internal">external</label>
+                            <label><input type="radio" ng-value="false" name="internalExternal" ng-model="createInfo.internal">{{ 'CREATE_TRAINING_EXTERNAL' | translate }}</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-8">Paid / Free:</label>
+                    <label class="control-label col-md-8">{{ 'CREATE_TRAINING_PAID' | translate }} / {{ 'CREATE_TRAINING_FREE' | translate }}:</label>
                     <div class="col-md-4">
                         <div class="radio">
-                            <label><input type="radio" ng-value="true" name="paidFree" ng-model="createInfo.paid">paid</label>
+                            <label><input type="radio" ng-value="true" name="paidFree" ng-model="createInfo.paid">{{ 'CREATE_TRAINING_PAID' | translate }}</label>
                         </div>
                         <div class="radio">
-                            <label><input type="radio" ng-value="false" name="paidFree" ng-model="createInfo.paid">free</label>
+                            <label><input type="radio" ng-value="false" name="paidFree" ng-model="createInfo.paid">{{ 'CREATE_TRAINING_FREE' | translate }}</label>
                         </div>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <div>
-                        <button type="submit" class="btn btn-md submitButton">Create training</button>
+                        <button type="submit" ng-disabled="createTraining.$invalid" class="btn btn-md submitButton">{{ 'CREATE_TRAINING_BUTTON' | translate }}</button>
                     </div>
                 </div>
             </div>

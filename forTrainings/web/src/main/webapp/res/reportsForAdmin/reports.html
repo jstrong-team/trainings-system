@@ -1,11 +1,11 @@
 <div class="container wrappered">
-    <h1 class="text-center reportsTitle">{{ 'MAIN_TITLE_REPORTS' | translate }}</h1>
+    <h1 class="text-center reportsTitle">{{ 'REPORTS_MAIN_TITLE' | translate }}</h1>
 
     <div class="col-md-3"></div>
     <div class="col-md-6 form" id="employeeInput">
-        <label for="sel">Select employee:</label>
+        <label for="sel">{{ 'REPORTS_SELECT_EMPLOYEE_TITLE' | translate }}:</label>
         <select ng-change="getEmployeeReport()" ng-model="item" class="form-control" id="sel">
-            <option value="" disabled selected>Select employee</option>
+            <option value="" disabled selected>{{ 'REPORTS_SELECT_EMPLOYEE_PLACEHOLDER' | translate }}</option>
             <option ng-repeat="item in employeeList" value={{item}}>{{item.name}}</option>
         </select>
     </div>
@@ -17,10 +17,10 @@
         <table class="col-md-8 table table-striped table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Training name</th>
-                    <th>Date</th>
-                    <th>Absent</th>
-                    <th>Reason</th>
+                    <th>{{ 'REPORTS_TABLE_TRAINING' | translate }}</th>
+                    <th>{{ 'REPORTS_TABLE_DATE' | translate }}</th>
+                    <th>{{ 'REPORTS_TABLE_ATTENDANCE' | translate }}</th>
+                    <th>{{ 'REPORTS_TABLE_REASON' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +38,7 @@
 
     <button ng-if="selectedEmployee" type="button" class="btn btn-md printButton" ng-click="printService('printableArea')">
         <span class="glyphicon glyphicon-print"></span>
-        Print report
+        {{ 'REPORTS_PRINT' | translate }}
     </button>
 
 </div>

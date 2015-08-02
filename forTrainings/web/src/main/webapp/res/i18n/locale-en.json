@@ -1,0 +1,71 @@
+{
+
+  "HEADER_CALENDAR": "Calendar",
+  "HEADER_CREATE_TRAINING": "Create training",
+  "HEADER_NEWS": "News",
+  "HEADER_REPORTS": "Reports",
+  "HEADER_LOG_OUT": "Log out",
+  "HEADER_SEARCH_PLACEHOLDER": "Search",
+
+
+
+  "CALENDAR_MAIN_TITLE": "Trainings calendar",
+  "CALENDAR_RECENT_TRAININGS_TITLE": "Recent trainings",
+
+
+
+  "CREATE_TRAINING_MAIN_TITLE": "Create training",
+
+  "CREATE_TRAINING_TRAINING": "Training name",
+  "CREATE_TRAINING_ANNOTATION": "Annotation",
+  "CREATE_TRAINING_TYPE": "Type",
+  "CREATE_TRAINING_TYPE_OPTION_ONE_TIME": "One time",
+  "CREATE_TRAINING_TYPE_OPTION_PERIODIC": "Periodic",
+  "CREATE_TRAINING_DATA": "Date",
+  "CREATE_TRAINING_DATA_FIRST": "Date of first training",
+  "CREATE_TRAINING_DATA_LAST": "Date of last training",
+  "CREATE_TRAINING_DATA_DAYS": "Repeat on days",
+  "CREATE_TRAINING_DATA_DAYS_SUN": "Sun",
+  "CREATE_TRAINING_DATA_DAYS_MON": "Mon",
+  "CREATE_TRAINING_DATA_DAYS_TUE": "Tue",
+  "CREATE_TRAINING_DATA_DAYS_WED": "Wed",
+  "CREATE_TRAINING_DATA_DAYS_THUR": "Thur",
+  "CREATE_TRAINING_DATA_DAYS_FR": "Fr",
+  "CREATE_TRAINING_DATA_DAYS_SAT": "Sat",
+  "CREATE_TRAINING_PLACE": "Place",
+  "CREATE_TRAINING_TARGET_AUDIENCE": "Target audience",
+  "CREATE_TRAININGS_MAX_PARTICIPANTS": "Max number of participants",
+  "CREATE_TRAINING_DESCRIPTION": "Description",
+  "CREATE_TRAINING_INTERNAL": "Internal",
+  "CREATE_TRAINING_EXTERNAL": "External",
+  "CREATE_TRAINING_PAID": "Paid",
+  "CREATE_TRAINING_FREE": "Free",
+  "CREATE_TRAINING_BUTTON": "Create training",
+
+  "CREATE_TRAINING_TRAINING_PLACEHOLDER": "Enter training name",
+  "CREATE_TRAINING_ANNOTATION_PLACEHOLDER": "Enter annotation",
+  "CREATE_TRAINING_DATA_PLACEHOLDER": "Pick a date, YYYY-MM-DD HH-mm",
+  "CREATE_TRAINING_PLACE_PLACEHOLDER": "Enter place meeting",
+  "CREATE_TRAINING_TARGET_AUDIENCE_PLACEHOLDER": "Describe target audience",
+  "CREATE_TRAININGS_MAX_PARTICIPANTS_PLACEHOLDER": "Enter max number of participants",
+  "CREATE_TRAINING_DESCRIPTION_PLACEHOLDER": "Type a description of the training",
+
+  "DATE_VALIDATION_ERROR": "Date validation error!",
+  "DATE_VALIDATION_FIRST_LAST": "First date should be earlier than the last date!",
+  "DATE_VALIDATION_LATER_THAN_CURRENT": "Input date should be earlier than current moment!",
+
+
+
+  "NEWS_MAIN_TITLE": "News",
+
+
+
+  "REPORTS_MAIN_TITLE": "Activity report",
+  "REPORTS_SELECT_EMPLOYEE_TITLE": "Employee name",
+  "REPORTS_SELECT_EMPLOYEE_PLACEHOLDER": "Select employee",
+  "REPORTS_TABLE_TRAINING": "Training name",
+  "REPORTS_TABLE_DATE": "Date",
+  "REPORTS_TABLE_ATTENDANCE": "Attendance",
+  "REPORTS_TABLE_REASON": "Reason of absence",
+  "REPORTS_PRINT": "Print report"
+}

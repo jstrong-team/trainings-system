@@ -1,0 +1,72 @@
+{
+
+  "HEADER_CALENDAR": "Календарь",
+  "HEADER_CREATE_TRAINING": "Создать тренинг",
+  "HEADER_NEWS": "Новости",
+  "HEADER_REPORTS": "Отчеты",
+  "HEADER_LOG_OUT": "Выйти",
+  "HEADER_SEARCH_PLACEHOLDER": "Поиск",
+
+
+
+  "CALENDAR_MAIN_TITLE": "Календарь тренингов",
+  "CALENDAR_RECENT_TRAININGS_TITLE": "Недавно прошедшие тренинги",
+
+
+
+  "CREATE_TRAINING_MAIN_TITLE": "Создать тренинг",
+
+  "CREATE_TRAINING_TRAINING": "Название тренинга",
+  "CREATE_TRAINING_ANNOTATION": "Аннотация",
+  "CREATE_TRAINING_TYPE": "Тип",
+  "CREATE_TRAINING_TYPE_OPTION_ONE_TIME": "Не повторяющийся",
+  "CREATE_TRAINING_TYPE_OPTION_PERIODIC": "Повторяющийся",
+  "CREATE_TRAINING_DATA": "Дата",
+  "CREATE_TRAINING_DATA_FIRST": "Дата первого тренинга",
+  "CREATE_TRAINING_DATA_LAST": "Дата последнего тренинга",
+  "CREATE_TRAINING_DATA_DAYS": "Повторять в дни",
+  "CREATE_TRAINING_DATA_DAYS_SUN": "Вс",
+  "CREATE_TRAINING_DATA_DAYS_MON": "Пон",
+  "CREATE_TRAINING_DATA_DAYS_TUE": "Вт",
+  "CREATE_TRAINING_DATA_DAYS_WED": "Ср",
+  "CREATE_TRAINING_DATA_DAYS_THUR": "Чет",
+  "CREATE_TRAINING_DATA_DAYS_FR": "Пят",
+  "CREATE_TRAINING_DATA_DAYS_SAT": "Субб",
+  "CREATE_TRAINING_PLACE": "Место",
+  "CREATE_TRAINING_TARGET_AUDIENCE": "Целевая аудитория",
+  "CREATE_TRAININGS_MAX_PARTICIPANTS": "Максимальное число участников",
+  "CREATE_TRAINING_DESCRIPTION": "Описание",
+  "CREATE_TRAINING_INTERNAL": "Внутренний",
+  "CREATE_TRAINING_EXTERNAL": "Внешний",
+  "CREATE_TRAINING_PAID": "Платный",
+  "CREATE_TRAINING_FREE": "Бесплатный",
+  "CREATE_TRAINING_BUTTON": "Создать тренинг",
+
+  "CREATE_TRAINING_TRAINING_PLACEHOLDER": "Введите название тренига",
+  "CREATE_TRAINING_ANNOTATION_PLACEHOLDER": "Введите аннотацию",
+  "CREATE_TRAINING_DATA_PLACEHOLDER": "Выбирите дату, ГГГГ-ММ-ДД ЧЧ-мм",
+  "CREATE_TRAINING_PLACE_PLACEHOLDER": "Введите место проведения тренинга",
+  "CREATE_TRAINING_TARGET_AUDIENCE_PLACEHOLDER": "Опишите целевую аудиторию",
+  "CREATE_TRAININGS_MAX_PARTICIPANTS_PLACEHOLDER": "Введите максимальное число участников",
+  "CREATE_TRAINING_DESCRIPTION_PLACEHOLDER": "Опишите тренинг",
+
+  "DATE_VALIDATION_ERROR": "Не существующая дата!",
+  "DATE_VALIDATION_FIRST_LAST": "Первая дата должна быть раньше последней!",
+  "DATE_VALIDATION_LATER_THAN_CURRENT": "Введенная дата должна быть позже текущего момента!",
+
+
+
+  "NEWS_MAIN_TITLE": "Новости",
+
+
+
+  "REPORTS_MAIN_TITLE": "Отчет о сотруднике",
+  "REPORTS_SELECT_EMPLOYEE_TITLE": "Имя сотрудника",
+  "REPORTS_SELECT_EMPLOYEE_PLACEHOLDER": "Выбирите сотрудника",
+  "REPORTS_TABLE_TRAINING": "Название тренинга",
+  "REPORTS_TABLE_DATE": "Дата",
+  "REPORTS_TABLE_ATTENDANCE": "Посещаемость",
+  "REPORTS_TABLE_REASON": "Причина отсутствия",
+  "REPORTS_PRINT": "Распечатать отчет"
+
+}
