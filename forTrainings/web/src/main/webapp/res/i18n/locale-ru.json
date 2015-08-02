@@ -1,5 +1,9 @@
 {
 
+  "HTML_TITLE": "Exadel тренинги",
+
+
+
   "HEADER_CALENDAR": "Календарь",
   "HEADER_CREATE_TRAINING": "Создать тренинг",
   "HEADER_NEWS": "Новости",
@@ -9,13 +13,27 @@
 
 
 
+
+
+  "LOGIN_MAIN_CONTENT_FIRST_LINE": "Планировать тренинг",
+  "LOGIN_MAIN_CONTENT_SECOND_LINE": "удобнее всместе",
+  "LOGIN_UNDER_MAIN_CONTENT": "Управление встречами для сотрудников",
+  "LOGIN_USER_NAME_PLACEHOLDER": "Введите Ваше имя пользователя",
+  "LOGIN_PASSWORD_PLACEHOLDER": "Введите Ваш пароль",
+  "LOGIN_REMEMBER_ME": "Запомнить меня",
+  "LOGIN_SIGN_IN": "Войти в систему",
+  "LOGIN_PASSWORD_WRONG": "Неправильное имя пользователя или пароль",
+
+
+
   "CALENDAR_MAIN_TITLE": "Календарь тренингов",
   "CALENDAR_RECENT_TRAININGS_TITLE": "Недавно прошедшие тренинги",
+  "CALENDAR_MODAL_DAY_TITLE": "Тренинги в этот день",
+  "CALENDAR_MODAL_DAY_NO_RESULTS": "Никаких тренингов в этот день!",
 
 
 
   "CREATE_TRAINING_MAIN_TITLE": "Создать тренинг",
-
   "CREATE_TRAINING_TRAINING": "Название тренинга",
   "CREATE_TRAINING_ANNOTATION": "Аннотация",
   "CREATE_TRAINING_TYPE": "Тип",
@@ -57,6 +75,8 @@
 
 
   "NEWS_MAIN_TITLE": "Новости",
+  "NEWS_PAGINATION_FIRST": "Первый",
+  "NEWS_PAGINATION_LAST": "Последний",
 
 
 
@@ -67,6 +87,10 @@
   "REPORTS_TABLE_DATE": "Дата",
   "REPORTS_TABLE_ATTENDANCE": "Посещаемость",
   "REPORTS_TABLE_REASON": "Причина отсутствия",
-  "REPORTS_PRINT": "Распечатать отчет"
+  "REPORTS_PRINT": "Распечатать отчет",
+
+
+
+  "SEARCH_NO_RESULTS": "Уупс! К сожалению, ничего не найдено по Вашему запросу :)"
 
 }

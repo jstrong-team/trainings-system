@@ -1,13 +1,19 @@
 <div class="container wrappered">
     <div class="row">
         <div class="col-md-12">
-            <img src="/res/login/img/exadel.png">
+            <a href="#"><img src="/res/login/img/exadel.png"></a>
+            <a href="" ng-click="changeLanguage('en')" class="englishButtonLogin">
+                <img src="/res/navigation/png/en.png" alt="en" class="englishImg">
+            </a>
+            <a href="" ng-click="changeLanguage('ru')" class="russianButtonLogin">
+                <img src="/res/navigation/png/ru.png" alt="ru" class="russianImg">
+            </a>
         </div>
         <div class="col-md-8">
             <div class="jumbotron">
-                <h1>Schedule trainings</h1>
-                <h1>better, together</h1>
-                <h3>Meetings  management for employees</h3>
+                <h1>{{ 'LOGIN_MAIN_CONTENT_FIRST_LINE' | translate }}</h1>
+                <h1>{{ 'LOGIN_MAIN_CONTENT_SECOND_LINE' | translate }}</h1>
+                <h3>{{ 'LOGIN_UNDER_MAIN_CONTENT' | translate }}</h3>
             </div>
         </div>
         <div class="col-md-4">
@@ -16,7 +22,7 @@
                     <div class="col-md-12">
                         <input type="login"
                                class="form-control"
-                               placeholder="Enter login"
+                               placeholder="{{ 'LOGIN_USER_NAME_PLACEHOLDER' | translate }}"
                                id="inputLogin"
                                ng-model="credationals.login"
                                required>
@@ -26,20 +32,20 @@
                     <div class="col-md-12">
                         <input type="password"
                                class="form-control"
-                               placeholder="Enter password"
+                               placeholder="{{ 'LOGIN_PASSWORD_PLACEHOLDER' | translate }}"
                                id="inputPassword"
                                ng-model="credationals.password"
                                required>
                     </div>
                 </div>
                 <div ng-show="error" class="text-danger">
-                    {{error}}
+                    {{ error | translate }}
                 </div>
                 <div class="form-group">
                     <div class="col-md-12">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-model="credationals.rememberMe"> Remember me
+                                <input type="checkbox" ng-model="credationals.rememberMe"> {{ 'LOGIN_REMEMBER_ME' | translate }}
                             </label>
                         </div>
                     </div>
@@ -47,7 +53,7 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <button type="submit" class="btn submitButton">
-                            Sign in
+                            {{ 'LOGIN_SIGN_IN' | translate }}
                         </button>
                     </div>
                 </div>
