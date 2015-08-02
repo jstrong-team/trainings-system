@@ -167,6 +167,11 @@ footer h5 {
 .russianButton,
 .englishButton {
     margin-top: -15px;
+    padding-bottom: 10px;
     float: right;
     padding-right: 0.6%;
+}
+
+.noResultsFound {
+    padding-top: 20%;
 }

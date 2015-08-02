@@ -2,3 +2,15 @@
 	background-color: #2E729F;
 	color: white;
 }
+
+.russianImg,
+.englishImg {
+    border: 1px solid darkgrey;
+}
+
+.russianButtonLogin,
+.englishButtonLogin {
+    padding-top: 30px;
+    float: right;
+    padding-right: 0.6%;
+}

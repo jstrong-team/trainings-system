@@ -50,8 +50,8 @@
         <img src="/res/navigation/png/ru.png" alt="ru" class="russianImg">
     </a>
 
-    <div ng-show="noResultsFound">
-        <h2 class="text-center newsTitle" style="padding-top: 200px"><small>Oops! We have not found such expressions :)</small></h2>
+    <div ng-show="noResultsFound" class="noResultsFound">
+        <h2 class="text-center newsTitle"><small>{{ 'SEARCH_NO_RESULTS' | translate }}</small></h2>
     </div>
 
     <ol  class="wrappered container" ng-show="searchExpression">

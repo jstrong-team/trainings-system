@@ -4,14 +4,15 @@ angular.module('createModule').factory('validationService', function () {
 
         oneTime: function (first) {
 
-            var DATE_VALIDATION_ERROR = 'Date validation error!';
+            var DATE_VALIDATION_ERROR = 'DATE_VALIDATION_ERROR';
+            var DATE_VALIDATION_LATER_THAN_CURRENT = 'DATE_VALIDATION_LATER_THAN_CURRENT';
 
             if (!moment(first, 'YYYY-MM-DD HH:mm', true).isValid()) {
                 return DATE_VALIDATION_ERROR;
             }
 
             if (Date.parse(first) < Date.parse (new Date())) {
-                return DATE_VALIDATION_ERROR;
+                return DATE_VALIDATION_LATER_THAN_CURRENT;
             }
 
             return '';
@@ -20,10 +21,12 @@ angular.module('createModule').factory('validationService', function () {
 
         periodic: function (first, last) {
 
-            var DATE_VALIDATION_ERROR = 'Date validation error!';
+            var DATE_VALIDATION_ERROR = 'DATE_VALIDATION_ERROR';
+            var DATE_VALIDATION_FIRST_LAST = 'DATE_VALIDATION_FIRST_LAST';
+            var DATE_VALIDATION_LATER_THAN_CURRENT = 'DATE_VALIDATION_LATER_THAN_CURRENT';
 
             if (Date.parse(first) > Date.parse(last)) {
-                return 'First date should be earlier than the last date!';
+                return DATE_VALIDATION_FIRST_LAST;
             }
 
             if (!moment(first, 'YYYY-MM-DD HH:mm', true).isValid() || !moment(last, 'YYYY-MM-DD HH:mm').isValid()) {
@@ -31,7 +34,7 @@ angular.module('createModule').factory('validationService', function () {
             }
 
             if (Date.parse(first) < Date.parse (new Date())) {
-                return DATE_VALIDATION_ERROR;
+                return DATE_VALIDATION_LATER_THAN_CURRENT;
             }
 
             if (Date.parse(last) < Date.parse (new Date())) {

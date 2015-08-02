@@ -8,7 +8,7 @@ angular.module('loginModule').controller('loginController', ['$scope', 'loginSer
             $location.url('/ui/trainings');
         }, function (error) {
             console.error(error);
-            $scope.error = 'Wrong login or password';
+            $scope.error = 'LOGIN_PASSWORD_WRONG';
             $scope.credationals = {login: null, password: null};
         });
     };
