@@ -48,7 +48,7 @@ public class Sender {
             message.setText(notice.getText());
             Transport.send(message);
             return true;
-        } catch (MessagingException e) {
+        } catch (Throwable e) {
             logger.warn("Message didn't send");
             return false;
         }
@@ -66,11 +66,15 @@ public class Sender {
             message.setSubject(notice.getTheme());
             message.setText(notice.getText());
             for (String email : emails) {
-                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+                try {
+                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+                } catch (Throwable e) {
+                    logger.warn("Message didn't send");
+                }
                 Transport.send(message);
             }
             return true;
-        } catch (MessagingException e) {
+        } catch (Throwable e) {
             logger.warn("Messages didn't send");
             return false;
         }
@@ -99,7 +103,7 @@ public class Sender {
             message.setContent(mp);
             Transport.send(message);
             return true;
-        } catch (MessagingException e) {
+        } catch (Throwable e) {
             logger.warn("Message didn't send");
             return false;
         }
@@ -126,11 +130,15 @@ public class Sender {
             mp.addBodyPart(p2);
             message.setContent(mp);
             for (String email : emails) {
-                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+                try {
+                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+                } catch (Throwable e) {
+                    logger.warn("Message didn't send");
+                }
                 Transport.send(message);
             }
             return true;
-        } catch (MessagingException e) {
+        } catch (Throwable e) {
             logger.warn("Messages didn't send");
             return false;
         }

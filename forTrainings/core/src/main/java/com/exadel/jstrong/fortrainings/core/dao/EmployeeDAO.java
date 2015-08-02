@@ -11,6 +11,7 @@ public interface EmployeeDAO extends GenericDAO<Employee> {
     boolean isAdmin (int id);
     List<Employee> getAllUsers();
     String getEmail(int id);
+    List<String> getAllMails();
     //Employee getEmployeeByFullName(String name, String surname);
     //List<Employee> getAllEnglishTeachers();
 }

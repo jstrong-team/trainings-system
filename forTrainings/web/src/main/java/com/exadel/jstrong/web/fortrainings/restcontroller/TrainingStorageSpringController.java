@@ -6,6 +6,7 @@ import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,8 @@ public class TrainingStorageSpringController {
     @Autowired
     private EmployeeController ec;
 
-    //TODO: replace e.printStackTrace --> logger.warn/error
+    private static Logger logger = Logger.getLogger(TrainingStorageSpringController.class);
+
     @RequestMapping(method = RequestMethod.POST)
     public void addTraining(@RequestBody Training training, HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
@@ -44,7 +46,7 @@ public class TrainingStorageSpringController {
             tsci.addTraining(training);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.warn(e.toString());
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }

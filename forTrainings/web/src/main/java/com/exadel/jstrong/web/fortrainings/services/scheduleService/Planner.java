@@ -66,7 +66,7 @@ public class Planner implements Runnable {
             List<Meet> meets = meetDAO.getMeetsInDateScope(dateFrom, dateTo);
             List<Notice> notices = new ArrayList<>();
             for (Meet m : meets) {
-                notices.add(NoticeFactory.getMeetByDelayNotice(m, m.getTraining(), delay.getValue()));
+                notices.add(NoticeFactory.getMeetByDelayNotice(m, m.getTraining(), delay));
             }
             return notices;
         } catch(Throwable e){
