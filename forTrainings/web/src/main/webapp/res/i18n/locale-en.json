@@ -102,6 +102,10 @@
   "NEWS_MAIN_TITLE": "News",
   "NEWS_PAGINATION_FIRST": "First",
   "NEWS_PAGINATION_LAST": "Last",
+  "NEWS_HOT_NEWS_TITLE": "Hot news",
+  "NEWS_READ_NEWS_TITLE": "Read news",
+  "NEWS_NO_NEWS_IN_HISTORY": "There are no news in history",
+  "NEWS_NO_NEWS_IN_HOT_NEWS": "There are no hot news!",
 
 
 

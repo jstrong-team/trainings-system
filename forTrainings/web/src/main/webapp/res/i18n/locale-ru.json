@@ -103,6 +103,10 @@
   "NEWS_MAIN_TITLE": "Новости",
   "NEWS_PAGINATION_FIRST": "Первый",
   "NEWS_PAGINATION_LAST": "Последний",
+  "NEWS_HOT_NEWS_TITLE": "Горячие новости",
+  "NEWS_READ_NEWS_TITLE": "Прочитанные новости",
+  "NEWS_NO_NEWS_IN_HISTORY": "Нет никаких новостей в истории",
+  "NEWS_NO_NEWS_IN_HOT_NEWS": "Нет никаких горящих новостей!",
 
 
 

@@ -1,52 +1,68 @@
 <div class="container wrappered">
-    <!--<h2 class="text-center newsTitle"><small>Here will be news soon!</small></h2>-->
+
     <h1 class="text-center createTraining newsTitle">{{ 'NEWS_MAIN_TITLE' | translate }}</h1>
 
-    <div class="col-md-12">
-        <!--<div class="dropdown searchFilter">-->
-            <!--<button class="btn btn-primary dropdown-toggle dropDownButton" type="button" data-toggle="dropdown">Show news by-->
-                <!--<span class="caret"></span></button>-->
-            <!--<ul class="dropdown-menu">-->
-                <!--<li><a href="#">Trainings</a></li>-->
-                <!--<li><a href="#">Feedbacks</a></li>-->
-                <!--<li><a href="#">Approval</a></li>-->
-            <!--</ul>-->
-        <!--</div>-->
-
-        <div class="alert alert-{{actualItem.status}} fade in" ng-repeat="actualItem in actualCurrentListItems">
-            <a href="#" ng-dblclick="" ng-click="removeActualItem(actualItem.id)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>{{actualItem.theme}}: </strong>{{actualItem.text}}
+    <div class="jumbotron jumbotronNews col-md-12">
+        <div class="col-md-2">
+            <h3>{{ 'NEWS_HOT_NEWS_TITLE' | translate }}:</h3>
         </div>
 
+        <div class="col-md-10">
+            <div ng-repeat="actualItem in actualCurrentListItems">
+                <a href="redirectToTrainingPage(actualItem.id)">
+                    <div class="alert alert-{{actualItem.status}} fade in">
+                        <a href="#" ng-dblclick="" ng-click="removeActualItem(actualItem.id)" class="close"
+                           data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>{{actualItem.theme}}: </strong>{{actualItem.text}}
+                    </div>
+                </a>
+            </div>
 
-        <table class="table table-striped table-bordered table-bordered">
-            <thead>
-            <tr>
-                <th>Theme</th>
-                <th>Text</th>
-                <th>Date</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="item in historyCurrentListItems">
-                <td>{{item.theme}}</td>
-                <td>{{item.text}}</td>
-                <td>{{item.addDate}}</td>
-            </tr>
-            </tbody>
-        </table>
-
-        <div class="text-center">
-            <pagination
-                    class="pagination-sm"
-                    total-items="totalItems"
-                    ng-model="currentPage"
-                    items-per-page="itemsPerPage"
-                    boundary-links="true"
-                    direction-links="false"
-                    rotate="false"
-                    max-size="maxSize">
-            </pagination>
+            <div ng-show="noNewsInHotNews" class="noNewsInHotNews">
+                <h2 class="text-center newsTitle">
+                    <small>{{ 'NEWS_NO_NEWS_IN_HOT_NEWS' | translate }}</small>
+                </h2>
+            </div>
         </div>
     </div>
+
+    <div class="jumbotron jumbotronNews col-md-12">
+        <div class="col-md-2">
+            <h3>{{ 'NEWS_READ_NEWS_TITLE' | translate }}:</h3>
+        </div>
+
+        <div class="col-md-10">
+
+            <div class="list-group">
+
+                <a href="" ng-click="redirectToTrainingPage(item.id)" ng-repeat="item in historyCurrentListItems"
+                   class="list-group-item historyNews">
+                    {{item.text}}
+                    <div class="historyDate">{{item.addDate}}</div>
+                </a>
+
+            </div>
+
+            <div ng-show="noNewsInHistory" class="noNewsInHistory">
+                <h2 class="text-center newsTitle">
+                    <small>{{ 'NEWS_NO_NEWS_IN_HISTORY' | translate }}!</small>
+                </h2>
+            </div>
+
+            <div class="text-center" ng-show="showPagination">
+                <pagination
+                        class="pagination-sm"
+                        total-items="totalItems"
+                        ng-model="currentPage"
+                        items-per-page="itemsPerPage"
+                        boundary-links="true"
+                        direction-links="false"
+                        rotate="false"
+                        max-size="maxSize">
+                </pagination>
+            </div>
+        </div>
+
+    </div>
+
 </div>
