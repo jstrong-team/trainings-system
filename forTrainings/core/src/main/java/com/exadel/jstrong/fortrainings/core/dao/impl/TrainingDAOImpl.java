@@ -107,7 +107,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
 
         try {
             String result = (String) em.createNativeQuery("select status from subscribe where training_id =:training_Id and employee_id =:employee_Id").setParameter("training_Id", trainingId).setParameter("employee_Id", employeeId).getSingleResult();
-            if(result.compareToIgnoreCase("approve") == 0) {
+            if(result.compareToIgnoreCase("approve") == 0 || result.compareToIgnoreCase("wait") == 0) {
                 return true;
             } else {
                 return false;
