@@ -6,6 +6,7 @@ import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,18 +34,19 @@ public class TrainingStorageSpringController {
     @Autowired
     private EmployeeController ec;
 
-    //TODO: replace e.printStackTrace --> logger.warn/error
+    private static Logger logger = Logger.getLogger(TrainingStorageSpringController.class);
+
     @RequestMapping(method = RequestMethod.POST)
     public void addTraining(@RequestBody Training training, HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-            int id = ec.getIdByToken(cookies.get("token").getValue());
+            int id = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
             training.setTrainer_id(id);
             training.setApprove(false);
             tsci.addTraining(training);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.warn(e.toString());
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
@@ -55,7 +57,7 @@ public class TrainingStorageSpringController {
         try{
             int tId = Integer.parseInt(request.getParameter("id"));
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-            int uId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            int uId = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
             TrainingUI trainingUI = tsci.getTraining(tId, uId);
             if(trainingUI.isApprove()) {
                 return trainingUI;
@@ -78,7 +80,7 @@ public class TrainingStorageSpringController {
         try {
             int trainingId = Integer.parseInt(request.getParameter("id"));
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-            int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            int userId = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
             if(!tsci.isTrainer(userId, trainingId)) {
                 if(tsci.addSubscriber(tsci.buildSubscriber(userId, trainingId))==0) {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -96,7 +98,7 @@ public class TrainingStorageSpringController {
     public void addFeedback(@RequestBody EmployeeFeedback ef, HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
         Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        int userId = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
         ef.setEmployeeId(userId);
         ef.setTrainingId(trainingId);
         Date date = new Date();
@@ -115,7 +117,7 @@ public class TrainingStorageSpringController {
     public @ResponseBody List<EmployeeNamedFeedbackUI> getFeedbacks(HttpServletRequest request, HttpServletResponse response) {
         try {
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-            int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            int userId = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
             int trainingId = Integer.parseInt(request.getParameter("id"));
             return tsci.getEmployeeNamedFeedback(trainingId, ec.isAdmin(userId));
         } catch (Exception e) {
@@ -128,14 +130,14 @@ public class TrainingStorageSpringController {
     public @ResponseBody List<SubscriberUI> getSubscribers(HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
         Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        int userId = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
         return tsci.getSubscribers(userId, trainingId);
     }
 
     @RequestMapping(value = "/role", method = RequestMethod.GET)
     public @ResponseBody RoleUI getRole(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        int userId = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
         int trainingId = Integer.parseInt(request.getParameter("id"));
         RoleUI role = new RoleUI();
         if(ec.isAdmin(userId)) {
@@ -151,7 +153,7 @@ public class TrainingStorageSpringController {
     @RequestMapping(value = "isAdmin", method = RequestMethod.GET)
     public @ResponseBody RoleUI getRoleAdmin(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        int userId = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
         RoleUI role = new RoleUI();
         if(ec.isAdmin(userId)) {
             role.setRole("admin");
@@ -166,7 +168,7 @@ public class TrainingStorageSpringController {
     public void editFeedback(@RequestBody EmployeeFeedback employeeFeedback, HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
         Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        int userId = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
         employeeFeedback.setEmployeeId(userId);
         employeeFeedback.setTrainingId(trainingId);
         Date date = new Date();
@@ -184,7 +186,7 @@ public class TrainingStorageSpringController {
     public void removeSubscriber(HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
         Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        int userId = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
         if(!tsci.deleteSuscriber(userId, trainingId)){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
@@ -220,7 +222,7 @@ public class TrainingStorageSpringController {
     public @ResponseBody List<MeetReportUI> getReport (HttpServletRequest request, HttpServletResponse response) {
         int employeeId = Integer.parseInt(request.getParameter("id"));
         Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        int userId = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
         if(ec.isAdmin(userId)) {
             return tsci.getMeetReportUIs(employeeId);
         }

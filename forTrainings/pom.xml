@@ -5,16 +5,49 @@
     <artifactId>fortrainings</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>core</module>
-        <module>web</module>
-    </modules>
+    <!--<modules>-->
+        <!--<module>core</module>-->
+        <!--<module>web</module>-->
+    <!--</modules>-->
     <name>forTrainings Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
     <properties>
         <spring.version>4.1.7.RELEASE</spring.version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <config.location>../config/config-local.properties</config.location>
+            </properties>
+            <modules>
+                <module>core</module>
+                <module>web</module>
+            </modules>
+            <build>
+                <filters>
+                    <filter>${config.location}</filter>
+                </filters>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <excludes>
+                            <exclude>config/persistence-config.xml</exclude>
+                        </excludes>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>

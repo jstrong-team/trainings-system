@@ -15,7 +15,7 @@
     </div>
 
     <div classs="row " style="padding-top: 50px">
-        <div class="col-md-7 well textBlock">
+        <div class="col-md-8 newWell textBlock">
             <div class="breakText">
                 <span>Annotation:<br></span>{{training.annotation}}
             </div>
@@ -112,65 +112,95 @@
             </div>
         </div>
 
-        <div class="col-md-4 well textBlock buttons">
-            <span>Trainer:</span>{{training.trainerName}}<p></p>
-            <span>Time:</span>{{training.date[0]}}<p></p>
-            <span>Place:</span>{{training.place}}<p></p>
+        <div class="col-md-3 newWell LeftTextBlock" >
+            <div class="breakText">
+                <span>Trainer:</span>{{training.trainerName}}
+            </div>
+            <div class="breakText">
+                <span>Time:</span>
+            </div>
+            <div class="breakText">
+                <span>Place:</span>{{training.place}}
+            </div>
 
-            <div class="row">
-                <div class="col-md-6 " ng-if="!training.isSubscribe" ng-cloak>
-                    <button type="button" class="btn  btn-default" ng-click="subscribe()">subscribe</button>
+            <div class="row buttons">
+                <div class="col-md-6 " ng-show="!training.isSubscribe" ng-cloak>
+                    <button type="button" class="btn  editDatesButton" ng-click="subscribe()">subscribe</button>
                 </div>
                 <div class="col-md-6">
-                    <button type="button" class="btn btn-default " ng-click="openModal()" ng-if="training.isSubscribe">
+                    <button type="button" class="btn btn-default " ng-click="openModal()" ng-show="training.isSubscribe">
                         Leave feedback
                     </button>
                 </div>
-                <div class="col-md-6" ng-if="training.isSubscribe" ng-cloak>
+                <div class="col-md-6" ng-show="training.isSubscribe" ng-cloak>
                     <button type="button" class="btn btn-danger " ng-click="unsubscribe()">unsubscribe</button>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row buttons">
                 <div class="col-md-6 ">
-                    <button type="button" class="btn btn-default " ng-click="editTraining()">Edit training</button>
+                    <button type="button" class="btn editDatesButton " ng-click="editTraining()">Edit training</button>
                 </div>
                 <div class="col-md-6 ">
                     <button type="button" class="btn btn-danger " ng-click="subscribe()">Remove training</button>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-12 dateTime">
-                    <button class="btn btn-default dateInputButton" ng-click="isCollapsed = !isCollapsed"><span>Show dates list</span>
+            <div class="row buttons">
+                <div class="col-md-12"  ng-cloak>
+                    <button class="btn btn-default"
+                            ng-click="changeCollapse.dates()">
+                        <span>{{show.dates}} dates</span>
                     </button>
-                    <div collapse="isCollapsed">
-
-                        <!--<div class="panel panel-default">-->
+                </div>
+                <div class="col-md-12 dateTime">
+                    <div collapse="isCollapsed.dates">
                         <table class="table">
                             <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    date
-                                </th>
-                                <th>
-                                    time
-                                </th>
+                                <th>#</th>
+                                <th>date</th>
+                                <th>time</th>
                             </tr>
                             <tr ng-repeat="curTraining in training.dates">
                                 <td>
-                                    {{$index}}
+                                    {{$index+1}}
                                 </td>
                                 <td>
-                                        <span class="glyphicon glyphicon-calendar"
-                                              style="color: grey"></span>
-                                    {{training.dateTime[$index]}} {{training.year[$index]}}
+                                    <span class="glyphicon glyphicon-calendar"
+                                          style="color: grey">
+                                    </span>
+                                    {{training.dateTime[$index]}}
                                 </td>
                                 <td>
-                                    <span class="glyphicon glyphicon-time" style="color: grey"></span>
+                                    <span class="glyphicon glyphicon-time"
+                                          style="color: grey">
+                                    </span>
                                     {{training.time[$index]}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-12 buttons"  ng-cloak>
+                    <button class="btn btn-default"
+                            ng-click="changeCollapse.subscribers()">
+                        <span>{{show.subscribers}} subscribers</span>
+                    </button>
+                </div>
+                <div class="col-md-12 dateTime">
+                    <div collapse="isCollapsed.subscribers">
+                        <table class="table">
+                            <tr>
+                                <th>#</th>
+                                <th>subscriber</th>
+                            </tr>
+                            <tr ng-repeat="subscriber in subscribers">
+                                <td>
+                                    {{$index+1}}
+                                </td>
+                                <td>
+                                    {{subscriber.name}}
                                 </td>
                             </tr>
                         </table>

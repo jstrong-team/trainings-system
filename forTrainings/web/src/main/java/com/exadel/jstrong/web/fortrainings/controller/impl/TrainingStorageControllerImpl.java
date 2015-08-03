@@ -5,14 +5,19 @@ import com.exadel.jstrong.fortrainings.core.model.*;
 import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
+import com.exadel.jstrong.web.fortrainings.services.mailservice.Sender;
+import com.exadel.jstrong.web.fortrainings.services.noticeservice.NoticeFactory;
+import com.exadel.jstrong.web.fortrainings.model.comparator.SubscriberUIComp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +36,10 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     private EmployeeDAO eDAO;
     @Autowired
     private TransactionDAO transactionDAO;
+    @Autowired
+    private NoticeDAO noticeDAO;
+
+    private static Logger logger = Logger.getLogger(TrainingStorageControllerImpl.class);
 
     @Override
     @Transactional
@@ -40,13 +49,22 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         int size = dates.size();
         List<Meet> meets = new ArrayList<>();
         Meet meet = null;
-        for (int i = 0; i<size;i++){
+        for (int i = 0; i < size; i++) {
             meet = new Meet();
             meet.setTraining_id(id);
             meet.setDate(dates.get(i));
             meets.add(meet);
         }
         training.setMeets(meets);
+
+        Notice notice = NoticeFactory.getTrainingCreateNotice(training);
+        noticeDAO.addNotice(notice);
+        List<Employee> employees = eDAO.getAllUsers();
+        List<EmployeeNotice> en = NoticeFactory.getEmployeeNoticesFromEmployees(notice.getId(), employees);
+        noticeDAO.addEmployeeNotices(notice.getId(), en);
+        List<String> mails = eDAO.getAllMails();
+        Sender.send(notice, mails);
+
         return id;
     }
 
@@ -56,7 +74,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         int size = meets.size();
         List<Date> dates = new ArrayList<>(size);
         String date = "";
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             dates.add(meets.get(i).getDate());
         }
         Training training = tDAO.getTrainingById(tId);
@@ -93,7 +111,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         Date date = new Date();
         s.setAddDate(date);
 
-        if(tDAO.isApprove(tId)) {
+        if (tDAO.isApprove(tId)) {
             s.setStatus(SubscribeStatus.Approve.toString());
         } else {
             s.setStatus(SubscribeStatus.Wait.toString());
@@ -125,9 +143,9 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     public List<EmployeeNamedFeedbackUI> getEmployeeNamedFeedback(int tId, boolean isAdmin) {
         List<EmployeeFeedback> employeeFeedbacks = emDAO.getAllFeedbacks(tId);
         List<EmployeeNamedFeedbackUI> employeeFeedbackUIs = new ArrayList<EmployeeNamedFeedbackUI>();
-        for(EmployeeFeedback ef :employeeFeedbacks) {
+        for (EmployeeFeedback ef : employeeFeedbacks) {
             EmployeeNamedFeedbackUI efUI = null;
-            if(isAdmin) {
+            if (isAdmin) {
                 efUI = new EmployeeNamedFeedbackUI(ef.getId(), eDAO.getNameById(ef.getEmployeeId()), ef.getEmployeeId(), ef.getTrainingId(), ef.getAddDate(), ef.isUnderstand(), ef.isInterested(), ef.isContinueWithThisTrainer(), ef.isSmthNew(), ef.isRecommend(), ef.getRate(), ef.getOther(), ef.isDelete());
             } else {
                 efUI = new EmployeeNamedFeedbackUI(ef.getId(), null, ef.getEmployeeId(), ef.getTrainingId(), ef.getAddDate(), ef.isUnderstand(), ef.isInterested(), ef.isContinueWithThisTrainer(), ef.isSmthNew(), ef.isRecommend(), ef.getRate(), ef.getOther(), ef.isDelete());
@@ -142,16 +160,17 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<Subscribe> subscribers = tDAO.getSubscribers(tId);
         List<SubscriberUI> subscribersUI = new ArrayList<>();
         SubscriberUI subscriber = null;
-        for (Subscribe s: subscribers){
+        for (Subscribe s : subscribers) {
             subscriber = new SubscriberUI(s.getId(), eDAO.getNameById(s.getEmployeeId()), s.getStatus(), s.getAddDate());
-            if("deleted".compareToIgnoreCase(subscriber.getStatus()) == 0) {
-                if(eDAO.isAdmin(uId)) {
+            if ("deleted".compareToIgnoreCase(subscriber.getStatus()) == 0) {
+                if (eDAO.isAdmin(uId)) {
                     subscribersUI.add(subscriber);
                 }
             } else {
                 subscribersUI.add(subscriber);
             }
         }
+        Collections.sort(subscribersUI, new SubscriberUIComp());
         return subscribersUI;
     }
 
@@ -162,7 +181,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
     @Override
     public boolean deleteSuscriber(int userId, int trainingId) {
-        if(sDAO.removeSubscriber(userId, trainingId) && sDAO.changeStatusToApprove(trainingId)) {
+        if (sDAO.removeSubscriber(userId, trainingId) && sDAO.changeStatusToApprove(trainingId)) {
             return true;
         } else {
             return false;
@@ -223,21 +242,21 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<Transaction> meets = transactionDAO.getTransactionsByParent(transaction.getId());
         int size = meets.size();
         Meet meet = null;
-        for(int i = 0; i < size; ++i) {
+        for (int i = 0; i < size; ++i) {
             meet = new Meet();
             meet = gson.fromJson(meets.get(i).getJson(), Meet.class);
             meet.setTraining_id(id);
             mDAO.add(meet);
         }
         int countApprove = sDAO.getApproveCount(oldTrainingId);
-        if(countApprove > newMaxParticipant) {
+        if (countApprove > newMaxParticipant) {
             int count = countApprove - newMaxParticipant;
-            for(int i = 0; i < count; ++i) {
+            for (int i = 0; i < count; ++i) {
                 sDAO.changeStatusToWait(id);
             }
         } else {
             int count = newMaxParticipant - countApprove;
-            for(int i = 0; i < count; ++i) {
+            for (int i = 0; i < count; ++i) {
                 sDAO.changeStatusToApprove(id);
             }
         }
@@ -250,7 +269,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<MeetReportUI> meetReportUIs = new ArrayList<>();
 
         MeetReportUI meetReportUI = null;
-        for(Subscribe s :subscribes) {
+        for (Subscribe s : subscribes) {
             int trainingId = s.getTrainingId();
             List<Participant> participants = tDAO.getAllBySubscribeId(s.getId());
             for (Participant p : participants) {
@@ -270,7 +289,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<Subscribe> subscribes = sDAO.getSubscribersByEmployeeId(employeeId);
         List<TrainingReportUI> trainingReportUIs = new ArrayList<>();
         TrainingReportUI trainingReportUI = null;
-        for(Subscribe s :subscribes) {
+        for (Subscribe s : subscribes) {
             trainingReportUI = new TrainingReportUI();
             trainingReportUI.setMeetReportUIs(getMeetReportUIs(s.getId()));
             int trainingId = s.getTrainingId();
@@ -282,6 +301,10 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
     @Override
     public void changeTrainingStatus(int trainingId) {
+        tDAO.changeStatus(trainingId);
+    }
+
+    public void killTransaction(int transactionId) {
 
     }
 

@@ -20,7 +20,10 @@ public class CookieUtil {
     @Autowired
     private static EmployeeController ec;
 
+    public static final long ALLOW_DELAY = 5*1000;
+
     public static final String TOKEN = "token";
+    public static final String SESSION = "session";
 
     public static String generateToken (){
         StringBuilder token = new StringBuilder();
@@ -54,6 +57,13 @@ public class CookieUtil {
 
     public static String getTokenURL(String url) {
         return url.substring(url.lastIndexOf('/'), url.length());
+    }
+
+    public static boolean checkDate(Date oldDate, Date newDate){
+        System.out.println(newDate.toString());
+        System.out.println(oldDate.toString());
+        System.out.println("Check date: " + (newDate.getTime() - oldDate.getTime() <= ALLOW_DELAY));
+        return newDate.getTime() - oldDate.getTime() <= ALLOW_DELAY;
     }
 
 }

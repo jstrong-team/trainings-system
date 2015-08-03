@@ -1,7 +1,7 @@
 <div class="container wrappered">
     <div classs="row ">
         <div class="col-md-6 col-md-offset-3 text-center">
-            <span class="titleTrainingPage "> {{training.name}}</span>
+            <h1 class="titleTrainingPage "> {{training.name}}</h1>
         </div>
         <div class="col-md-2 " ng-controller="ratingController">
             <span class="rating">
@@ -15,7 +15,7 @@
     </div>
 
     <div classs="row " style="padding-top: 50px">
-        <div class="col-md-7 newWell textBlock">
+        <div class="col-md-8 newWell textBlock">
             <div class="breakText">
                 <span>Annotation:<br></span>{{training.annotation}}
             </div>
@@ -26,7 +26,7 @@
                 <span>Target audience:<br></span>{{training.target}}
             </div>
             <div class="breakText">
-                <span>Subscribers:</span>
+                <span>Participants:</span>
             </div>
 
             <table>
@@ -40,7 +40,7 @@
                                 <tr>
                                     <th>#</th>
                                 </tr>
-                                <tr ng-repeat="subscriber in subscribers">
+                                <tr ng-repeat="subscriber in subscribers|filter:'Approve'">
                                     <td >{{$index+1}}</td>
                                 </tr>
                             </table>
@@ -54,15 +54,13 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <th> user</th>
-                                    <th>status</th>
                                     <th ng-repeat="date in training.dates">
                                         {{$index+1}}
                                     </th>
                                 </tr>
-                                <tr ng-repeat="subscriber in subscribers">
+                                <tr ng-repeat="subscriber in subscribers|filter:'Approve'">
                                     <td nowrap>{{subscriber.name}}</td>
-                                    <td>{{subscriber.status}}</td>
-                                    <td table-catch-directive ng-repeat="date in training.dates" class="{{subscriber.id+' '+date}}">
+                                    <td ng-repeat="date in training.dates" class="{{subscriber.id+' '+date}}">
                                     </td>
                                 </tr>
                             </table>
@@ -75,16 +73,17 @@
         </div>
 
 
-        <div class="col-md-4 newWell textBlock">
-            <div class="LeftTextBlock">
+        <div class="col-md-3 newWell LeftTextBlock" >
+            <div class="breakText">
                 <span>Trainer:</span>{{training.trainerName}}
             </div>
-            <div class="LeftTextBlock">
+            <div class="breakText">
                 <span>Time:</span>
             </div>
-            <div  class="LeftTextBlock">
+            <div class="breakText">
                 <span>Place:</span>{{training.place}}
             </div>
+
             <div class="row buttons">
                 <div class="col-md-6">
                     <button type="button"
@@ -109,15 +108,15 @@
                     </button>
                 </div>
             </div>
-            <div class="row">
+            <div class="row buttons">
                 <div class="col-md-12 buttons"  ng-cloak>
                     <button class="btn btn-default"
-                            ng-click="isCollapsed = !isCollapsed">
-                        <span>Show dates list</span>
+                            ng-click="changeCollapse.dates()">
+                        <span>{{show.dates}} dates</span>
                     </button>
                 </div>
                 <div class="col-md-12 dateTime">
-                    <div collapse="isCollapsed">
+                    <div collapse="isCollapsed.dates">
                         <table class="table">
                             <tr>
                                 <th>#</th>
@@ -126,20 +125,44 @@
                             </tr>
                             <tr ng-repeat="curTraining in training.dates">
                                 <td>
-                                    {{$index}}
+                                    {{$index+1}}
                                 </td>
                                 <td>
                                     <span class="glyphicon glyphicon-calendar"
                                           style="color: grey">
                                     </span>
                                     {{training.dateTime[$index]}}
-                                    {{training.year[$index]}}
                                 </td>
                                 <td>
                                     <span class="glyphicon glyphicon-time"
                                           style="color: grey">
                                     </span>
                                     {{training.time[$index]}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-12 buttons"  ng-cloak>
+                    <button class="btn btn-default"
+                            ng-click="changeCollapse.subscribers()">
+                        <span>{{show.subscribers}} subscribers</span>
+                    </button>
+                </div>
+                <div class="col-md-12 dateTime">
+                    <div collapse="isCollapsed.subscribers">
+                        <table class="table">
+                            <tr>
+                                <th>#</th>
+                                <th>subscriber</th>
+                            </tr>
+                            <tr ng-repeat="subscriber in subscribers">
+                                <td>
+                                    {{$index+1}}
+                                </td>
+                                <td>
+                                    {{subscriber.name}}
                                 </td>
                             </tr>
                         </table>
