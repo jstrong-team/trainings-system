@@ -60,9 +60,6 @@ public class CookieUtil {
     }
 
     public static boolean checkDate(Date oldDate, Date newDate){
-        System.out.println(newDate.toString());
-        System.out.println(oldDate.toString());
-        System.out.println("Check date: " + (newDate.getTime() - oldDate.getTime() <= ALLOW_DELAY));
         return newDate.getTime() - oldDate.getTime() <= ALLOW_DELAY;
     }
 

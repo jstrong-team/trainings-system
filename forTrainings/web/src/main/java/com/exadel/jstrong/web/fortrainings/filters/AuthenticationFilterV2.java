@@ -53,19 +53,20 @@ public class AuthenticationFilterV2 extends OncePerRequestFilter {
             if (!isCorrect){
                 isCorrect = (session != null && ec.checkSession(session.getValue()));
                 if (isCorrect) {
-                    ec.updateDateBySession(session.getValue(), new Date());
                     isCorrect = CookieUtil.checkDate(ec.getDateBySession(session.getValue()), new Date());
                 }
             }
 
             if(isBaseUrl){
                 if(isCorrect) {
+                    ec.updateDateBySession(session.getValue(), new Date());
                     redirectUrl = "/ui/trainings";
                 } else {
                     authorized = true;
                 }
             } else {
                 if(isCorrect) {
+                    ec.updateDateBySession(session.getValue(), new Date());
                     authorized = true;
                 } else {
                     redirectUrl = UI_PATH;

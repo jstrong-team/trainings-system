@@ -49,9 +49,6 @@ public class Training {
     @Column
     private Integer trainer_id;
 
-    @Column
-    private Boolean Integerernal;
-
     @Transient
     private List<Date> date;
 
