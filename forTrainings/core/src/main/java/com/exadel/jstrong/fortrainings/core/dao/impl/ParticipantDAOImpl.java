@@ -3,6 +3,7 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.ParticipantDAO;
 import com.exadel.jstrong.fortrainings.core.model.Participant;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * Created by Anton on 03.08.2015.
  */
+@Service
 public class ParticipantDAOImpl extends BaseDAO<Participant> implements ParticipantDAO {
 
     @Override
@@ -23,10 +25,12 @@ public class ParticipantDAOImpl extends BaseDAO<Participant> implements Particip
     }
 
     @Override
+    @Transactional
     public void deleteParticipants(List<Participant> participants) {
         deleteAll(participants);
     }
 
+    @Override
     public int contains(int subscribeId, int meetId) {
         try {
             CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -43,6 +47,8 @@ public class ParticipantDAOImpl extends BaseDAO<Participant> implements Particip
         }
     }
 
+    @Override
+    @Transactional
     public int updateParticipant(Participant participant) {
         int id = contains(participant.getSubscribeId(), participant.getMeetId());
         if (id != 0) {
@@ -50,4 +56,7 @@ public class ParticipantDAOImpl extends BaseDAO<Participant> implements Particip
         }
         return super.update(participant).getId();
     }
+
+
+
 }
