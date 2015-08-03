@@ -57,14 +57,16 @@
                                 <tr>
                                     <th> user</th>
                                     <th>status</th>
-                                    <th ng-repeat="date in training.dates">
+                                    <th ng-repeat="meet in training.meets">
                                         {{$index+1}}
                                     </th>
                                 </tr>
                                 <tr ng-repeat="subscriber in subscribers|filter:'Approve'">
                                     <td nowrap>{{subscriber.name}}</td>
                                     <td>{{subscriber.status}}</td>
-                                    <td table-catch-directive ng-repeat="date in training.dates" class="{{subscriber.id+' '+date}}">
+                                    <td table-catch-directive ng-repeat="meet in training.meets"
+                                        class="{{subscriber.id+' '+meet.id}}"
+                                        data-toggle="tooltip" title="">
                                     </td>
                                 </tr>
                             </table>
@@ -131,7 +133,7 @@
             </div>
             <div class="row buttons">
                 <div class="col-md-12"  ng-cloak>
-                    <button class="btn btn-default"
+                    <button class="btn editDatesButton"
                             ng-click="changeCollapse.dates()">
                         <span>{{show.dates}} dates</span>
                     </button>
@@ -144,7 +146,7 @@
                                 <th>date</th>
                                 <th>time</th>
                             </tr>
-                            <tr ng-repeat="curTraining in training.dates">
+                            <tr ng-repeat="curTraining in training.meets">
                                 <td>
                                     {{$index+1}}
                                 </td>
@@ -166,7 +168,7 @@
                 </div>
 
                 <div class="col-md-12 buttons"  ng-cloak>
-                    <button class="btn btn-default"
+                    <button class="btn editDatesButton"
                             ng-click="changeCollapse.subscribers()">
                         <span>{{show.subscribers}} subscribers</span>
                     </button>
@@ -177,6 +179,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>subscriber</th>
+                                <th></th>
                             </tr>
                             <tr ng-repeat="subscriber in subscribers">
                                 <td>
@@ -185,6 +188,7 @@
                                 <td>
                                     {{subscriber.name}}
                                 </td>
+                                <td>!</td>
                             </tr>
                         </table>
                     </div>
@@ -192,14 +196,4 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12 textBlock newWell">
-
-        </div>
-    </div>
-
-
-
-
-
 </div>

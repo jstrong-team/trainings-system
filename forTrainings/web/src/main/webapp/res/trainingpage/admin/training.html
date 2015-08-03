@@ -55,14 +55,16 @@
                                 <tr>
                                     <th> user</th>
                                     <th>status</th>
-                                    <th ng-repeat="date in training.dates">
+                                    <th ng-repeat="meet in training.meets">
                                         {{$index+1}}
                                     </th>
                                 </tr>
                                 <tr ng-repeat="subscriber in subscribers">
                                     <td nowrap>{{subscriber.name}}</td>
                                     <td>{{subscriber.status}}</td>
-                                    <td table-catch-directive ng-repeat="date in training.dates" class="{{subscriber.id+' '+date}}">
+                                    <td table-catch-directive ng-repeat="meet in training.meets"
+                                        class="{{subscriber.id+' '+meet.id}}"
+                                        data-toggle="tooltip" title="">
                                     </td>
                                 </tr>
                             </table>
@@ -128,7 +130,7 @@
                     <button type="button" class="btn  editDatesButton" ng-click="subscribe()">subscribe</button>
                 </div>
                 <div class="col-md-6">
-                    <button type="button" class="btn btn-default " ng-click="openModal()" ng-show="training.isSubscribe">
+                    <button type="button" class="btn editDatesButton " ng-click="openModal()" ng-show="training.isSubscribe">
                         Leave feedback
                     </button>
                 </div>
@@ -161,7 +163,7 @@
                                 <th>date</th>
                                 <th>time</th>
                             </tr>
-                            <tr ng-repeat="curTraining in training.dates">
+                            <tr ng-repeat="curTraining in training.meets">
                                 <td>
                                     {{$index+1}}
                                 </td>

@@ -7,23 +7,25 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
              if(element.text()!==text){
                  clickObj={
                      id:list[0],
-                     date:list[1]+' '+list[2],
+                     meetId:list[1],
                      isAbsent:true,
                      reason:''
                  };
                  element.text(text);
                  storageService.set(clickObj);
                  console.log(storageService.get());
+                 element.attr('title',clickObj.reason);
              }else {
                  clickObj={
                      id:list[0],
-                     date:list[1]+' '+list[2],
+                     meetId:list[1],
                      isAbsent:false,
                      reason:''
                  };
                  element.text('');
                  storageService.delete(clickObj);
                  console.log(storageService.get());
+                 element.attr('title',clickObj.reason);
              }
          });
 
@@ -33,7 +35,7 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
              if(element.text()!==text){
                  clickObj={
                      id:list[0],
-                     date:list[1]+' '+list[2],
+                     meetId:list[1],
                      isAbsent:true,
                      reason:''
                  };
@@ -47,18 +49,20 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
                  modalInstance.result.then(function(reason){
                      element.text(text);
                      clickObj.reason=reason;
+                     element.attr('title',clickObj.reason);
                      storageService.set(clickObj);
                      //console.log(storageService.get());
                  });
              }else {
                  clickObj={
                      id:list[0],
-                     date:list[1]+' '+list[2],
+                     meetId:list[1],
                      isAbsent:false,
                      reason:''
                  };
                  element.text('');
                  console.log(storageService.get());
+                 element.attr('title',clickObj.reason);
                  storageService.delete(clickObj);
              }
          });
