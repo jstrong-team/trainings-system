@@ -15,9 +15,9 @@
 
 
 
-  "LOGIN_MAIN_CONTENT_FIRST_LINE": "Планировать тренинг",
-  "LOGIN_MAIN_CONTENT_SECOND_LINE": "удобнее всместе",
-  "LOGIN_UNDER_MAIN_CONTENT": "Управление встречами для сотрудников",
+  "LOGIN_MAIN_CONTENT_FIRST_LINE": "Лучше планировать",
+  "LOGIN_MAIN_CONTENT_SECOND_LINE": "тренинги вместе",
+  "LOGIN_UNDER_MAIN_CONTENT": "Управление проведением тренингов для сотрудников",
   "LOGIN_USER_NAME_PLACEHOLDER": "Введите Ваше имя пользователя",
   "LOGIN_PASSWORD_PLACEHOLDER": "Введите Ваш пароль",
   "LOGIN_REMEMBER_ME": "Запомнить меня",
@@ -30,6 +30,7 @@
   "CALENDAR_RECENT_TRAININGS_TITLE": "Недавно прошедшие тренинги",
   "CALENDAR_MODAL_DAY_TITLE": "Тренинги в этот день",
   "CALENDAR_MODAL_DAY_NO_RESULTS": "Никаких тренингов в этот день!",
+
   "CALENDAR_MONTH_JANUARY": "Январь",
   "CALENDAR_MONTH_FEBRUARY": "Февраль",
   "CALENDAR_MONTH_MARCH": "Март",
@@ -42,6 +43,19 @@
   "CALENDAR_MONTH_OCTOBER": "Октябрь",
   "CALENDAR_MONTH_NOVEMBER": "Ноябрь",
   "CALENDAR_MONTH_DECEMBER": "Декабрь",
+
+  "CALENDAR_MONTH_CASE_JANUARY": "Января",
+  "CALENDAR_MONTH_CASE_FEBRUARY": "Февраля",
+  "CALENDAR_MONTH_CASE_MARCH": "Марта",
+  "CALENDAR_MONTH_CASE_APRIL": "Апреля",
+  "CALENDAR_MONTH_CASE_MAY": "Мая",
+  "CALENDAR_MONTH_CASE_JUNE": "Июня",
+  "CALENDAR_MONTH_CASE_JULY": "Июля",
+  "CALENDAR_MONTH_CASE_AUGUST": "Августа",
+  "CALENDAR_MONTH_CASE_SEPTEMBER": "Сентября",
+  "CALENDAR_MONTH_CASE_OCTOBER": "Октября",
+  "CALENDAR_MONTH_CASE_NOVEMBER": "Ноября",
+  "CALENDAR_MONTH_CASE_DECEMBER": "Декабря",
 
 
 
@@ -100,6 +114,9 @@
   "REPORTS_TABLE_ATTENDANCE": "Посещаемость",
   "REPORTS_TABLE_REASON": "Причина отсутствия",
   "REPORTS_PRINT": "Распечатать отчет",
+  "REPORTS_NO_RESULTS": "Нет данных по выбранному сотруднику!",
+  "REPORTS_TABLE_ATTENDANCE_VALUE_TRUE": "Н",
+  "REPORTS_TABLE_ATTENDANCE_VALUE_FALSE": "",
 
 
 

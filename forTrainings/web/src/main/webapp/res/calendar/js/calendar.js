@@ -58,16 +58,17 @@ function markCurrentDay() {
 }
 
 function getThreeMonths() {
+    var months = ['CALENDAR_MONTH_JANUARY', 'CALENDAR_MONTH_FEBRUARY', 'CALENDAR_MONTH_MARCH',
+        'CALENDAR_MONTH_APRIL', 'CALENDAR_MONTH_MAY', 'CALENDAR_MONTH_JUNE', 'CALENDAR_MONTH_JULY',
+        'CALENDAR_MONTH_AUGUST', 'CALENDAR_MONTH_SEPTEMBER', 'CALENDAR_MONTH_OCTOBER',
+        'CALENDAR_MONTH_NOVEMBER', 'CALENDAR_MONTH_DECEMBER'];
+
     var days = getThreeMonthDays();
     var length = days.length / 7;
     var result = [];
     var week = 7;
     var currentYear = getNthDate(1).getYear() + 1900;
     var currentIndexMonth = getNthDate(1).getMonth();
-    var months = ['CALENDAR_MONTH_JANUARY', 'CALENDAR_MONTH_FEBRUARY', 'CALENDAR_MONTH_MARCH',
-        'CALENDAR_MONTH_APRIL', 'CALENDAR_MONTH_MAY', 'CALENDAR_MONTH_JUNE', 'CALENDAR_MONTH_JULY',
-        'CALENDAR_MONTH_AUGUST', 'CALENDAR_MONTH_SEPTEMBER', 'CALENDAR_MONTH_OCTOBER',
-        'CALENDAR_MONTH_NOVEMBER', 'CALENDAR_MONTH_DECEMBER'];
     for (var i = 0; i < length; ++i) {
 
         if (days[week - 1].date <= 7) {
@@ -87,11 +88,18 @@ function getThreeMonths() {
 }
 
 function dateTimeFormat(data) {
+    var months = ['CALENDAR_MONTH_CASE_JANUARY', 'CALENDAR_MONTH_CASE_FEBRUARY', 'CALENDAR_MONTH_CASE_MARCH',
+        'CALENDAR_MONTH_CASE_APRIL', 'CALENDAR_MONTH_CASE_MAY', 'CALENDAR_MONTH_CASE_JUNE', 'CALENDAR_MONTH_CASE_JULY',
+        'CALENDAR_MONTH_CASE_AUGUST', 'CALENDAR_MONTH_CASE_SEPTEMBER', 'CALENDAR_MONTH_CASE_OCTOBER',
+        'CALENDAR_MONTH_CASE_NOVEMBER', 'CALENDAR_MONTH_CASE_DECEMBER'];
+
     for (var i = 0; i < data.length; ++i) {
         data[i].time = moment(data[i].date).format('HH:mm');
-        data[i].dateTime = moment(data[i].date).format('DD MMMM');
+        data[i].dateNum = moment(data[i].date).format('DD');
+        data[i].month = months[moment(data[i].date).month()];
         data[i].year = moment(data[i].date).format('YYYY');
     }
+
 }
 
 

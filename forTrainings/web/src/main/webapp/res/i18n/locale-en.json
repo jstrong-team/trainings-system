@@ -29,6 +29,7 @@
   "CALENDAR_RECENT_TRAININGS_TITLE": "Recent trainings",
   "CALENDAR_MODAL_DAY_TITLE": "Trainings in this day",
   "CALENDAR_MODAL_DAY_NO_RESULTS": "No trainings in this day!",
+
   "CALENDAR_MONTH_JANUARY": "January",
   "CALENDAR_MONTH_FEBRUARY": "February",
   "CALENDAR_MONTH_MARCH": "March",
@@ -41,6 +42,19 @@
   "CALENDAR_MONTH_OCTOBER": "October",
   "CALENDAR_MONTH_NOVEMBER": "November",
   "CALENDAR_MONTH_DECEMBER": "December",
+
+  "CALENDAR_MONTH_CASE_JANUARY": "January",
+  "CALENDAR_MONTH_CASE_FEBRUARY": "February",
+  "CALENDAR_MONTH_CASE_MARCH": "March",
+  "CALENDAR_MONTH_CASE_APRIL": "April",
+  "CALENDAR_MONTH_CASE_MAY": "May",
+  "CALENDAR_MONTH_CASE_JUNE": "June",
+  "CALENDAR_MONTH_CASE_JULY": "July",
+  "CALENDAR_MONTH_CASE_AUGUST": "August",
+  "CALENDAR_MONTH_CASE_SEPTEMBER": "September",
+  "CALENDAR_MONTH_CASE_OCTOBER": "October",
+  "CALENDAR_MONTH_CASE_NOVEMBER": "November",
+  "CALENDAR_MONTH_CASE_DECEMBER": "December",
 
 
 
@@ -99,6 +113,9 @@
   "REPORTS_TABLE_ATTENDANCE": "Attendance",
   "REPORTS_TABLE_REASON": "Reason of absence",
   "REPORTS_PRINT": "Print report",
+  "REPORTS_NO_RESULTS": "There are no information about this person!",
+  "REPORTS_TABLE_ATTENDANCE_VALUE_TRUE": "N",
+  "REPORTS_TABLE_ATTENDANCE_VALUE_FALSE": "",
 
 
 
