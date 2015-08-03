@@ -1,6 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.controller.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.MeetDAO;
+import com.exadel.jstrong.fortrainings.core.dao.ParticipantDAO;
 import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
 import com.exadel.jstrong.fortrainings.core.model.Meet;
 import com.exadel.jstrong.fortrainings.core.model.Participant;
@@ -21,6 +22,8 @@ public class ParticipantControllerImpl implements ParticipantController {
     private MeetDAO meetDAO;
     @Autowired
     private SubscribeDAO subscribeDAO;
+    @Autowired
+    private ParticipantDAO participantDAO;
 
     @Override
     public void recordToMeets(int subscribeId, int trainingId) {
@@ -39,7 +42,6 @@ public class ParticipantControllerImpl implements ParticipantController {
     @Override
     public void deleteFromMeets(int subscribeId, int trainingId) {
         List<Participant> participants = subscribeDAO.getParticipantsByTrainingId(subscribeId, trainingId);
-
-
+        participantDAO.deleteParticipants(participants);
     }
 }
