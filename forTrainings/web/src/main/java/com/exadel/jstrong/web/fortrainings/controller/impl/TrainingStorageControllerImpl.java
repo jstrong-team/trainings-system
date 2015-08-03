@@ -5,6 +5,7 @@ import com.exadel.jstrong.fortrainings.core.model.*;
 import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
+import com.exadel.jstrong.web.fortrainings.model.comparator.SubscriberUIComp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.hibernate.Hibernate;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -152,6 +154,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
                 subscribersUI.add(subscriber);
             }
         }
+        Collections.sort(subscribersUI, new SubscriberUIComp());
         return subscribersUI;
     }
 
