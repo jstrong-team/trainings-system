@@ -38,6 +38,8 @@ public class TrainingUI {
         this.trainerName = trainerName;
     }
 
+    public TrainingUI() {}
+
     public TrainingUI(int id, String name, String trainerName, String annotation, String description, String target, boolean paid, int max_participants, String place, boolean internal, boolean approve, int trainer_id, List<Date> dates, boolean isSubscribe) {
         this.id = id;
         this.name = name;

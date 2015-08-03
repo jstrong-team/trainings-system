@@ -20,6 +20,7 @@ public class Merger {
         for (int i = 0; i < sourceWords.size(); i++) {
             WordDescriptor word = sourceWords.get(i);
             int index = getIndex(updateWords, word);
+            //int index = getIndex(updateWords, sourceWords.get(i));
             if (index != -1) {
                 sourceMatchWords.add(sourceWords.remove(i--));
                 updateMatchWords.add(updateWords.remove(index));
@@ -109,7 +110,7 @@ public class Merger {
         return -1;
     }
 
-    private static List<WordDescriptor> splitWords(String source) {
+     private static List<WordDescriptor> splitWords(String source) {
         List<String> words = Arrays.asList(source.split(" "));
         for (int i = 0; i < words.size(); i++) {
             String word = words.get(i);
@@ -124,4 +125,17 @@ public class Merger {
         }
         return descriptors;
     }
+
+    /* private static List<WordDescriptor> splitWords(String source) {
+        List<WordDescriptor> descriptors = new ArrayList<>();
+        int position = 0;
+        String[] words = source.split(" ");
+        for (int i = 0; i < words.length; i++) {
+            if (!words[i].isEmpty()) {
+                descriptors.add(new WordDescriptor(words[i], position));
+                position++;
+            }
+        }
+        return descriptors;
+    } */
 }

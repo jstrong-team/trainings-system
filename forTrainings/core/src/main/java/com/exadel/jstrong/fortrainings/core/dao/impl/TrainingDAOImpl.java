@@ -6,6 +6,7 @@ import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -167,19 +168,46 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     @Transactional
     public void editTraining(Training training) {
-        int oldID, newID;
+        training.setApprove(false);
+        Gson gson = new Gson();
+        String json = gson.toJson(training);
 
-        oldID = training.getId();
-
-        Training newTraining = new Training(training);
-        newTraining.setApprove(false);
-        newID = add(newTraining);
-
-        Query query = em.createNativeQuery("INSERT INTO training_version VALUES (?,?)");
-        query.setParameter(1, oldID);
-        query.setParameter(2, newID);
+        Query query = em.createNativeQuery("INSERT INTO transaction (old_id,json,entity_name) VALUES (?,?,?,?)");
+        query.setParameter(1, training.getId());
+        query.setParameter(2, json);
+        query.setParameter(3, "Training");
         int res = query.executeUpdate();
         if (res == 0)
-            logger.warn("NO record inserted into training_version table.");
+            logger.warn("editTraining: NO record inserted into transaction table.");
+    }
+
+    @Override
+    @Transactional
+    public void substituteTraining(int transactionID, boolean approve) {
+        Query query;
+
+        if (approve) {
+            Training training = getTrainingByTransactionID(transactionID);
+            update(training);
+        }
+
+        query = em.createNativeQuery("DELETE FROM transaction where id = ?");
+        query.setParameter(1, transactionID);
+        int res = query.executeUpdate();
+        if (res == 0)
+            logger.warn("substituteTraining: NO record deleted from transaction table.");
+    }
+
+    @Override
+    @Transactional
+    public Training getTrainingByTransactionID(int transactionID) {
+        Query query;
+        query = em.createNativeQuery("SELECT json FROM transaction where id = ?");
+        query.setParameter(1, transactionID);
+        String json = query.getSingleResult().toString();
+
+        Gson gson = new Gson();
+        Training training = gson.fromJson(json, Training.class);
+        return training;
     }
 }

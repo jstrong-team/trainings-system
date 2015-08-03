@@ -6,6 +6,7 @@ import com.exadel.jstrong.fortrainings.core.model.Meet;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
+import com.exadel.jstrong.fortrainings.core.util.Merger;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.EmployeeNamedFeedbackUI;
 import com.exadel.jstrong.web.fortrainings.model.SubscriberUI;
@@ -185,5 +186,20 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         t.setTarget(training.getTarget());
         t.setTrainer_id(training.getTrainer_id());
         tDAO.editTraining(t);
+    }
+
+    @Override
+    public TrainingUI mergeTraining(int transactionID) {
+
+        Training transactionTraining = tDAO.getTrainingByTransactionID(transactionID);
+        Training training = tDAO.getTrainingById(transactionTraining.getId());
+
+        TrainingUI mergedTraining = new TrainingUI();
+        mergedTraining.setName(Merger.merge(training.getName(), transactionTraining.getName()));
+        mergedTraining.setAnnotation(Merger.merge(training.getAnnotation(), transactionTraining.getAnnotation()));
+        mergedTraining.setDescription(Merger.merge(training.getDescription(), transactionTraining.getDescription()));
+        mergedTraining.setTarget(Merger.merge(training.getTarget(), transactionTraining.getTarget()));
+
+        return mergedTraining;
     }
 }

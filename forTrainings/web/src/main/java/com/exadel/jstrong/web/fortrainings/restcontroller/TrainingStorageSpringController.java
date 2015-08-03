@@ -185,5 +185,10 @@ public class TrainingStorageSpringController {
     public void editTraining(@RequestBody TrainingUI trainingUI, HttpServletRequest request, HttpServletResponse response) {
         tsci.editTraining(trainingUI);
     }
-}
 
+    @RequestMapping(value = "/mergeTraining", method = RequestMethod.PUT)
+    public @ResponseBody TrainingUI mergeTraining(@RequestBody int transactionID, HttpServletRequest request, HttpServletResponse response) {
+        TrainingUI trainingUI = tsci.mergeTraining(transactionID);
+        return trainingUI;
+    }
+}

@@ -24,5 +24,6 @@ public interface TrainingStorageController {
     boolean deleteFeedback(int id);
     boolean deleteSuscriber(int userId, int trainingId);
     void editTraining(TrainingUI training);
+    TrainingUI mergeTraining(int transactionID);
 }
 
