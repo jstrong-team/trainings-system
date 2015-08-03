@@ -1,7 +1,6 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by ������������� on 31.07.2015.
@@ -16,10 +15,14 @@ public class Participant {
     private Integer subscribeId;
     @Column(name = "absent")
     private Boolean absent;
-    @Column(name = "date")
-    private Date date;
+    @Column(name = "meet_id")
+    private Integer meetId;
     @Column(name = "reason")
     private String reason;
+
+    public Integer getId() {
+        return id;
+    }
 
     public Integer getSubscribeId() {
         return subscribeId;
@@ -37,12 +40,12 @@ public class Participant {
         this.absent = absent;
     }
 
-    public Date getDate() {
-        return date;
+    public Integer getMeetId() {
+        return meetId;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setMeetId(Integer meetId) {
+        this.meetId = meetId;
     }
 
     public String getReason() {

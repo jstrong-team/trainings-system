@@ -2,6 +2,7 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
+import com.exadel.jstrong.fortrainings.core.model.Participant;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -140,5 +141,25 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
         } catch (Throwable e) {
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public List<Participant> getParticipantsByTrainingId(int subscribeId, int trainingId) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        List<Participant> participants = null;
+        try {
+            CriteriaQuery<Participant> query = criteriaBuilder.createQuery(Participant.class);
+            Root<Participant> root = query.from(Participant.class);
+
+            Predicate p1 = root.<Integer>get("id").in(subscribeId);
+            Predicate p2 = root.<Integer>get("trainingId").in(trainingId);
+
+            query.where(criteriaBuilder.and(p1, p2));
+            participants = em.createQuery(query).getResultList();
+            return participants;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

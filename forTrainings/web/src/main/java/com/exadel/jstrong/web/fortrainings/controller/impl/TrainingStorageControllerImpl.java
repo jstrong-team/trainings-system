@@ -259,7 +259,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             for (Participant p : participants) {
                 meetReportUI = new MeetReportUI();
                 meetReportUI.setAbsent(p.isAbsent());
-                meetReportUI.setDate(p.getDate());
+                //meetReportUI.setDate(p.getDate());
                 meetReportUI.setReason(p.getReason());
                 meetReportUI.setTrainingName(tDAO.getTrainingName(trainingId));
                 meetReportUIs.add(meetReportUI);

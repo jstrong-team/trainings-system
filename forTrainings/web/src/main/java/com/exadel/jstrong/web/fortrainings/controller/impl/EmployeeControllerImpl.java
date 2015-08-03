@@ -3,8 +3,8 @@ package com.exadel.jstrong.web.fortrainings.controller.impl;
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TokenDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
-import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
+import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -45,4 +45,5 @@ public class EmployeeControllerImpl implements EmployeeController {
     public boolean isAdmin(int id) {
         return employeeDao.isAdmin(id);
     }
+
 }
