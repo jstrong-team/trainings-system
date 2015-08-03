@@ -29,4 +29,5 @@ public class DateMeetListSerializer extends JsonSerializer<List<MeetUI>> {
         gen.writeObject(serializeMeets);
 
     }
+
 }
