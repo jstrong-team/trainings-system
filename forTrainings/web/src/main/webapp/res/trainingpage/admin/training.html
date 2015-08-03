@@ -124,15 +124,15 @@
             </div>
 
             <div class="row buttons">
-                <div class="col-md-6 " ng-hide="!training.isSubscribe" ng-cloak>
+                <div class="col-md-6 " ng-show="!training.isSubscribe" ng-cloak>
                     <button type="button" class="btn  editDatesButton" ng-click="subscribe()">subscribe</button>
                 </div>
                 <div class="col-md-6">
-                    <button type="button" class="btn btn-default " ng-click="openModal()" ng-hide="training.isSubscribe">
+                    <button type="button" class="btn btn-default " ng-click="openModal()" ng-show="training.isSubscribe">
                         Leave feedback
                     </button>
                 </div>
-                <div class="col-md-6" ng-hide="training.isSubscribe" ng-cloak>
+                <div class="col-md-6" ng-show="training.isSubscribe" ng-cloak>
                     <button type="button" class="btn btn-danger " ng-click="unsubscribe()">unsubscribe</button>
                 </div>
             </div>

@@ -26,11 +26,11 @@
 
         $scope.isCollapsed = {
             dates: true,
-            subscribers: true
+            subscribers: false
         };
 
         $scope.show = {
-            subscribers: 'Show',
+            subscribers: 'Hide',
             dates: 'Show'
         };
 
