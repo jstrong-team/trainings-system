@@ -3,6 +3,7 @@ package com.exadel.jstrong.web.fortrainings.controller.impl;
 import com.exadel.jstrong.fortrainings.core.dao.MeetDAO;
 import com.exadel.jstrong.fortrainings.core.dao.ParticipantDAO;
 import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
+import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.model.Meet;
 import com.exadel.jstrong.fortrainings.core.model.Participant;
 import com.exadel.jstrong.web.fortrainings.controller.ParticipantController;
@@ -24,6 +25,8 @@ public class ParticipantControllerImpl implements ParticipantController {
     private SubscribeDAO subscribeDAO;
     @Autowired
     private ParticipantDAO participantDAO;
+    @Autowired
+    private TrainingDAO trainingDAO;
 
     @Override
     public void recordToMeets(int subscribeId, int trainingId) {
@@ -37,11 +40,13 @@ public class ParticipantControllerImpl implements ParticipantController {
             participant.setAbsent(false);
             participants.add(participant);
         }
+        participantDAO.addParticipants(participants);
     }
 
     @Override
     public void deleteFromMeets(int subscribeId, int trainingId) {
-        List<Participant> participants = subscribeDAO.getParticipantsByTrainingId(subscribeId, trainingId);
+        List<Integer> meetIds = trainingDAO.getMeetIdsByTrainingId(trainingId);
+        List<Participant> participants = subscribeDAO.getParticipantsByMeetIds(subscribeId, meetIds);
         participantDAO.deleteParticipants(participants);
     }
 }

@@ -144,7 +144,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
     }
 
     @Override
-    public List<Participant> getParticipantsByTrainingId(int subscribeId, int trainingId) {
+    public List<Participant> getParticipantsByMeetIds(int subscribeId, List<Integer> meetIds) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         List<Participant> participants = null;
         try {
@@ -152,7 +152,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
             Root<Participant> root = query.from(Participant.class);
 
             Predicate p1 = root.<Integer>get("id").in(subscribeId);
-            Predicate p2 = root.<Integer>get("trainingId").in(trainingId);
+            Predicate p2 = root.<Integer>get("meetId").in(meetIds);
 
             query.where(criteriaBuilder.and(p1, p2));
             participants = em.createQuery(query).getResultList();
