@@ -10,6 +10,7 @@ import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -52,5 +53,20 @@ public class TransactionDAOImpl extends BaseDAO<Transaction> implements Transact
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean killTransaction(int transactionId) {
+        try {
+            Query query = em.createNativeQuery("delete from transaction where id=:tId or parent_id=:tId").setParameter("tId", transactionId);
+            int res = query.executeUpdate();
+            if (res == 0) {
+                logger.info("No trainings to change");
+                return false;
+            }
+            return true;
+        } catch (Throwable e) {
+            logger.warn("Throwable exception.");
+        }
+        return false;
     }
 }

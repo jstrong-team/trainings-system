@@ -49,6 +49,9 @@ public class Training {
     @Column
     private Integer trainer_id;
 
+    @Column
+    private Boolean Integerernal;
+
     @Transient
     private List<Date> date;
 
@@ -138,6 +141,7 @@ public class Training {
 
     public void setInternal(Boolean internal) {
         this.internal = internal;
+
     }
 
     public Integer getId() {

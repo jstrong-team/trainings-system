@@ -19,7 +19,16 @@
 }
 
 .LeftTextBlock{
-   /*margin-bottom: 5px;*/
+   padding-top:10px;
+   padding-left:10px;
+   margin-left:10px;
+   min-height:280px;
+   font-size:14px;;
+}
+
+.LeftTextBlock span{
+   font-size:15px;
+   font-weight:700;
 }
 
 .breakText{
@@ -92,6 +101,11 @@
    min-height: 30px;
 }
 
+.buttons div{
+   padding-right: 5px;
+   padding-left: 10px;
+}
+
 .dateEditInput{
    padding-left: 0px;
 }
@@ -140,7 +154,7 @@
 }
 
 .scrollTable2{
-   max-width: 600px;
+   max-width: 680px;
    overflow-x: scroll;
    border-radius: 0;
 }
