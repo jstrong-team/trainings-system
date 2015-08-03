@@ -12,14 +12,38 @@
                             getSubscribersService,
                             getFeedbacksService) {
 
-        $scope.isCollapsed = false;
+        $scope.isCollapsed = {
+            dates: true,
+            subscribers: true
+        };
 
-        $scope.bla='sad';
+        $scope.show = {
+            subscribers: 'Show',
+            dates: 'Show'
+        };
 
-        $scope.as='sad';
+
+        $scope.changeCollapse = {
+            dates: function () {
+                $scope.isCollapsed.dates = !$scope.isCollapsed.dates;
+                if ($scope.isCollapsed.dates) {
+                    $scope.show.dates = 'Show';
+                } else {
+                    $scope.show.dates = 'Hide';
+                }
+            },
+            subscribers: function () {
+                $scope.isCollapsed.subscribers = !$scope.isCollapsed.subscribers;
+                if ($scope.isCollapsed.subscribers) {
+                    $scope.show.subscribers = 'Show';
+                } else {
+                    $scope.show.subscribers = 'Hide';
+                }
+            }
+        };
+
 
         $scope.editTraining=function (){
-            //TODO: comment
             $location.url('/ui/trainingPage/edit/'+$scope.training.id);
         };
 
