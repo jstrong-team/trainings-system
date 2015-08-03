@@ -37,7 +37,7 @@ public class TrainingsSpringController {
     public @ResponseBody TrainingsUI getHistory(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-            int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            int id = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
             TrainingsUI trainingsUI = trainingsController.getAllTrainings(id);
             if(trainingsUI == null) {
                 response.sendError(HttpServletResponse.SC_NO_CONTENT, "No data about events in db");
@@ -58,9 +58,16 @@ public class TrainingsSpringController {
         try {
             Map<String, Cookie> cookieMap = CookieUtil.cookiesToMap(request.getCookies());
             Cookie token = cookieMap.get(CookieUtil.TOKEN);
+            Cookie session = cookieMap.get(CookieUtil.SESSION);
             Cookie temp = null;
             if (token != null) {
                 temp = new Cookie(CookieUtil.TOKEN, CookieUtil.generateToken());
+                temp.setPath("/");
+                temp.setMaxAge(0);
+                response.addCookie(temp);
+            }
+            if (session != null){
+                temp = new Cookie(CookieUtil.SESSION, CookieUtil.generateToken());
                 temp.setPath("/");
                 temp.setMaxAge(0);
                 response.addCookie(temp);

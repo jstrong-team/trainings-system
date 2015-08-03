@@ -3,10 +3,12 @@ package com.exadel.jstrong.web.fortrainings.controller.impl;
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TokenDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
-import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
+import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 @Component
 public class EmployeeControllerImpl implements EmployeeController {
@@ -44,5 +46,34 @@ public class EmployeeControllerImpl implements EmployeeController {
 
     public boolean isAdmin(int id) {
         return employeeDao.isAdmin(id);
+    }
+
+    @Override
+    public void updateSession(int id, String session) {
+        tokenDAO.updateSession(id, session);
+    }
+
+    @Override
+    public void updateDateBySession(String session, Date date) {
+        tokenDAO.updateDateBySession(session, date);
+    }
+
+    @Override
+    public void updateDate(int id, Date date) {
+        tokenDAO.updateDate(id, date);
+    }
+
+    public boolean checkSession (String session){
+        return tokenDAO.checkSession(session);
+    }
+
+    @Override
+    public Date getDateBySession(String session) {
+        return tokenDAO.getDateBySession(session);
+    }
+
+    @Override
+    public int getIdBySession(String session) {
+        return tokenDAO.getIdBySession(session);
     }
 }
