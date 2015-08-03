@@ -41,13 +41,16 @@ public class Training {
     private String place;
 
     @Column(columnDefinition = "TINYINT(4)")
-    private Boolean Integerernal;
+    private Boolean internal;
 
     @Column(columnDefinition = "TINYINT(4)")
     private Boolean approve;
 
     @Column
     private Integer trainer_id;
+
+    @Column
+    private Boolean Integerernal;
 
     @Transient
     private List<Date> date;
@@ -89,7 +92,7 @@ public class Training {
         this.paid = training.paid;
         this.max_participants = training.max_participants;
         this.place = training.place;
-        this.Integerernal = training.Integerernal;
+        this.internal = training.internal;
         this.approve = training.approve;
         this.trainer_id = training.trainer_id;
         this.date = training.date;
@@ -133,11 +136,11 @@ public class Training {
     }
 
     public Boolean isInternal() {
-        return Integerernal;
+        return internal;
     }
 
     public void setInternal(Boolean Integerernal) {
-        this.Integerernal = Integerernal;
+        this.internal = Integerernal;
     }
 
     public Integer getId() {

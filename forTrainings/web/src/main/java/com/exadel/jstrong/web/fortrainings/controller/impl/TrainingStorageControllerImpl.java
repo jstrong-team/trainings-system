@@ -285,6 +285,10 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
     @Override
     public void changeTrainingStatus(int trainingId) {
+        tDAO.changeStatus(trainingId);
+    }
+
+    public void killTransaction(int transactionId) {
 
     }
 
