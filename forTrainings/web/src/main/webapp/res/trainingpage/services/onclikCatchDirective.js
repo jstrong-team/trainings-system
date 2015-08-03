@@ -1,16 +1,17 @@
 angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['storageService','$modal',function (storageService,$modal) {
      function link(scope, element,attrs){
+         var text='No';
          element.on('click', function (event) {
              var list=event.target.classList;
              var clickObj;
-             if(element.text()!=='No'){
+             if(element.text()!==text){
                  clickObj={
                      id:list[0],
                      date:list[1]+' '+list[2],
                      isAbsent:true,
                      reason:''
                  };
-                 element.text('No');
+                 element.text(text);
                  storageService.set(clickObj);
                  console.log(storageService.get());
              }else {
@@ -29,7 +30,7 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
          element.on('dblclick', function (event) {
              var list=event.target.classList;
              var clickObj;
-             if(element.text()!=='No'){
+             if(element.text()!==text){
                  clickObj={
                      id:list[0],
                      date:list[1]+' '+list[2],
@@ -44,10 +45,10 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
                      size: 'sm'
                  });
                  modalInstance.result.then(function(reason){
-                     element.text('No');
+                     element.text(text);
                      clickObj.reason=reason;
                      storageService.set(clickObj);
-                     console.log(storageService.get());
+                     //console.log(storageService.get());
                  });
              }else {
                  clickObj={
@@ -61,7 +62,6 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
                  storageService.delete(clickObj);
              }
          });
-
 
 
      }
