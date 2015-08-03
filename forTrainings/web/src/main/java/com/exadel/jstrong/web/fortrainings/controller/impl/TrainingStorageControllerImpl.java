@@ -199,6 +199,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         mergedTraining.setAnnotation(Merger.merge(training.getAnnotation(), transactionTraining.getAnnotation()));
         mergedTraining.setDescription(Merger.merge(training.getDescription(), transactionTraining.getDescription()));
         mergedTraining.setTarget(Merger.merge(training.getTarget(), transactionTraining.getTarget()));
+        mergedTraining.setPlace(Merger.merge(training.getPlace(), transactionTraining.getPlace()));
 
         return mergedTraining;
     }
