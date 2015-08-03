@@ -25,7 +25,6 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
     $scope.$on('ngRepeatFinished', function () {
         markCurrentDay();
         calendarList.getCalendarInfo().then(function (data) {
-            console.log(data);
             colorDayItems(data.actualTrainingsHistory);
             addTrainerIcon(data.actualTrainingsHistory);
             dateTimeFormat(data.actualTrainingsHistory);

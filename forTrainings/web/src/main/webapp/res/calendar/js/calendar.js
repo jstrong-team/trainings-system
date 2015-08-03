@@ -58,17 +58,30 @@ function markCurrentDay() {
 }
 
 function getThreeMonths() {
+    var days = getThreeMonthDays();
+    var length = days.length / 7;
     var result = [];
+    var week = 7;
     var currentYear = getNthDate(1).getYear() + 1900;
     var currentIndexMonth = getNthDate(1).getMonth();
-    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
-        'September', 'October', 'November', 'December'];
-    for (var i = 0; i < 3; ++i) {
-        result.push({month: months[currentIndexMonth], year: currentYear});
-        currentIndexMonth = (++currentIndexMonth) % 12;
-        if (currentIndexMonth === 0) {
-            ++currentYear;
+    var months = ['CALENDAR_MONTH_JANUARY', 'CALENDAR_MONTH_FEBRUARY', 'CALENDAR_MONTH_MARCH',
+        'CALENDAR_MONTH_APRIL', 'CALENDAR_MONTH_MAY', 'CALENDAR_MONTH_JUNE', 'CALENDAR_MONTH_JULY',
+        'CALENDAR_MONTH_AUGUST', 'CALENDAR_MONTH_SEPTEMBER', 'CALENDAR_MONTH_OCTOBER',
+        'CALENDAR_MONTH_NOVEMBER', 'CALENDAR_MONTH_DECEMBER'];
+    for (var i = 0; i < length; ++i) {
+
+        if (days[week - 1].date <= 7) {
+            result.push({month: months[currentIndexMonth], year: currentYear});
+            currentIndexMonth = (++currentIndexMonth) % 12;
+            if (currentIndexMonth === 0) {
+                ++currentYear;
+            }
+        } else {
+            result.push({});
         }
+
+        week = week + 7;
+
     }
     return result;
 }

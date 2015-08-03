@@ -11,23 +11,30 @@
 }
 
 .textBlock{
-   padding-top:40px;
+   padding-top:10px;
    padding-left:10px;
    margin-left:10px;
    min-height:280px;
    font-size:16px;;
 }
 
+.LeftTextBlock{
+   /*margin-bottom: 5px;*/
+}
+
+.breakText{
+   white-space: pre-line;
+}
 
 .textBlock span{
    font-size:18px;
    font-weight:700;
 }
 
-
-.textBlock p{
-   font-size:5px;
+.textBlock pre{
+   font-size:14px;
    font-weight:700;
+
 }
 
 .textBlock th{
@@ -81,4 +88,66 @@
 
 .buttons button{
    margin-top:5px;
+   width:100%;
+   min-height: 30px;
+}
+
+.dateEditInput{
+   padding-left: 0px;
+}
+
+.editDatesButton {
+   background-color: #2E729F;
+   color: white;
+}
+
+@media screen and (min-width: 992px) {
+   .editDatesButton {
+      float: right;
+   }
+}
+
+.editDatesButton:focus{
+   background-color: #2E729F;
+   color: white;
+}
+
+.editDatesButton:hover{
+   color: white;
+   background-color: #006dcc;
+}
+
+.modalInput{
+   margin: 10px;
+   width:90%;
+}
+
+.modalWrapper{
+   margin-top: 10px;
+}
+
+.newWell{
+   border: 1px solid #e3e3e3;
+   border-radius: 4px;
+}
+
+
+
+.scrollTable1{
+   width:50px;
+   overflow-x: scroll;
+   border-radius: 0;
+}
+
+.scrollTable2{
+   max-width: 600px;
+   overflow-x: scroll;
+   border-radius: 0;
+}
+
+.scrollTable2 tr{
+   height: 40px;
+}
+.scrollTable1 tr{
+   height: 40px;
 }

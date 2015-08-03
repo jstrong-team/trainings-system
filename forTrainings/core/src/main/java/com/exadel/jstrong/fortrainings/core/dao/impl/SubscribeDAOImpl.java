@@ -2,9 +2,6 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
-import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
-import com.exadel.jstrong.fortrainings.core.model.Meet;
-
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +11,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +22,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
 
     @Override
     @Transactional
-    public int addSubscribe(Subscribe subscribe){
+    public int addSubscribe(Subscribe subscribe) {
         int id = contains(subscribe.getEmployeeId(), subscribe.getTrainingId());
         if (id != 0) {
             subscribe.setId(id);
@@ -42,7 +38,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
             Query query = em.createNativeQuery("update subscribe set status='Deleted' where employee_id =:uId and training_id =:tId").setParameter("uId", userId).setParameter("tId", trainingId);
             query.executeUpdate();
             return true;
-        } catch(Throwable e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
         return false;
@@ -56,7 +52,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
             Query query = em.createNativeQuery("update subscribe set status='Approve' where status='Wait' and training_id =:tId order by add_date limit 1").setParameter("tId", trainingId);
             query.executeUpdate();
             return true;
-        } catch(Throwable e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
         return false;
@@ -68,7 +64,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
             Query query = em.createNativeQuery("select * from subscribe where training_id =:tId and status='Approve'").setParameter("tId", trainingId);
             int count = query.getResultList().size();
             return count;
-        } catch(Throwable e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
         return 0;
@@ -81,7 +77,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
             Query query = em.createNativeQuery("update subscribe set status='Wait' where status='Approve' and training_id =:tId order by add_date desc limit 1").setParameter("tId", trainingId);
             query.executeUpdate();
             return true;
-        } catch(Throwable e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
         return false;
@@ -122,7 +118,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
     }
 
     @Override
-    public List<Subscribe> getSubscribersByStatus(int trainingId, String status){
+    public List<Subscribe> getSubscribersByStatus(int trainingId, String status) {
         try {
             CriteriaQuery<Subscribe> query = em.getCriteriaBuilder().createQuery(Subscribe.class);
             Root<Subscribe> root = query.from(Subscribe.class);
@@ -132,9 +128,17 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
 
             query.where(em.getCriteriaBuilder().and(uId, tId));
             return executeQuery(query);
-        } catch(Throwable e){
+        } catch (Throwable e) {
             return new ArrayList<Subscribe>();
         }
     }
 
+    @Override
+    public List<String> getSubscribersEmailsByStatus(int trainingId, String status) {
+        try {
+            return em.createNativeQuery("SELECT mail FROM employee WHERE id IN (SELECT employee_id FROM subscribe WHERE training_id = :id AND status = :status)").setParameter("id", trainingId).setParameter("status", status).getResultList();
+        } catch (Throwable e) {
+            return new ArrayList<>();
+        }
+    }
 }

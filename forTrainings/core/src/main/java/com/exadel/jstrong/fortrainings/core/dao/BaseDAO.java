@@ -48,6 +48,7 @@ public abstract class BaseDAO<T> implements GenericDAO<T>{
             em.persist(entity);
             return entity;
         } catch (Throwable e){
+            logger.warn(e.toString());
             logger.warn("Entity doesn't save");
             return null;
         }

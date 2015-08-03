@@ -13,13 +13,13 @@
         };
 
         $scope.days = [
-            {name: 'Sun:', day: 0},
-            {name: 'Mon:', day: 1},
-            {name: 'Tue:', day: 2},
-            {name: 'Wed:', day: 3},
-            {name: 'Thur:', day: 4},
-            {name: 'Fr:', day: 5},
-            {name: 'Sat:', day: 6}
+            {name: 'CREATE_TRAINING_DATA_DAYS_SUN', day: 0},
+            {name: 'CREATE_TRAINING_DATA_DAYS_MON', day: 1},
+            {name: 'CREATE_TRAINING_DATA_DAYS_TUE', day: 2},
+            {name: 'CREATE_TRAINING_DATA_DAYS_WED', day: 3},
+            {name: 'CREATE_TRAINING_DATA_DAYS_THUR', day: 4},
+            {name: 'CREATE_TRAINING_DATA_DAYS_FR', day: 5},
+            {name: 'CREATE_TRAINING_DATA_DAYS_SAT', day: 6}
         ];
 
         $scope.selectedDays = [];

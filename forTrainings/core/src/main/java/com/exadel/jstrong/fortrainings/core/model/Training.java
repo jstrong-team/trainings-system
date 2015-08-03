@@ -139,8 +139,9 @@ public class Training {
         return internal;
     }
 
-    public void setInternal(Boolean Integerernal) {
-        this.internal = Integerernal;
+    public void setInternal(Boolean internal) {
+        this.internal = internal;
+
     }
 
     public Integer getId() {
@@ -214,14 +215,6 @@ public class Training {
     public void setTrainer_id(Integer trainer_id) {
         this.trainer_id = trainer_id;
     }
-
-//    public List<Employee> getSubscribers() {
-//        return subscribers;
-//    }
-//
-//    public void setSubscribers(List<Employee> subscribers) {
-//        this.subscribers = subscribers;
-//    }
 
     public List<EmployeeFeedback> getFeedbacks() {
         return feedbacks;

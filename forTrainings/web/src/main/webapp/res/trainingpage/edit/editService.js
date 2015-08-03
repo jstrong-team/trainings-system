@@ -1,7 +1,8 @@
-angular.module('editModule').factory('editService', ['$http', function($http) {
-    var service = {serv : function(id, editInfo) {
-        console.log(editInfo);
-        //return $http.post('/rest/storagetraining/editFeedback?id='+id, editInfo);
-    }};
-    return service;
+angular.module('trainingEditModule').factory('editService', ['$http', function($http) {
+    var edit =function(id, editInfo) {
+        $http.put('/rest/storagetraining/editTraining?id='+id, editInfo).catch(function(error){
+            console.error(error);
+        });
+    };
+    return edit;
 }]);

@@ -1,17 +1,11 @@
 <div class="container wrappered">
     <div class="row">
-        <div class="col-md-12 text-center"><h1>Trainings calendar<br><br></h1></div>
+        <div class="col-md-12 text-center"><h1>{{ 'CALENDAR_MAIN_TITLE' | translate }}<br><br></h1></div>
             <div class="col-md-5 col-sm-5">
                 <div class="months">
-                    <div ng-repeat-start="x in months">
-                        <div class="monthItem">{{x.month}}<br>{{x.year}}</div><hr>
-                        <div class="monthItem"></div><hr>
-                        <div class="monthItem"></div><hr>
-                        <div class="monthItem"></div><hr>
+                    <div ng-repeat="x in months">
+                        <div class="monthItem">{{ x.month | translate }}<br>{{x.year}}</div><hr>
                     </div>
-                    <div ng-if="$index > 0" class="monthItem"></div>
-                    <hr ng-if="$index > 0">
-                    <div ng-repeat-end ng-hide></div>
                 </div>
                 <div class="days" on-click-directive>
                     <a href="" ng-repeat-start="x in days" on-finish-render="ngRepeatFinished">
@@ -38,7 +32,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h2><br>Past trainings</h2>
+            <h2><br>{{ 'CALENDAR_RECENT_TRAININGS_TITLE' | translate}}</h2>
             <ul class="pastMeetings">
                 <li ng-repeat="lastTraining in pastTrainingHistory">
                     <a href="" ng-click="redirectToTrainingPage(lastTraining.id)"><h3>{{lastTraining.name}}</h3></a>

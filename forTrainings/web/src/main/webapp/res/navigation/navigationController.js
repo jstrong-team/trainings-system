@@ -7,16 +7,18 @@
         'doSearchService',
         'doLogoutService',
         'dateFormatService',
-        'getRole',
+        'trainingRedirectService',
         'getBadgeService'
     ];
 
-    var controller = function ($rootScope, $scope, $location, $http, doSearchService, doLogoutService, dateFormatService, getRole, getBadgeService) {
+    var controller = function ($rootScope, $scope, $location, $http, doSearchService, doLogoutService, dateFormatService, trainingRedirectService, getBadgeService) {
 
         $scope.isActive = function (viewLocation) {
             return viewLocation === $location.path();
 
         };
+
+        $scope.badgeCount = null;
 
         var recountBadge = function () {
             getBadgeService.badgeCount().then(
@@ -30,6 +32,14 @@
         };
 
         recountBadge();
+
+        $scope.$on('removeNewsItem', function() {
+            if ($scope.badgeCount === 1) {
+                $scope.badgeCount = null;
+            } else {
+                --$scope.badgeCount;
+            }
+        });
 
         $scope.isAdmin = '';
 
@@ -61,7 +71,7 @@
             doSearchService($scope.searchExpression).then(function (data, status, headers, config) {
                 dateFormatService(data.data);
                 $scope.searchResponse = data.data;
-                if (data.data === '') {
+                if (data.data.length === 0) {
                     $scope.noResultsFound = true;
                 } else {
                     $scope.noResultsFound = false;
@@ -89,6 +99,7 @@
             $location.url('/ui/trainings');
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';
+            $scope.noResultsFound = false;
         };
 
         $scope.createTraining = function () {
@@ -96,6 +107,7 @@
             $location.url('/ui/create');
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';
+            $scope.noResultsFound = false;
         };
 
         $scope.goToNews = function () {
@@ -103,6 +115,7 @@
             $location.url('/ui/news');
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';
+            $scope.noResultsFound = false;
         };
 
         $scope.goToReports = function () {
@@ -110,6 +123,7 @@
             $location.url('/ui/admin/reports');
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';
+            $scope.noResultsFound = false;
         };
 
         $scope.redirectToTrainingPage = function (id) {
@@ -117,6 +131,7 @@
             trainingRedirectService(id);
             $rootScope.inputSearchText = '';
             $scope.searchExpression = '';
+            $scope.noResultsFound = false;
         };
     };
 

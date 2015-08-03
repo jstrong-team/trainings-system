@@ -1,0 +1,107 @@
+{
+
+  "HTML_TITLE": "Exadel trainings",
+
+
+
+  "HEADER_CALENDAR": "Calendar",
+  "HEADER_CREATE_TRAINING": "Create training",
+  "HEADER_NEWS": "News",
+  "HEADER_REPORTS": "Reports",
+  "HEADER_LOG_OUT": "Log out",
+  "HEADER_SEARCH_PLACEHOLDER": "Search",
+
+
+
+  "LOGIN_MAIN_CONTENT_FIRST_LINE": "Schedule trainings",
+  "LOGIN_MAIN_CONTENT_SECOND_LINE": "better, together",
+  "LOGIN_UNDER_MAIN_CONTENT": "Meetings management for employees",
+  "LOGIN_USER_NAME_PLACEHOLDER": "Enter your username",
+  "LOGIN_PASSWORD_PLACEHOLDER": "Enter your password",
+  "LOGIN_REMEMBER_ME": "Keep me signed in",
+  "LOGIN_SIGN_IN": "Sign in",
+  "LOGIN_PASSWORD_WRONG": "Wrong password or username",
+
+
+
+
+  "CALENDAR_MAIN_TITLE": "Trainings calendar",
+  "CALENDAR_RECENT_TRAININGS_TITLE": "Recent trainings",
+  "CALENDAR_MODAL_DAY_TITLE": "Trainings in this day",
+  "CALENDAR_MODAL_DAY_NO_RESULTS": "No trainings in this day!",
+  "CALENDAR_MONTH_JANUARY": "January",
+  "CALENDAR_MONTH_FEBRUARY": "February",
+  "CALENDAR_MONTH_MARCH": "March",
+  "CALENDAR_MONTH_APRIL": "April",
+  "CALENDAR_MONTH_MAY": "May",
+  "CALENDAR_MONTH_JUNE": "June",
+  "CALENDAR_MONTH_JULY": "July",
+  "CALENDAR_MONTH_AUGUST": "August",
+  "CALENDAR_MONTH_SEPTEMBER": "September",
+  "CALENDAR_MONTH_OCTOBER": "October",
+  "CALENDAR_MONTH_NOVEMBER": "November",
+  "CALENDAR_MONTH_DECEMBER": "December",
+
+
+
+  "CREATE_TRAINING_MAIN_TITLE": "Create training",
+  "CREATE_TRAINING_TRAINING": "Training name",
+  "CREATE_TRAINING_ANNOTATION": "Annotation",
+  "CREATE_TRAINING_TYPE": "Type",
+  "CREATE_TRAINING_TYPE_OPTION_ONE_TIME": "One time",
+  "CREATE_TRAINING_TYPE_OPTION_PERIODIC": "Periodic",
+  "CREATE_TRAINING_DATA": "Date",
+  "CREATE_TRAINING_DATA_FIRST": "Date of first training",
+  "CREATE_TRAINING_DATA_LAST": "Date of last training",
+  "CREATE_TRAINING_DATA_DAYS": "Repeat on days",
+  "CREATE_TRAINING_DATA_DAYS_SUN": "Sun",
+  "CREATE_TRAINING_DATA_DAYS_MON": "Mon",
+  "CREATE_TRAINING_DATA_DAYS_TUE": "Tue",
+  "CREATE_TRAINING_DATA_DAYS_WED": "Wed",
+  "CREATE_TRAINING_DATA_DAYS_THUR": "Thur",
+  "CREATE_TRAINING_DATA_DAYS_FR": "Fr",
+  "CREATE_TRAINING_DATA_DAYS_SAT": "Sat",
+  "CREATE_TRAINING_PLACE": "Place",
+  "CREATE_TRAINING_TARGET_AUDIENCE": "Target audience",
+  "CREATE_TRAININGS_MAX_PARTICIPANTS": "Max number of participants",
+  "CREATE_TRAINING_DESCRIPTION": "Description",
+  "CREATE_TRAINING_INTERNAL": "Internal",
+  "CREATE_TRAINING_EXTERNAL": "External",
+  "CREATE_TRAINING_PAID": "Paid",
+  "CREATE_TRAINING_FREE": "Free",
+  "CREATE_TRAINING_BUTTON": "Create training",
+
+  "CREATE_TRAINING_TRAINING_PLACEHOLDER": "Enter training name",
+  "CREATE_TRAINING_ANNOTATION_PLACEHOLDER": "Enter annotation",
+  "CREATE_TRAINING_DATA_PLACEHOLDER": "Pick a date, YYYY-MM-DD HH-mm",
+  "CREATE_TRAINING_PLACE_PLACEHOLDER": "Enter place meeting",
+  "CREATE_TRAINING_TARGET_AUDIENCE_PLACEHOLDER": "Describe target audience",
+  "CREATE_TRAININGS_MAX_PARTICIPANTS_PLACEHOLDER": "Enter max number of participants",
+  "CREATE_TRAINING_DESCRIPTION_PLACEHOLDER": "Type a description of the training",
+
+  "DATE_VALIDATION_ERROR": "Date validation error!",
+  "DATE_VALIDATION_FIRST_LAST": "First date should be earlier than the last date!",
+  "DATE_VALIDATION_LATER_THAN_CURRENT": "Input date should be earlier than current moment!",
+
+
+
+  "NEWS_MAIN_TITLE": "News",
+  "NEWS_PAGINATION_FIRST": "First",
+  "NEWS_PAGINATION_LAST": "Last",
+
+
+
+  "REPORTS_MAIN_TITLE": "Activity report",
+  "REPORTS_SELECT_EMPLOYEE_TITLE": "Employee name",
+  "REPORTS_SELECT_EMPLOYEE_PLACEHOLDER": "Select employee",
+  "REPORTS_TABLE_TRAINING": "Training name",
+  "REPORTS_TABLE_DATE": "Date",
+  "REPORTS_TABLE_ATTENDANCE": "Attendance",
+  "REPORTS_TABLE_REASON": "Reason of absence",
+  "REPORTS_PRINT": "Print report",
+
+
+
+  "SEARCH_NO_RESULTS": "Oops! We have not found such expressions :)"
+
+}

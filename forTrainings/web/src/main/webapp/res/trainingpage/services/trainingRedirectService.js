@@ -1,6 +1,6 @@
 angular.module('trainingPageModule').factory('trainingRedirectService',['$location','getRole',function($location,getRole){
     var redirect=function(id){
-        console.log('trainingRedirectService');
+        //console.log('trainingRedirectService');
         getRole(id).then(function (data, status, headers, config){
             var role=data.data.role;
             switch (role) {
@@ -8,10 +8,10 @@ angular.module('trainingPageModule').factory('trainingRedirectService',['$locati
                     $location.url('/ui/trainingPage/user/' + id);
                     break;
                 case 'trainer':
-                    $location.url('/ui/trainingPage/user/' + id);
+                    $location.url('/ui/trainingPage/trainer/' + id);
                     break;
                 case 'admin':
-                    $location.url('/ui/trainingPage/user/' + id);
+                    $location.url('/ui/trainingPage/admin/' + id);
                     break;
                 default:
                     $location.url('/ui/trainings');

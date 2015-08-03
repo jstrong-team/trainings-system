@@ -14,5 +14,5 @@ public interface SubscribeDAO extends GenericDAO<Subscribe>{
     List<Subscribe> getSubscribersByEmployeeId(int employeeId);
     List<Subscribe> getSubscribersByStatus(int trainingId, String status);
     int getApproveCount(int trainingId);
-
+    List<String> getSubscribersEmailsByStatus(int trainingId, String status);
 }

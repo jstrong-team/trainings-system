@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US" ng-app="app">
+<html lang="en-US" ng-app="app" ng-controller="TranslateController">
 
 
 <link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
@@ -11,9 +11,15 @@
 <script src="/bower_components/moment/moment.js"></script>
 
 <!--speener-->
-<script src="/bower_components/spin.js/spin.js"></script>
+<script src="/res/libs/spin.js"></script>
 <script src="/bower_components/angular-spinner/angular-spinner.js"></script>
 <script src="/bower_components/angular-loading-spinner/angular-loading-spinner.js"></script>
+
+<!--i18n-->
+<script src="/bower_components/angular-translate/angular-translate.js"></script>
+<script src="/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+<script src="/res/i18n/module.js"></script>
+<script src="/res/i18n/controller.js"></script>
 
 
 <link href="/res/login/css/login.css" rel="stylesheet">
@@ -25,6 +31,7 @@
 <link href="/res/calendar/css/calendar.css" rel="stylesheet">
 <link href="/res/calendar/css/modal.css" rel="stylesheet">
 <link href="/res/trainingpage/trainingStyle.css" rel="stylesheet">
+<link href="/res/errorpages/error.css" type="text/css" rel="stylesheet">
 
 <script src="/res/calendar/js/module.js"></script>
 <script src="/res/calendar/js/calendarController.js"></script>
@@ -51,6 +58,7 @@
 <script src="/res/trainingpage/trainer/js/commentFilter.js"></script>
 <script src="/res/trainingpage/edit/module.js"></script>
 <script src="/res/trainingpage/edit/editController.js"></script>
+<script src="/res/trainingpage/edit/editService.js"></script>
 <script src="/res/trainingpage/user/js/getSubscribersService.js"></script>
 <script src="/res/trainingpage/trainer/js/getFeedbacksService.js"></script>
 <script src="/res/trainingpage/trainer/js/editTrainingService.js"></script>
@@ -62,6 +70,9 @@
 <script src="/res/trainingpage/services/openModalService.js"></script>
 <script src="/res/trainingpage/services/subscribeService.js"></script>
 <script src="/res/trainingpage/services/trainingRedirectService.js"></script>
+<script src="/res/trainingpage/services/onclikCatchDirective.js"></script>
+<script src="/res/trainingpage/services/storageService.js"></script>
+<script src="/res/trainingpage/services/absentReasonModal.js"></script>
 
 
 <link href="/res/create/datetimepicker.css" rel="stylesheet">
@@ -83,6 +94,7 @@
 <link href="/res/reportsForAdmin/reports.css" rel="stylesheet">
 <script src="/res/reportsForAdmin/module.js"></script>
 <script src="/res/reportsForAdmin/controller.js"></script>
+<script src="/res/reportsForAdmin/printpage/printPageModule.js"></script>
 
 <link href="/res/footer/footer.css" rel="stylesheet">
 <script src="/res/index.js"></script>
@@ -92,7 +104,7 @@
 <head>
     <base href="/">
     <meta charset="utf-8">
-    <title>Exadel trainings</title>
+    <title>{{ 'HTML_TITLE' | translate }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="/res/login/img/favicon.png">
 </head>
@@ -101,6 +113,7 @@
 
 <div class="wrapper">
     <span us-spinner="{radius:20, width:8, length: 10}"></span>
+    <loader key="my-spinner"></loader>
     <div ng-controller="indexController" ng-cloak>
         <div ng-include="navigation.url" ng-if="location.path() !== '/ui/'"></div>
     </div>

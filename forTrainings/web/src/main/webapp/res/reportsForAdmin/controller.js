@@ -35,15 +35,8 @@
         };
 
         $scope.printService = function (printElement) {
-
-            var printContents = document.getElementById(printElement).innerHTML;
-            var originalContents = document.body.innerHTML;
-
-            document.body.innerHTML = printContents;
-
-            window.print();
-
-            document.body.innerHTML = originalContents;
+            localStorage.setItem('printHtml',document.getElementById(printElement).innerHTML);
+            window.open('/ui/admin/reports/print');
         };
 
     };

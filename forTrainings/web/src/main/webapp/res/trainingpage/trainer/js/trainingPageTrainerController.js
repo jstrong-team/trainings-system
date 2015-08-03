@@ -14,7 +14,12 @@
 
         $scope.isCollapsed = false;
 
+        $scope.bla='sad';
+
+        $scope.as='sad';
+
         $scope.editTraining=function (){
+            //TODO: comment
             $location.url('/ui/trainingPage/edit/'+$scope.training.id);
         };
 

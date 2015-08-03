@@ -19,8 +19,9 @@
     "bootstrap": "~3.3.5",
     "angular-route": "~1.4.3",
     "moment": "~2.10.6",
-    "spin": "~1.1.6",
     "angular-spinner": "~0.6.2",
-    "angular-loading-spinner": "~0.0.3"
+    "angular-loading-spinner": "~0.0.3",
+    "angular-translate": "~2.7.2",
+    "angular-translate-loader-static-files": "~2.7.2"
   }
 }

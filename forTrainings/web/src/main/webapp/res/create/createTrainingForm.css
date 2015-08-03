@@ -28,9 +28,13 @@ textarea {
     transition:all linear 0.5s;
 }
 
-.form-control.ng-invalid.ng-touched {
-    background-color: #ebccd1;
+.form-control.ng-invalid {
+    background-color: #FFF5EE;
 }
+
+/*.form-control.ng-invalid.ng-touched {*/
+    /*background-color: #FDF5E6;*/
+/*}*/
 
 
 @media screen and (min-width: 992px) {
