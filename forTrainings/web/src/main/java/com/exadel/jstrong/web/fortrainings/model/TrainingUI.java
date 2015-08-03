@@ -3,6 +3,8 @@ package com.exadel.jstrong.web.fortrainings.model;
 import com.exadel.jstrong.fortrainings.core.jsonutil.DateDeserializer;
 import com.exadel.jstrong.fortrainings.core.jsonutil.DateListSerializer;
 import com.exadel.jstrong.fortrainings.core.model.Meet;
+import com.exadel.jstrong.web.fortrainings.util.jsonutil.DateMeetListDeserializer;
+import com.exadel.jstrong.web.fortrainings.util.jsonutil.DateMeetListSerializer;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -144,12 +146,12 @@ public class TrainingUI {
         this.trainer_id = trainer_id;
     }
 
-    @JsonSerialize(using= DateListSerializer.class)
+    @JsonSerialize(using= DateMeetListSerializer.class)
     public List<MeetUI> getMeets() {
         return meets;
     }
 
-    @JsonDeserialize(using= DateDeserializer.class)
+    @JsonDeserialize(using= DateMeetListDeserializer.class)
     public void setdates(List<MeetUI> meetUIs) {
         this.meets = meetUIs;
     }

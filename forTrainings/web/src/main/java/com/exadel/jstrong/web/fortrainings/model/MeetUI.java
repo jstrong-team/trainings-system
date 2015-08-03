@@ -18,12 +18,10 @@ public class MeetUI {
         this.id = id;
     }
 
-    @JsonSerialize(using= DateSerializer.class)
     public Date getDate() {
         return date;
     }
 
-    @JsonDeserialize(using= DateDeserializer.class)
     public void setDate(Date date) {
         this.date = date;
     }

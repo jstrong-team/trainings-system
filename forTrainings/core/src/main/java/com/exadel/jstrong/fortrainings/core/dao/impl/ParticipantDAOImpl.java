@@ -43,7 +43,11 @@ public class ParticipantDAOImpl extends BaseDAO<Participant> implements Particip
         }
     }
 
-    public boolean updateParticipant(int subscribeId, int meetId) {
-        return true;
+    public int updateParticipant(Participant participant) {
+        int id = contains(participant.getSubscribeId(), participant.getMeetId());
+        if (id != 0) {
+            participant.setId(id);
+        }
+        return super.update(participant).getId();
     }
 }

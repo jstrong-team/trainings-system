@@ -291,7 +291,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     public void killTransaction(int transactionId) {
-
+        //TODO
     }
 
 //    public void remove
