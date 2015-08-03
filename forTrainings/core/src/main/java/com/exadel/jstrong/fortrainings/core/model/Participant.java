@@ -24,6 +24,10 @@ public class Participant {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Integer getSubscribeId() {
         return subscribeId;
     }

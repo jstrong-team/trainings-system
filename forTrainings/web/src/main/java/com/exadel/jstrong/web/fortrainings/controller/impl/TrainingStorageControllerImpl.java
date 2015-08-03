@@ -56,13 +56,15 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     public TrainingUI getTraining(int tId, int uId) {
         List<Meet> meets = mDAO.getMeetsByTrainingId(tId);
         int size = meets.size();
-        List<Date> dates = new ArrayList<>(size);
-        String date = "";
+        List<MeetUI> meetUIs = new ArrayList<>(size);
+        MeetUI meetUI = null;
         for (int i = 0; i < size; i++){
-            dates.add(meets.get(i).getDate());
+            meetUI = new MeetUI();
+            meetUI.setDate(meets.get(i).getDate());
+            meetUI.setId(meets.get(i).getId());
+            meetUIs.add(meetUI);
         }
         Training training = tDAO.getTrainingById(tId);
-        training.setDate(dates);
         training.setIsSubscribe(tDAO.isSubscribeById(uId, tId));
 
         String name = eDAO.getNameById(training.getTrainer_id());
@@ -70,7 +72,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         TrainingUI trainingUI = new TrainingUI(training.getId(), training.getName(), name, training.getAnnotation(),
                 training.getDescription(), training.getTarget(), training.isPaid(), training.getMax_participants(),
                 training.getPlace(), training.isInternal(), training.isApprove(), training.getTrainer_id(),
-                training.getDate(), training.isSubscribe());
+                meetUIs, training.isSubscribe());
         int rate = tDAO.getRate(training);
         trainingUI.setRate(rate);
         return trainingUI;
@@ -289,7 +291,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     public void killTransaction(int transactionId) {
-
+        //TODO
     }
 
 //    public void remove

@@ -23,9 +23,11 @@ public class DateMeetListSerializer extends JsonSerializer<List<MeetUI>> {
             meet = new SerializeMeetUI();
             meet.setId(m.getId());
             meet.setDate(formatter.format(m.getDate()));
+            serializeMeets.add(meet);
         }
 
         gen.writeObject(serializeMeets);
 
     }
+
 }

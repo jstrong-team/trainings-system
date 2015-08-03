@@ -11,5 +11,7 @@ public interface ParticipantDAO {
 
     void addParticipants(List<Participant> participants);
     void deleteParticipants(List<Participant> participants);
+    int contains(int subscribeId, int meetId);
+    int updateParticipant(Participant participant);
 
 }
