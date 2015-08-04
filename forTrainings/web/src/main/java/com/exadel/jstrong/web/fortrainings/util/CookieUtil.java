@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class CookieUtil {
 
-    public static final int ALLOW_DELAY = 4;
+    public static final int ALLOW_DELAY = 15*60;
 
     public static final String TOKEN = "token";
     public static final String SESSION = "session";
