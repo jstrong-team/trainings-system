@@ -85,13 +85,28 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
     @Override
     public int getSubscribeIdToWait(int trainingId) {
         try {
-            Integer id = (Integer)em.createNativeQuery("select id from subscribe where status='Approve' and training_id =:tId order by add_date desc limit 1").setParameter("tId", trainingId).getSingleResult();
-            return id;
+//            Integer id = (Integer)em.createNativeQuery("select id from subscribe where status='Approve' and training_id =:tId order by add_date desc limit 1").setParameter("tId", trainingId).getSingleResult();
+            return getSubscribeIdsToWait(trainingId, 1).get(0);
         } catch (Throwable e) {
             e.printStackTrace();
         }
         return 0;
     }
+
+    @Override
+    public List<Integer> getSubscribeIdsToWait(int trainingId, int count) {
+        try {
+            List<Integer> ids = em.createNativeQuery("select id from subscribe where status='Approve' and training_id =:tId order by add_date desc limit :amount")
+                    .setParameter("tId", trainingId)
+                    .setParameter("amount", count)
+                    .getResultList();
+            return ids;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<Integer>();
+    }
+
 
     @Override
     @Transactional

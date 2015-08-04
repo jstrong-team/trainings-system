@@ -258,52 +258,66 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
         int id = tDAO.updateTraining(data);
 
+        updateMeets(gson, transaction, id);
+
+        int countApprove = sDAO.getApproveCount(oldTrainingId);
+        if(countApprove > newMaxParticipant) {
+            unsubscribeUsers(newMaxParticipant, id, countApprove);
+        } else {
+            subscribeUsers(newMaxParticipant, id, countApprove);
+        }
+        return id;
+    }
+
+    private void subscribeUsers(int newMaxParticipant, int id, int countApprove) {
+        int count = newMaxParticipant - countApprove;
+        for(int i = 0; i < count; ++i) {
+
+            //TODO
+            List<Integer> meetIds = tDAO.getMeetIdsByTrainingId(id);
+            int subscribeId = sDAO.getSubscribeIdToApprove(id);
+            if(subscribeId != 0) {
+                List<Participant> participants = new ArrayList<>();
+                for (Integer integer : meetIds) {
+                    Participant p = new Participant();
+                    p.setSubscribeId(subscribeId);
+                    p.setMeetId(integer);
+                    participants.add(p);
+                }
+                participantDAO.addParticipants(participants);
+            }
+
+            sDAO.changeStatusToApprove(id);
+        }
+    }
+
+    private void unsubscribeUsers(int newMaxParticipant, int id, int countApprove) {
+        int count = countApprove - newMaxParticipant;
+
+        List<Integer> meetIds = tDAO.getMeetIdsByTrainingId(id);
+
+        for(int i = 0; i < count; ++i) {
+
+            int subscribeId = sDAO.getSubscribeIdToWait(id);
+            //TODO
+            if(subscribeId != 0) {
+                List<Participant> participants = sDAO.getParticipantsByMeetIds(subscribeId, meetIds);
+                participantDAO.deleteParticipants(participants);
+            }
+
+            sDAO.changeStatusToWait(id);
+        }
+    }
+
+    private void updateMeets(Gson gson, Transaction transaction, int id) {
         List<Transaction> meets = transactionDAO.getTransactionsByParent(transaction.getId());
         int size = meets.size();
         Meet meet = null;
         for(int i = 0; i < size; ++i) {
-            meet = new Meet();
             meet = gson.fromJson(meets.get(i).getJson(), Meet.class);
             meet.setTraining_id(id);
             mDAO.add(meet);
         }
-        int countApprove = sDAO.getApproveCount(oldTrainingId);
-        if(countApprove > newMaxParticipant) {
-            int count = countApprove - newMaxParticipant;
-            for(int i = 0; i < count; ++i) {
-
-                //TODO
-                List<Integer> meetIds = tDAO.getMeetIdsByTrainingId(id);
-                int subscribeId = sDAO.getSubscribeIdToWait(id);
-                if(subscribeId != 0) {
-                    List<Participant> participants = sDAO.getParticipantsByMeetIds(subscribeId, meetIds);
-                    participantDAO.deleteParticipants(participants);
-                }
-
-                sDAO.changeStatusToWait(id);
-            }
-        } else {
-            int count = newMaxParticipant - countApprove;
-            for(int i = 0; i < count; ++i) {
-
-                //TODO
-                List<Integer> meetIds = tDAO.getMeetIdsByTrainingId(id);
-                int subscribeId = sDAO.getSubscribeIdToApprove(id);
-                if(subscribeId != 0) {
-                    List<Participant> participants = new ArrayList<>();
-                    for (Integer integer : meetIds) {
-                        Participant p = new Participant();
-                        p.setSubscribeId(subscribeId);
-                        p.setMeetId(integer);
-                        participants.add(p);
-                    }
-                    participantDAO.addParticipants(participants);
-                }
-
-                sDAO.changeStatusToApprove(id);
-            }
-        }
-        return id;
     }
 
     @Override
@@ -347,8 +361,16 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         tDAO.changeStatus(trainingId);
     }
 
+    @Override
     public void killTransaction(int transactionId) {
         transactionDAO.killTransaction(transactionId);
+    }
+
+    @Override
+    public void updateParticipants(List<Participant> participants) {
+        for(Participant p: participants) {
+            participantDAO.updateParticipant(p);
+        }
     }
 
 }

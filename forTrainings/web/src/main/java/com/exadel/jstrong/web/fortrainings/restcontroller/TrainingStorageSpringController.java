@@ -1,6 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
 import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
+import com.exadel.jstrong.fortrainings.core.model.Participant;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
@@ -225,6 +226,15 @@ public class TrainingStorageSpringController {
             return tsci.getMeetReportUIs(employeeId);
         }
         return null;
+    }
+
+    @RequestMapping(value = "/updateAttendance", method = RequestMethod.POST)
+    public void updateParticipant(@RequestBody ParticipantUI participant, HttpServletRequest request, HttpServletResponse response) {
+        List<Participant> participants = participant.getParticipant();
+        int size = participants.size();
+        if(size != 0) {
+            tsci.updateParticipants(participants);
+        }
     }
 }
 
