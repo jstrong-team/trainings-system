@@ -114,6 +114,18 @@
             }
             getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                 $scope.subscribers = data.data;
+                var temp;
+                for(var i=0;i<$scope.subscribers.length;i++){
+                    temp=$scope.subscribers[i].participants;
+                    $scope.subscribers[i].participants=new Array($scope.training.meets.length);
+                    var index=0;
+                    for(var j=0;(j<$scope.training.meets.length)&&(index<temp.length);j++){
+                        if($scope.training.meets[j].id===temp[index].meetId){
+                            $scope.subscribers[i].participants[j]=temp[index];
+                            index++;
+                        }
+                    }
+                }
             }, function (error) {
                 console.log(error);
             });

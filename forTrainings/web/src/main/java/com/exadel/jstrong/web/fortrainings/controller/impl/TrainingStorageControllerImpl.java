@@ -161,6 +161,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<Subscribe> subscribers = tDAO.getSubscribers(tId);
         List<SubscriberUI> subscribersUI = new ArrayList<>();
         List<Integer> meetIds = tDAO.getMeetIdsByTrainingId(tId);
+        Collections.sort(meetIds);
         SubscriberUI subscriber = null;
         for (Subscribe s: subscribers){
             List<Participant> participants = sDAO.getParticipantsByMeetIds(s.getId(), meetIds);

@@ -64,20 +64,24 @@
             }
             getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                 $scope.subscribers=data.data;
-                console.log('subscribers');
+                //console.log('subscribers');
                 var temp;
+                debugger;
                 for(var i=0;i<$scope.subscribers.length;i++){
                     temp=$scope.subscribers[i].participants;
                     $scope.subscribers[i].participants=new Array($scope.training.meets.length);
                     var index=0;
                     for(var j=0;(j<$scope.training.meets.length)&&(index<temp.length);j++){
-                        if($scope.training.meets[j].id===temp[index].meetId){
-                            $scope.subscribers[i].participants[j]=temp[index];
-                            index++;
+                        for(var k=0;k<temp.length;k++)
+                        {
+                            if($scope.training.meets[j].id==temp[k].meetId){
+                                $scope.subscribers[i].participants[j]=temp[k];
+                                index++;
+                            }
                         }
                     }
                 }
-                console.log($scope.training);
+                //console.log($scope.training);
                 //debugger;
             }, function (error) {
                 console.error(error);
