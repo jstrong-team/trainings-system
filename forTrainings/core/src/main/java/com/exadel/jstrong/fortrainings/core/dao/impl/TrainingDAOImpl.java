@@ -231,7 +231,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public List<Integer> getMeetIdsByTrainingId(int trainingId) {
         try {
-            return em.createNativeQuery("SELECT id FROM meet WHERE training_id = :tId").setParameter("tId", trainingId).getResultList();
+            return (List<Integer>)em.createNativeQuery("SELECT id FROM meet WHERE training_id = :tId").setParameter("tId", trainingId).getResultList();
         } catch(Throwable e){
             logger.warn(e.toString());
             return new ArrayList<>();

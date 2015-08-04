@@ -185,7 +185,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     @Override
     public boolean deleteSuscriber(int userId, int trainingId) {
         int id = sDAO.contains(userId, trainingId);
-        List<Integer> meetIds = tDAO.getMeetIdsByTrainingId(id);
+        List<Integer> meetIds = tDAO.getMeetIdsByTrainingId(trainingId);
         List<Participant> participants = sDAO.getParticipantsByMeetIds(id, meetIds);
         participantDAO.deleteParticipants(participants);
 
