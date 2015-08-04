@@ -11,7 +11,7 @@
     </div>
     <div class="col-md-3"></div>
 
-    <div class="reportTable" id="printableArea" ng-if="selectedEmployee">
+    <div class="reportTable" id="printableArea" ng-show="selectedEmployee">
         <h4 class="selectedEmployee well">{{selectedEmployee}}</h4>
         <div class="col-md-2"></div>
         <table class="col-md-8 table table-striped table-bordered table-hover">
@@ -27,16 +27,19 @@
                 <tr ng-repeat="item in employeeInfo">
                     <td>{{item.trainingName}}</td>
                     <td>{{item.date}}</td>
-                    <td>{{item.absent}}</td>
+                    <td>{{ item.absent | translate }}</td>
                     <td>{{item.reason}}</td>
                 </tr>
             </tbody>
         </table>
         <div class="col-md-2"></div>
-
     </div>
 
-    <button ng-if="selectedEmployee" type="button" class="btn btn-md printButton" ng-click="printService('printableArea')">
+    <div class="noReports col-md-12" ng-show="noReportFound">
+        <h2 class="text-center newsTitle"><small>{{ 'REPORTS_NO_RESULTS' | translate }}</small></h2>
+    </div>
+
+    <button ng-show="selectedEmployee" type="button" class="btn btn-md printButton" ng-click="printService('printableArea')">
         <span class="glyphicon glyphicon-print"></span>
         {{ 'REPORTS_PRINT' | translate }}
     </button>

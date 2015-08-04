@@ -11,12 +11,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 
 public class AuthenticationFilterV2 extends OncePerRequestFilter {
 
     public static final String COOKIE_TOKEN = "token";
+    public static final String COOKIE_SESSION = "session";
     public static final String UI_PATH = "/ui";
 
     @Autowired
@@ -45,7 +47,16 @@ public class AuthenticationFilterV2 extends OncePerRequestFilter {
             authorized = isBaseUrl;
         } else {
             Cookie token = cookieMap.get(COOKIE_TOKEN);
+            Cookie session = cookieMap.get(COOKIE_SESSION);
             isCorrect = (token != null && ec.checkToken(token.getValue()));
+
+            if (!isCorrect){
+                isCorrect = (session != null && ec.checkSession(session.getValue()));
+                if (isCorrect) {
+                    ec.updateDateBySession(session.getValue(), new Date());
+                    isCorrect = CookieUtil.checkDate(ec.getDateBySession(session.getValue()), new Date());
+                }
+            }
 
             if(isBaseUrl){
                 if(isCorrect) {

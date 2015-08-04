@@ -11,3 +11,17 @@
 .dropDownButton {
     background-color: #2E729F;
 }
+
+.jumbotronNews {
+    background-color: rgba(228, 228, 228, 0.100);
+    border: 1px solid lavender;
+}
+
+.historyNews {
+    margin-bottom: 10px;
+}
+
+.historyDate {
+    float: right;
+    padding-left: 10px;
+}
