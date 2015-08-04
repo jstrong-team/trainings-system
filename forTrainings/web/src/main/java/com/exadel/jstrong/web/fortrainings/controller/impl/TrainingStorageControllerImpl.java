@@ -33,6 +33,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     private EmployeeDAO eDAO;
     @Autowired
     private TransactionDAO transactionDAO;
+    @Autowired
+    private ParticipantDAO participantDAO;
 
     @Override
     @Transactional
@@ -85,7 +87,17 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
     @Override
     public int addSubscriber(Subscribe s) {
-        return sDAO.addSubscribe(s);
+        List<Integer> meetIds = tDAO.getMeetIdsByTrainingId(s.getTrainingId());
+        List<Participant> participants = new ArrayList<>();
+        int id = sDAO.addSubscribe(s);
+        for(Integer i: meetIds) {
+            Participant p = new Participant();
+            p.setSubscribeId(id);
+            p.setMeetId(i);
+            participants.add(p);
+        }
+        participantDAO.addParticipants(participants);
+        return id;
     }
 
     @Override
@@ -145,9 +157,11 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     public List<SubscriberUI> getSubscribers(int uId, int tId) {
         List<Subscribe> subscribers = tDAO.getSubscribers(tId);
         List<SubscriberUI> subscribersUI = new ArrayList<>();
+        List<Integer> meetIds = tDAO.getMeetIdsByTrainingId(tId);
         SubscriberUI subscriber = null;
         for (Subscribe s: subscribers){
-            subscriber = new SubscriberUI(s.getId(), eDAO.getNameById(s.getEmployeeId()), s.getStatus(), s.getAddDate());
+            List<Participant> participants = sDAO.getParticipantsByMeetIds(s.getId(), meetIds);
+            subscriber = new SubscriberUI(s.getId(), eDAO.getNameById(s.getEmployeeId()), s.getStatus(), s.getAddDate(), participants);
             if("deleted".compareToIgnoreCase(subscriber.getStatus()) == 0) {
                 if(eDAO.isAdmin(uId)) {
                     subscribersUI.add(subscriber);
@@ -168,6 +182,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     @Override
     public boolean deleteSuscriber(int userId, int trainingId) {
         if(sDAO.removeSubscriber(userId, trainingId) && sDAO.changeStatusToApprove(trainingId)) {
+
             return true;
         } else {
             return false;

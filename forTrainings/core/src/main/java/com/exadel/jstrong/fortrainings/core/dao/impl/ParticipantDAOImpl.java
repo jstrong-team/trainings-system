@@ -25,10 +25,12 @@ public class ParticipantDAOImpl extends BaseDAO<Participant> implements Particip
     }
 
     @Override
+    @Transactional
     public void deleteParticipants(List<Participant> participants) {
         deleteAll(participants);
     }
 
+    @Override
     public int contains(int subscribeId, int meetId) {
         try {
             CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -45,6 +47,8 @@ public class ParticipantDAOImpl extends BaseDAO<Participant> implements Particip
         }
     }
 
+    @Override
+    @Transactional
     public int updateParticipant(Participant participant) {
         int id = contains(participant.getSubscribeId(), participant.getMeetId());
         if (id != 0) {
@@ -52,4 +56,7 @@ public class ParticipantDAOImpl extends BaseDAO<Participant> implements Particip
         }
         return super.update(participant).getId();
     }
+
+
+
 }
