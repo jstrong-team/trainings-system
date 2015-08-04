@@ -68,10 +68,10 @@ public class Sender {
             for (String email : emails) {
                 try {
                     message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+                    Transport.send(message);
                 } catch (Throwable e) {
                     logger.warn("Message didn't send");
                 }
-                Transport.send(message);
             }
             return true;
         } catch (Throwable e) {

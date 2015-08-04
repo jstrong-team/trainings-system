@@ -6,6 +6,7 @@ import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
 import com.exadel.jstrong.web.fortrainings.model.SearchEventUI;
 import com.exadel.jstrong.web.fortrainings.model.TrainingsUI;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
+import com.exadel.jstrong.web.fortrainings.services.RestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,13 +32,14 @@ public class TrainingsSpringController {
     private EmployeeController ec;
     @Autowired
     private TrainingsController trainingsController;
+    @Autowired
+    private RestService restService;
 
     //TODO: replace e.printStackTrace --> logger.warn/error
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody TrainingsUI getHistory(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-            int id = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
+            int id = restService.getUserId(request);
             TrainingsUI trainingsUI = trainingsController.getAllTrainings(id);
             if(trainingsUI == null) {
                 response.sendError(HttpServletResponse.SC_NO_CONTENT, "No data about events in db");

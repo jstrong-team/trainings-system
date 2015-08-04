@@ -5,14 +5,12 @@ import com.exadel.jstrong.web.fortrainings.controller.EmployeeNoticeController;
 import com.exadel.jstrong.web.fortrainings.model.CompleteMarkUI;
 import com.exadel.jstrong.web.fortrainings.model.NoticeCountUI;
 import com.exadel.jstrong.web.fortrainings.model.NoticesUI;
-import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
+import com.exadel.jstrong.web.fortrainings.services.RestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 /**
  * Created by stas on 30.07.15.
@@ -29,12 +27,14 @@ public class EmployeeNoticeSpringController {
     @Autowired
     private EmployeeNoticeController employeeNoticeController;
 
+    @Autowired
+    private RestService restService;
+
     @RequestMapping(value = "/badgeCount", method = RequestMethod.GET)
     public @ResponseBody NoticeCountUI getNoticeCount(HttpServletRequest request, HttpServletResponse response) {
         NoticeCountUI n = null;
         try {
-            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-            int id = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
+            int id = restService.getUserId(request);
             n = employeeNoticeController.getNoticeCount(id);
         } catch(Throwable e){
             e.printStackTrace();
@@ -47,8 +47,7 @@ public class EmployeeNoticeSpringController {
     NoticesUI getEmployeeNotices(HttpServletRequest request, HttpServletResponse response) {
         NoticesUI notices = null;
         try {
-            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-            int id = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
+            int id = restService.getUserId(request);
             int count = Integer.parseInt(request.getParameter("count"));
             int page = Integer.parseInt(request.getParameter("page"));
             notices = employeeNoticeController.getEmployeeNotices(id, count, page);
@@ -61,8 +60,7 @@ public class EmployeeNoticeSpringController {
     @RequestMapping(value = "/complete", method = RequestMethod.POST)
     public void markAsComplete(@RequestBody CompleteMarkUI mark, HttpServletRequest request, HttpServletResponse response) {
         try {
-            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-            int id = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
+            int id = restService.getUserId(request);
             if(!employeeNoticeController.markNoticeAsComplete(id, mark.getId())){
                 response.setStatus(HttpServletResponse.SC_CONFLICT);
             }

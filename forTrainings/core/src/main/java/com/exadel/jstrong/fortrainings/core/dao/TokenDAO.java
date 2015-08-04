@@ -18,4 +18,8 @@ public interface TokenDAO extends GenericDAO<Token> {
     Date getDateBySession(String session);
     Token getTokenBySession(String session);
     void updateDate(int id, Date date);
+    Token getTokenById(int id);
+    void addToken(Token token);
+    void deleteToken(Token token);
+    void updatePathById(int id, String path);
 }

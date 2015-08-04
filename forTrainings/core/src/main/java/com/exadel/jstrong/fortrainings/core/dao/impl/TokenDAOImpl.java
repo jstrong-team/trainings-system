@@ -118,4 +118,33 @@ public class TokenDAOImpl extends BaseDAO<Token> implements TokenDAO {
             return new Date(0);
         }
     }
+
+    @Override
+    @Transactional
+    public void addToken(Token token) {
+        save(token);
+    }
+
+    @Override
+    @Transactional
+    public void deleteToken(Token token) {
+        delete(token);
+    }
+
+    @Override
+    @Transactional
+    public void updatePathById(int id, String path) {
+        Token token = getTokenById(id);
+        token.setPath(path);
+        em.merge(token);
+    }
+
+    @Override
+    public Token getTokenById(int id) {
+        try {
+            return getById(Token.class, id);
+        } catch (Throwable e) {
+            return null;
+        }
+    }
 }

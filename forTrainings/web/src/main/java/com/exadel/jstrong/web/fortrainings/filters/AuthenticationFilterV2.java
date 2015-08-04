@@ -1,5 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.filters;
 
+import com.exadel.jstrong.fortrainings.core.dao.TokenDAO;
+import com.exadel.jstrong.fortrainings.core.model.Token;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 import java.util.Map;
 
 
@@ -23,6 +24,8 @@ public class AuthenticationFilterV2 extends OncePerRequestFilter {
 
     @Autowired
     private EmployeeController ec;
+    @Autowired
+    private TokenDAO tokenDAO;
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -48,25 +51,24 @@ public class AuthenticationFilterV2 extends OncePerRequestFilter {
         } else {
             Cookie token = cookieMap.get(COOKIE_TOKEN);
             Cookie session = cookieMap.get(COOKIE_SESSION);
-            isCorrect = (token != null && ec.checkToken(token.getValue()));
 
-            if (!isCorrect){
-                isCorrect = (session != null && ec.checkSession(session.getValue()));
-                if (isCorrect) {
-                    isCorrect = CookieUtil.checkDate(ec.getDateBySession(session.getValue()), new Date());
-                }
+            if (session != null && ec.checkSession(session.getValue())){
+                isCorrect = true;
+                session.setMaxAge(CookieUtil.ALLOW_DELAY);
+                session.setPath("/");
+                response.addCookie(session);
+            } else {
+                isCorrect = (token != null && ec.checkToken(token.getValue()));
             }
 
-            if(isBaseUrl){
-                if(isCorrect) {
-                    ec.updateDateBySession(session.getValue(), new Date());
+            if (isBaseUrl) {
+                if (isCorrect) {
                     redirectUrl = "/ui/trainings";
                 } else {
                     authorized = true;
                 }
             } else {
-                if(isCorrect) {
-                    ec.updateDateBySession(session.getValue(), new Date());
+                if (isCorrect) {
                     authorized = true;
                 } else {
                     redirectUrl = UI_PATH;
@@ -96,18 +98,31 @@ public class AuthenticationFilterV2 extends OncePerRequestFilter {
 
     /**
      * Checks whether the session for the current cookie is valid
+     *
      * @param tokenCookie the cookie with id token (JSESSIONID now)
      * @return true if session is valid and false otherwise
      */
-    private boolean checkSessionFor(Cookie tokenCookie) { return true; }
+    private boolean checkSessionFor(Cookie tokenCookie) {
+        return true;
+    }
 
     /**
      * Checks whether the token for the current cookie is valid
+     *
      * @param remMeCookie the cookie with rememberMe token
      * @return true if remember token is valid and false otherwise
      */
     private boolean checkIsRemembered(Cookie remMeCookie) {
         return true;
+    }
+
+    private String saveSessionPath(String url) {
+        String session = CookieUtil.generateToken();
+        Token token = new Token();
+        token.setSession(session);
+        token.setPath(url);
+        tokenDAO.addToken(token);
+        return session;
     }
 
     @Override
