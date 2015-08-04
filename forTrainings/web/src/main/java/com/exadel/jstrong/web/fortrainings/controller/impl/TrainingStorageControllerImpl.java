@@ -393,7 +393,12 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         mergedTraining.setNewMax_participants(transactionTraining.getMax_participants());
         mergedTraining.setOldInternal(training.isInternal());
         mergedTraining.setNewInternal(transactionTraining.isInternal());
-        mergedTraining.setOldDates(training.getDate());
+        List<Meet> meets = mDAO.getMeetsByTrainingId(training.getId());
+        List<Date> dates = new ArrayList<>();
+        for(Meet m: meets) {
+            dates.add(m.getDate());
+        }
+        mergedTraining.setOldDates(dates);
         mergedTraining.setNewDates(transactionTraining.getDate());
 
         return mergedTraining;
