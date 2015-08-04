@@ -10,7 +10,8 @@
         'openModalService',
         'unsubscribeService',
         '$route',
-        'subscribeService'
+        'subscribeService',
+        'attendanceSendService'
     ];
     var controller =function ($scope,
                               $q,
@@ -22,7 +23,8 @@
                               openModalService,
                               unsubscribeService,
                               $route,
-                              subscribeService) {
+                              subscribeService,
+                              attendanceSendService) {
 
         $scope.isCollapsed = {
             dates: true,
@@ -65,6 +67,10 @@
             }, function (error) {
                 console.log(error);
             });
+        };
+
+        $scope.acceptAttendanceChanges=function(){
+            attendanceSendService($scope.training.id);
         };
 
         $scope.openModal=function(){
@@ -117,7 +123,21 @@
         }).then(function(id){
             getSubscribersService(id).then(function(data, status, headers, config){
                 $scope.subscribers = data.data;
-                //console.log($scope.subscribers);
+                var temp;
+                for(var i=0;i<$scope.subscribers.length;i++){
+                    temp=$scope.subscribers[i].participants;
+                    $scope.subscribers[i].participants=new Array($scope.training.meets.length);
+                    var index=0;
+                    for(var j=0;(j<$scope.training.meets.length)&&(index<temp.length);j++){
+                        for(var k=0;k<temp.length;k++)
+                        {
+                            if($scope.training.meets[j].id==temp[k].meetId){
+                                $scope.subscribers[i].participants[j]=temp[k];
+                                index++;
+                            }
+                        }
+                    }
+                }
             },function(reject){
                 console.error(reject);
             });

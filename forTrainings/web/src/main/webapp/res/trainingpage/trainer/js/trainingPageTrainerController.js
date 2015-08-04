@@ -66,7 +66,6 @@
                 $scope.subscribers=data.data;
                 //console.log('subscribers');
                 var temp;
-                debugger;
                 for(var i=0;i<$scope.subscribers.length;i++){
                     temp=$scope.subscribers[i].participants;
                     $scope.subscribers[i].participants=new Array($scope.training.meets.length);

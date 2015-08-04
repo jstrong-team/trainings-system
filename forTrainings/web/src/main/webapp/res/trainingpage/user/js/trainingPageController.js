@@ -120,9 +120,12 @@
                     $scope.subscribers[i].participants=new Array($scope.training.meets.length);
                     var index=0;
                     for(var j=0;(j<$scope.training.meets.length)&&(index<temp.length);j++){
-                        if($scope.training.meets[j].id===temp[index].meetId){
-                            $scope.subscribers[i].participants[j]=temp[index];
-                            index++;
+                        for(var k=0;k<temp.length;k++)
+                        {
+                            if($scope.training.meets[j].id==temp[k].meetId){
+                                $scope.subscribers[i].participants[j]=temp[k];
+                                index++;
+                            }
                         }
                     }
                 }
