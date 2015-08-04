@@ -18,6 +18,10 @@
 
 #employeeInput,
 .reportTable {
-    -webkit-transition:all linear 0.5s;
-    transition:all linear 0.5s;
+    -webkit-transition: all linear 0.5s;
+    transition: all linear 0.5s;
+}
+
+.noReports {
+    padding-top: 10%;
 }

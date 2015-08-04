@@ -110,3 +110,33 @@ hr {
 .willGo {
     background-color: palegreen;
 }
+
+.pastMeetings {
+    font-size: 30px;
+    padding-left: 2.5%;
+}
+
+.pastMeetings li {
+    color: #2E729F;
+}
+
+.pastMeetings div {
+    font-size: 16px;
+}
+
+.pastMeetings h3 {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.pastMeetings h4 {
+    margin: 0px;
+}
+
+.pastMeetings a {
+    color: #032539;
+}
+
+.pastMeetings a:hover {
+    color: #2E729F;
+}

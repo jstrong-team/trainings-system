@@ -68,12 +68,15 @@
             </div>
             <div class="col-md-3">
                 <div class="dateTime">
-                    <span class="glyphicon glyphicon-calendar" style="color: grey"></span> {{training.dateTime[0]}} {{training.year[0]}}
+                    <span class="glyphicon glyphicon-calendar" style="color: grey"></span> {{training.dateNum[0]}} {{ training.month[0] | translate }} {{training.year[0]}}
                     <span class="glyphicon glyphicon-time" style="color: grey"></span> {{training.time[0]}}
                 </div>
-                <div class="dateTime" ng-if="training.dateTime[1]">
-                    <span class="glyphicon glyphicon-calendar" style="color: grey"></span> {{training.dateTime[1]}} {{training.year[1]}}
-                    <span class="glyphicon glyphicon-time" style="color: grey"></span> {{training.time[1]}}
+                <div class="dateTime" ng-if="training.dateNum[1]">
+                    <span class="glyphicon glyphicon-calendar" style="color: grey"></span>
+                    {{training.dateNum[training.dates.length - 1]}}
+                    {{ training.month[training.dates.length - 1] | translate }}
+                    {{training.year[training.dates.length - 1]}}
+                    <span class="glyphicon glyphicon-time" style="color: grey"></span> {{training.time[training.dates.length - 1]}}
                 </div>
             </div>
         </div>

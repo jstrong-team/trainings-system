@@ -2,15 +2,15 @@
 
     var services = [
         '$scope',
-        '$http'
+        '$http',
+        'reportInfoFormat'
     ];
 
-    var controller = function ($scope, $http) {
+    var controller = function ($scope, $http, reportInfoFormat) {
 
         $http.get('/rest/trainings/users').then(
             function(data){
                 $scope.employeeList = data.data;
-                console.log($scope.employeeList);
             },
             function(data, status){
                 console.log(status);
@@ -20,14 +20,21 @@
             var obj = JSON.parse($scope.item);
             var id = obj.id;
             var name = obj.name;
-            $scope.selectedEmployee = name;
             var elem = document.getElementById('employeeInput');
             elem.style.paddingTop = '0px';
 
             $http.get('/rest/storagetraining/getReport?id=' + id).then(
                 function(data){
-                    $scope.employeeInfo = data.data;
-                    console.log($scope.employeeInfo);
+                    $scope.employeeInfo = reportInfoFormat(data.data);
+
+                    if ($scope.employeeInfo.length !== 0) {
+                        $scope.selectedEmployee = name;
+                        $scope.noReportFound = null;
+                    } else {
+                        $scope.selectedEmployee = null;
+                        $scope.noReportFound = true;
+                    }
+
                 },
                 function(data, status){
                     console.log(status);
