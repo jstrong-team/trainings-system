@@ -45,6 +45,17 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
         return false;
     }
 
+    @Override
+    public int getSubscribeIdToApprove(int trainingId) {
+        try {
+            Integer id = (Integer)em.createNativeQuery("select id from subscribe set where status='Wait' and training_id =:tId order by add_date limit 1").setParameter("tId", trainingId).getSingleResult();
+            return id;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     @Transactional
@@ -65,6 +76,17 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
             Query query = em.createNativeQuery("select * from subscribe where training_id =:tId and status='Approve'").setParameter("tId", trainingId);
             int count = query.getResultList().size();
             return count;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public int getSubscribeIdToWait(int trainingId) {
+        try {
+            Integer id = (Integer)em.createNativeQuery("select id from subscribe where status='Approve' and training_id =:tId order by add_date desc limit 1").setParameter("tId", trainingId).getSingleResult();
+            return id;
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -162,4 +184,6 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
         }
         return null;
     }
+
+//    public Integer get
 }

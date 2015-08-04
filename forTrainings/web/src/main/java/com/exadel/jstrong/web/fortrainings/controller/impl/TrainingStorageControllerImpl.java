@@ -89,14 +89,17 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     public int addSubscriber(Subscribe s) {
         List<Integer> meetIds = tDAO.getMeetIdsByTrainingId(s.getTrainingId());
         List<Participant> participants = new ArrayList<>();
+        String status = s.getStatus();
         int id = sDAO.addSubscribe(s);
-        for(Integer i: meetIds) {
-            Participant p = new Participant();
-            p.setSubscribeId(id);
-            p.setMeetId(i);
-            participants.add(p);
+        if(status.compareToIgnoreCase("approve") == 0) {
+            for (Integer i : meetIds) {
+                Participant p = new Participant();
+                p.setSubscribeId(id);
+                p.setMeetId(i);
+                participants.add(p);
+            }
+            participantDAO.addParticipants(participants);
         }
-        participantDAO.addParticipants(participants);
         return id;
     }
 
@@ -181,6 +184,23 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
     @Override
     public boolean deleteSuscriber(int userId, int trainingId) {
+        int id = sDAO.contains(userId, trainingId);
+        List<Integer> meetIds = tDAO.getMeetIdsByTrainingId(trainingId);
+        List<Participant> participants = sDAO.getParticipantsByMeetIds(id, meetIds);
+        participantDAO.deleteParticipants(participants);
+
+        int subscribeId = sDAO.getSubscribeIdToApprove(id);
+        if(subscribeId != 0) {
+            List<Participant> participantsToAdd = new ArrayList<>();
+            for (Integer integer : meetIds) {
+                Participant p = new Participant();
+                p.setSubscribeId(subscribeId);
+                p.setMeetId(integer);
+                participantsToAdd.add(p);
+            }
+            participantDAO.addParticipants(participantsToAdd);
+        }
+
         if(sDAO.removeSubscriber(userId, trainingId) && sDAO.changeStatusToApprove(trainingId)) {
 
             return true;
@@ -234,8 +254,6 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         int newMaxParticipant = data.getMax_participants();
         Hibernate.initialize(data);
         data.setApprove(true);
-        Training oldTraining = tDAO.getTrainingById(oldTrainingId);
-//        int oldMaxParticipant = oldTraining.getMax_participants();
         mDAO.removeMeets(oldTrainingId);
 
         int id = tDAO.updateTraining(data);
@@ -253,11 +271,35 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         if(countApprove > newMaxParticipant) {
             int count = countApprove - newMaxParticipant;
             for(int i = 0; i < count; ++i) {
+
+                //TODO
+                List<Integer> meetIds = tDAO.getMeetIdsByTrainingId(id);
+                int subscribeId = sDAO.getSubscribeIdToWait(id);
+                if(subscribeId != 0) {
+                    List<Participant> participants = sDAO.getParticipantsByMeetIds(subscribeId, meetIds);
+                    participantDAO.deleteParticipants(participants);
+                }
+
                 sDAO.changeStatusToWait(id);
             }
         } else {
             int count = newMaxParticipant - countApprove;
             for(int i = 0; i < count; ++i) {
+
+                //TODO
+                List<Integer> meetIds = tDAO.getMeetIdsByTrainingId(id);
+                int subscribeId = sDAO.getSubscribeIdToApprove(id);
+                if(subscribeId != 0) {
+                    List<Participant> participants = new ArrayList<>();
+                    for (Integer integer : meetIds) {
+                        Participant p = new Participant();
+                        p.setSubscribeId(subscribeId);
+                        p.setMeetId(integer);
+                        participants.add(p);
+                    }
+                    participantDAO.addParticipants(participants);
+                }
+
                 sDAO.changeStatusToApprove(id);
             }
         }
@@ -306,8 +348,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     public void killTransaction(int transactionId) {
-        //TODO
+        transactionDAO.killTransaction(transactionId);
     }
 
-//    public void remove
 }
