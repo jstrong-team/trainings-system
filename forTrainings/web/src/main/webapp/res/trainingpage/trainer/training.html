@@ -25,6 +25,9 @@
             <div class="breakText">
                 <span>Target audience:<br></span>{{training.target}}
             </div>
+            <div class="breakText">
+                <span>Max participants:<br></span>{{training.max_participants}}
+            </div>
 
             <div class="breakText">
                 <span>Participants:</span>
@@ -66,7 +69,7 @@
                                     <td>{{subscriber.status}}</td>
                                     <td table-catch-directive ng-repeat="meet in training.meets"
                                         class="{{subscriber.id+' '+meet.id}}"
-                                        data-toggle="tooltip" title="">
+                                        data-toggle="tooltip" title="">{{subscriber.participants[$index].meetId}}
                                     </td>
                                 </tr>
                             </table>
@@ -74,10 +77,13 @@
                     </td>
                 </tr>
             </table>
+            <div class="breakText ">
+                <button type="button" class="btn  editDatesButton " ng-click="acceptAttendanceChanges()">Accept changes</button>
+            </div>
 
 
             <div class="breakText ">
-                <span>Coments:</span>
+                <span>Comments:</span>
             </div>
             <div class="panel panel-default " ng-repeat="coment in feedbacks">
                 <table class="table" >
@@ -179,7 +185,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>subscriber</th>
-                                <th></th>
+                                <th>state</th>
                             </tr>
                             <tr ng-repeat="subscriber in subscribers">
                                 <td>

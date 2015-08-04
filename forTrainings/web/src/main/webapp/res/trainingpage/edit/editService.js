@@ -3,6 +3,7 @@ angular.module('trainingEditModule').factory('editService', ['$http', function($
         $http.put('/rest/storagetraining/editTraining?id='+id, editInfo).catch(function(error){
             console.error(error);
         });
+        //console.log(editInfo);
     };
     return edit;
 }]);

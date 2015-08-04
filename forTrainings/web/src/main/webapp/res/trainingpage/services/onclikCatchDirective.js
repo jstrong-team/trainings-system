@@ -6,9 +6,9 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
              var clickObj;
              if(element.text()!==text){
                  clickObj={
-                     id:list[0],
+                     subscribeId:list[0],
                      meetId:list[1],
-                     isAbsent:true,
+                     absent:true,
                      reason:''
                  };
                  element.text(text);
@@ -17,13 +17,14 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
                  element.attr('title',clickObj.reason);
              }else {
                  clickObj={
-                     id:list[0],
+                     subscribeId:list[0],
                      meetId:list[1],
-                     isAbsent:false,
+                     absent:false,
                      reason:''
                  };
                  element.text('');
                  storageService.delete(clickObj);
+                 storageService.set(clickObj);
                  console.log(storageService.get());
                  element.attr('title',clickObj.reason);
              }
@@ -34,9 +35,9 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
              var clickObj;
              if(element.text()!==text){
                  clickObj={
-                     id:list[0],
+                     subscribeId:list[0],
                      meetId:list[1],
-                     isAbsent:true,
+                     absent:true,
                      reason:''
                  };
                  var modalInstance =$modal.open({
@@ -55,9 +56,9 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
                  });
              }else {
                  clickObj={
-                     id:list[0],
+                     subscribeId:list[0],
                      meetId:list[1],
-                     isAbsent:false,
+                     absent:false,
                      reason:''
                  };
                  element.text('');

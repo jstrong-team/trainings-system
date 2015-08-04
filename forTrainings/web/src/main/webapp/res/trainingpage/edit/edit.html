@@ -44,9 +44,9 @@
                     <input type="button" class="btn editDatesButton dateInputButton" value="{{showInput}} dates list" ng-click="changeCollapse(isCollapsed)"/>
                 </div>
                 <div collapse="isCollapsed">
-                    <div class="col-md-8 col-md-offset-4 dateInputField"  ng-repeat="curdate in editInfo.dates track by $index">
+                    <div class="col-md-8 col-md-offset-4 dateInputField"  ng-repeat="curdate in editInfo.meets track by $index">
                         <div class="col-md-8 dateEditInput">
-                            <input class="form-control" ng-model="editInfo.dates[$index]"/>
+                            <input class="form-control" ng-model="editInfo.meets[$index].date"/>
                         </div>
                         <div class="col-md-2">
                             <input type="button" class="btn btn-default" value="+" ng-click="addDate($index)"/>

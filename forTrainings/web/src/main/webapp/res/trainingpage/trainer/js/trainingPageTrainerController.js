@@ -4,13 +4,15 @@
         '$location',
         'getTrainingInfo',
         'getSubscribersService',
-        'getFeedbacksService'
+        'getFeedbacksService',
+        'attendanceSendService'
     ];
     var controller=function($scope,
                             $location,
                             getTrainingInfo,
                             getSubscribersService,
-                            getFeedbacksService) {
+                            getFeedbacksService,
+                            attendanceSendService) {
 
         $scope.isCollapsed = {
             dates: true,
@@ -22,6 +24,9 @@
             dates: 'Show'
         };
 
+        $scope.acceptAttendanceChanges=function(){
+            attendanceSendService($scope.training.id);
+        };
 
         $scope.changeCollapse = {
             dates: function () {
@@ -59,6 +64,8 @@
             }
             getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                 $scope.subscribers=data.data;
+                console.log('subscribers');
+                console.log($scope.subscribers);
             }, function (error) {
                 console.error(error);
             });
