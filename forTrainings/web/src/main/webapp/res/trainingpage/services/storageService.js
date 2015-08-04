@@ -7,7 +7,7 @@ angular.module('trainingPageModule').factory('storageService', ['$http', functio
         array.push(click);
     };
     service.get=function(){
-        return angular.copy(array);
+        return {participant:array};
     };
     service.delete=function(click){
         for(var i=array.length-1;i>=0;i--){

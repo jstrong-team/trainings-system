@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -230,8 +231,21 @@ public class TrainingStorageSpringController {
 
     @RequestMapping(value = "/updateAttendance", method = RequestMethod.POST)
     public void updateParticipant(@RequestBody ParticipantUI participant, HttpServletRequest request, HttpServletResponse response) {
+//        try {
+//            BufferedReader br = request.getReader();
+//            StringBuilder sb = new StringBuilder();
+//            String line;
+//            while((line = br.readLine()) != null) {
+//                sb.append(line);
+//            }
+//            String data = sb.toString();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+//        ParticipantUI participant = new ParticipantUI();
         List<Participant> participants = participant.getParticipant();
-        int size = participants.size();
+            int size = participants.size();
         if(size != 0) {
             tsci.updateParticipants(participants);
         }

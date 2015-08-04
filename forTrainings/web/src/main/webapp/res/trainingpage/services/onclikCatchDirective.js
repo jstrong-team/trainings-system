@@ -4,7 +4,8 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
          element.on('click', function (event) {
              var list=event.target.classList;
              var clickObj;
-             if(element.text()!==text){
+             var a = element.text().replace(/(\r\n|\n|\r)/gm,"");
+             if(a!==text){
                  clickObj={
                      subscribeId:list[0],
                      meetId:list[1],
@@ -16,6 +17,7 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
                  console.log(storageService.get());
                  element.attr('title',clickObj.reason);
              }else {
+                 console.log(element.text().valueOf());
                  clickObj={
                      subscribeId:list[0],
                      meetId:list[1],
@@ -29,11 +31,9 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
                  element.attr('title',clickObj.reason);
              }
          });
-
          element.on('dblclick', function (event) {
              var list=event.target.classList;
              var clickObj;
-             if(element.text()!==text){
                  clickObj={
                      subscribeId:list[0],
                      meetId:list[1],
@@ -54,18 +54,6 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
                      storageService.set(clickObj);
                      //console.log(storageService.get());
                  });
-             }else {
-                 clickObj={
-                     subscribeId:list[0],
-                     meetId:list[1],
-                     absent:false,
-                     reason:''
-                 };
-                 element.text('');
-                 console.log(storageService.get());
-                 element.attr('title',clickObj.reason);
-                 storageService.delete(clickObj);
-             }
          });
 
 

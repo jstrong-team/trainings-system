@@ -69,8 +69,7 @@
                                     <td>{{subscriber.status}}</td>
                                     <td table-catch-directive ng-repeat="meet in training.meets"
                                         class="{{subscriber.id+' '+meet.id}}"
-                                        data-toggle="tooltip" title="">{{subscriber.participants[$index].meetId}}
-                                    </td>
+                                        data-toggle="tooltip" title="{{subscriber.participants[$index].reason}}">{{subscriber.participants[$index].absent|attendanceFilter}}</td>
                                 </tr>
                             </table>
                         </div>
