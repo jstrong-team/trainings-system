@@ -2,6 +2,9 @@ package com.exadel.jstrong.web.fortrainings.model;
 
 import com.exadel.jstrong.fortrainings.core.jsonutil.DateDeserializer;
 import com.exadel.jstrong.fortrainings.core.jsonutil.DateListSerializer;
+import com.exadel.jstrong.fortrainings.core.model.Meet;
+import com.exadel.jstrong.web.fortrainings.util.jsonutil.DateMeetListDeserializer;
+import com.exadel.jstrong.web.fortrainings.util.jsonutil.DateMeetListSerializer;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -26,7 +29,7 @@ public class TrainingUI {
     private Boolean interested;
     private Boolean approve;
     private Integer trainer_id;
-    private List<Date> dates;
+    private List<MeetUI> meets;
     private Boolean isSubscribe;
     private Integer rate;
 
@@ -38,7 +41,7 @@ public class TrainingUI {
         this.trainerName = trainerName;
     }
 
-    public TrainingUI(Integer id, String name, String trainerName, String annotation, String description, String target, Boolean paid, Integer max_participants, String place, Boolean interested, Boolean approve, Integer trainer_id, List<Date> dates, Boolean isSubscribe) {
+    public TrainingUI(Integer id, String name, String trainerName, String annotation, String description, String target, Boolean paid, Integer max_participants, String place, Boolean interested, Boolean approve, Integer trainer_id, List<MeetUI> meetUIs, Boolean isSubscribe) {
         this.id = id;
         this.name = name;
         this.trainerName = trainerName;
@@ -51,7 +54,7 @@ public class TrainingUI {
         this.interested = interested;
         this.approve = approve;
         this.trainer_id = trainer_id;
-        this.dates = dates;
+        this.meets = meetUIs;
         this.isSubscribe = isSubscribe;
     }
 
@@ -143,14 +146,14 @@ public class TrainingUI {
         this.trainer_id = trainer_id;
     }
 
-    @JsonSerialize(using= DateListSerializer.class)
-    public List<Date> getdates() {
-        return dates;
+    @JsonSerialize(using= DateMeetListSerializer.class)
+    public List<MeetUI> getMeets() {
+        return meets;
     }
 
-    @JsonDeserialize(using= DateDeserializer.class)
-    public void setdates(List<Date> dates) {
-        this.dates = dates;
+    @JsonDeserialize(using= DateMeetListDeserializer.class)
+    public void setdates(List<MeetUI> meetUIs) {
+        this.meets = meetUIs;
     }
 
     @JsonGetter("isSubscribe")

@@ -1,7 +1,7 @@
 <div class="container wrappered">
     <div classs="row ">
         <div class="col-md-6 col-md-offset-3 text-center">
-            <h1 class="titleTrainingPage "> {{training.name}}</h1>
+            <h1 class="titleTrainingPage ">Approve</h1>
         </div>
         <div class="col-md-2 " ng-controller="ratingController">
             <span class="rating">
@@ -14,78 +14,60 @@
         </div>
     </div>
 
+
     <div classs="row " style="padding-top: 50px">
-        <div class="col-md-8 newWell textBlock">
-            <div class="breakText">
-                <span>Annotation:<br></span>{{training.annotation}}
-            </div>
-            <div class="breakText">
-                <span>Description:<br></span>{{training.description}}
-            </div>
-            <div class="breakText">
-                <span>Target audience:<br></span>{{training.target}}
-            </div>
-            <div class="breakText">
-                <span>Max particiants:<br></span>{{training.max_participants}}
-            </div>
-            <div class="breakText">
-                <span>Participants:</span>
-            </div>
-
-            <table>
-                <tr>
-                    <td class=>
-                        <div tooltip-placement="top"
-                             tooltip-popup-delay='3000'
-                             tooltip="double click to leave absent reason"
-                             class="panel panel-default table-responsive scrollTable1">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th>#</th>
-                                </tr>
-                                <tr ng-repeat="subscriber in subscribers|filter:'Approve'">
-                                    <td >{{$index+1}}</td>
-                                </tr>
-                            </table>
+        <div class="col-md-12 newWell LeftTextBlock">
+            <div class="col-md-6">
+                <div class="breakText">
+                    <span>Training name:<br></span> {{training.name}}
+                </div>
+                <div class="breakText">
+                    <span>Annotation:<br></span>{{training.annotation}}
+                </div>
+                <div class="breakText">
+                    <span>Description:<br></span>{{training.description}}
+                </div>
+                <div class="row" class="breakText">
+                    <div class="col-md-6">
+                        <span>Paid/Free</span>
+                        <div class="radio">
+                            <label><input type="radio" ng-value="true" name="paidFree" ng-model="createInfo.internal">Paid</label>
                         </div>
-                    </td>
-                    <td >
-                        <div tooltip-placement="top"
-                             tooltip-popup-delay='3000'
-                             tooltip="double click to leave absent reason"
-                             class="panel panel-default table-responsive scrollTable2">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th> user</th>
-                                    <th ng-repeat="meet in training.meets">
-                                        {{$index+1}}
-                                    </th>
-                                </tr>
-                                <tr ng-repeat="subscriber in subscribers|filter:'Approve'">
-                                    <td nowrap>{{subscriber.name}}</td>
-                                    <td ng-repeat="meet in training.meets"
-                                        title="{{subscriber.participants[$index].reason}}">{{subscriber.participants[$index].absent|attendanceFilter}}</td>
-                                </tr>
-                            </table>
+                        <div class="radio">
+                            <label><input type="radio" ng-value="false" name="paidFree" ng-model="createInfo.internal">Free</label>
                         </div>
-                    </td>
-                </tr>
-            </table>
-
+                    </div>
+                    <div class="col-md-6">
+                        <span>Internal/External</span>
+                        <div class="radio">
+                            <label><input type="radio" ng-value="true" name="internalExternal" ng-model="createInfo.internal">{{ 'CREATE_TRAINING_INTERNAL' | translate }}</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" ng-value="false" name="internalExternal" ng-model="createInfo.internal">{{ 'CREATE_TRAINING_EXTERNAL' | translate }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="breakText">
+                    <span>Target audience:<br></span>{{training.target}}
+                </div>
+                <div class="breakText">
+                    <span>Max particiants:<br></span>{{training.max_participants}}
+                </div>
+                <div class="breakText">
+                    <span>Trainer:</span>{{training.trainerName}}
+                </div>
+                <div class="breakText">
+                    <span>Place:</span>{{training.place}}
+                </div>
+            </div>
 
         </div>
 
 
         <div class="col-md-3 newWell LeftTextBlock" >
-            <div class="breakText">
-                <span>Trainer:</span>{{training.trainerName}}
-            </div>
-            <div class="breakText">
-                <span>Time:</span>
-            </div>
-            <div class="breakText">
-                <span>Place:</span>{{training.place}}
-            </div>
+
 
             <div class="row buttons">
                 <div class="col-md-6" ng-show="training.isSubscribe">
@@ -182,5 +164,3 @@
     </div>
 
 </div>
-
-

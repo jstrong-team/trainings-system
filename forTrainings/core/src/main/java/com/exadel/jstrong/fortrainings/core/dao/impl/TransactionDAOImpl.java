@@ -55,6 +55,7 @@ public class TransactionDAOImpl extends BaseDAO<Transaction> implements Transact
         return null;
     }
 
+    @Override
     public boolean killTransaction(int transactionId) {
         try {
             Query query = em.createNativeQuery("delete from transaction where id=:tId or parent_id=:tId").setParameter("tId", transactionId);

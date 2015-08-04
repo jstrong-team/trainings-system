@@ -1,10 +1,4 @@
-angular.module('trainingEditModule').controller('editController', ['$scope', '$routeParams', 'getTrainingInfo','editService', function ($scope, $routeParams, getTrainingInfo,editService) {
-
-    getTrainingInfo().then(function (data, status, headers, config) {
-        $scope.editInfo = data.data;
-    }, function (error) {
-        console.error(error);
-    });
+angular.module('approvePageModule').controller('editApproveController', ['$scope', '$routeParams', 'getTrainingInfo','editService', function ($scope, $routeParams, getTrainingInfo,editService) {
 
     $scope.addDate = function (index) {
         $scope.editInfo.meets.splice(index,0,{date:'',id:null});

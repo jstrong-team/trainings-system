@@ -4,37 +4,40 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
          element.on('click', function (event) {
              var list=event.target.classList;
              var clickObj;
-             if(element.text()!==text){
+             var a = element.text().replace(/(\r\n|\n|\r)/gm,"");
+             if(a!==text){
                  clickObj={
-                     id:list[0],
-                     date:list[1]+' '+list[2],
-                     isAbsent:true,
+                     subscribeId:list[0],
+                     meetId:list[1],
+                     absent:true,
                      reason:''
                  };
                  element.text(text);
                  storageService.set(clickObj);
                  console.log(storageService.get());
+                 element.attr('title',clickObj.reason);
              }else {
+                 console.log(element.text().valueOf());
                  clickObj={
-                     id:list[0],
-                     date:list[1]+' '+list[2],
-                     isAbsent:false,
+                     subscribeId:list[0],
+                     meetId:list[1],
+                     absent:false,
                      reason:''
                  };
                  element.text('');
                  storageService.delete(clickObj);
+                 storageService.set(clickObj);
                  console.log(storageService.get());
+                 element.attr('title',clickObj.reason);
              }
          });
-
          element.on('dblclick', function (event) {
              var list=event.target.classList;
              var clickObj;
-             if(element.text()!==text){
                  clickObj={
-                     id:list[0],
-                     date:list[1]+' '+list[2],
-                     isAbsent:true,
+                     subscribeId:list[0],
+                     meetId:list[1],
+                     absent:true,
                      reason:''
                  };
                  var modalInstance =$modal.open({
@@ -47,20 +50,10 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
                  modalInstance.result.then(function(reason){
                      element.text(text);
                      clickObj.reason=reason;
+                     element.attr('title',clickObj.reason);
                      storageService.set(clickObj);
                      //console.log(storageService.get());
                  });
-             }else {
-                 clickObj={
-                     id:list[0],
-                     date:list[1]+' '+list[2],
-                     isAbsent:false,
-                     reason:''
-                 };
-                 element.text('');
-                 console.log(storageService.get());
-                 storageService.delete(clickObj);
-             }
          });
 
 

@@ -7,11 +7,11 @@ angular.module('trainingPageModule').factory('storageService', ['$http', functio
         array.push(click);
     };
     service.get=function(){
-        return angular.copy(array);
+        return {participant:array};
     };
     service.delete=function(click){
         for(var i=array.length-1;i>=0;i--){
-            if((array[i].id===click.id)&&(array[i].date===click.date)){
+            if((array[i].subscribeId===click.subscribeId)&&(array[i].meetId===click.meetId)){
                 array.splice(i,1);
             }
         }

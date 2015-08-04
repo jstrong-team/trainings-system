@@ -1,6 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
 import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
+import com.exadel.jstrong.fortrainings.core.model.Participant;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -217,6 +219,29 @@ public class TrainingStorageSpringController {
             return tsci.getMeetReportUIs(employeeId);
         }
         return null;
+    }
+
+    @RequestMapping(value = "/updateAttendance", method = RequestMethod.POST)
+    public void updateParticipant(@RequestBody ParticipantUI participant, HttpServletRequest request, HttpServletResponse response) {
+
+        List<Participant> participants = participant.getParticipant();
+        int size = participants.size();
+        if(size != 0) {
+            tsci.updateParticipants(participants);
+        }
+    }
+
+    @RequestMapping(value = "/mergeTrainings", method = RequestMethod.GET)
+    public @ResponseBody MergedTrainingUI getMerge(HttpServletRequest request, HttpServletResponse response) {
+        int transactionId = Integer.parseInt(request.getParameter("id"));
+        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        if(ec.isAdmin(userId)) {
+            return tsci.mergeTraining(transactionId);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
+        }
     }
 }
 

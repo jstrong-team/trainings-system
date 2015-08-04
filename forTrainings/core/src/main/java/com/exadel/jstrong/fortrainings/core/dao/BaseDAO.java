@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Anton on 23.07.2015.
  */
-public abstract class BaseDAO<T> implements GenericDAO<T>{
+public abstract class BaseDAO<T> implements GenericDAO<T> {
 
     private static Logger logger = Logger.getLogger(BaseDAO.class);
 
@@ -43,28 +43,51 @@ public abstract class BaseDAO<T> implements GenericDAO<T>{
     }
 
     @Transactional
-    public T save (T entity){
+    public T save(T entity) {
         try {
             em.persist(entity);
             return entity;
-        } catch (Throwable e){
+        } catch (Throwable e) {
             logger.warn(e.toString());
             logger.warn("Entity doesn't save");
             return null;
         }
     }
 
-    public boolean delete (T entity){
-        try{
+    @Transactional
+    public void saveAll(List<T> entities) {
+        for (T entity : entities)
+            try {
+                em.persist(entity);
+            } catch (Throwable e) {
+                logger.warn(e.toString());
+                logger.warn("Entity doesn't save");
+            }
+    }
+
+    @Transactional
+    public boolean delete(T entity) {
+        try {
             em.remove(entity);
             return true;
-        } catch (Throwable e){
+        } catch (Throwable e) {
             logger.warn("Entity doesn't delete");
             return false;
         }
     }
 
-    public boolean delete (Class<T> entityClass, int id){
+    @Transactional
+    public void deleteAll(List<T> entities) {
+        for (T entity : entities) {
+            try {
+                em.remove(em.contains(entity) ? entity : em.merge(entity));
+            } catch (Throwable e) {
+                logger.warn("Entity doesn't delete");
+            }
+        }
+    }
+
+    public boolean delete(Class<T> entityClass, int id) {
         T entity = em.find(entityClass, id);
         return delete(entity);
     }

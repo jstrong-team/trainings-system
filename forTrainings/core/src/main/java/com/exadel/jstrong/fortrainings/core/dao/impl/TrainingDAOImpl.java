@@ -3,6 +3,7 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.model.*;
+import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -134,7 +135,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public boolean isApprove(int trainingId) {
         int maxParticipants = (Integer)em.createNativeQuery("SELECT max_participants FROM training WHERE id = :id").setParameter("id", trainingId).getSingleResult();
-        int realParticipants = em.createNativeQuery("SELECT * FROM subscribe WHERE training_id = :id and status = 'approve'").setParameter("id", trainingId).getResultList().size();
+        int realParticipants = em.createNativeQuery("SELECT * FROM subscribe WHERE training_id = :id and status = 'Approve'").setParameter("id", trainingId).getResultList().size();
         return (maxParticipants > realParticipants);
     }
 
@@ -226,6 +227,28 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public List<Integer> getMeetIdsByTrainingId(int trainingId) {
+        try {
+            return (List<Integer>)em.createNativeQuery("SELECT id FROM meet WHERE training_id = :tId").setParameter("tId", trainingId).getResultList();
+        } catch(Throwable e){
+            logger.warn(e.toString());
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public Training getTrainingByTransactionID(int transactionID) {
+        Query query;
+        query = em.createNativeQuery("SELECT json FROM transaction where id = ?");
+        query.setParameter(1, transactionID);
+        String json = query.getSingleResult().toString();
+
+        Gson gson = new Gson();
+        Training training = gson.fromJson(json, Training.class);
+        return training;
     }
 
 

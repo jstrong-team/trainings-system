@@ -2,6 +2,7 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
+import com.exadel.jstrong.fortrainings.core.model.Participant;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +45,17 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
         return false;
     }
 
+    @Override
+    public int getSubscribeIdToApprove(int trainingId) {
+        try {
+            Integer id = (Integer)em.createNativeQuery("select id from subscribe set where status='Wait' and training_id =:tId order by add_date limit 1").setParameter("tId", trainingId).getSingleResult();
+            return id;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     @Transactional
@@ -69,6 +81,32 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
         }
         return 0;
     }
+
+    @Override
+    public int getSubscribeIdToWait(int trainingId) {
+        try {
+//            Integer id = (Integer)em.createNativeQuery("select id from subscribe where status='Approve' and training_id =:tId order by add_date desc limit 1").setParameter("tId", trainingId).getSingleResult();
+            return getSubscribeIdsToWait(trainingId, 1).get(0);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public List<Integer> getSubscribeIdsToWait(int trainingId, int count) {
+        try {
+            List<Integer> ids = em.createNativeQuery("select id from subscribe where status='Approve' and training_id =:tId order by add_date desc limit :amount")
+                    .setParameter("tId", trainingId)
+                    .setParameter("amount", count)
+                    .getResultList();
+            return ids;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<Integer>();
+    }
+
 
     @Override
     @Transactional
@@ -141,4 +179,26 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
             return new ArrayList<>();
         }
     }
+
+    @Override
+    public List<Participant> getParticipantsByMeetIds(int subscribeId, List<Integer> meetIds) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        List<Participant> participants = null;
+        try {
+            CriteriaQuery<Participant> query = criteriaBuilder.createQuery(Participant.class);
+            Root<Participant> root = query.from(Participant.class);
+
+            Predicate p1 = root.<Integer>get("subscribeId").in(subscribeId);
+            Predicate p2 = root.<Integer>get("meetId").in(meetIds);
+
+            query.where(criteriaBuilder.and(p1, p2));
+            participants = em.createQuery(query).getResultList();
+            return participants;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+//    public Integer get
 }
