@@ -1,4 +1,4 @@
-angular.module('trainingEditModule').factory('editService', ['$http', function($http) {
+angular.module('trainingEditModule').factory('editService', ['$http','$location', function($http,$location) {
     var edit =function(id, editInfo) {
         console.log(editInfo);
         editInfo.date=new Array(editInfo.meets.length);
@@ -7,6 +7,10 @@ angular.module('trainingEditModule').factory('editService', ['$http', function($
         }
         $http.put('/rest/storagetraining/editTraining?id='+id, editInfo).catch(function(error){
             console.error(error);
+        }).then(function(){
+            $location.url('/ui/creation_response');
+        },function(error){
+            console.error(error)
         });
     };
     return edit;
