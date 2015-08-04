@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -234,9 +233,8 @@ public class TrainingStorageSpringController {
     @RequestMapping(value = "/mergeTrainings", method = RequestMethod.GET)
     public @ResponseBody MergedTrainingUI getMerge(HttpServletRequest request, HttpServletResponse response) {
         int transactionId = Integer.parseInt(request.getParameter("id"));
-        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
-        if(ec.isAdmin(userId)) {
+        int userId = restService.getUserId(request);
+        if (ec.isAdmin(userId)) {
             return tsci.mergeTraining(transactionId);
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
