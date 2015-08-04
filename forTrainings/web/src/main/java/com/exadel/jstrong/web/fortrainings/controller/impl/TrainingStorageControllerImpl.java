@@ -3,6 +3,7 @@ package com.exadel.jstrong.web.fortrainings.controller.impl;
 import com.exadel.jstrong.fortrainings.core.dao.*;
 import com.exadel.jstrong.fortrainings.core.model.*;
 import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
+import com.exadel.jstrong.fortrainings.core.util.Merger;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
 import com.exadel.jstrong.web.fortrainings.model.comparator.SubscriberUIComp;
@@ -372,6 +373,30 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         for(Participant p: participants) {
             participantDAO.updateParticipant(p);
         }
+    }
+
+    @Override
+    public MergedTrainingUI mergeTraining(int transactionID) {
+
+        Training transactionTraining = tDAO.getTrainingByTransactionID(transactionID);
+        Training training = tDAO.getTrainingById(transactionTraining.getId());
+
+        MergedTrainingUI mergedTraining = new MergedTrainingUI();
+        mergedTraining.setName(Merger.merge(training.getName(), transactionTraining.getName()));
+        mergedTraining.setAnnotation(Merger.merge(training.getAnnotation(), transactionTraining.getAnnotation()));
+        mergedTraining.setDescription(Merger.merge(training.getDescription(), transactionTraining.getDescription()));
+        mergedTraining.setTarget(Merger.merge(training.getTarget(), transactionTraining.getTarget()));
+        mergedTraining.setPlace(Merger.merge(training.getPlace(), transactionTraining.getPlace()));
+        mergedTraining.setOldPaid(training.isPaid());
+        mergedTraining.setNewPaid(transactionTraining.isPaid());
+        mergedTraining.setOldMax_participants(training.getMax_participants());
+        mergedTraining.setNewMax_participants(transactionTraining.getMax_participants());
+        mergedTraining.setOldInternal(training.isInternal());
+        mergedTraining.setNewInternal(transactionTraining.isInternal());
+        mergedTraining.setOldDates(training.getDate());
+        mergedTraining.setNewDates(transactionTraining.getDate());
+
+        return mergedTraining;
     }
 
 }

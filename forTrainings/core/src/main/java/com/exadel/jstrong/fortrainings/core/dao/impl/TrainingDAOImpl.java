@@ -3,6 +3,7 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.model.*;
+import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -237,4 +238,18 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             return new ArrayList<>();
         }
     }
+
+    @Override
+    public Training getTrainingByTransactionID(int transactionID) {
+        Query query;
+        query = em.createNativeQuery("SELECT json FROM transaction where id = ?");
+        query.setParameter(1, transactionID);
+        String json = query.getSingleResult().toString();
+
+        Gson gson = new Gson();
+        Training training = gson.fromJson(json, Training.class);
+        return training;
+    }
+
+
 }
