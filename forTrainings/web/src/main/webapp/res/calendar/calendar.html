@@ -23,7 +23,7 @@
                         <div class="lineDescription">
                             <div ng-repeat="item in line" class="description">
                                 <div class="descriptionItem"><strong><a href="" ng-click="redirectToTrainingPage(item.trainingId)">{{item.name}}</a></strong><br>
-                                    <span class="glyphicon glyphicon-calendar" style="color: grey"></span> {{item.dateTime}} {{item.time}}</div>
+                                    <span class="glyphicon glyphicon-calendar" style="color: grey"></span> {{item.dateNum}} {{ item.month | translate }} {{item.time}}</div>
                             </div>
                         </div>
                         <hr>
@@ -32,11 +32,11 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h2><br>{{ 'CALENDAR_RECENT_TRAININGS_TITLE' | translate}}</h2>
+            <h2><br>{{ 'CALENDAR_RECENT_TRAININGS_TITLE' | translate}}:</h2>
             <ul class="pastMeetings">
                 <li ng-repeat="lastTraining in pastTrainingHistory">
-                    <a href="" ng-click="redirectToTrainingPage(lastTraining.id)"><h3>{{lastTraining.name}}</h3></a>
-                    {{lastTraining.dateTime}} {{lastTraining.year}}
+                    <div><a href="" ng-click="redirectToTrainingPage(lastTraining.id)"><h3>{{lastTraining.name}}</h3></a></div>
+                    <div><h4><small>{{lastTraining.dateNum}} {{ lastTraining.month | translate }} {{lastTraining.year}}</small></h4></div>
                 </li>
             </ul>
         </div>

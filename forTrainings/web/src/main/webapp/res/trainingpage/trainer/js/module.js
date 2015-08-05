@@ -3,9 +3,10 @@ angular.module('trainingPageTrainerModule', []).config(function($routeProvider) 
         templateUrl: 'res/trainingpage/trainer/training.html',
         controller: 'trainingPageTrainerController',
         resolve: {
-            getTrainingInfo: ['$http', '$q','$routeParams','$location','$route', 'getRole','getTrainingData',function ($http, $q,$routeParams,$location,$route,getRole,getTrainingData) {
+            getTrainingInfo: ['$http', '$q','$routeParams','$location','$route', 'getRole','getTrainingData','storageService',function ($http, $q,$routeParams,$location,$route,getRole,getTrainingData,storageService) {
                 var def = $q.defer();
                 var id=$route.current.params.trainingId;
+                storageService.clear();
                 getRole(id).then(function (data, status, headers, config){
                     if (data.data.role === 'trainer') {
                         $location.url('/ui/trainingPage/trainer/' + id);

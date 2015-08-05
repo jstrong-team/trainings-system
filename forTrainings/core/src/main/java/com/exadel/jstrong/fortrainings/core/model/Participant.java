@@ -2,9 +2,6 @@ package com.exadel.jstrong.fortrainings.core.model;
 
 import javax.persistence.*;
 
-/**
- * Created by ������������� on 31.07.2015.
- */
 @Entity
 @Table(name = "participant")
 public class Participant {

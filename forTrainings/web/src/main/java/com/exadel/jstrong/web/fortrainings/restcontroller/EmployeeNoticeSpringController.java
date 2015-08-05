@@ -34,7 +34,7 @@ public class EmployeeNoticeSpringController {
         NoticeCountUI n = null;
         try {
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-            int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            int id = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
             n = employeeNoticeController.getNoticeCount(id);
         } catch(Throwable e){
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class EmployeeNoticeSpringController {
         NoticesUI notices = null;
         try {
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-            int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            int id = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
             int count = Integer.parseInt(request.getParameter("count"));
             int page = Integer.parseInt(request.getParameter("page"));
             notices = employeeNoticeController.getEmployeeNotices(id, count, page);
@@ -62,7 +62,7 @@ public class EmployeeNoticeSpringController {
     public void markAsComplete(@RequestBody CompleteMarkUI mark, HttpServletRequest request, HttpServletResponse response) {
         try {
             Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-            int id = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            int id = ec.getIdBySession(cookies.get(CookieUtil.SESSION).getValue());
             if(!employeeNoticeController.markNoticeAsComplete(id, mark.getId())){
                 response.setStatus(HttpServletResponse.SC_CONFLICT);
             }

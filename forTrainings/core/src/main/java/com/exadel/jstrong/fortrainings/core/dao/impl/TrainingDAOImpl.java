@@ -3,6 +3,7 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.model.*;
+import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -134,7 +135,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public boolean isApprove(int trainingId) {
         int maxParticipants = (Integer)em.createNativeQuery("SELECT max_participants FROM training WHERE id = :id").setParameter("id", trainingId).getSingleResult();
-        int realParticipants = em.createNativeQuery("SELECT * FROM subscribe WHERE training_id = :id and status = 'approve'").setParameter("id", trainingId).getResultList().size();
+        int realParticipants = em.createNativeQuery("SELECT * FROM subscribe WHERE training_id = :id and status = 'Approve'").setParameter("id", trainingId).getResultList().size();
         return (maxParticipants > realParticipants);
     }
 
@@ -191,7 +192,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public void changeStatus(int trainingId) {
         try {
-            Query query = em.createNativeQuery("update training set approve=true training_id=:tId").setParameter("tId", trainingId);
+            Query query = em.createNativeQuery("update training set approve=true training_id =:tId").setParameter("tId", trainingId);
             int res = query.executeUpdate();
             if(res == 0) {
                 logger.info("No meets to change");
@@ -231,7 +232,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public List<Integer> getMeetIdsByTrainingId(int trainingId) {
         try {
-            return em.createNativeQuery("SELECT id FROM meet WHERE training_id = :tId").setParameter("tId", trainingId).getResultList();
+            return (List<Integer>)em.createNativeQuery("SELECT id FROM meet WHERE training_id = :tId").setParameter("tId", trainingId).getResultList();
         } catch(Throwable e){
             logger.warn(e.toString());
             return new ArrayList<>();
@@ -248,4 +249,18 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         List<Training> trainings = em.createQuery(query).getResultList();
         return trainings;
     }
+
+    @Override
+    public Training getTrainingByTransactionID(int transactionID) {
+        Query query;
+        query = em.createNativeQuery("SELECT json FROM transaction where id = ?");
+        query.setParameter(1, transactionID);
+        String json = query.getSingleResult().toString();
+
+        Gson gson = new Gson();
+        Training training = gson.fromJson(json, Training.class);
+        return training;
+    }
+
+
 }

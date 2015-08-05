@@ -7,11 +7,11 @@ angular.module('trainingEditModule').controller('editController', ['$scope', '$r
     });
 
     $scope.addDate = function (index) {
-        $scope.editInfo.dates.splice(index,0,'');
+        $scope.editInfo.meets.splice(index,0,{date:'',id:null});
     };
 
     $scope.removeDate = function (index) {
-        $scope.editInfo.dates.splice(index,1);
+        $scope.editInfo.meets.splice(index,1);
         //console.log(index);
     };
 
@@ -29,7 +29,7 @@ angular.module('trainingEditModule').controller('editController', ['$scope', '$r
     };
 
     $scope.datesChange = function (index, value) {
-        $scope.editInfo.dates[index] = value;
+        $scope.editInfo.meets[index].date = value;
     };
 
     $scope.applyCahnges = function () {

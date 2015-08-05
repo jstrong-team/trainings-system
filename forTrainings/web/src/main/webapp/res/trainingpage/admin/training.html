@@ -55,55 +55,62 @@
                                 <tr>
                                     <th> user</th>
                                     <th>status</th>
-                                    <th ng-repeat="date in training.dates">
+                                    <th ng-repeat="meet in training.meets">
                                         {{$index+1}}
                                     </th>
                                 </tr>
                                 <tr ng-repeat="subscriber in subscribers">
                                     <td nowrap>{{subscriber.name}}</td>
                                     <td>{{subscriber.status}}</td>
-                                    <td table-catch-directive ng-repeat="date in training.dates" class="{{subscriber.id+' '+date}}">
-                                    </td>
+                                    <td table-catch-directive ng-repeat="meet in training.meets"
+                                        class="{{subscriber.id+' '+meet.id}}"
+                                        data-toggle="tooltip" title="{{subscriber.participants[$index].reason}}">{{subscriber.participants[$index].absent|attendanceFilter}}</td>
                                 </tr>
                             </table>
                         </div>
                     </td>
                 </tr>
             </table>
-
-            <span>Coments:</span>
+            <div class="breakText ">
+                <button type="button" class="btn  editDatesButton " ng-click="acceptAttendanceChanges()">Accept changes</button>
+            </div>
+            <span>Comments:</span>
             <p></p>
-            <div class="panel panel-default " ng-repeat="coment in feedbacks">
+            <div class="panel panel-default " ng-repeat="comment in feedbacks">
                 <table class="table ">
                     <tr>
                         <td>
                             <div>
-                                <rating ng-model="coment.rate"
+                                <rating ng-model="comment.rate"
                                         readonly=true
                                         max="5">
                                 </rating>
                                 <div>
+                                    <label class="control-label ">Author:
+                                        {{comment.understand|yesNoFilter}}</label>
+                                </div>
+                                <div>
                                     <label class="control-label ">Understand all:
-                                        {{coment.understand|yesNoFilter}}</label>
+                                        {{comment.understand|yesNoFilter}}</label>
                                 </div>
                                 <div>
                                     <label class="control-label ">Interested in:
-                                        {{coment.interested|yesNoFilter}}</label>
+                                        {{comment.interested|yesNoFilter}}</label>
                                 </div>
                                 <div>
                                     <label class="control-label ">Like to learn from this coach:
-                                        {{coment.continueWithThisTrainer|yesNoFilter}}</label>
+                                        {{comment.continueWithThisTrainer|yesNoFilter}}</label>
                                 </div>
                                 <div>
                                     <label class="control-label ">Learn something new:
-                                        {{coment.smthNew|yesNoFilter}}</label>
+                                        {{comment.smthNew|yesNoFilter}}</label>
                                 </div>
                                 <div>
                                     <label class="control-label ">Recommend to your colleagues to visit this training:
-                                        {{coment.recommend|yesNoFilter}}</label>
+                                        {{comment.recommend|yesNoFilter}}</label>
                                 </div>
                                 <div>
-                                    <label class="control-label ">Other: {{coment.other}}</label>
+                                    <label class="control-label ">Other: {{comment.other}}</label>
                                 </div>
                             </div>
                         </td>
@@ -128,7 +135,7 @@
                     <button type="button" class="btn  editDatesButton" ng-click="subscribe()">subscribe</button>
                 </div>
                 <div class="col-md-6">
-                    <button type="button" class="btn btn-default " ng-click="openModal()" ng-show="training.isSubscribe">
+                    <button type="button" class="btn editDatesButton " ng-click="openModal()" ng-show="training.isSubscribe">
                         Leave feedback
                     </button>
                 </div>
@@ -161,7 +168,7 @@
                                 <th>date</th>
                                 <th>time</th>
                             </tr>
-                            <tr ng-repeat="curTraining in training.dates">
+                            <tr ng-repeat="curTraining in training.meets">
                                 <td>
                                     {{$index+1}}
                                 </td>
@@ -190,10 +197,11 @@
                 </div>
                 <div class="col-md-12 dateTime">
                     <div collapse="isCollapsed.subscribers">
-                        <table class="table">
+                           <table class="table">
                             <tr>
                                 <th>#</th>
                                 <th>subscriber</th>
+                                <th></th>
                             </tr>
                             <tr ng-repeat="subscriber in subscribers">
                                 <td>
@@ -202,6 +210,12 @@
                                 <td>
                                     {{subscriber.name}}
                                 </td>
+                                <td><span class="glyphicon"
+                                          ng-class="{
+                                          'glyphicon-ok': subscriber.status==='Approve',
+                                          'glyphicon-remove': subscriber.status==='Deleted',
+                                          'glyphicon-time': subscriber.status==='Wait',
+                                          }"></span></td>
                             </tr>
                         </table>
                     </div>

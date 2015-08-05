@@ -80,7 +80,7 @@ public abstract class BaseDAO<T> implements GenericDAO<T> {
     public void deleteAll(List<T> entities) {
         for (T entity : entities) {
             try {
-                em.remove(entity);
+                em.remove(em.contains(entity) ? entity : em.merge(entity));
             } catch (Throwable e) {
                 logger.warn("Entity doesn't delete");
             }

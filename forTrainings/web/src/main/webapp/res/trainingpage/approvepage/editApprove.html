@@ -1,0 +1,166 @@
+<div class="container wrappered">
+    <div classs="row ">
+        <div class="col-md-6 col-md-offset-3 text-center">
+            <h1 class="titleTrainingPage ">Approve</h1>
+        </div>
+        <div class="col-md-2 " ng-controller="ratingController">
+            <span class="rating">
+                <rating ng-model="training.rate"
+                        max="maxRating"
+                        readonly="true"
+                        on-leave="overStar=null">
+                </rating>
+            </span>
+        </div>
+    </div>
+
+
+    <div classs="row " style="padding-top: 50px">
+        <div class="col-md-12 newWell LeftTextBlock">
+            <div class="col-md-6">
+                <div class="breakText">
+                    <span>Training name:<br></span> {{training.name}}
+                </div>
+                <div class="breakText">
+                    <span>Annotation:<br></span>{{training.annotation}}
+                </div>
+                <div class="breakText">
+                    <span>Description:<br></span>{{training.description}}
+                </div>
+                <div class="row" class="breakText">
+                    <div class="col-md-6">
+                        <span>Paid/Free</span>
+                        <div class="radio">
+                            <label><input type="radio" ng-value="true" name="paidFree" ng-model="createInfo.internal">Paid</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" ng-value="false" name="paidFree" ng-model="createInfo.internal">Free</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <span>Internal/External</span>
+                        <div class="radio">
+                            <label><input type="radio" ng-value="true" name="internalExternal" ng-model="createInfo.internal">{{ 'CREATE_TRAINING_INTERNAL' | translate }}</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" ng-value="false" name="internalExternal" ng-model="createInfo.internal">{{ 'CREATE_TRAINING_EXTERNAL' | translate }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="breakText">
+                    <span>Target audience:<br></span>{{training.target}}
+                </div>
+                <div class="breakText">
+                    <span>Max particiants:<br></span>{{training.max_participants}}
+                </div>
+                <div class="breakText">
+                    <span>Trainer:</span>{{training.trainerName}}
+                </div>
+                <div class="breakText">
+                    <span>Place:</span>{{training.place}}
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3 newWell LeftTextBlock" >
+
+
+            <div class="row buttons">
+                <div class="col-md-6" ng-show="training.isSubscribe">
+                    <button type="button"
+                            class="btn editDatesButton "
+                            ng-click="openModal()">
+                        Leave feedback
+                    </button>
+                </div>
+                <div class="col-md-6" ng-show="training.isSubscribe" >
+                    <button type="button"
+                            class="btn btn-danger "
+                            ng-click="unsubscribe()">
+                        unsubscribe
+                    </button>
+                </div>
+                <div class="col-md-6 " ng-show="!training.isSubscribe" >
+                    <button type="button"
+                            class="btn editDatesButton "
+                            ng-click="subscribe()">
+                        subscribe
+                    </button>
+                </div>
+            </div>
+            <div class="row buttons">
+                <div class="col-md-12 buttons"  ng-cloak>
+                    <button class="btn editDatesButton"
+                            ng-click="changeCollapse.dates()">
+                        <span>{{show.dates}} dates</span>
+                    </button>
+                </div>
+                <div class="col-md-12 dateTime">
+                    <div collapse="isCollapsed.dates">
+                        <table class="table">
+                            <tr>
+                                <th>#</th>
+                                <th>date</th>
+                                <th>time</th>
+                            </tr>
+                            <tr ng-repeat="curTraining in training.meets">
+                                <td>
+                                    {{$index+1}}
+                                </td>
+                                <td>
+                                    <span class="glyphicon glyphicon-calendar"
+                                          style="color: grey">
+                                    </span>
+                                    {{training.dateTime[$index]}}
+                                </td>
+                                <td>
+                                    <span class="glyphicon glyphicon-time"
+                                          style="color: grey">
+                                    </span>
+                                    {{training.time[$index]}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-12 buttons"  ng-cloak>
+                    <button class="btn editDatesButton"
+                            ng-click="changeCollapse.subscribers()">
+                        <span>{{show.subscribers}} subscribers</span>
+                    </button>
+                </div>
+                <div class="col-md-12 dateTime">
+                    <div collapse="isCollapsed.subscribers">
+                        <table class="table">
+                            <tr>
+                                <th>#</th>
+                                <th>subscriber</th>
+                                <th></th>
+                            </tr>
+                            <tr ng-repeat="subscriber in subscribers">
+                                <td>
+                                    {{$index+1}}
+                                </td>
+                                <td>
+                                    {{subscriber.name}}
+                                </td>
+                                <td><span class="glyphicon"
+                                          ng-class="{
+                                          'glyphicon-ok': subscriber.status==='Approve',
+                                          'glyphicon-remove': subscriber.status==='Deleted',
+                                          'glyphicon-time': subscriber.status==='Wait',
+                                          }"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
