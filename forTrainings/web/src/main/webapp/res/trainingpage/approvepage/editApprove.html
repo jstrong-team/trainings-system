@@ -11,31 +11,31 @@
                 <div class="approveWrapDiv">
                     <span>Training name:</span>
                     <div class="approveTextDiv">
-                        {{training.name}}
+                        {{editInfo.name}}
                     </div>
                 </div>
                 <div class="approveWrapDiv">
                     <span>Annotation:</span>
                     <div class="approveTextDiv">
-                        {{training.annotation}}
+                        {{editInfo.annotation}}
                     </div>
                 </div>
                 <div class="approveWrapDiv">
                     <span>Description:</span>
                     <div class="approveTextDiv">
-                        {{training.description}}
+                        {{editInfo.description}}
                     </div>
                 </div>
                 <div class="approveWrapDiv">
                     <span>Target audience:</span>
                     <div class="approveTextDiv">
-                        {{training.target}}
+                        {{editInfo.target}}
                     </div>
                 </div>
                 <div class="approveWrapDiv">
                     <span>Place:</span>
                     <div class="approveTextDiv">
-                        {{training.target}}
+                        {{editInfo.place}}
                     </div>
                 </div>
 
@@ -51,37 +51,37 @@
                 <div class="approveRadio col-md-6 approveWrapDiv">
                     <span>Max participants old value:</span>
                     <div class="approveTextDiv">
-                        {{training.description}}
+                        {{editInfo.oldMax_participants}}
                     </div>
                 </div>
                 <div class="approveRadio col-md-6 approveWrapDiv">
                     <span>Max participants new value:</span>
                     <div class="approveTextDiv">
-                        {{training.description}}
+                        {{editInfo.newMax_participants}}
                     </div>
                 </div>
                 <div class="approveRadio col-md-6 approveWrapDiv">
                     <span>Paid/Free old value:</span>
                     <div class="approveTextDiv">
-                        {{training.description}}
+                        {{editInfo.oldPaid}}
                     </div>
                 </div>
                 <div class="approveRadio col-md-6 approveWrapDiv">
                     <span>Paid/Free new value:</span>
                     <div class="approveTextDiv">
-                        {{training.description}}
+                        {{editInfo.newPaid}}
                     </div>
                 </div>
                 <div class="approveRadio col-md-6 approveWrapDiv">
                     <span>Internal/External old value:</span>
                     <div class="approveTextDiv">
-                        {{training.description}}
+                        {{editInfo.oldInternal}}
                     </div>
                 </div>
                 <div class="approveRadio col-md-6 approveWrapDiv">
                     <span>Internal/External new value:</span>
                     <div class="approveTextDiv">
-                        {{training.description}}
+                        {{editInfo.newInternal}}
                     </div>
                 </div>
 
@@ -102,20 +102,21 @@
 
                 <div class="col-md-12 buttons approveRadio" ng-cloak>
                     <button class="btn editDatesButton approveButton"
-                            ng-click="changeCollapse.dates()">
-                        <span>{{show.dates}} dates</span>
+                            ng-click="changeCollapse()">
+                        <span>{{showInput}} dates</span>
                     </button>
                 </div>
-                <div class="col-md-6 dateTime">
+                <div class="col-md-6 dateTime"
+                     collapse="isCollapsed">
                     <span>Old dates:</span>
-                    <div collapse="isCollapsed.dates">
+                    <div >
                         <table class="table">
                             <tr>
                                 <th>#</th>
                                 <th>date</th>
                                 <th>time</th>
                             </tr>
-                            <tr ng-repeat="curTraining in training.meets">
+                            <tr ng-repeat="curTraining in training.oldDates">
                                 <td>
                                     {{$index+1}}
                                 </td>
@@ -135,9 +136,10 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-md-6 dateTime">
+                <div class="col-md-6 dateTime"
+                     collapse="isCollapsed">
                     <span>New dates:</span>
-                    <div collapse="isCollapsed.dates">
+                    <div>
                         <table class="table">
                             <tr>
                                 <th>#</th>

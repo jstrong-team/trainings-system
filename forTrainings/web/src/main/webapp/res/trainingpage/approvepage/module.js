@@ -1,5 +1,5 @@
 angular.module('approvePageModule', []).config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/ui/trainingPage/approve/:trainingID', {
+    $routeProvider.when('/ui/trainingPage/approve/:trainingId', {
         templateUrl: 'res/trainingpage/approvepage/editApprove.html',
         controller: 'editApproveController',
         resolve: {

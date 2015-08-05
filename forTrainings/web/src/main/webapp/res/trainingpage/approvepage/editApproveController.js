@@ -6,26 +6,19 @@ angular.module('approvePageModule').controller('editApproveController', ['$scope
         console.error(error);
     });
 
-    $scope.addDate = function (index) {
-        $scope.editInfo.meets.splice(index,0,{date:'',id:null});
-    };
 
-    $scope.removeDate = function (index) {
-        $scope.editInfo.meets.splice(index,1);
-        //console.log(index);
-    };
 
     $scope.showInput='Show';
 
     $scope.isCollapsed = true;
 
-    $scope.changeCollapse=function(collapsed){
-        $scope.isCollapsed = !$scope.isCollapsed;
-        if(collapsed){
+    $scope.changeCollapse=function(){
+        if($scope.isCollapsed){
             $scope.showInput='Hide';
         }else{
             $scope.showInput='Show';
         }
+        $scope.isCollapsed = !$scope.isCollapsed;
     };
 
 
