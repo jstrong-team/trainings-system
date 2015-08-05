@@ -1,4 +1,10 @@
-angular.module('approvePageModule').controller('editApproveController', ['$scope', '$routeParams', 'getTrainingInfo','editService', function ($scope, $routeParams, getTrainingInfo,editService) {
+angular.module('approvePageModule').controller('editApproveController', ['$scope', '$routeParams', 'getApproveData', function ($scope, $routeParams, getApproveData) {
+
+    getApproveData().then(function (data, status, headers, config) {
+        $scope.editInfo = data.data;
+    }, function (error) {
+        console.error(error);
+    });
 
     $scope.addDate = function (index) {
         $scope.editInfo.meets.splice(index,0,{date:'',id:null});
@@ -22,12 +28,6 @@ angular.module('approvePageModule').controller('editApproveController', ['$scope
         }
     };
 
-    $scope.datesChange = function (index, value) {
-        $scope.editInfo.meets[index].date = value;
-    };
 
-    $scope.applyCahnges = function () {
-        editService($routeParams.trainingId ,$scope.editInfo);
-    };
 
 }]);
