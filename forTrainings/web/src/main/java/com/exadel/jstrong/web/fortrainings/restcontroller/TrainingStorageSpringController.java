@@ -2,6 +2,7 @@ package com.exadel.jstrong.web.fortrainings.restcontroller;
 
 import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Participant;
+import com.exadel.jstrong.fortrainings.core.model.TrainerFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
@@ -242,6 +243,33 @@ public class TrainingStorageSpringController {
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return null;
+        }
+    }
+
+    @RequestMapping(value = "/addTrainerFeedback", method = RequestMethod.POST)
+    public void addTrainerFeedback(@RequestBody TrainerFeedback tf, HttpServletRequest request, HttpServletResponse response) {
+        int trainingId = Integer.parseInt(request.getParameter("trainingId"));
+        int feedbackerId = restService.getUserId(request);
+        tf.setFeedbackerId(feedbackerId);
+        tf.setTrainingId(trainingId);
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        tf.setAddDate(date);
+        if(tsci.check(tf.getEmployeeId(), tf.getTrainingId()) && tsci.isTrainer(feedbackerId, tf.getTrainingId())) {
+            tsci.addTrainerFeedback(tf);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/addExternalUser", method = RequestMethod.POST)
+    public void addExternalUser(@RequestBody ExternalUserUI externalUserUI, HttpServletRequest request, HttpServletResponse response) {
+        int trainingId = Integer.parseInt(request.getParameter("trainingId"));
+        int userId = restService.getUserId(request);
+        if(ec.isAdmin(userId)) {
+            tsci.addExternalUser(externalUserUI, trainingId);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 }

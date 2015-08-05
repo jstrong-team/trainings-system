@@ -41,6 +41,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     private ParticipantDAO participantDAO;
     @Autowired
     private NoticeDAO noticeDAO;
+    @Autowired
+    private TrainerFeedbackDAO trainerFeedbackDAO;
 
     private static Logger logger = Logger.getLogger(TrainingStorageControllerImpl.class);
 
@@ -421,4 +423,37 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         return mergedTraining;
     }
 
+    @Override
+    public void addTrainerFeedback(TrainerFeedback trainerFeedback) {
+        trainerFeedbackDAO.addFeedback(trainerFeedback);
+    }
+
+    @Override
+    public List<TrainerFeedbackUI> getTrainerFeedbacks(int employeeID) {
+        List<TrainerFeedback> trainerFeedbacks = trainerFeedbackDAO.getAllFeedbacks(employeeID);
+        List<TrainerFeedbackUI> trainerFeedbackUIs = new ArrayList<>();
+        TrainerFeedbackUI trainerFeedbackUI = null;
+        for(TrainerFeedback tf: trainerFeedbacks) {
+            trainerFeedbackUI = new TrainerFeedbackUI(tf.getAddDate(), tf.getPresence(), tf.getAttitude(),
+                    tf.getCommunication(), tf.getQuestion(), tf.getInterest(), tf.getResult(),
+                    tf.getLevel(), tf.getRating(), tf.getOther());
+            trainerFeedbackUI.setTrainingName(tDAO.getTrainingName(tf.getTrainingId()));
+            trainerFeedbackUI.setFeedbackerName(eDAO.getNameById(tf.getFeedbackerId()));
+            trainerFeedbackUIs.add(trainerFeedbackUI);
+        }
+        return trainerFeedbackUIs;
+    }
+
+    @Override
+    public void addExternalUser(ExternalUserUI externalUserUI, int trainingId) {
+        Employee employee = new Employee();
+        employee.setName(externalUserUI.getName());
+        employee.setMail(externalUserUI.getMail());
+        employee.setPhone(externalUserUI.getPhone());
+        employee.setLogin("");
+        employee.setPassword("");
+        eDAO.save(employee);
+        Subscribe subscribe = buildSubscriber(employee.getId(), trainingId);
+        addSubscriber(subscribe);
+    }
 }
