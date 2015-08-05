@@ -39,16 +39,12 @@ public class TrainingStorageSpringController {
     @RequestMapping(method = RequestMethod.POST)
     public void addTraining(@RequestBody Training training, HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            Employee employee = new Employee();
             if (training.getExternalTrainerName()==null) {
                 int id = restService.getUserId(request);
                 training.setTrainer_id(id);
             }
             training.setApprove(false);
-            employee = tsci.addTraining(training);
-            response.setHeader("login", employee.getLogin());
-            response.setHeader("password", employee.getPassword());
-
+            tsci.addTraining(training);
         } catch (Exception e) {
             logger.warn(e.toString());
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);

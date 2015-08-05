@@ -5,8 +5,8 @@ import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.RoleDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Role;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +24,7 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
 
     @Override
     public Employee selectByAuthorization(String login, String password) {
+        password = DigestUtils.md5Hex(password);
         Query query = em.createQuery("SELECT e FROM Employee e WHERE e.login = :log  AND  e.password = :pas", Employee.class).setParameter("log", login).setParameter("pas", password);
         Employee employee = (Employee)query.getSingleResult();
 
@@ -54,6 +55,17 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
     }
 
     @Override
+    public List<Employee> getAllInsideUsers() {
+        try{
+            Role role = roleDAO.getRoleByName("external");
+            return em.createNativeQuery("SELECT * FROM employee WHERE id IN (SELECT employee_id FROM employee_role WHERE role_id = :roleId)", Employee.class).setParameter("roleId", role.getId()).getResultList();
+        }catch(Throwable e){
+            logger.warn(e.toString());
+            return new ArrayList<Employee>();
+        }
+    }
+
+    @Override
     public String getEmail(int id) {
         Employee em = getById(Employee.class, id);
         return em.getMail();
@@ -66,6 +78,7 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
 
     @Override
     public Employee saveEmployee(Employee employee) {
+        employee.setPassword(DigestUtils.md5Hex(employee.getPassword()));
         return super.save(employee);
     }
 

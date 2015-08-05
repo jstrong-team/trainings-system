@@ -4,6 +4,7 @@ package com.exadel.jstrong.web.fortrainings.services.mailservice;
  * Created by Anton on 01.08.2015.
  */
 
+import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Notice;
 import org.apache.log4j.Logger;
 
@@ -65,25 +66,14 @@ public class Sender {
             message.setFrom(new InternetAddress(SENDER));
             message.setSubject(notice.getTheme());
             message.setText(notice.getText());
-            int size = emails.size();
-            Address[] addresses = new Address[emails.size()];
-            String email;
-            for (int i = 0; i<size;i++){
-                email = emails.get(i);
-                if (email != null) {
-                    addresses[i] = new InternetAddress(emails.get(i));
+            for (String email : emails) {
+                try {
+                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+                    Transport.send(message);
+                } catch (Throwable e) {
+                    logger.warn("Message didn't send");
                 }
             }
-            message.setRecipients(Message.RecipientType.TO, addresses);
-            Transport.send(message);
-//            for (String email : emails) {
-//                try {
-//                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-//                    Transport.send(message);
-//                } catch (Throwable e) {
-//                    logger.warn("Message didn't send");
-//                }
-//            }
             return true;
         } catch (Throwable e) {
             logger.warn("Messages didn't send");
@@ -151,6 +141,27 @@ public class Sender {
             return true;
         } catch (Throwable e) {
             logger.warn("Messages didn't send");
+            return false;
+        }
+    }
+
+    public static boolean sendAccountData(Employee employee){
+        String text = "Your login: " + employee.getName() + "\r\nYour password: " + employee.getPassword();
+        try {
+            Session session = Session.getInstance(props, new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(USERNAME, PASSWORD);
+                }
+            });
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(SENDER));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(employee.getMail()));
+            message.setSubject("Registration");
+            message.setText(text);
+            Transport.send(message);
+            return true;
+        } catch (Throwable e) {
+            logger.warn("Message didn't send");
             return false;
         }
     }

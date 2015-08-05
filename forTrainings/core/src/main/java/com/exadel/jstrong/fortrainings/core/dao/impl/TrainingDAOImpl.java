@@ -251,5 +251,13 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         return training;
     }
 
-
+    @Override
+    public List<Training> getApprovedTrainings() {
+        try{
+            return em.createNativeQuery("SELECT * FROM training WHERE approve = 1", Training.class).getResultList();
+        } catch(Throwable e){
+            logger.warn(e.toString());
+            return new ArrayList<>();
+        }
+    }
 }
