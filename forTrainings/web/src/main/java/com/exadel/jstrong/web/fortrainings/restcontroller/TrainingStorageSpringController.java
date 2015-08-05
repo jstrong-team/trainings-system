@@ -202,11 +202,14 @@ public class TrainingStorageSpringController {
     //FIXME
     @RequestMapping(value = "/approve", method = RequestMethod.PUT)
     public void adminRequest(@RequestBody ApproveUI approveUI, HttpServletRequest request, HttpServletResponse response) {
-        if(APPROVE.compareToIgnoreCase(approveUI.getAdminAnswer()) == 0) {
-            tsci.approveTraining(approveUI.getNewTrainingId());
+        if(ec.isAdmin(restService.getUserId(request))) {
+            if (APPROVE.compareToIgnoreCase(approveUI.getAdminAnswer()) == 0) {
+                tsci.approveTraining(approveUI.getNewTrainingId());
+            } else {
+                tsci.killTransaction(approveUI.getNewTrainingId());
+            }
         } else {
-//            tsci.removeTraining(approveUI.getNewTrainingId());
-
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
