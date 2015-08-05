@@ -239,7 +239,13 @@ public class TrainingStorageSpringController {
         int transactionId = Integer.parseInt(request.getParameter("id"));
         int userId = restService.getUserId(request);
         if (ec.isAdmin(userId)) {
-            return tsci.mergeTraining(transactionId);
+            MergedTrainingUI mergedTrainingUI = tsci.mergeTraining(transactionId);
+            if(mergedTrainingUI != null) {
+                return  mergedTrainingUI;
+            } else {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return null;
+            }
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return null;
