@@ -58,7 +58,7 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
     public List<Employee> getAllInsideUsers() {
         try{
             Role role = roleDAO.getRoleByName("external");
-            return em.createNativeQuery("SELECT * FROM employee WHERE id IN (SELECT employee_id FROM employee_role WHERE role_id = :roleId)", Employee.class).setParameter("roleId", role.getId()).getResultList();
+            return em.createNativeQuery("SELECT * FROM employee WHERE id IN (SELECT employee_id FROM employee_role WHERE role_id <> :roleId)", Employee.class).setParameter("roleId", role.getId()).getResultList();
         }catch(Throwable e){
             logger.warn(e.toString());
             return new ArrayList<Employee>();

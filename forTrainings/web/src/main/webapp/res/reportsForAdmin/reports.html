@@ -1,58 +1,85 @@
 <div class="container wrappered">
     <h1 class="text-center reportsTitle">{{ 'REPORTS_MAIN_TITLE' | translate }}</h1>
-    <div class="col-md-3"></div>
-    <div class="col-md-6 form" id="employeeInput">
-        <div class="col-md-12 inputReport">
-            <label for="sel1">{{ 'REPORTS_SELECT_EMPLOYEE_TITLE' | translate }}:</label>
-            <select ng-change="getEmployeeReport()" ng-model="item" class="form-control" id="sel1">
-                <option value="" disabled selected>{{ 'REPORTS_SELECT_EMPLOYEE_PLACEHOLDER' | translate }}</option>
-                <option ng-repeat="item in employeeList" value={{item}}>{{item.name}}</option>
-            </select>
+    <form class="form-horizontal createTraining" name="getReport" role="form" ng-submit="submitForm()" novalidate>
+        <div class="col-md-3"></div>
+        <div class="col-md-6 form" id="employeeInput">
+            <div class="col-md-12 inputReport">
+                <label for="sel1">{{ 'REPORTS_SELECT_EMPLOYEE_TITLE' | translate }}:</label>
+                <select ng-model="employeeItem" class="form-control" id="sel1">
+                    <option value="">{{ 'REPORTS_SELECT_EMPLOYEE_PLACEHOLDER' | translate }}</option>
+                    <option ng-repeat="employeeItem in employeeList" value={{employeeItem}}>{{employeeItem.name}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-12 inputReport">
+                <label for="sel2">{{ 'REPORTS_SELECT_TRAINING_NAME_TITLE' | translate }}:</label>
+                <select ng-model="trainingItem" class="form-control" id="sel2">
+                    <option value="">{{ 'REPORTS_SELECT_TRAINING_PLACEHOLDER' | translate }}</option>
+                    <option ng-repeat="trainingItem in trainingsList" value={{trainingItem}}>{{trainingItem.name}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 inputReport">
+                <label for="sel3">{{ 'REPORTS_SELECT_FROM' | translate }}:</label>
+                <input type="text" class="form-control" id="sel3"
+                       placeholder="{{ 'REPORTS_SELECT_FROM_PLACEHOLDER' | translate }}">
+            </div>
+
+            <div class="col-md-6 inputReport">
+                <label for="sel4">{{ 'REPORTS_SELECT_TO' | translate }}:</label>
+                <input type="text" class="form-control" id="sel4"
+                       placeholder="{{ 'REPORTS_SELECT_TO_PLACEHOLDER' | translate }}">
+            </div>
+
+            <div class="col-md-12">
+                <button type="submit" ng-disabled="getReport.$invalid" class="btn btn-md getReportButton">
+                    Get report
+                </button>
+            </div>
         </div>
+    </form>
 
-        <div class="col-md-12 inputReport">
-            <label for="sel2">{{ 'REPORTS_SELECT_TRAINING_NAME_TITLE' | translate }}:</label>
-            <select ng-model="training" class="form-control" id="sel2">
-                <option value="" disabled selected>{{ 'REPORTS_SELECT_TRAINING_PLACEHOLDER' | translate }}</option>
-                <option ng-repeat="training in employeeInfo" value={{training}}>{{training.trainingName}}</option>
-            </select>
-        </div>
-
-        <div class="col-md-6 inputReport">
-            <label for="sel3">{{ 'REPORTS_SELECT_FROM' | translate }}:</label>
-            <input type="text" class="form-control" id="sel3"
-                   placeholder="{{ 'REPORTS_SELECT_FROM_PLACEHOLDER' | translate }}">
-        </div>
-
-        <div class="col-md-6 inputReport">
-            <label for="sel4">{{ 'REPORTS_SELECT_TO' | translate }}:</label>
-            <input type="text" class="form-control" id="sel4"
-                   placeholder="{{ 'REPORTS_SELECT_TO_PLACEHOLDER' | translate }}">
-        </div>
-    </div>
-
-    <div id="printableArea" ng-show="selectedEmployee">
-        <h4 class="selectedEmployee well">{{selectedEmployee}}</h4>
-
+    <div id="printableArea">
         <div class="col-md-2"></div>
-        <table class="col-md-8 table table-striped table-bordered reportTable">
-            <thead>
-            <tr>
-                <th>{{ 'REPORTS_TABLE_TRAINING' | translate }}</th>
-                <th>{{ 'REPORTS_TABLE_DATE' | translate }}</th>
-                <th>{{ 'REPORTS_TABLE_ATTENDANCE' | translate }}</th>
-                <th>{{ 'REPORTS_TABLE_REASON' | translate}}</th>
+
+        <table ng-table="tableParams" class="table ng-table-responsive">
+            <tbody ng-repeat="group in $groups">
+            <tr class="ng-table-group">
+                <td colspan="{{$columns.length}}">
+                    <a href="" ng-click="group.$hideRows = !group.$hideRows">
+                        <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right': group.$hideRows, 'glyphicon-chevron-down': !group.$hideRows }"></span>
+                        <strong>{{ group.value }}</strong>
+                    </a>
+                </td>
             </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="item in employeeInfo">
-                <td>{{item.trainingName}}</td>
-                <td>{{item.date}}</td>
-                <td>{{ item.absent | translate }}</td>
-                <td>{{item.reason}}</td>
+            <tr ng-hide="group.$hideRows" ng-repeat="user in group.data">
+                <td sortable="'name'" data-title="'Name'">
+                    {{user.name}}
+                </td>
+                <td sortable="'age'" data-title="'Age'">
+                    {{user.age}}
+                </td>
             </tr>
             </tbody>
         </table>
+        <!--<table class="col-md-8 table table-striped table-bordered reportTable">-->
+            <!--<thead>-->
+            <!--<tr>-->
+                <!--<th>{{ 'REPORTS_TABLE_TRAINING' | translate }}</th>-->
+                <!--<th>{{ 'REPORTS_TABLE_DATE' | translate }}</th>-->
+                <!--<th>{{ 'REPORTS_TABLE_ATTENDANCE' | translate }}</th>-->
+                <!--<th>{{ 'REPORTS_TABLE_REASON' | translate}}</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--<tr ng-repeat="item in employeeInfo">-->
+                <!--<td>{{item.trainingName}}</td>-->
+                <!--<td>{{item.date}}</td>-->
+                <!--<td>{{ item.absent | translate }}</td>-->
+                <!--<td>{{item.reason}}</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
         <div class="col-md-2"></div>
     </div>
 

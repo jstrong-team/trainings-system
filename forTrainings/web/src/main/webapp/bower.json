@@ -22,6 +22,7 @@
     "angular-spinner": "~0.6.2",
     "angular-loading-spinner": "~0.0.3",
     "angular-translate": "~2.7.2",
-    "angular-translate-loader-static-files": "~2.7.2"
+    "angular-translate-loader-static-files": "~2.7.2",
+    "ng-table": "~0.8.1"
   }
 }

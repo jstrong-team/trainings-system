@@ -2,14 +2,10 @@
     padding-bottom: 40px;
 }
 
-.printButton {
+.printButton, .getReportButton {
     float: right;
     background-color: #2E729F;
     color: #ffffff;
-}
-
-.selectedEmployee {
-    float: right;
 }
 
 #employeeInput {
@@ -31,5 +27,5 @@
 }
 
 .inputReport {
-    padding-bottom: 10px;
+    padding-bottom: 15px;
 }

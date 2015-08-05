@@ -73,7 +73,11 @@
             console.log($scope.createInfo);
             createService.serv($scope.createInfo).then(function (response) {
                 console.log(response);
-                $location.url('/ui/creation_response');
+                if ($scope.createInfo.externalTrainerName === null) {
+                    $location.url('/ui/creation_response');
+                } else {
+                    $location.url('/ui/creation_response_external');
+                }
             }, function (error) {
                 console.error(error);
                 $scope.error = 'Error';
