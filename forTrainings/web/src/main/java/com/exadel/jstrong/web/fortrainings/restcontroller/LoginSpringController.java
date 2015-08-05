@@ -7,7 +7,6 @@ import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
 import com.exadel.jstrong.web.fortrainings.services.RestService;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import com.google.gson.JsonParseException;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +36,7 @@ public class LoginSpringController {
     EmployeeUI login(@RequestBody Account rempl, HttpServletResponse response) throws ServletException, IOException {
         try {
             String login = rempl.getLogin();
-            String password = DigestUtils.md5Hex(rempl.getPassword());
+            String password = rempl.getPassword();
             if (login != null && password != null) {
                 EmployeeUI employeeUI = employeeController.authorization(login, password);
                 if (employeeUI == null) {

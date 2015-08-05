@@ -49,10 +49,11 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
     @Override
     @Transactional
-    public Employee addTraining(Training training) {
+    public int addTraining(Training training) {
         Employee employee = new Employee();
         if (training.getExternalTrainerName()!=null){
             employee = ExternalService.getExternalTrainer(training);
+            Sender.sendAccountData(employee);
             employee = eDAO.saveEmployee(employee);
             eDAO.setEmployeeRole(employee, "external");
             training.setTrainer_id(employee.getId());
@@ -78,7 +79,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<String> mails = eDAO.getAllMails();
         //Sender.send(notice, mails);
 
-        return employee;
+        return id;
     }
 
     @Override
