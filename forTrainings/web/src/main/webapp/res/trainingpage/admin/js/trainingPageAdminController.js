@@ -28,12 +28,14 @@
 
         $scope.isCollapsed = {
             dates: true,
-            subscribers: false
+            subscribers: false,
+            addSubscriber:true
         };
 
         $scope.show = {
             subscribers: 'Hide',
-            dates: 'Show'
+            dates: 'Show',
+            addSubscriber:'Hide'
         };
 
 
@@ -52,6 +54,14 @@
                     $scope.show.subscribers = 'Show';
                 } else {
                     $scope.show.subscribers = 'Hide';
+                }
+            },
+            addSubscriber: function(){
+                $scope.isCollapsed.addSubscriber = !$scope.isCollapsed.addSubscriber;
+                if ($scope.isCollapsed.addSubscriber) {
+                    $scope.show.addSubscriber = 'Show';
+                } else {
+                    $scope.show.addSubscriber = 'Hide';
                 }
             }
         };
