@@ -8,7 +8,7 @@ public class MergerTest {
 
     @Test
     public void mergeTest() {
-        String source = "This training is for Java. Developers and Java Beginners in company";
+        String source = "This training is for Java Developers and Java Beginners in company";
         String updated = "This special training course is for Java Developers and other employees in company Exadel";
 //        String updated = "This training is for Java Developers and Java Beginners in company";
 

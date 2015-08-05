@@ -71,8 +71,8 @@
                     </td>
                 </tr>
             </table>
-            <div class="breakText ">
-                <button type="button" class="btn  editDatesButton " ng-click="acceptAttendanceChanges()">Accept changes</button>
+            <div class=" buttonBottom">
+                <button type="button" class="btn  editDatesButton " ng-click="acceptAttendanceChanges()">Save changes</button>
             </div>
             <span>Comments:</span>
             <p></p>
@@ -197,11 +197,11 @@
                 </div>
                 <div class="col-md-12 dateTime">
                     <div collapse="isCollapsed.subscribers">
-                           <table class="table">
+                           <table class="table subscribersTable">
                             <tr>
                                 <th>#</th>
                                 <th>subscriber</th>
-                                <th></th>
+                                <th>state</th>
                             </tr>
                             <tr ng-repeat="subscriber in subscribers">
                                 <td>
@@ -218,6 +218,24 @@
                                           }"></span></td>
                             </tr>
                         </table>
+                        <button type="text"
+                                class="btn btn-default buttonBottom"
+                                ng-click="changeCollapse.addSubscriber()">Add subscriber</button>
+                        <input type="text"
+                               placeholder="name"
+                               collapse="isCollapsed.addSubscriber"
+                               class="buttonBottom form-control"/>
+                        <input type="email"
+                               placeholder="E-mail"
+                               collapse="isCollapsed.addSubscriber"
+                               class="buttonBottom form-control"/>
+                        <input type="tel"
+                               placeholder="Phone number"
+                               collapse="isCollapsed.addSubscriber"
+                               class="buttonBottom form-control"/>
+                        <button type="text"
+                                collapse="isCollapsed.addSubscriber"
+                                class="btn btn-default buttonBottom">Save subscriber</button>
                     </div>
                 </div>
             </div>
