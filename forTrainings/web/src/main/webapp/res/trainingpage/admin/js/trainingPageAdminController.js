@@ -143,7 +143,6 @@
             });
             getFeedbacksService(id).then(function (data, status, headers, config) {
                 $scope.feedbacks = data.data;
-                console.log($scope.feedbacks);
             }, function (error) {
                 console.error(error);
             });
