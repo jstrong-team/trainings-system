@@ -1,9 +1,6 @@
 package com.exadel.jstrong.web.fortrainings.controller;
 
-import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
-import com.exadel.jstrong.fortrainings.core.model.Participant;
-import com.exadel.jstrong.fortrainings.core.model.Subscribe;
-import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.exadel.jstrong.fortrainings.core.model.*;
 import com.exadel.jstrong.web.fortrainings.model.*;
 
 import java.util.List;
@@ -28,5 +25,8 @@ public interface TrainingStorageController {
     void updateParticipants(List<Participant> participants);
     void killTransaction(int transactionId);
     MergedTrainingUI mergeTraining(int transactionId);
+    void addTrainerFeedback(TrainerFeedback trainerFeedback);
+    List<TrainerFeedbackUI> getTrainerFeedbacks(int employeeID);
+    void addExternalUser(ExternalUserUI newEmployeeUI, int trainingId);
 }
 

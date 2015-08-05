@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `for_trainings` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `for_trainings`;
--- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.23, for Win32 (x86)
 --
 -- Host: localhost    Database: for_trainings
 -- ------------------------------------------------------
--- Server version	5.6.25-log
+-- Server version	5.6.24-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -412,6 +410,7 @@ CREATE TABLE `token` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `value` varchar(45) DEFAULT 'token',
   `employee_id` int(11) NOT NULL,
+  `session` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_employee_token_idx` (`employee_id`),
   CONSTRAINT `fk_employee_token` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -424,7 +423,7 @@ CREATE TABLE `token` (
 
 LOCK TABLES `token` WRITE;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
-INSERT INTO `token` VALUES (1,'010815122730-540119915',1),(2,'token',2),(3,'token',3),(4,'240715155508-2059738913',4),(5,'310715151646-2122411317',5),(6,'token',6),(7,'0308150926211296953224',7),(8,'2907151047191192705113',8),(9,'240715155455295800428',9);
+INSERT INTO `token` VALUES (1,'010815122730-540119915',1,'050815102000278181481'),(2,'token',2,NULL),(3,'token',3,NULL),(4,'240715155508-2059738913',4,NULL),(5,'310715151646-2122411317',5,NULL),(6,'token',6,NULL),(7,'0308150926211296953224',7,NULL),(8,'2907151047191192705113',8,'050815102425-1750261881'),(9,'240715155455295800428',9,NULL);
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -438,15 +437,26 @@ DROP TABLE IF EXISTS `trainer_feedback`;
 CREATE TABLE `trainer_feedback` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `employee_id` int(11) NOT NULL,
+  `feedbacker_id` int(11) NOT NULL,
   `training_id` int(11) NOT NULL,
-  `text` text NOT NULL,
   `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `presence` varchar(255) DEFAULT NULL,
+  `attitude` varchar(255) DEFAULT NULL,
+  `communication` varchar(255) DEFAULT NULL,
+  `question` varchar(255) DEFAULT NULL,
+  `interest` varchar(255) DEFAULT NULL,
+  `result` varchar(255) DEFAULT NULL,
+  `level` varchar(20) DEFAULT NULL,
+  `rating` int(11) NOT NULL,
+  `other` text,
   PRIMARY KEY (`id`),
   KEY `fk_employee_trainer_feedback_idx1` (`employee_id`),
   KEY `fk_training_trainer_feedback_idx` (`training_id`),
+  KEY `fk_employee_trainer_feedback_idx` (`feedbacker_id`),
   CONSTRAINT `fk_employee_trainer_feedback` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_employee_trainer_feedback_` FOREIGN KEY (`feedbacker_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_training_trainer_feedback` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -455,6 +465,7 @@ CREATE TABLE `trainer_feedback` (
 
 LOCK TABLES `trainer_feedback` WRITE;
 /*!40000 ALTER TABLE `trainer_feedback` DISABLE KEYS */;
+INSERT INTO `trainer_feedback` VALUES (1,2,8,1,'2015-08-05 08:24:34',NULL,NULL,NULL,NULL,NULL,NULL,NULL,3,NULL);
 /*!40000 ALTER TABLE `trainer_feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -573,4 +584,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-03 12:48:28
+-- Dump completed on 2015-08-05 10:31:10
