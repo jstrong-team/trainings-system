@@ -1,45 +1,69 @@
 <div class="container wrappered">
     <h1 class="text-center reportsTitle">{{ 'REPORTS_MAIN_TITLE' | translate }}</h1>
-
     <div class="col-md-3"></div>
     <div class="col-md-6 form" id="employeeInput">
-        <label for="sel">{{ 'REPORTS_SELECT_EMPLOYEE_TITLE' | translate }}:</label>
-        <select ng-change="getEmployeeReport()" ng-model="item" class="form-control" id="sel">
-            <option value="" disabled selected>{{ 'REPORTS_SELECT_EMPLOYEE_PLACEHOLDER' | translate }}</option>
-            <option ng-repeat="item in employeeList" value={{item}}>{{item.name}}</option>
-        </select>
-    </div>
-    <div class="col-md-3"></div>
+        <div class="col-md-12 inputReport">
+            <label for="sel1">{{ 'REPORTS_SELECT_EMPLOYEE_TITLE' | translate }}:</label>
+            <select ng-change="getEmployeeReport()" ng-model="item" class="form-control" id="sel1">
+                <option value="" disabled selected>{{ 'REPORTS_SELECT_EMPLOYEE_PLACEHOLDER' | translate }}</option>
+                <option ng-repeat="item in employeeList" value={{item}}>{{item.name}}</option>
+            </select>
+        </div>
 
-    <div class="reportTable" id="printableArea" ng-show="selectedEmployee">
+        <div class="col-md-12 inputReport">
+            <label for="sel2">{{ 'REPORTS_SELECT_TRAINING_NAME_TITLE' | translate }}:</label>
+            <select ng-model="training" class="form-control" id="sel2">
+                <option value="" disabled selected>{{ 'REPORTS_SELECT_TRAINING_PLACEHOLDER' | translate }}</option>
+                <option ng-repeat="training in employeeInfo" value={{training}}>{{training.trainingName}}</option>
+            </select>
+        </div>
+
+        <div class="col-md-6 inputReport">
+            <label for="sel3">{{ 'REPORTS_SELECT_FROM' | translate }}:</label>
+            <input type="text" class="form-control" id="sel3"
+                   placeholder="{{ 'REPORTS_SELECT_FROM_PLACEHOLDER' | translate }}">
+        </div>
+
+        <div class="col-md-6 inputReport">
+            <label for="sel4">{{ 'REPORTS_SELECT_TO' | translate }}:</label>
+            <input type="text" class="form-control" id="sel4"
+                   placeholder="{{ 'REPORTS_SELECT_TO_PLACEHOLDER' | translate }}">
+        </div>
+    </div>
+
+    <div id="printableArea" ng-show="selectedEmployee">
         <h4 class="selectedEmployee well">{{selectedEmployee}}</h4>
+
         <div class="col-md-2"></div>
-        <table class="col-md-8 table table-striped table-bordered table-hover">
+        <table class="col-md-8 table table-striped table-bordered reportTable">
             <thead>
-                <tr>
-                    <th>{{ 'REPORTS_TABLE_TRAINING' | translate }}</th>
-                    <th>{{ 'REPORTS_TABLE_DATE' | translate }}</th>
-                    <th>{{ 'REPORTS_TABLE_ATTENDANCE' | translate }}</th>
-                    <th>{{ 'REPORTS_TABLE_REASON' | translate}}</th>
-                </tr>
+            <tr>
+                <th>{{ 'REPORTS_TABLE_TRAINING' | translate }}</th>
+                <th>{{ 'REPORTS_TABLE_DATE' | translate }}</th>
+                <th>{{ 'REPORTS_TABLE_ATTENDANCE' | translate }}</th>
+                <th>{{ 'REPORTS_TABLE_REASON' | translate}}</th>
+            </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in employeeInfo">
-                    <td>{{item.trainingName}}</td>
-                    <td>{{item.date}}</td>
-                    <td>{{ item.absent | translate }}</td>
-                    <td>{{item.reason}}</td>
-                </tr>
+            <tr ng-repeat="item in employeeInfo">
+                <td>{{item.trainingName}}</td>
+                <td>{{item.date}}</td>
+                <td>{{ item.absent | translate }}</td>
+                <td>{{item.reason}}</td>
+            </tr>
             </tbody>
         </table>
         <div class="col-md-2"></div>
     </div>
 
     <div class="noReports col-md-12" ng-show="noReportFound">
-        <h2 class="text-center newsTitle"><small>{{ 'REPORTS_NO_RESULTS' | translate }}</small></h2>
+        <h2 class="text-center newsTitle">
+            <small>{{ 'REPORTS_NO_RESULTS' | translate }}</small>
+        </h2>
     </div>
 
-    <button ng-show="selectedEmployee" type="button" class="btn btn-md printButton" ng-click="printService('printableArea')">
+    <button ng-show="selectedEmployee" type="button" class="btn btn-md printButton"
+            ng-click="printService('printableArea')">
         <span class="glyphicon glyphicon-print"></span>
         {{ 'REPORTS_PRINT' | translate }}
     </button>

@@ -9,7 +9,8 @@
     var controller = function ($scope, createService, $location, validationService, multipleDatesService) {
         $scope.createInfo = {
             name: null, annotation: null, description: null, target: null, paid: true,
-            max_participants: null, date: [], place: null, internal: true
+            max_participants: null, date: [], place: null, internal: true, externalTrainerName: null,
+            externalTrainerMail: null, externalTrainerPhone: null
         };
 
         $scope.days = [
@@ -21,6 +22,14 @@
             {name: 'CREATE_TRAINING_DATA_DAYS_FR', day: 5},
             {name: 'CREATE_TRAINING_DATA_DAYS_SAT', day: 6}
         ];
+
+        $scope.isCollapsedET = true;
+        $scope.addRemoveTrainerButton = 'CREATE_TRAINING_ADD_EXTERNAL_BUTTON';
+
+        $scope.isCollapsedExternalTrainer = function () {
+            $scope.isCollapsedET = !$scope.isCollapsedET;
+            $scope.addRemoveTrainerButton = $scope.isCollapsedET ? 'CREATE_TRAINING_ADD_EXTERNAL_BUTTON' : 'CREATE_TRAINING_REMOVE_EXTERNAL_BUTTON';
+        };
 
         $scope.selectedDays = [];
         $scope.isTrainingPeriodic = '';

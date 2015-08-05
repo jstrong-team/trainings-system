@@ -41,6 +41,8 @@
                 });
         };
 
+
+
         $scope.printService = function (printElement) {
             localStorage.setItem('printHtml',document.getElementById(printElement).innerHTML);
             window.open('/ui/admin/reports/print');

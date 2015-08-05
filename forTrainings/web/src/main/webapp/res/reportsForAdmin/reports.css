@@ -13,7 +13,7 @@
 }
 
 #employeeInput {
-    padding-top: 13%;
+    padding-top: 5%;
 }
 
 #employeeInput,
@@ -22,6 +22,14 @@
     transition: all linear 0.5s;
 }
 
+.reportTable {
+    margin-top: 30px;
+}
+
 .noReports {
     padding-top: 10%;
+}
+
+.inputReport {
+    padding-bottom: 10px;
 }
