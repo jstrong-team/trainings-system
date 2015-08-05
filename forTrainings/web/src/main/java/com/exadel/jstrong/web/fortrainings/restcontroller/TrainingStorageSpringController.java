@@ -205,11 +205,14 @@ public class TrainingStorageSpringController {
     //FIXME
     @RequestMapping(value = "/approve", method = RequestMethod.PUT)
     public void adminRequest(@RequestBody ApproveUI approveUI, HttpServletRequest request, HttpServletResponse response) {
-        if(APPROVE.compareToIgnoreCase(approveUI.getAdminAnswer()) == 0) {
-            tsci.approveTraining(approveUI.getNewTrainingId());
+        if(ec.isAdmin(restService.getUserId(request))) {
+            if (APPROVE.compareToIgnoreCase(approveUI.getAdminAnswer()) == 0) {
+                tsci.approveTraining(approveUI.getNewTrainingId());
+            } else {
+                tsci.killTransaction(approveUI.getNewTrainingId());
+            }
         } else {
-//            tsci.removeTraining(approveUI.getNewTrainingId());
-
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
@@ -238,7 +241,13 @@ public class TrainingStorageSpringController {
         int transactionId = Integer.parseInt(request.getParameter("id"));
         int userId = restService.getUserId(request);
         if (ec.isAdmin(userId)) {
-            return tsci.mergeTraining(transactionId);
+            MergedTrainingUI mergedTrainingUI = tsci.mergeTraining(transactionId);
+            if(mergedTrainingUI != null) {
+                return  mergedTrainingUI;
+            } else {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return null;
+            }
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return null;

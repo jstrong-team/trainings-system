@@ -66,6 +66,7 @@ public class MeetDAOImpl extends BaseDAO<Meet> implements MeetDAO {
 
 
     @Override
+    @Transactional
     public void removeMeets(int trainingId) {
         try {
             Query query = em.createNativeQuery("delete from meet where training_id=:tId").setParameter("tId", trainingId);
