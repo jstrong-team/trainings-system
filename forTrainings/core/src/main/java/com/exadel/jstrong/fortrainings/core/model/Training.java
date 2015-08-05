@@ -58,6 +58,15 @@ public class Training {
     @Transient
     private Boolean isSubscribe;
 
+    @Transient
+    private String externalTrainerName;
+
+    @Transient
+    private String externalTrainerMail;
+
+    @Transient
+    private String externalTrainerPhone;
+
 //    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribeTrainings")
 //    private List<Employee> subscribers;
 
@@ -227,5 +236,29 @@ public class Training {
 
     public void setNotices(List<Notice> notices) {
         this.notices = notices;
+    }
+
+    public String getExternalTrainerName() {
+        return externalTrainerName;
+    }
+
+    public void setExternalTrainerName(String externalTrainerName) {
+        this.externalTrainerName = externalTrainerName;
+    }
+
+    public String getExternalTrainerMail() {
+        return externalTrainerMail;
+    }
+
+    public void setExternalTrainerMail(String externalTrainerMail) {
+        this.externalTrainerMail = externalTrainerMail;
+    }
+
+    public String getExternalTrainerPhone() {
+        return externalTrainerPhone;
+    }
+
+    public void setExternalTrainerPhone(String externalTrainerPhone) {
+        this.externalTrainerPhone = externalTrainerPhone;
     }
 }

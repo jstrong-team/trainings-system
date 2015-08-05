@@ -6,6 +6,7 @@ import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
 import com.exadel.jstrong.fortrainings.core.util.Merger;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
+import com.exadel.jstrong.web.fortrainings.services.ExternalService;
 import com.exadel.jstrong.web.fortrainings.services.mailservice.Sender;
 import com.exadel.jstrong.web.fortrainings.services.noticeservice.NoticeFactory;
 import com.exadel.jstrong.web.fortrainings.model.comparator.SubscriberUIComp;
@@ -49,6 +50,18 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     @Override
     @Transactional
     public int addTraining(Training training) {
+        if (training.getExternalTrainerName()!=null){
+            Employee employee = new Employee();
+            Account account = ExternalService.getAccount(training.getId());
+            employee.setLogin(account.getLogin());
+            employee.setPassword(account.getPassword());
+            employee.setName(training.getExternalTrainerName());
+            employee.setPhone(training.getExternalTrainerPhone());
+            employee = eDAO.saveEmployee(employee);
+            List<String> roles = new ArrayList<>();
+            roles.add("external");
+            training.setTrainer_id(employee.getId());
+        }
         int id = tDAO.add(training);
         List<Date> dates = training.getDate();
         int size = dates.size();

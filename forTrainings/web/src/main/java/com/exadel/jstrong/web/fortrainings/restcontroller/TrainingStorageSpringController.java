@@ -42,8 +42,10 @@ public class TrainingStorageSpringController {
     @RequestMapping(method = RequestMethod.POST)
     public void addTraining(@RequestBody Training training, HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            int id = restService.getUserId(request);
-            training.setTrainer_id(id);
+            if (training.getExternalTrainerName()==null) {
+                int id = restService.getUserId(request);
+                training.setTrainer_id(id);
+            }
             training.setApprove(false);
             tsci.addTraining(training);
 

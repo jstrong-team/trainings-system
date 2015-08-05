@@ -1,7 +1,6 @@
 package com.exadel.jstrong.web.fortrainings.filters;
 
 import com.exadel.jstrong.fortrainings.core.dao.TokenDAO;
-import com.exadel.jstrong.fortrainings.core.model.Token;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,15 +113,6 @@ public class AuthenticationFilterV2 extends OncePerRequestFilter {
      */
     private boolean checkIsRemembered(Cookie remMeCookie) {
         return true;
-    }
-
-    private String saveSessionPath(String url) {
-        String session = CookieUtil.generateToken();
-        Token token = new Token();
-        token.setSession(session);
-        token.setPath(url);
-        tokenDAO.addToken(token);
-        return session;
     }
 
     @Override
