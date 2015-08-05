@@ -5,14 +5,16 @@
         'getTrainingInfo',
         'getSubscribersService',
         'getFeedbacksService',
-        'attendanceSendService'
+        'attendanceSendService',
+        '$modal'
     ];
     var controller = function ($scope,
                                $location,
                                getTrainingInfo,
                                getSubscribersService,
                                getFeedbacksService,
-                               attendanceSendService) {
+                               attendanceSendService,
+                               $modal) {
 
         $scope.isCollapsed = {
             dates: true,
@@ -47,7 +49,39 @@
             }
         };
 
+        $scope.feedback = {
+            employeeId:null,
+            presence:null,
+            attitude:null,
+            communication:null,
+            question:null,
+            interest:null,
+            result:null,
+            level:null,
+            rating:null,
+            other:null
+        };
+
         $scope.openModal = function () {
+            var modalInstance = $modal.open({
+                animation: true,
+                templateUrl: '/res/trainingpage/trainer/userRevieModal.html',
+                controller: 'userRevieModalController',
+                resolve: {
+                    feedbacks: function () {
+                        return {
+                            feedback: $scope.feedback,
+                            trainingId: $scope.training.id,
+                            subscribers:$scope.subscribers
+                        };
+                    }
+                }
+            });
+            modalInstance.result.then(function (response) {
+                console.log(response);
+            }, function (error) {
+                console.error(error);
+            });
 
         };
 

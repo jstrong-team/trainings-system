@@ -221,3 +221,15 @@
 .glyphYellow{
    color:#ec971f;
 }
+
+.trainerFedbackInputDiv{
+   padding-top: 5px;
+   padding-right: 35px;
+   padding-left: 10px;
+}
+
+.requiredText{
+   font-size:14px ;
+   font-weight:500 ;
+   color:red;
+}

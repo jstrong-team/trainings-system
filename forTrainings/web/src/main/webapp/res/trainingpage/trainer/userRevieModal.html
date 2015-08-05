@@ -1,78 +1,70 @@
 <div classs="row " >
-    <div class=" textBlock" >
+    <div class=" textBlock " >
         <form ng-submit = "submit()">
-            <div>
-                <label class="control-label ">Did you understand all? </label>
-                <div class="radio">
-                    <label><input type="radio" value="true" name="understand" ng-model="feedback.understand">yes</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio" value="false" name="understand" ng-model="feedback.understand">no</label>
-                </div>
-                <p></p>
+
+            <div class="trainerFedbackInputDiv">
+                <label >{{ 'REPORTS_SELECT_EMPLOYEE_TITLE' | translate }}:</label>
+                <select ng-model="feedback.employeeId"
+                        class="form-control">
+                    <option value="" disabled selected>Choose employee</option>
+                    <option ng-repeat="item in subscribers|filter:'Approve'" value={{item.id}}>{{item.name}}</option>
+                </select>
             </div>
-            <div >
-                <label class="control-label ">whether you're interested in?</label>
-                <div class="radio">
-                    <label><input type="radio" value="true" name="interested" ng-model="feedback.interested">yes</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio" value="false" name="interested" ng-model="feedback.interested">no</label>
-                </div>
-                <p></p>
+
+            <div class="trainerFedbackInputDiv">
+                <label class="control-label ">Attendance: </label>
+                <input type="text" class="form-control" ng-model="feedback.presence" required>
             </div>
-            <div>
-                <label class="control-label ">Would you like to learn from this coach?</label>
-                <div class="radio">
-                    <label><input type="radio" value="true" name="continueWithThisTrainer" ng-model="feedback.continueWithThisTrainer">yes</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio" value="false" name="continueWithThisTrainer" ng-model="feedback.continueWithThisTrainer">no</label>
-                </div>
-                <p></p>
+            <div class="trainerFedbackInputDiv">
+                <label class="control-label ">Attitude to learning: </label>
+                <input type="text" class="form-control" ng-model="feedback.attitude" required>
             </div>
-            <div>
-                <label class="control-label ">Did you learn something new?</label>
-                <div class="radio">
-                    <label><input type="radio" value="true" name="smthNew" ng-model="feedback.smthNew">yes</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio" value="false" name="smthNew" ng-model="feedback.smthNew">no</label>
-                </div>
-                <p></p>
+            <div class="trainerFedbackInputDiv">
+                <label class="control-label ">Communication skills: </label>
+                <input type="text" class="form-control" ng-model="feedback.communication" required>
             </div>
-            <div>
-                <label class="control-label ">Would you recommend to your colleagues to visit this training?</label>
-                <div class="radio">
-                    <label><input type="radio" value="true" name="recommend" ng-model="feedback.recommend">yes</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio" value="false" name="recommend" ng-model="feedback.recommend">no</label>
-                </div>
-                <p></p>
+            <div class="trainerFedbackInputDiv">
+                <label class="control-label ">Asking questions:</label>
+                <input type="text" class="form-control" ng-model="feedback.question" required>
             </div>
-            <div>
-                <label class="control-label ">how effectively the last session (Rate from 1 to 5)?</label>
+            <div class="trainerFedbackInputDiv">
+                <label class="control-label ">Showed interest / motivation:</label>
+                <input type="text" class="form-control" ng-model="feedback.interest" required>
+            </div>
+            <div class="trainerFedbackInputDiv">
+                <label class="control-label ">Focus on results:</label>
+                <input type="text" class="form-control" ng-model="feedback.result" required>
+            </div>
+            <div class="trainerFedbackInputDiv">
+                <label class="control-label ">The level of employee:</label>
+                <input type="text" class="form-control" ng-model="feedback.level" required>
+            </div>
+            <div class="trainerFedbackInputDiv">
+                <label class="control-label ">Educational evaluation  (Rate from 1 to 4):</label>
                 <div ng-controller="ratingController">
                     <span >
-                        <rating ng-model="feedback.rate"
-                                max="5"
-                                readonly="isRatingReadonly"
+                        <rating ng-model="feedback.rating"
+                                max="4"
+                                state-on="'glyphicon-ok-sign'"
+                                state-off="'glyphicon-ok-circle'"
                                 on-hover="hoveringOver(value)"
                                 on-leave="overStar=null"
+                                required
                                 >
                         </rating>{{overStar}}
+                        <div class="requiredText" ng-show="rateshow">Please choose rating</div>
                     </span>
                 </div>
-                <p></p>
             </div>
-            <div>
+            <div class="trainerFedbackInputDiv">
                 <label class="control-label ">Other:</label><textarea type="text" rows="3"
                                                                       class="form-control"
                                                                       ng-model="feedback.other" ></textarea><p></p>
             </div>
-            <button type="submit" class="btn btn-primary ">Send feedback</button>
-            <p></p>
+            <div class="trainerFedbackInputDiv">
+                <button type="submit" class="btn btn-primary ">Send feedback</button>
+                <input type="button" value="Cancel" ng-click="cancel()" class="btn btn-danger ">
+            </div><br>
         </form>
     </div>
 </div>

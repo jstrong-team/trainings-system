@@ -131,36 +131,25 @@
             </div>
 
             <div class="row buttons">
-                <div class="col-md-6 " ng-show="!training.isSubscribe" ng-cloak>
-                    <button type="button" class="btn  editDatesButton" ng-click="subscribe()">subscribe</button>
-                </div>
-                <div class="col-md-6">
-                    <button type="button" class="btn editDatesButton " ng-click="openModal()" ng-show="training.isSubscribe">
-                        Leave feedback
-                    </button>
-                </div>
-                <div class="col-md-6" ng-show="training.isSubscribe" ng-cloak>
-                    <button type="button" class="btn btn-danger " ng-click="unsubscribe()">unsubscribe</button>
-                </div>
-            </div>
-
-            <div class="row buttons">
                 <div class="col-md-6 ">
-                    <button type="button" class="btn editDatesButton " ng-click="editTraining()">Edit training</button>
+                    <button type="button" class="btn  editDatesButton" ng-click="editTraining()">Edit training</button>
                 </div>
                 <div class="col-md-6 ">
                     <button type="button" class="btn btn-danger " ng-click="subscribe()">Remove training</button>
                 </div>
             </div>
-
             <div class="row buttons">
+                <div class="col-md-12">
+                    <button class="btn btn-default editDatesButton "
+                            ng-click="openModal()">Feedback on the subscriber</button>
+                </div>
                 <div class="col-md-12"  ng-cloak>
-                    <button class="btn btn-default"
+                    <button class="btn editDatesButton"
                             ng-click="changeCollapse.dates()">
-                        <span>{{show.dates}} dates</span>
+                        {{show.dates}} dates
                     </button>
                 </div>
-                <div class="col-md-12 dateTime">
+                <div class="dateTime">
                     <div collapse="isCollapsed.dates">
                         <table class="table">
                             <tr>
@@ -188,16 +177,15 @@
                         </table>
                     </div>
                 </div>
-
                 <div class="col-md-12 buttons"  ng-cloak>
-                    <button class="btn btn-default"
+                    <button class="btn editDatesButton"
                             ng-click="changeCollapse.subscribers()">
-                        <span>{{show.subscribers}} subscribers</span>
+                        {{show.subscribers}} subscribers
                     </button>
                 </div>
                 <div class="col-md-12 dateTime">
                     <div collapse="isCollapsed.subscribers">
-                           <table class="table subscribersTable">
+                        <table class="table subscribersTable">
                             <tr>
                                 <th>#</th>
                                 <th>subscriber</th>
