@@ -85,6 +85,11 @@
   "CREATE_TRAINING_PAID": "Платный",
   "CREATE_TRAINING_FREE": "Бесплатный",
   "CREATE_TRAINING_BUTTON": "Создать тренинг",
+  "CREATE_TRAINING_ADD_EXTERNAL_BUTTON": "Добавить внешнего тренера",
+  "CREATE_TRAINING_REMOVE_EXTERNAL_BUTTON": "Удалить внешнего тренера",
+  "CREATE_TRAINING_EXTERNAL_TRAINER_NAME": "Имя тренера",
+  "CREATE_TRAINING_EXTERNAL_TRAINER_MAIL": "Электронная почта тренера",
+  "CREATE_TRAINING_EXTERNAL_TRAINER_PHONE": "Номер телефона тренера",
 
   "CREATE_TRAINING_TRAINING_PLACEHOLDER": "Введите название тренига",
   "CREATE_TRAINING_ANNOTATION_PLACEHOLDER": "Введите аннотацию",
@@ -93,6 +98,10 @@
   "CREATE_TRAINING_TARGET_AUDIENCE_PLACEHOLDER": "Опишите целевую аудиторию",
   "CREATE_TRAININGS_MAX_PARTICIPANTS_PLACEHOLDER": "Введите максимальное число участников",
   "CREATE_TRAINING_DESCRIPTION_PLACEHOLDER": "Опишите тренинг",
+  "CREATE_TRAINING_EXTERNAL_TRAINER_NAME_PLACEHOLDER": "Введите имя тренера",
+  "CREATE_TRAINING_EXTERNAL_TRAINER_MAIL_PLACEHOLDER": "Введите электронную почту тренера",
+  "CREATE_TRAINING_EXTERNAL_TRAINER_PHONE_PLACEHOLDER": "Введите номер телефона тренера",
+
 
   "DATE_VALIDATION_ERROR": "Не существующая дата!",
   "DATE_VALIDATION_FIRST_LAST": "Первая дата должна быть раньше последней!",
