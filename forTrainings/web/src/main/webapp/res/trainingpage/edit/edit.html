@@ -1,52 +1,53 @@
-<div class="container wrappered" ng-controller="createController">
-    <h1 class="text-center createTraining">Edit training</h1>
-    <form class="form-horizontal createTraining" name="createTraining" role="form" ng-submit="applyCahnges()">
+<div class="container wrappered">
+    <h1 class="text-center createTraining">{{'EDIT_TRAINING_MAIN_TITLE' | translate}}</h1>
+    <form class="form-horizontal createTraining" name="editTraining" role="form" ng-submit="applyCahnges()" novalidate>
         <div class="col-md-6">
             <div class="form-group">
-                <label class="control-label col-md-4" for="name">Training name</label>
+                <label class="control-label col-md-4 required" for="name">{{'EDIT_TRAINING_TRAINING' | translate}}</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="name" ng-model="editInfo.name" placeholder="Training name" required>
+                    <input type="text" class="form-control" id="name" ng-model="editInfo.name" placeholder="{{'EDIT_TRAINING_TRAINING_PLACEHOLDER' | translate}}" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4 " for="annotation">Annotation</label>
+                <label class="control-label col-md-4 required" for="annotation">{{'EDIT_TRAINING_ANNOTATION' | translate}}</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="annotation" ng-model="editInfo.annotation" placeholder="Annotation" required>
+                    <input type="text" class="form-control" id="annotation" ng-model="editInfo.annotation" placeholder="{{'EDIT_TRAINING_ANNOTATION_PLACEHOLDER' | translate}}" required>
                 </div>
             </div>
 
 
             <div class="form-group">
-                <label class="control-label col-md-4" for="place">Place</label>
+                <label class="control-label col-md-4 required" for="place">{{'EDIT_TRAINING_PLACE' | translate}}</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="place" ng-model="editInfo.place" placeholder="Type a place">
+                    <input type="text" class="form-control" id="place" ng-model="editInfo.place" placeholder="{{'EDIT_TRAINING_PLACE_PLACEHOLDER' | translate}}" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4 " for="audience">Audience</label>
+                <label class="control-label col-md-4 required" for="audience">{{'EDIT_TRAINING_TARGET_AUDIENCE' | translate}}</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="audience" ng-model="editInfo.target" placeholder="Audience" required>
+                    <input type="text" class="form-control" id="audience" ng-model="editInfo.target" placeholder="{{'EDIT_TRAINING_TARGET_AUDIENCE_PLACEHOLDER' | translate}}" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" for="maxParticipants">Max number</label>
+                <label class="control-label col-md-4 required" for="maxParticipants">{{'EDIT_TRAININGS_MAX_PARTICIPANTS' | translate}}</label>
                 <div class="col-md-8">
-                    <input type="number" class="form-control" id="maxParticipants" min="0" ng-model="editInfo.max_participants" placeholder="Max number of participants" required>
+                    <input type="number" class="form-control" id="maxParticipants" min="0" ng-model="editInfo.max_participants" placeholder="{{'EDIT_TRAININGS_MAX_PARTICIPANTS_PLACEHOLDER' | translate}}" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4">Dates</label>
+                <label class="control-label col-md-4">{{'EDIT_TRAINING_DATES' | translate}}</label>
                 <div class="col-md-8">
-                    <input type="button" class="btn editDatesButton dateInputButton" value="{{showInput}} dates list" ng-click="changeCollapse(isCollapsed)"/>
+                    <input type="button" class="btn editDatesButton dateInputButton" value="{{'EDIT_TRAINING_DATE_LIST_BUTTON' | translate}}" ng-click="changeCollapse(isCollapsed)"/>
+                    <p ng-show="errorEditDateValidation" class="text-danger">{{ errorEditDateValidation | translate }}</p>
                 </div>
                 <div collapse="isCollapsed">
                     <div class="col-md-8 col-md-offset-4 dateInputField"  ng-repeat="curdate in editInfo.meets track by $index">
                         <div class="col-md-8 dateEditInput">
-                            <input class="form-control" ng-model="editInfo.meets[$index].date"/>
+                            <input class="form-control" ng-model="editInfo.meets[$index].date" placeholder="{{'EDIT_TRAINING_DATES_PLACEHOLDER' | translate}}" />
                         </div>
                         <div class="col-md-2">
                             <input type="button" class="btn btn-default" value="+" ng-click="addDate($index)"/>
@@ -56,41 +57,39 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
         <div class="col-md-6">
 
             <div class="form-group">
-                <label class="control-label col-md-4 " for="description">Description</label>
+                <label class="control-label col-md-4 required" for="description">{{'EDIT_TRAINING_DESCRIPTION' | translate}}</label>
                 <div class="col-md-8">
-                    <textarea type="text" rows="6" class="form-control" id="description" ng-model="editInfo.description" placeholder="Description" required></textarea>
+                    <textarea type="text" rows="6" class="form-control" id="description" ng-model="editInfo.description" placeholder="{{'EDIT_TRAINING_DESCRIPTION_PLACEHOLDER' | translate}}" required></textarea>
                 </div>
             </div>
 
 
             <div class="col-md-6 radioForm" >
                 <div class="form-group">
-                    <label class="control-label col-md-8">Internal / External:</label>
+                    <label class="control-label col-md-8">{{'EDIT_TRAINING_INTERNAL' | translate}} / {{'EDIT_TRAINING_EXTERNAL' | translate}}</label>
                     <div class="col-md-4">
                         <div class="radio">
-                            <label><input type="radio" ng-value="true" name="internalExternal" ng-model="editInfo.internal">internal</label>
+                            <label><input type="radio" ng-value="true" name="internalExternal" ng-model="editInfo.internal">{{'EDIT_TRAINING_INTERNAL' | translate}}</label>
                         </div>
                         <div class="radio">
-                            <label><input type="radio" ng-value="false" name="internalExternal" ng-model="editInfo.internal">external</label>
+                            <label><input type="radio" ng-value="false" name="internalExternal" ng-model="editInfo.internal">{{'EDIT_TRAINING_EXTERNAL' | translate}}</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-8">Paid / Free:</label>
+                    <label class="control-label col-md-8">{{'EDIT_TRAINING_PAID' | translate}} / {{'EDIT_TRAINING_FREE' | translate}}</label>
                     <div class="col-md-4">
                         <div class="radio">
-                            <label><input type="radio" ng-value="true" name="paidFree" ng-model="editInfo.paid">paid</label>
+                            <label><input type="radio" ng-value="true" name="paidFree" ng-model="editInfo.paid">{{'EDIT_TRAINING_PAID' | translate}}</label>
                         </div>
                         <div class="radio">
-                            <label><input type="radio" ng-value="false" name="paidFree" ng-model="editInfo.paid">free</label>
+                            <label><input type="radio" ng-value="false" name="paidFree" ng-model="editInfo.paid">{{'EDIT_TRAINING_FREE' | translate}}</label>
                         </div>
                     </div>
                 </div>
@@ -98,7 +97,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <div>
-                        <button type="submit" class="btn btn-md editDatesButton">Apply changes</button>
+                        <button type="submit" ng-disabled="editTraining.$invalid" class="btn btn-md editDatesButton">{{'EDIT_TRAINING_BUTTON' | translate}}</button>
                     </div>
                 </div>
             </div>
