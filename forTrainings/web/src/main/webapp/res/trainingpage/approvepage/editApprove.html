@@ -10,39 +10,62 @@
             <div class="col-md-6">
                 <div class="approveWrapDiv">
                     <span>Training name:</span>
-                    <div class="approveTextDiv">
-                        {{editInfo.name}}
+                    <div class="approveTextDiv mergeText">
+                        <span
+                                ng-repeat="word in editInfo.name.expression track by $index"
+                                ng-class="{
+                              mergeAdd:1===editInfo.name.type[$index],
+                              mergeRm:2===editInfo.name.type[$index]
+                              }">
+                            {{word}} </span>
                     </div>
                 </div>
                 <div class="approveWrapDiv">
                     <span>Annotation:</span>
                     <div class="approveTextDiv mergeText">
                         <span
-                              ng-repeat="word in editInfo.annotation.expression track by $index"
-                              ng-class="{
+                                ng-repeat="word in editInfo.annotation.expression track by $index"
+                                ng-class="{
                               mergeAdd:1===editInfo.annotation.type[$index],
-                              mergeRm:2===editInfo.annotation.type[$index],
-                              mergeRlc:3===editInfo.annotation.type[$index]
+                              mergeRm:2===editInfo.annotation.type[$index]
                               }">
-                            {{editInfo.annotation.expression[$index]}}</span>
+                            {{word}} </span>
                     </div>
                 </div>
-                <div class="approveWrapDiv">
+                <div class="approveWrapDiv ">
                     <span>Description:</span>
-                    <div class="approveTextDiv">
-                        {{editInfo.description}}
+                    <div class="approveTextDiv mergeText">
+                        <span
+                                ng-repeat="word in editInfo.description.expression track by $index"
+                                ng-class="{
+                              mergeAdd:1===editInfo.description.type[$index],
+                              mergeRm:2===editInfo.description.type[$index]
+                              }">
+                            {{word}} </span>
                     </div>
                 </div>
                 <div class="approveWrapDiv">
                     <span>Target audience:</span>
-                    <div class="approveTextDiv">
-                        {{editInfo.target}}
+                    <div class="approveTextDiv mergeText">
+                        <span
+                                ng-repeat="word in editInfo.target.expression track by $index"
+                                ng-class="{
+                              mergeAdd:1===editInfo.target.type[$index],
+                              mergeRm:2===editInfo.target.type[$index]
+                              }">
+                            {{word}} </span>
                     </div>
                 </div>
                 <div class="approveWrapDiv">
                     <span>Place:</span>
-                    <div class="approveTextDiv">
-                        {{editInfo.place}}
+                    <div class="approveTextDiv mergeText">
+                        <span
+                                ng-repeat="word in editInfo.place.expression track by $index"
+                                ng-class="{
+                              mergeAdd:1===editInfo.place.type[$index],
+                              mergeRm:2===editInfo.place.type[$index]
+                              }">
+                            {{word}} </span>
                     </div>
                 </div>
 
