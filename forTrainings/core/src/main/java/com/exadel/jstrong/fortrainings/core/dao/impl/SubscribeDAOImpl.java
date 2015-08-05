@@ -48,7 +48,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
     @Override
     public int getSubscribeIdToApprove(int trainingId) {
         try {
-            Integer id = (Integer)em.createNativeQuery("select id from subscribe set where status='Wait' and training_id =:tId order by add_date limit 1").setParameter("tId", trainingId).getSingleResult();
+            Integer id = (Integer)em.createNativeQuery("select id from subscribe where status='Wait' and training_id =:tId order by add_date limit 1").setParameter("tId", trainingId).getSingleResult();
             return id;
         } catch (Throwable e) {
             e.printStackTrace();

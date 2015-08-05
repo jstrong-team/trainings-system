@@ -272,6 +272,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         int newMaxParticipant = data.getMax_participants();
         Hibernate.initialize(data);
         data.setApprove(true);
+        data.setMeets(null);
+//        data.set
         Training oldTraining = tDAO.getTrainingById(oldTrainingId);
 //        int oldMaxParticipant = oldTraining.getMax_participants();
         mDAO.removeMeets(oldTrainingId);
