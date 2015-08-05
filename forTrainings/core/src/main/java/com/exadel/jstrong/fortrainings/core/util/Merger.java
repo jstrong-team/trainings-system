@@ -51,7 +51,7 @@ public class Merger {
                     continue;
                 }
 
-                builder.append(sourceWordDesc.getWord()).append(' ');
+                builder.append("!{").append(sourceWordDesc.getWord()).append('}').append(' ');
                 continue;
             }
             if (code < 0) {     //means inserted

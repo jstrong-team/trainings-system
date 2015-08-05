@@ -16,8 +16,15 @@
                 </div>
                 <div class="approveWrapDiv">
                     <span>Annotation:</span>
-                    <div class="approveTextDiv">
-                        {{editInfo.annotation}}
+                    <div class="approveTextDiv mergeText">
+                        <span
+                              ng-repeat="word in editInfo.annotation.expression track by $index"
+                              ng-class="{
+                              mergeAdd:1===editInfo.annotation.type[$index],
+                              mergeRm:2===editInfo.annotation.type[$index],
+                              mergeRlc:3===editInfo.annotation.type[$index]
+                              }">
+                            {{editInfo.annotation.expression[$index]}}</span>
                     </div>
                 </div>
                 <div class="approveWrapDiv">
@@ -116,7 +123,7 @@
                                 <th>date</th>
                                 <th>time</th>
                             </tr>
-                            <tr ng-repeat="curTraining in training.oldDates">
+                            <tr ng-repeat="curTraining in editInfo.oldDates">
                                 <td>
                                     {{$index+1}}
                                 </td>
@@ -124,13 +131,13 @@
                                     <span class="glyphicon glyphicon-calendar"
                                           style="color: grey">
                                     </span>
-                                    {{training.dateTime[$index]}}
+                                    {{editInfo.oldDateTime[$index]}}
                                 </td>
                                 <td>
                                     <span class="glyphicon glyphicon-time"
                                           style="color: grey">
                                     </span>
-                                    {{training.time[$index]}}
+                                    {{editInfo.oldTime[$index]}}
                                 </td>
                             </tr>
                         </table>
@@ -146,7 +153,7 @@
                                 <th>date</th>
                                 <th>time</th>
                             </tr>
-                            <tr ng-repeat="curTraining in training.meets">
+                            <tr ng-repeat="curTraining in editInfo.newDates">
                                 <td>
                                     {{$index+1}}
                                 </td>
@@ -154,13 +161,13 @@
                                     <span class="glyphicon glyphicon-calendar"
                                           style="color: grey">
                                     </span>
-                                    {{training.dateTime[$index]}}
+                                    {{editInfo.newDateTime[$index]}}
                                 </td>
                                 <td>
                                     <span class="glyphicon glyphicon-time"
                                           style="color: grey">
                                     </span>
-                                    {{training.time[$index]}}
+                                    {{editInfo.newTime[$index]}}
                                 </td>
                             </tr>
                         </table>
