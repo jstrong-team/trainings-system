@@ -27,4 +27,5 @@ public interface TrainingDAO extends GenericDAO<Training>{
     List<Integer> getMeetIdsByTrainingId(int trainingId);
     Training getTrainingByTransactionID(int transactionId);
     List<Training> getPastTrainingsInDateScope(Date dateFrom, Date dateTo);
+    Training getTrainingByTransactionID(int transactionId);
 }

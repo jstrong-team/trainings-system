@@ -297,19 +297,6 @@ public class TrainingStorageSpringController {
         }
     }
 
-    @RequestMapping(value = "/addExternalUser", method = RequestMethod.POST)
-    public void addEmployee(@RequestBody ExternalUserUI externalUserUI, HttpServletRequest request, HttpServletResponse response) {
-        int trainingId = Integer.parseInt(request.getParameter("trainingId"));
-        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
-        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
-
-        if(ec.isAdmin(userId)) {
-            tsci.addExternalUser(externalUserUI, trainingId);
-        } else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
-    }
-
 
 /*
     @RequestMapping(value = "/trainerfeedbacks", method = RequestMethod.GET)
