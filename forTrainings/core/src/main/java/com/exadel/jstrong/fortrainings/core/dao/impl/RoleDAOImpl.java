@@ -14,7 +14,7 @@ public class RoleDAOImpl extends BaseDAO<Role> implements RoleDAO {
     @Override
     public int getRoleId(String value) {
         try{
-            return (int)em.createNativeQuery("SELECT id WHERE name = :name").setParameter("name", value).getSingleResult();
+            return (int)em.createNativeQuery("SELECT id FROM role WHERE name = :name").setParameter("name", value).getSingleResult();
         }catch(Throwable e){
             return 0;
         }

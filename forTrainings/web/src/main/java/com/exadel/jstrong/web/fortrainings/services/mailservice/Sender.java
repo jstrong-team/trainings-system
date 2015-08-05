@@ -65,14 +65,25 @@ public class Sender {
             message.setFrom(new InternetAddress(SENDER));
             message.setSubject(notice.getTheme());
             message.setText(notice.getText());
-            for (String email : emails) {
-                try {
-                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-                    Transport.send(message);
-                } catch (Throwable e) {
-                    logger.warn("Message didn't send");
+            int size = emails.size();
+            Address[] addresses = new Address[emails.size()];
+            String email;
+            for (int i = 0; i<size;i++){
+                email = emails.get(i);
+                if (email != null) {
+                    addresses[i] = new InternetAddress(emails.get(i));
                 }
             }
+            message.setRecipients(Message.RecipientType.TO, addresses);
+            Transport.send(message);
+//            for (String email : emails) {
+//                try {
+//                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+//                    Transport.send(message);
+//                } catch (Throwable e) {
+//                    logger.warn("Message didn't send");
+//                }
+//            }
             return true;
         } catch (Throwable e) {
             logger.warn("Messages didn't send");

@@ -6,6 +6,7 @@ import com.exadel.jstrong.fortrainings.core.dao.RoleDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Role;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,9 +72,11 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
     @Override
     @Transactional
     public void setEmployeeRole(Employee employee, String name) {
-        Role role = roleDAO.getRoleByName(name);
-        List<Role> roles = new ArrayList<>();
-        roles.add(role);
-        employee.setRoles(roles);
+        try {
+            int roleId = roleDAO.getRoleId(name);
+            em.createNativeQuery("INSERT INTO employee_role (employee_id, role_id) VALUES (:eId, :rId)").setParameter("eId", employee.getId()).setParameter("rId", roleId).executeUpdate();
+        } catch(Throwable e){
+            logger.warn(e.toString());
+        }
     }
 }
