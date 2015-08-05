@@ -9,4 +9,5 @@ public interface TokenDAO extends GenericDAO<Token> {
     void updateTokenByID(int id, String token);
     boolean checkToken(String token);
     int getIdByToken(String token);
+    Token addToken(Token token);
 }

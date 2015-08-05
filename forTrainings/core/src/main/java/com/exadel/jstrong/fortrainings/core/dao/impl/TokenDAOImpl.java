@@ -21,7 +21,6 @@ public class TokenDAOImpl extends BaseDAO<Token> implements TokenDAO {
         token.setValue(value);
 
         em.merge(token);
-
     }
 
     private Token getTokenByEmployeeId(int employee_id) {
@@ -47,5 +46,11 @@ public class TokenDAOImpl extends BaseDAO<Token> implements TokenDAO {
     public int getIdByToken(String value) {
         int id = (int)em.createQuery("SELECT t.id FROM Token t WHERE t.value = :value").setParameter("value", value).getSingleResult();
         return id;
+    }
+
+    @Override
+    @Transactional
+    public Token addToken(Token token) {
+        return super.update(token);
     }
 }

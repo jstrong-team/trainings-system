@@ -3,8 +3,11 @@ package com.exadel.jstrong.web.fortrainings.controller.impl;
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TokenDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
+import com.exadel.jstrong.fortrainings.core.model.Token;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
+import com.exadel.jstrong.web.fortrainings.model.ExternalUserUI;
+import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

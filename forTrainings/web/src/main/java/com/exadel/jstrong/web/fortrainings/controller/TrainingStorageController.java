@@ -2,6 +2,7 @@ package com.exadel.jstrong.web.fortrainings.controller;
 
 import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
+import com.exadel.jstrong.fortrainings.core.model.TrainerFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.model.*;
 
@@ -24,5 +25,8 @@ public interface TrainingStorageController {
     int approveTraining(int transactionId);
     List<MeetReportUI> getMeetReportUIs(int subscribeId);
     List<TrainingReportUI> getReportUI(int employeeId);
+    void addTrainerFeedback(TrainerFeedback trainerFeedback);
+    List<TrainerFeedbackUI> getTrainerFeedbacks(int employeeID);
+    void addExternalUser(ExternalUserUI newEmployeeUI, int trainingId);
 }
 

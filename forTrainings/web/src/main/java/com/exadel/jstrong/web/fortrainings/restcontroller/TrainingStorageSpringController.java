@@ -1,6 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
 import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
+import com.exadel.jstrong.fortrainings.core.model.TrainerFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
@@ -226,5 +227,75 @@ public class TrainingStorageSpringController {
         }
         return null;
     }
+
+    @RequestMapping(value = "/getFeedbackReport", method = RequestMethod.GET)
+    public @ResponseBody List<TrainerFeedbackUI> getFeedbackReport (HttpServletRequest request, HttpServletResponse response) {
+        int employeeId = Integer.parseInt(request.getParameter("id"));
+        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        if(ec.isAdmin(userId)) {
+            return tsci.getTrainerFeedbacks(employeeId);
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/addTrainerFeedback", method = RequestMethod.POST)
+    public void addTrainerFeedback(@RequestBody TrainerFeedback tf, HttpServletRequest request, HttpServletResponse response) {
+        int trainingId = Integer.parseInt(request.getParameter("trainingId"));
+        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+        int feedbackerId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+        tf.setFeedbackerId(feedbackerId);
+        tf.setTrainingId(trainingId);
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        tf.setAddDate(date);
+
+        if(tsci.check(tf.getEmployeeId(), tf.getTrainingId()) && tsci.isTrainer(feedbackerId, tf.getTrainingId())) {
+            tsci.addTrainerFeedback(tf);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/addExternalUser", method = RequestMethod.POST)
+    public void addEmployee(@RequestBody ExternalUserUI externalUserUI, HttpServletRequest request, HttpServletResponse response) {
+        int trainingId = Integer.parseInt(request.getParameter("trainingId"));
+        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+
+        if(ec.isAdmin(userId)) {
+            tsci.addExternalUser(externalUserUI, trainingId);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/addExternalUser", method = RequestMethod.POST)
+    public void addEmployee(@RequestBody ExternalUserUI externalUserUI, HttpServletRequest request, HttpServletResponse response) {
+        int trainingId = Integer.parseInt(request.getParameter("trainingId"));
+        Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+        int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+
+        if(ec.isAdmin(userId)) {
+            tsci.addExternalUser(externalUserUI, trainingId);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+
+/*
+    @RequestMapping(value = "/trainerfeedbacks", method = RequestMethod.GET)
+    public @ResponseBody List<EmployeeNamedFeedbackUI> getFeedbacks(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Map<String, Cookie> cookies = CookieUtil.cookiesToMap(request.getCookies());
+            int userId = ec.getIdByToken(cookies.get(CookieUtil.TOKEN).getValue());
+            int trainingId = Integer.parseInt(request.getParameter("id"));
+            return tsci.getEmployeeNamedFeedback(trainingId, ec.isAdmin(userId));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }*/
 }
 

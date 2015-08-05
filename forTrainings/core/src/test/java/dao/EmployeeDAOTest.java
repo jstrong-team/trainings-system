@@ -19,7 +19,7 @@ public class EmployeeDAOTest extends BaseDAOTest {
     @DatabaseSetup(INITIAL_DATA_LOCATION + "/get.xml")
     public void selectByAuthorization() {
 
-        Employee expectedEmployee = new Employee(2, "masha", "c3cc6e312d2bad42cf535aac3a259abd", "Maria Grakova", "mariagracova96@gmail.com", "null", null);
+        Employee expectedEmployee = new Employee(2, "masha", "c3cc6e312d2bad42cf535aac3a259abd", "Maria Grakova", "mariagracova96@gmail.com", "null");
 
         Employee actualEmployee = employeeDAO.selectByAuthorization("masha", "c3cc6e312d2bad42cf535aac3a259abd");
         Assert.assertEquals(expectedEmployee, actualEmployee);

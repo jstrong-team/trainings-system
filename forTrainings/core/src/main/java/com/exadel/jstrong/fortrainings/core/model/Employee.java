@@ -28,8 +28,8 @@ public class Employee {
     @Column(name = "phone", length = 50)
     private String phone;
 
-    @Transient
-    private String role;
+    //@Transient
+    //private String role;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "employee_role", joinColumns = {
@@ -77,15 +77,13 @@ public class Employee {
     }
 
     public Employee(int id, String login, String password,
-                    String name, String mail, String phone,
-                    String role) {
+                    String name, String mail, String phone) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.name = name;
         this.mail = mail;
         this.phone = phone;
-        this.role = role;
     }
 
     public int getId(){
@@ -134,14 +132,6 @@ public class Employee {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public List<Role> getRoles() {
