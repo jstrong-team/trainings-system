@@ -1,5 +1,5 @@
-(function(){
-    var services=[
+(function () {
+    var services = [
         '$scope',
         '$location',
         'getTrainingInfo',
@@ -7,12 +7,12 @@
         'getFeedbacksService',
         'attendanceSendService'
     ];
-    var controller=function($scope,
-                            $location,
-                            getTrainingInfo,
-                            getSubscribersService,
-                            getFeedbacksService,
-                            attendanceSendService) {
+    var controller = function ($scope,
+                               $location,
+                               getTrainingInfo,
+                               getSubscribersService,
+                               getFeedbacksService,
+                               attendanceSendService) {
 
         $scope.isCollapsed = {
             dates: true,
@@ -24,7 +24,7 @@
             dates: 'Show'
         };
 
-        $scope.acceptAttendanceChanges=function(){
+        $scope.acceptAttendanceChanges = function () {
             attendanceSendService($scope.training.id);
         };
 
@@ -47,34 +47,36 @@
             }
         };
 
+        $scope.openModal = function () {
 
-        $scope.editTraining=function (){
-            $location.url('/ui/trainingPage/edit/'+$scope.training.id);
         };
 
-        getTrainingInfo().then(function(data, status, headers, config) {
-            $scope.training=data.data;
-            $scope.training.time=[];
-            $scope.training.dateTime=[];
-            $scope.training.year=[];
-            for(var j=0;j<$scope.training.meets.length;j++) {
+        $scope.editTraining = function () {
+            $location.url('/ui/trainingPage/edit/' + $scope.training.id);
+        };
+
+        getTrainingInfo().then(function (data, status, headers, config) {
+            $scope.training = data.data;
+            $scope.training.time = [];
+            $scope.training.dateTime = [];
+            $scope.training.year = [];
+            for (var j = 0; j < $scope.training.meets.length; j++) {
                 $scope.training.time.push(moment($scope.training.meets[j].date).format('HH:mm'));
                 $scope.training.dateTime.push(moment($scope.training.meets[j].date).format('DD MMMM'));
                 $scope.training.year.push(moment($scope.training.meets[j].date).format('YYYY'));
             }
             getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
-                $scope.subscribers=data.data;
+                $scope.subscribers = data.data;
                 //console.log('subscribers');
                 var temp;
-                for(var i=0;i<$scope.subscribers.length;i++){
-                    temp=$scope.subscribers[i].participants;
-                    $scope.subscribers[i].participants=new Array($scope.training.meets.length);
-                    var index=0;
-                    for(var j=0;(j<$scope.training.meets.length)&&(index<temp.length);j++){
-                        for(var k=0;k<temp.length;k++)
-                        {
-                            if($scope.training.meets[j].id==temp[k].meetId){
-                                $scope.subscribers[i].participants[j]=temp[k];
+                for (var i = 0; i < $scope.subscribers.length; i++) {
+                    temp = $scope.subscribers[i].participants;
+                    $scope.subscribers[i].participants = new Array($scope.training.meets.length);
+                    var index = 0;
+                    for (var j = 0; (j < $scope.training.meets.length) && (index < temp.length); j++) {
+                        for (var k = 0; k < temp.length; k++) {
+                            if ($scope.training.meets[j].id == temp[k].meetId) {
+                                $scope.subscribers[i].participants[j] = temp[k];
                                 index++;
                             }
                         }
@@ -86,14 +88,15 @@
                 console.error(error);
             });
             getFeedbacksService($scope.training.id).then(function (data, status, headers, config) {
-                $scope.feedbacks=data.data;
+                $scope.feedbacks = data.data;
             }, function (error) {
                 console.error(error);
             });
         });
+
     };
-    controller.$injet=services;
-    angular.module('trainingPageTrainerModule').controller('trainingPageTrainerController',controller);
+    controller.$injet = services;
+    angular.module('trainingPageTrainerModule').controller('trainingPageTrainerController', controller);
 })();
 
 

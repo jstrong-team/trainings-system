@@ -76,10 +76,9 @@
                     </td>
                 </tr>
             </table>
-            <div class="breakText ">
-                <button type="button" class="btn  editDatesButton " ng-click="acceptAttendanceChanges()">Accept changes</button>
+            <div class=" buttonBottom">
+                <button type="button" class="btn  editDatesButton " ng-click="acceptAttendanceChanges()">Save changes</button>
             </div>
-
 
             <div class="breakText ">
                 <span>Comments:</span>
@@ -137,13 +136,18 @@
                 </div>
             </div>
             <div class="row buttons">
+                <div class="col-md-12">
+                    <button type="text"
+                            class="btn btn-default editDatesButton "
+                            ng-click="openModal()">Feedback on the subscriber</button>
+                </div>
                 <div class="col-md-12"  ng-cloak>
                     <button class="btn editDatesButton"
                             ng-click="changeCollapse.dates()">
-                        <span>{{show.dates}} dates</span>
+                        {{show.dates}} dates
                     </button>
                 </div>
-                <div class="col-md-12 dateTime">
+                <div class="dateTime">
                     <div collapse="isCollapsed.dates">
                         <table class="table">
                             <tr>
@@ -171,11 +175,10 @@
                         </table>
                     </div>
                 </div>
-
                 <div class="col-md-12 buttons"  ng-cloak>
                     <button class="btn editDatesButton"
                             ng-click="changeCollapse.subscribers()">
-                        <span>{{show.subscribers}} subscribers</span>
+                          {{show.subscribers}} subscribers
                     </button>
                 </div>
                 <div class="col-md-12 dateTime">
@@ -195,9 +198,9 @@
                                 </td>
                                 <td><span class="glyphicon"
                                           ng-class="{
-                                          'glyphicon-ok': subscriber.status==='Approve',
-                                          'glyphicon-remove': subscriber.status==='Deleted',
-                                          'glyphicon-time': subscriber.status==='Wait',
+                                          'glyphicon-ok glyphGreen': subscriber.status==='Approve',
+                                          'glyphicon-remove glyphRed': subscriber.status==='Deleted',
+                                          'glyphicon-time glyphYellow': subscriber.status==='Wait',
                                           }"></span></td>
                             </tr>
                         </table>

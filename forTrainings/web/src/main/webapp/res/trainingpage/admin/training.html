@@ -212,9 +212,9 @@
                                 </td>
                                 <td><span class="glyphicon"
                                           ng-class="{
-                                          'glyphicon-ok': subscriber.status==='Approve',
-                                          'glyphicon-remove': subscriber.status==='Deleted',
-                                          'glyphicon-time': subscriber.status==='Wait',
+                                          'glyphicon-ok glyphGreen': subscriber.status==='Approve',
+                                          'glyphicon-remove glyphRed': subscriber.status==='Deleted',
+                                          'glyphicon-time glyphYellow': subscriber.status==='Wait',
                                           }"></span></td>
                             </tr>
                         </table>
