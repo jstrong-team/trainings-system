@@ -49,7 +49,7 @@
             }
         };
 
-        $scope.feedback = {
+        $scope.trainerFeedback = {
             employeeId:null,
             presence:null,
             attitude:null,
@@ -70,7 +70,7 @@
                 resolve: {
                     feedbacks: function () {
                         return {
-                            feedback: $scope.feedback,
+                            feedback: $scope.trainerFeedback,
                             trainingId: $scope.training.id,
                             subscribers:$scope.subscribers
                         };
