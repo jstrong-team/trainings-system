@@ -6,9 +6,10 @@ import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
 import com.exadel.jstrong.fortrainings.core.util.Merger;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
+import com.exadel.jstrong.web.fortrainings.model.comparator.SubscriberUIComp;
+import com.exadel.jstrong.web.fortrainings.services.ExternalService;
 import com.exadel.jstrong.web.fortrainings.services.mailservice.Sender;
 import com.exadel.jstrong.web.fortrainings.services.noticeservice.NoticeFactory;
-import com.exadel.jstrong.web.fortrainings.model.comparator.SubscriberUIComp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
@@ -48,7 +49,14 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
     @Override
     @Transactional
-    public int addTraining(Training training) {
+    public Employee addTraining(Training training) {
+        Employee employee = new Employee();
+        if (training.getExternalTrainerName()!=null){
+            employee = ExternalService.getExternalTrainer(training);
+            employee = eDAO.saveEmployee(employee);
+            eDAO.setEmployeeRole(employee, "external");
+            training.setTrainer_id(employee.getId());
+        }
         int id = tDAO.add(training);
         List<Date> dates = training.getDate();
         int size = dates.size();
@@ -68,9 +76,9 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<EmployeeNotice> en = NoticeFactory.getEmployeeNoticesFromEmployees(notice.getId(), employees);
         noticeDAO.addEmployeeNotices(notice.getId(), en);
         List<String> mails = eDAO.getAllMails();
-        Sender.send(notice, mails);
+        //Sender.send(notice, mails);
 
-        return id;
+        return employee;
     }
 
     @Override

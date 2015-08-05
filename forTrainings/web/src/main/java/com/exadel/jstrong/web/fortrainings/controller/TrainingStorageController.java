@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface TrainingStorageController {
     TrainingUI getTraining(int tId, int uId);
-    int addTraining(Training training);
+    Employee addTraining(Training training);
     Subscribe buildSubscriber(int uId, int tId);
     boolean isTrainer(int uId, int tId);
     int addSubscriber(Subscribe s);

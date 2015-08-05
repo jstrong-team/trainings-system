@@ -1,9 +1,6 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
-import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
-import com.exadel.jstrong.fortrainings.core.model.Participant;
-import com.exadel.jstrong.fortrainings.core.model.TrainerFeedback;
-import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.exadel.jstrong.fortrainings.core.model.*;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
@@ -42,10 +39,15 @@ public class TrainingStorageSpringController {
     @RequestMapping(method = RequestMethod.POST)
     public void addTraining(@RequestBody Training training, HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            int id = restService.getUserId(request);
-            training.setTrainer_id(id);
+            Employee employee = new Employee();
+            if (training.getExternalTrainerName()==null) {
+                int id = restService.getUserId(request);
+                training.setTrainer_id(id);
+            }
             training.setApprove(false);
-            tsci.addTraining(training);
+            employee = tsci.addTraining(training);
+            response.setHeader("login", employee.getLogin());
+            response.setHeader("password", employee.getPassword());
 
         } catch (Exception e) {
             logger.warn(e.toString());
@@ -239,7 +241,13 @@ public class TrainingStorageSpringController {
         int transactionId = Integer.parseInt(request.getParameter("id"));
         int userId = restService.getUserId(request);
         if (ec.isAdmin(userId)) {
-            return tsci.mergeTraining(transactionId);
+            MergedTrainingUI mergedTrainingUI = tsci.mergeTraining(transactionId);
+            if(mergedTrainingUI != null) {
+                return  mergedTrainingUI;
+            } else {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return null;
+            }
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return null;
