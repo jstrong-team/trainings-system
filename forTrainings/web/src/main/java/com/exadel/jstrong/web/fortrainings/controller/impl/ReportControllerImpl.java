@@ -35,19 +35,22 @@ public class ReportControllerImpl implements ReportController {
     public ReportUI getReport(Integer userId, Integer trainingId, Date dateFrom, Date dateTo) {
         ReportUI report = new ReportUI();
         List<TrainingReportUI> reportTrainings;
-        if (userId != null && !employeeDAO.isSubscriber(userId)){
-            report.setTrainings(new ArrayList<TrainingReportUI>());
-            return report;
-        }
         List<Training> trainings = new ArrayList();
-        if (trainingId != null){
-            trainings.add(trainingDAO.getTrainingById(trainingId));
-        } else {
-            if (userId != null){
-                trainings = trainingDAO.getTrainingsByUser(userId);
+        if (userId != null){
+            if (trainingId != null){
+                trainings.add(trainingDAO.getTrainingIfSubscribedByUser(trainingId, userId));
             } else {
-                trainings = trainingDAO.getApprovedTrainings();
+                trainings = trainingDAO.getTrainingsByUser(userId);
             }
+        } else {
+            if (trainingId != null){
+                trainings.add(trainingDAO.getTrainingIfSubscribed(trainingId));
+            } else {
+                trainings = trainingDAO.getSubscribedTrainings();
+            }
+        }
+        if (trainings.size() == 1 && trainings.get(0) == null){
+            trainings.clear();
         }
         reportTrainings = getReportTrainings(trainings);
         List<Employee> users = new ArrayList<>();
@@ -70,6 +73,7 @@ public class ReportControllerImpl implements ReportController {
 
     @Override
     public ReportUI getReportFile(Integer userId, Integer trainingId, Date dateFrom, Date dateTo) {
+
         return null;
     }
 
