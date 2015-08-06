@@ -505,7 +505,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
     @Override
     public void killTransaction(int transactionId) {
-        transactionDAO.killTransaction(transactionId);
+        List<Transaction> transactions = transactionDAO.getAllTransactionsById(transactionId);
+        transactionDAO.deleteTransaction(transactions);
     }
 
     @Override
