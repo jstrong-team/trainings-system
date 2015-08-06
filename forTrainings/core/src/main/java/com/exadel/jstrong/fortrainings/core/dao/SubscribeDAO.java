@@ -20,4 +20,5 @@ public interface SubscribeDAO extends GenericDAO<Subscribe>{
     int getSubscribeIdToWait(int trainingId);
     int getSubscribeIdToApprove(int trainingId);
     List<Integer> getSubscribeIdsToWait(int trainingId, int count);
+    boolean dateMeetChecker(int trainingId);
 }

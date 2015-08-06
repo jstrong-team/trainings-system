@@ -6,6 +6,7 @@ import com.exadel.jstrong.fortrainings.core.model.Participant;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -57,6 +58,16 @@ public class ParticipantDAOImpl extends BaseDAO<Participant> implements Particip
         return super.update(participant).getId();
     }
 
-
-
+    @Override
+    @Transactional
+    public boolean deleteParticipantsByMeetID(int meetId) {
+        try {
+            Query query = em.createNativeQuery("delete from participant where meet_id=:mId").setParameter("mId", meetId);
+            query.executeUpdate();
+            return true;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
