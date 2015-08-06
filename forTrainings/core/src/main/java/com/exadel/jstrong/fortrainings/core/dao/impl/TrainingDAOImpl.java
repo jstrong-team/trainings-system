@@ -41,7 +41,12 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             for(int i = 0; i < events.size(); i++) {
                 event = events.get(i);
                 event.setIsSubscribe(ids.contains(event.getTrainingId()));
-                event.setIsTrainer(trainerIds.contains(event.getTrainingId()));
+                if(trainerIds.contains(event.getTrainingId())) {
+                    event.setIsTrainer(true);
+                    event.setIsSubscribe(true);
+                } else {
+                    event.setIsTrainer(false);
+                }
                 event.setDate(event.getDate());
             }
         } catch(Throwable e) {

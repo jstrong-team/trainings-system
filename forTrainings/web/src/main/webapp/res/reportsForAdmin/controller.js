@@ -66,36 +66,64 @@
         $scope.trainingItem = '';
         $scope.dateTimeFrom = '';
         $scope.dateTimeTo = '';
-        //$scope.submitForm = function () {
-        //
-        //};
 
         $scope.submitForm = function () {
 
-            var userId = JSON.parse($scope.employeeItem).id;
-            var trainingId = JSON.parse($scope.trainingItem).id;
+            $scope.errorDateValidation = '';
 
+            if ($scope.dateTimeFrom !== '') {
+                if (!moment($scope.dateTimeFrom, 'YYYY-MM-DD', true).isValid()) {
+                    $scope.errorDateValidation = 'DATE_VALIDATION_ERROR';
+                    $scope.dateTimeFrom = '';
+                    $scope.dateTimeTo = '';
+                    return;
+                }
+            }
 
-            console.log(userId + ' ' + trainingId + ' ' + $scope.dateTimeFrom + ' ' + $scope.dateTimeTo);
+            if ($scope.dateTimeTo !== '') {
+                if (!moment($scope.dateTimeTo, 'YYYY-MM-DD', true).isValid()) {
+                    $scope.errorDateValidation = 'DATE_VALIDATION_ERROR';
+                    $scope.dateTimeFrom = '';
+                    $scope.dateTimeTo = '';
+                    return;
+                }
+            }
 
-            //var elem = document.getElementById('employeeInput');
-            //elem.style.paddingTop = '0px';
+            if ($scope.dateTimeFrom !== '' && $scope.dateTimeTo !== '') {
+                if (Date.parse($scope.dateTimeFrom) > Date.parse($scope.dateTimeTo)) {
+                    $scope.errorDateValidation = 'DATE_VALIDATION_FIRST_LAST';
+                    $scope.dateTimeFrom = '';
+                    $scope.dateTimeTo = '';
+                    return;
+                }
+            }
+
+            var userId = $scope.employeeItem;
+            var trainingId = $scope.trainingItem;
+
+            if ($scope.employeeItem !== '') {
+                userId = JSON.parse(userId).id
+            }
+
+            if ($scope.trainingItem !== '') {
+                trainingId = JSON.parse(trainingId).id
+            }
 
             $http.get('/rest/storagetraining/getReport?userId=' + userId + '&trainingId=' + trainingId +
             '&dateFrom=' + $scope.fromDateTime + '&dateTo=' + $scope.toDateTime).then(
                 function(data){
+
                     $scope.initialState = true;
-                    //$scope.employeeInfo = reportInfoFormat(data.data);
 
-                    console.log(data);
+                    $scope.reportInfo = data.data;
 
-                    //if ($scope.employeeInfo.length !== 0) {
-                    //    $scope.selectedEmployee = name;
-                    //    $scope.noReportFound = null;
-                    //} else {
-                    //    $scope.selectedEmployee = null;
-                    //    $scope.noReportFound = true;
-                    //}
+                    if ($scope.reportInfo.length !== 0) {
+                        $scope.initialState = true;
+                        $scope.noReportFound = null;
+                    } else {
+                        $scope.initialState = null;
+                        $scope.noReportFound = true;
+                    }
 
                 },
                 function(data, status){
