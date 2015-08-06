@@ -6,9 +6,10 @@ import com.exadel.jstrong.fortrainings.core.model.enums.SubscribeStatus;
 import com.exadel.jstrong.fortrainings.core.util.Merger;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
+import com.exadel.jstrong.web.fortrainings.model.comparator.SubscriberUIComp;
+import com.exadel.jstrong.web.fortrainings.services.ExternalService;
 import com.exadel.jstrong.web.fortrainings.services.mailservice.Sender;
 import com.exadel.jstrong.web.fortrainings.services.noticeservice.NoticeFactory;
-import com.exadel.jstrong.web.fortrainings.model.comparator.SubscriberUIComp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
@@ -49,6 +50,14 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     @Override
     @Transactional
     public int addTraining(Training training) {
+        Employee employee = new Employee();
+        if (training.getExternalTrainerName()!=null){
+            employee = ExternalService.getExternalTrainer(training);
+            Sender.sendAccountData(employee);
+            employee = eDAO.saveEmployee(employee);
+            eDAO.setEmployeeRole(employee, "external");
+            training.setTrainer_id(employee.getId());
+        }
         int id = tDAO.add(training);
         List<Date> dates = training.getDate();
         int size = dates.size();
@@ -351,12 +360,6 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             }
 
             sDAO.changeStatusToApprove(id);
-
-            /*Subscribe subscribe = sDAO.getById(Subscribe.class, id);
-            Employee system = eDAO.getById(666);
-            Notice notice = NoticeFactory.getNewParticipantNotice(system.getId(), tDAO.getTrainingById(id));
-            List<Employee> employees = eDAO.getAllUsers();
-            addSubscribeNotices(notice, subscribe);*/
         }
     }
 
@@ -476,15 +479,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     @Override
-    @Transactional
     public void addTrainerFeedback(TrainerFeedback trainerFeedback) {
         trainerFeedbackDAO.addFeedback(trainerFeedback);
-        Training training = tDAO.getTrainingById(trainerFeedback.getTrainingId());
-        Employee sender = eDAO.getById(trainerFeedback.getFeedbackerId());
-        Employee employee = eDAO.getById(trainerFeedback.getEmployeeId());
-        Notice notice = NoticeFactory.getTrainerFeedbackNotice(training, sender, employee);
-        List<Employee> admins = eDAO.getAdmins();
-        addNotices(notice, admins);
     }
 
     @Override
@@ -514,35 +510,5 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         eDAO.save(employee);
         Subscribe subscribe = buildSubscriber(employee.getId(), trainingId);
         addSubscriber(subscribe);
-    }
-
-
-    public void addNotices(Notice notice, List<Employee> employees) {
-        noticeDAO.addNotice(notice);
-        List<EmployeeNotice> en = NoticeFactory.getEmployeeNoticesFromEmployees(notice.getId(), employees);
-        noticeDAO.addEmployeeNotices(notice.getId(), en);
-        List<String> mails = eDAO.getAllMails();
-        Sender.send(notice, mails);
-    }
-
-
-    public void addNotices(Notice notice, Employee employee) {
-        noticeDAO.addNotice(notice);
-        EmployeeNotice en = NoticeFactory.getEmployeeNoticeFromEmployee(notice.getId(), employee);
-        List<EmployeeNotice> employeeNotices = new ArrayList<>();
-        employeeNotices.add(en);
-        noticeDAO.addEmployeeNotices(notice.getId(), employeeNotices);
-        List<String> mails = eDAO.getAllMails();
-        Sender.send(notice, mails);
-    }
-
-    public void addSubscribeNotices(Notice notice, Subscribe subscribe) {
-        noticeDAO.addNotice(notice);
-        EmployeeNotice en = NoticeFactory.getEmployeeNoticeFromSubscriber(notice.getId(), subscribe);
-        List<EmployeeNotice> employeeNotices = new ArrayList<>();
-        employeeNotices.add(en);
-        noticeDAO.addEmployeeNotices(notice.getId(), employeeNotices);
-        List<String> mails = eDAO.getAllMails();
-        Sender.send(notice, mails);
     }
 }

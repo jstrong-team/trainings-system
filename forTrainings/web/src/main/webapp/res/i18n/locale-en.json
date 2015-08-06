@@ -104,6 +104,7 @@
   "DATE_VALIDATION_ERROR": "Date validation error!",
   "DATE_VALIDATION_FIRST_LAST": "First date should be earlier than the last date!",
   "DATE_VALIDATION_LATER_THAN_CURRENT": "Input date should be earlier than current moment!",
+  "DATE_VALIDATION_HAS_DUPLICATE": "Some of dates are duplicate!",
 
 
 
@@ -134,6 +135,31 @@
   "REPORTS_NO_RESULTS": "There are no information about this person!",
   "REPORTS_TABLE_ATTENDANCE_VALUE_TRUE": "N",
   "REPORTS_TABLE_ATTENDANCE_VALUE_FALSE": "",
+
+
+
+  "EDIT_TRAINING_MAIN_TITLE": "Edit training",
+  "EDIT_TRAINING_TRAINING": "Training name",
+  "EDIT_TRAINING_ANNOTATION": "Annotation",
+  "EDIT_TRAINING_DATES": "Dates",
+  "EDIT_TRAINING_PLACE": "Place",
+  "EDIT_TRAINING_TARGET_AUDIENCE": "Target audience",
+  "EDIT_TRAININGS_MAX_PARTICIPANTS": "Max number of participants",
+  "EDIT_TRAINING_DESCRIPTION": "Description",
+  "EDIT_TRAINING_INTERNAL": "Internal",
+  "EDIT_TRAINING_EXTERNAL": "External",
+  "EDIT_TRAINING_PAID": "Paid",
+  "EDIT_TRAINING_FREE": "Free",
+  "EDIT_TRAINING_BUTTON": "Apply changes",
+  "EDIT_TRAINING_DATE_LIST_BUTTON": "Show dates list",
+
+  "EDIT_TRAINING_TRAINING_PLACEHOLDER": "Enter training name",
+  "EDIT_TRAINING_ANNOTATION_PLACEHOLDER": "Enter annotation",
+  "EDIT_TRAINING_DATES_PLACEHOLDER": "YYYY-MM-DD HH-mm",
+  "EDIT_TRAINING_PLACE_PLACEHOLDER": "Enter place meeting",
+  "EDIT_TRAINING_TARGET_AUDIENCE_PLACEHOLDER": "Describe target audience",
+  "EDIT_TRAININGS_MAX_PARTICIPANTS_PLACEHOLDER": "Enter max number of participants",
+  "EDIT_TRAINING_DESCRIPTION_PLACEHOLDER": "Type a description of the training",
 
 
 

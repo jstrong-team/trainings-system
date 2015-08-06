@@ -2,11 +2,11 @@ package com.exadel.jstrong.web.fortrainings.restcontroller;
 
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
-import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
+import com.exadel.jstrong.web.fortrainings.model.ReportList;
 import com.exadel.jstrong.web.fortrainings.model.SearchEventUI;
 import com.exadel.jstrong.web.fortrainings.model.TrainingsUI;
-import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import com.exadel.jstrong.web.fortrainings.services.RestService;
+import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -99,9 +99,9 @@ public class TrainingsSpringController {
         return null;
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<EmployeeUI> getUsers(HttpServletRequest request, HttpServletResponse response) {
-        return trainingsController.getUsersToReport();
+    @RequestMapping(value = "/users_trainings", method = RequestMethod.GET)
+    public ReportList getUsers(HttpServletRequest request, HttpServletResponse response) {
+        return trainingsController.getReportLists();
     }
 
 }
