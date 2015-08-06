@@ -1,5 +1,6 @@
-angular.module('trainingPageModule').factory('absentOutputService', [function () {
+angular.module('trainingPageModule').factory('absentService', ['$http','storageService',function ($http,storageService) {
     var services={};
+
     services.prepare = function (subscribers, training) {
         //console.log('sssssssssssssssssssssssssssssssssssssssssssssss');
         var temp;
@@ -16,7 +17,13 @@ angular.module('trainingPageModule').factory('absentOutputService', [function ()
                 }
             }
         }
-
     };
+
+    services.sendAttendance=function (id) {
+        console.log(id);
+        console.log(storageService.get());
+        return $http.post('rest/storagetraining/updateAttendance?id=' + id,storageService.get());
+    };
+
     return services;
 }]);

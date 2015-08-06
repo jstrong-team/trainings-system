@@ -66,9 +66,9 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="trainingInfo in user.meets">
-                                    <td>{{item.date}}</td>
-                                    <td>{{ item.absent | translate }}</td>
-                                    <td>{{item.reason}}</td>
+                                    <td>{{trainingInfo.date}}</td>
+                                    <td>{{ trainingInfo.absent | translate }}</td>
+                                    <td>{{trainingInfo.reason}}</td>
                                 </tr>
                             </tbody>
                         </table>

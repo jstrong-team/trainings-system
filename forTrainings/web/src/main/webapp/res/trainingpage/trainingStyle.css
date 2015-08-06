@@ -150,12 +150,14 @@
    width:50px;
    overflow-x: scroll;
    border-radius: 0;
+   margin-bottom: 5px;
 }
 
 .scrollTable2{
    max-width: 680px;
    overflow-x: scroll;
    border-radius: 0;
+   margin-bottom: 5px;
 }
 
 .scrollTable2 tr{
