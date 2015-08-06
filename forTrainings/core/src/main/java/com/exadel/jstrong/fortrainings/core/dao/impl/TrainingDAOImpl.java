@@ -41,7 +41,12 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             for(int i = 0; i < events.size(); i++) {
                 event = events.get(i);
                 event.setIsSubscribe(ids.contains(event.getTrainingId()));
-                event.setIsTrainer(trainerIds.contains(event.getTrainingId()));
+                if(trainerIds.contains(event.getTrainingId())) {
+                    event.setIsTrainer(true);
+                    event.setIsSubscribe(true);
+                } else {
+                    event.setIsTrainer(false);
+                }
                 event.setDate(event.getDate());
             }
         } catch(Throwable e) {
@@ -60,9 +65,13 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
             CriteriaQuery<Training> query = criteriaBuilder.createQuery(Training.class);
             Root<Training> root = query.from(Training.class);
-            Predicate p1 = criteriaBuilder.like(root.<String>get("name"), "%" + st + "%");
-            Predicate p2 = criteriaBuilder.like(root.<String>get("annotation"), "%" + st + "%");
-            Predicate p3 = criteriaBuilder.like(root.<String>get("description"), "%" + st + "%");
+            StringBuilder stringBuilder = new StringBuilder("%");
+            stringBuilder.append(st);
+            stringBuilder.append("%");
+            String str = stringBuilder.toString();
+            Predicate p1 = criteriaBuilder.like(root.<String>get("name"), str);
+            Predicate p2 = criteriaBuilder.like(root.<String>get("annotation"), str);
+            Predicate p3 = criteriaBuilder.like(root.<String>get("description"), str);
             query.where(criteriaBuilder.or(p1, p2, p3));
             trainings = em.createQuery(query).getResultList();
             for (Training t: trainings){
@@ -86,6 +95,17 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     public int updateTraining(Training training) {
         training = super.update(training);
         return training.getId();
+    }
+
+    @Override
+    @Transactional
+    public void deleteTraining(int trainingId) {
+        try {
+            Query query = em.createNativeQuery("update training set is_delete = 1 where id = :trainingId").setParameter("trainingId", trainingId);
+            query.executeUpdate();
+        } catch (Throwable e) {
+            logger.warn("Throwable exception");
+        }
     }
 
     //TODO: replace e.printStackTrace --> logger.warn/error
@@ -195,7 +215,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public void changeStatus(int trainingId) {
         try {
-            Query query = em.createNativeQuery("update training set approve=true training_id =:tId").setParameter("tId", trainingId);
+            Query query = em.createNativeQuery("update training set approve=true WHERE training_id=:tId").setParameter("tId", trainingId);
             int res = query.executeUpdate();
             if (res == 0) {
                 logger.info("No meets to change");
@@ -278,6 +298,46 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         } catch(Throwable e){
             logger.warn(e.toString());
             return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Training> getTrainingsByUser(int userId) {
+        try{
+            return em.createNativeQuery("SELECT * FROM training WHERE id IN (SELECT training_id FROM subscribe WHERE employee_id = :userId)", Training.class).setParameter("userId", userId).getResultList();
+        }catch(Throwable e){
+            logger.warn(e.toString());
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Training> getSubscribedTrainings() {
+        try{
+            return em.createNativeQuery("SELECT * FROM training WHERE (SELECT COUNT(*) FROM subscribe WHERE training_id = training.id)>0", Training.class).getResultList();
+        }catch(Throwable e){
+            logger.warn(e.toString());
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public Training getTrainingIfSubscribed(int id) {
+        try{
+            return (Training)em.createNativeQuery("SELECT * FROM training WHERE id = :trainingId AND (SELECT COUNT(*) FROM subscribe WHERE training_id = training.id)>0", Training.class).setParameter("trainingId", id).getSingleResult();
+        }catch(Throwable e){
+            logger.warn(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public Training getTrainingIfSubscribedByUser(int trainingId, int userId) {
+        try{
+            return (Training)em.createNativeQuery("SELECT * FROM training WHERE id = :trainingId AND (SELECT COUNT(*) FROM subscribe WHERE training_id = training.id AND employee_id = :userId)>0", Training.class).setParameter("trainingId", trainingId).setParameter("userId", userId).getSingleResult();
+        }catch(Throwable e){
+            logger.warn(e.toString());
+            return null;
         }
     }
 }

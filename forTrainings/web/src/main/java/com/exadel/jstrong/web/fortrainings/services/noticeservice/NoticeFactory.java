@@ -1,8 +1,10 @@
 package com.exadel.jstrong.web.fortrainings.services.noticeservice;
 
+import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.model.*;
 import javafx.util.Pair;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,12 +16,13 @@ import java.util.List;
 public class NoticeFactory {
 
     private static Logger logger = Logger.getLogger(NoticeFactory.class);
+    public final static Integer systemId = 666;
 
     public static Notice getMeetByDelayNotice(Meet meet, Training training, Pair<Long, String> delay){
         try {
             Notice notice = new Notice();
             notice.setTheme("Meet is coming!");
-            notice.setText("Meet of training " + training.getName() + " will be in " + delay.getValue());
+            notice.setText("Meet of training \"" + training.getName() + "\" will be in " + delay.getValue());
             notice.setStatus("info");
             notice.setTrainingId(training.getId());
             Date date = new Date(meet.getDate().getTime() - delay.getKey());
@@ -31,13 +34,13 @@ public class NoticeFactory {
         }
     }
 
-    public static Notice getTrainingCreateNotice(Training training){
+    public static Notice getTrainingCreateNotice(Training training, int senderId){
         try {
             Notice notice = new Notice();
             notice.setTheme("New training");
             notice.setText("There is the new training " + training.getName() + " in system");
             notice.setStatus("info");
-            notice.setSenderId(training.getTrainer_id());
+            notice.setSenderId(senderId);
             notice.setTrainingId(training.getId());
             notice.setAddDate(new Date());
             return notice;
@@ -47,16 +50,16 @@ public class NoticeFactory {
         }
     }
 
-    public static Notice getTrainingEditNotice(Training training, Transaction transaction, Employee editor){
+    public static Notice getTrainingEditNotice(Training training, int transactionId, int editorId){
         try {
             Notice notice = new Notice();
             notice.setTheme("Training edit");
-            notice.setText("Training " + training.getName() + "was edited");
+            notice.setText("Training \"" + training.getName() + "\" was edited");
             notice.setStatus("info");
-            notice.setSenderId(editor.getId());
+            notice.setSenderId(editorId);
             notice.setTrainingId(training.getId());
             notice.setAddDate(new Date());
-            notice.setTransactionId(transaction.getId());
+            notice.setTransactionId(transactionId);
             return notice;
         } catch(Throwable e){
             logger.info("Error");
@@ -68,7 +71,7 @@ public class NoticeFactory {
         try {
             Notice notice = new Notice();
             notice.setTheme("Training delete");
-            notice.setText("Training " + training.getName() + "was deleted");
+            notice.setText("Training \"" + training.getName() + "\" was deleted");
             notice.setStatus("info");
             notice.setSenderId(deleter.getId());
             notice.setTrainingId(training.getId());
@@ -124,4 +127,132 @@ public class NoticeFactory {
         return employeeNotice;
     }
 
+    public static Notice getNotApprovedNewTrainingNotice(Training training){
+        try {
+            Notice notice = new Notice();
+            notice.setTheme("Approve training");
+            notice.setText("Need approve of the new training \"" + training.getName() + "\"");
+            notice.setStatus("warning");
+            notice.setSenderId(training.getTrainer_id());
+            notice.setTrainingId(training.getId());
+            notice.setAddDate(new Date());
+            return notice;
+        } catch(Throwable e){
+            logger.info("Error");
+            return new Notice();
+        }
+    }
+
+    public static Notice getNotApprovedEditedTrainingNotice(Training training, int senderId, int transactionId) {
+        try {
+            Notice notice = new Notice();
+            notice.setTheme("Approve training");
+            notice.setText("Need approve changes in training \"" + training.getName() + "\"");
+            notice.setStatus("warning");
+            notice.setSenderId(senderId);
+            notice.setTrainingId(training.getId());
+            notice.setTransactionId(transactionId);
+            notice.setAddDate(new Date());
+            return notice;
+        } catch(Throwable e){
+            logger.info("Error");
+            return new Notice();
+        }
+    }
+
+    public static Notice getNewParticipantNotice(int senderId, Training training, String status) {
+        try {
+            Notice notice = new Notice();
+            notice.setTheme("Addition successfully completed");
+            notice.setText("You was added to the \"" + training.getName() + "\" participants list with status " + status);
+            notice.setStatus("success");
+            notice.setSenderId(senderId);
+            notice.setTrainingId(training.getId());
+            notice.setAddDate(new Date());
+            return notice;
+        } catch(Throwable e){
+            logger.info("Error");
+            return new Notice();
+        }
+    }
+
+    public static Notice getDeletedParticipantNotice(int senderId, Training training) {
+        try {
+            Notice notice = new Notice();
+            notice.setTheme("Deletion completed");
+            notice.setText("You was deleted from the \"" + training.getName() + "\" participants list");
+            notice.setStatus("success");
+            notice.setSenderId(senderId);
+            notice.setTrainingId(training.getId());
+            notice.setAddDate(new Date());
+            return notice;
+        } catch(Throwable e){
+            logger.info("Error");
+            return new Notice();
+        }
+    }
+
+    public static Notice getNewParticipantNotice(int senderId, Training training, String status, Employee employee) {
+        try {
+            Notice notice = new Notice();
+            notice.setTheme("Addition successfully completed");
+            notice.setText("User " + employee.getName() +  " was added to the \"" + training.getName() + "\" participants list with status " + status);
+            notice.setStatus("success");
+            notice.setSenderId(senderId);
+            notice.setTrainingId(training.getId());
+            notice.setAddDate(new Date());
+            return notice;
+        } catch(Throwable e){
+            logger.info("Error");
+            return new Notice();
+        }
+    }
+
+    public static Notice getDeletedParticipantNotice(int senderId, Training training, Employee employee) {
+        try {
+            Notice notice = new Notice();
+            notice.setTheme("Deletion completed");
+            notice.setText("User " + employee.getName() +  " was deleted from the \"" + training.getName() + "\" participants list");
+            notice.setStatus("success");
+            notice.setSenderId(senderId);
+            notice.setTrainingId(training.getId());
+            notice.setAddDate(new Date());
+            return notice;
+        } catch(Throwable e){
+            logger.info("Error");
+            return new Notice();
+        }
+    }
+
+    public static Notice getTrainerFeedbackNotice(Training training, Employee sender, Employee employee) {
+        try {
+            Notice notice = new Notice();
+            notice.setTheme("New feedback");
+            notice.setText("Trainer " + sender.getName() + " add new feedback about " + employee.getName() + " to the training \"" + training.getName() + "\"");
+            notice.setStatus("info");
+            notice.setSenderId(sender.getId());
+            notice.setTrainingId(training.getId());
+            notice.setAddDate(new Date());
+            return notice;
+        } catch(Throwable e){
+            logger.info("Error");
+            return new Notice();
+        }
+    }
+
+    public static Notice getEmployeeFeedbackNotice(Training training, Employee sender) {
+        try {
+            Notice notice = new Notice();
+            notice.setTheme("New feedback");
+            notice.setText("User " + sender.getName() + " add new feedback to the training \"" + training.getName() + "\"");
+            notice.setStatus("info");
+            notice.setSenderId(sender.getId());
+            notice.setTrainingId(training.getId());
+            notice.setAddDate(new Date());
+            return notice;
+        } catch(Throwable e){
+            logger.info("Error");
+            return new Notice();
+        }
+    }
 }

@@ -6,13 +6,13 @@ import java.util.List;
  * Created by Администратор on 30.07.2015.
  */
 public class ReportUI {
-    private List<TrainingReportUI> trainingReportUIs;
+    private List<TrainingReportUI> trainings;
 
-    public List<TrainingReportUI> getTrainingReportUIs() {
-        return trainingReportUIs;
+    public List<TrainingReportUI> getTrainings() {
+        return trainings;
     }
 
-    public void setTrainingReportUIs(List<TrainingReportUI> trainingReportUIs) {
-        this.trainingReportUIs = trainingReportUIs;
+    public void setTrainings(List<TrainingReportUI> trainings) {
+        this.trainings = trainings;
     }
 }

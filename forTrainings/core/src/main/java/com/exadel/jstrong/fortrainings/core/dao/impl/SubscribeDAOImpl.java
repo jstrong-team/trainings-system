@@ -2,6 +2,7 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
+import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Participant;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import org.apache.log4j.Logger;
@@ -206,6 +207,18 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
         return null;
     }
 
+    @Override
+    public List<Employee> getSubscribersAsEmployees(int trainingId) {
+        try{
+            return em.createNativeQuery("SELECT * FROM employee WHERE id IN (SELECT employee_id FROM subscribe WHERE training_id = :tId)", Employee.class).setParameter("tId", trainingId).getResultList();
+        }catch(Throwable e){
+            logger.warn(e.toString());
+            return new ArrayList<>();
+        }
+    }
+
+    //    public Integer get
+
     public boolean dateMeetChecker(int trainingId) {
         try {
             Date currentDate = new Date();
@@ -228,5 +241,25 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
 
         }
         return false;
+    }
+
+    @Override
+    public Subscribe getSubscribe(int employeeId, int trainingId) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        Subscribe subscribe = null;
+        try {
+            CriteriaQuery<Subscribe> query = criteriaBuilder.createQuery(Subscribe.class);
+            Root<Subscribe> root = query.from(Subscribe.class);
+
+            Predicate p1 = root.<Integer>get("employeeId").in(employeeId);
+            Predicate p2 = root.<Integer>get("trainingId").in(trainingId);
+
+            query.where(criteriaBuilder.and(p1, p2));
+            subscribe = em.createQuery(query).getSingleResult();
+            return subscribe;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
