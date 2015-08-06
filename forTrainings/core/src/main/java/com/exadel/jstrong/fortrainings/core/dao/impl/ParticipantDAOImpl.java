@@ -3,6 +3,7 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.ParticipantDAO;
 import com.exadel.jstrong.fortrainings.core.model.Participant;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,8 @@ import java.util.List;
  */
 @Service
 public class ParticipantDAOImpl extends BaseDAO<Participant> implements ParticipantDAO {
+
+    private static Logger logger = Logger.getLogger(ParticipantDAO.class.getName());
 
     @Override
     @Transactional
@@ -43,7 +46,7 @@ public class ParticipantDAOImpl extends BaseDAO<Participant> implements Particip
             Participant participant = em.createQuery(query).getSingleResult();
             return participant.getId();
         } catch (Throwable e) {
-            e.printStackTrace();
+            logger.info("No participants");
             return 0;
         }
     }
