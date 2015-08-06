@@ -233,18 +233,23 @@
                                 class="btn btn-default buttonBottom"
                                 ng-click="changeCollapse.addSubscriber()">Add subscriber</button>
                         <input type="text"
+                               ng-model="foreignUser.name"
                                placeholder="name"
                                collapse="isCollapsed.addSubscriber"
                                class="buttonBottom form-control"/>
                         <input type="email"
+                               ng-model="foreignUser.email"
                                placeholder="E-mail"
                                collapse="isCollapsed.addSubscriber"
                                class="buttonBottom form-control"/>
                         <input type="tel"
+                               ng-model="foreignUser.phone"
                                placeholder="Phone number"
                                collapse="isCollapsed.addSubscriber"
                                class="buttonBottom form-control"/>
                         <button type="text"
+                                ng-click="addForeignUser()"
+                                ng-cloak
                                 collapse="isCollapsed.addSubscriber"
                                 class="btn btn-default buttonBottom">Save subscriber</button>
                     </div>
