@@ -28,6 +28,10 @@ angular.module('approvePageModule').controller('editApproveController', ['$scope
         approveService.approve($routeParams.trainingId);
     };
 
+    $scope.dismiss=function(){
+        approveService.dismiss($routeParams.trainingId);
+    };
+
     $scope.showInput='TRAINING_PAGE_SHOW';
 
     $scope.isCollapsed = true;

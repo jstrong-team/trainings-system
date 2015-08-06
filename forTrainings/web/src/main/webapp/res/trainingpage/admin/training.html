@@ -58,8 +58,8 @@
                                 <tr>
                                     <th> {{ 'TRAINING_PAGE_USER' | translate }}</th>
                                     <th nowrap ng-repeat="meet in training.meets">
-                                        {{$index+1}}
-                                        <!--{{training.dateTime[$index]}}-->
+                                        <!--{{$index+1}}-->
+                                        {{training.dateTime[$index]}}
                                     </th>
                                 </tr>
                                 <tr ng-repeat="subscriber in subscribers|filter:'Approve'">

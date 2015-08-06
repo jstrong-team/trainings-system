@@ -1,4 +1,4 @@
-angular.module('approvePageModule').factory('approveService', ['$http','$location', function($http,$location) {
+angular.module('approvePageModule').factory('approveService', ['$rootScope','$http','$location', function($rootScope,$http,$location) {
     var service={};
     service.approve = function(id) {
         console.log({
@@ -9,6 +9,23 @@ angular.module('approvePageModule').factory('approveService', ['$http','$locatio
             transactionId:id,
             adminAnswer:'Approve'
         }).then(function(){
+            //$rootScope.$broadcast('removeNewsItem');
+            $location.url('/ui/news');
+        }, function(error){
+            console.log(error);
+        });
+    };
+
+    service.dismiss = function(id) {
+        console.log({
+            transactionId:id,
+            adminAnswer:'Approve'
+        });
+        $http.put('rest/storagetraining/approve',{
+            transactionId:id,
+            adminAnswer:'Dismiss'
+        }).then(function(){
+            //$rootScope.$broadcast('removeNewsItem');
             $location.url('/ui/news');
         }, function(error){
             console.log(error);
