@@ -32,7 +32,7 @@
                 <span>{{ 'TRAINING_PAGE_PARTICIPANTS' | translate }}</span>
             </div>
 
-            <table>
+            <table ng-show="subscribers.length > 0">
                 <tr>
                     <td class=>
                         <div tooltip-placement="top"
@@ -148,13 +148,13 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 buttons"  ng-cloak>
+                <div class="col-md-12 buttons"  ng-cloak ng-show="subscribers.length > 0">
                     <button class="btn editDatesButton"
                             ng-click="changeCollapse.subscribers()">
                         {{show.subscribers|translate}} {{ 'TRAINING_PAGE_SUBSCRIBERS' | translate }}
                     </button>
                 </div>
-                <div class="col-md-12 dateTime">
+                <div class="col-md-12 dateTime" ng-show="subscribers.length > 0">
                     <div collapse="isCollapsed.subscribers">
                         <table class="table">
                             <tr>

@@ -26,6 +26,9 @@
             dates: 'TRAINING_PAGE_SHOW'
         };
 
+        $scope.acceptAttendanceChanges=function(){
+            absentService.sendAttendance($scope.training.id);
+        };
 
         $scope.changeCollapse = {
             dates: function () {

@@ -37,34 +37,34 @@
         };
 
         $scope.show = {
-            subscribers: 'Hide',
-            dates: 'Show',
-            addSubscriber:'Hide'
+            subscribers: 'TRAINING_PAGE_HIDE',
+            dates: 'TRAINING_PAGE_SHOW',
+            addSubscriber:'TRAINING_PAGE_HIDE'
         };
 
         $scope.changeCollapse = {
             dates: function () {
                 $scope.isCollapsed.dates = !$scope.isCollapsed.dates;
                 if ($scope.isCollapsed.dates) {
-                    $scope.show.dates = 'Show';
+                    $scope.show.dates = 'TRAINING_PAGE_SHOW';
                 } else {
-                    $scope.show.dates = 'Hide';
+                    $scope.show.dates = 'TRAINING_PAGE_HIDE';
                 }
             },
             subscribers: function () {
                 $scope.isCollapsed.subscribers = !$scope.isCollapsed.subscribers;
                 if ($scope.isCollapsed.subscribers) {
-                    $scope.show.subscribers = 'Show';
+                    $scope.show.subscribers = 'TRAINING_PAGE_SHOW';
                 } else {
-                    $scope.show.subscribers = 'Hide';
+                    $scope.show.subscribers = 'TRAINING_PAGE_HIDE';
                 }
             },
             addSubscriber: function(){
                 $scope.isCollapsed.addSubscriber = !$scope.isCollapsed.addSubscriber;
                 if ($scope.isCollapsed.addSubscriber) {
-                    $scope.show.addSubscriber = 'Show';
+                    $scope.show.addSubscriber = 'TRAINING_PAGE_SHOW';
                 } else {
-                    $scope.show.addSubscriber = 'Hide';
+                    $scope.show.addSubscriber = 'TRAINING_PAGE_HIDE';
                 }
             }
         };

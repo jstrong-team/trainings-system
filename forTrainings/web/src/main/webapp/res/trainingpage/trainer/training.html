@@ -32,7 +32,7 @@
                 <span>{{ 'TRAINING_PAGE_PARTICIPANTS' | translate }}</span>
             </div>
 
-            <table>
+            <table ng-show="subscribers.length > 0">
                 <tr>
                     <td class=>
                         <div tooltip-placement="top"
@@ -53,7 +53,7 @@
                         <div tooltip-placement="top"
                              tooltip-popup-delay='3000'
                              tooltip="double click to leave absent reason"
-                             class="panel panel-default table-responsive scrollTable2">
+                             class="panel panel-default  table-responsive scrollTable2">
                             <table class="table table-bordered">
                                 <tr>
                                     <th>{{ 'TRAINING_PAGE_USER' | translate }}</th>
@@ -72,13 +72,20 @@
                         </div>
                     </td>
                 </tr>
-            </table>
-            <div class=" buttonBottom">
-                <button type="button" class="btn  editDatesButton " ng-click="acceptAttendanceChanges()">
-                    {{ 'TRAINING_PAGE_SAVE_CHANGES' | translate }}</button>
-            </div>
+                <tr >
+                    <td>
 
-            <div class="breakText ">
+                    </td>
+                    <td>
+                        <div class=" buttonBottom" ng-show="subscribers.length > 0">
+                            <button type="button" class="btn  editDatesButton " ng-click="acceptAttendanceChanges()">
+                                {{ 'TRAINING_PAGE_SAVE_CHANGES' | translate }}</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="breakText " ng-show="feedbacks.length > 0">
                 <span>{{ 'TRAINING_PAGE_COMMENTS' | translate }}:</span>
             </div>
             <div class="panel panel-default " ng-repeat="coment in feedbacks">
@@ -184,13 +191,13 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-md-12 buttons"  ng-cloak>
+                <div class="col-md-12 buttons"  ng-cloak ng-show="subscribers.length > 0">
                     <button class="btn editDatesButton"
                             ng-click="changeCollapse.subscribers()">
                         {{show.subscribers|translate}} {{ 'TRAINING_PAGE_SUBSCRIBERS' | translate }}
                     </button>
                 </div>
-                <div class="col-md-12 dateTime">
+                <div class="col-md-12 dateTime" ng-show="subscribers.length > 0">
                     <div collapse="isCollapsed.subscribers">
                         <table class="table">
                             <tr>

@@ -9,7 +9,7 @@ angular.module('trainingPageTrainerModule').controller('userRevieModalController
             $scope.rateshow = true;
         } else {
             //console.log($scope.subscribers);
-            console.log($scope.feedback);
+            //console.log($scope.feedback);
             $http.post('/rest/storagetraining/addTrainerFeedback?trainingId='+$scope.trainingId, $scope.feedback).then(function(response){
                 $modalInstance.close(response);
             }, function(error){

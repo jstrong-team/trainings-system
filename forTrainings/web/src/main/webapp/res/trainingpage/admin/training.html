@@ -38,7 +38,7 @@
                         <div tooltip-placement="top"
                              tooltip-popup-delay='3000'
                              tooltip="double click to leave absent reason"
-                             class="panel panel-default table-responsive scrollTable1">
+                             class="panel panel-default table-responsive  scrollTable1">
                             <table class="table table-bordered">
                                 <tr>
                                     <th>#</th>
@@ -53,17 +53,17 @@
                         <div tooltip-placement="top"
                              tooltip-popup-delay='3000'
                              tooltip="double click to leave absent reason"
-                             class="panel panel-default table-responsive scrollTable2">
+                             class="panel panel-default table-responsive  scrollTable2">
                             <table class="table table-bordered">
                                 <tr>
                                     <th> {{ 'TRAINING_PAGE_USER' | translate }}</th>
-                                    <th ng-repeat="meet in training.meets">
+                                    <th nowrap ng-repeat="meet in training.meets">
                                         {{$index+1}}
+                                        <!--{{training.dateTime[$index]}}-->
                                     </th>
                                 </tr>
                                 <tr ng-repeat="subscriber in subscribers|filter:'Approve'">
                                     <td nowrap>{{subscriber.name}}</td>
-                                    <td>{{subscriber.status}}</td>
                                     <td table-catch-directive ng-repeat="meet in training.meets"
                                         class="{{subscriber.id+' '+meet.id}}"
                                         data-toggle="tooltip" title="{{subscriber.participants[$index].reason}}">
@@ -71,6 +71,17 @@
                                     </td>
                                 </tr>
                             </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        <div class=" buttonBottom" ng-show="subscribers.length > 0">
+                            <button type="button" class="btn  editDatesButton " ng-click="acceptAttendanceChanges()">
+                                {{ 'TRAINING_PAGE_SAVE_CHANGES' | translate }}</button>
                         </div>
                     </td>
                 </tr>
@@ -137,7 +148,6 @@
             <div class="breakText">
                 <span>{{ 'TRAINING_PAGE_PLACE' | translate }}:</span>{{training.place}}
             </div>
-
             <div class="row buttons">
                 <div class="col-md-6" ng-show="training.isSubscribe">
                     <button type="button"

@@ -75,11 +75,13 @@
                                     on-leave="overStar=null"
                                     >
                             </rating>{{overStar}}
+                            <div class="requiredText" ng-show="rateshow">
+                                {{ 'TRAINER_FEEDBACK_RATING_CHOOSE' | translate }}</div>
                         </span>
                     </div>
                     <p></p>
                 </div>
-                <div>
+                <div class="trainerFedbackInputDiv">
                     <label class="control-label ">{{ 'USER_FEEDBACK_OTHER' | translate }}:</label><textarea type="text" rows="3"
                                                                           class="form-control"
                                                                           ng-model="feedback.other" ></textarea><p></p>
