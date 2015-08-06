@@ -2,14 +2,10 @@
     padding-bottom: 40px;
 }
 
-.printButton {
+.printButton, .getReportButton {
     float: right;
     background-color: #2E729F;
     color: #ffffff;
-}
-
-.selectedEmployee {
-    float: right;
 }
 
 #employeeInput {
@@ -17,13 +13,9 @@
 }
 
 #employeeInput,
-.reportTable {
+  .reportTable {
     -webkit-transition: all linear 0.5s;
     transition: all linear 0.5s;
-}
-
-.reportTable {
-    margin-top: 30px;
 }
 
 .noReports {
@@ -31,5 +23,13 @@
 }
 
 .inputReport {
-    padding-bottom: 10px;
+    padding-bottom: 15px;
+}
+
+.feedbackReport {
+    padding: 10px;
+}
+
+.resultAccordion {
+    padding-top: 30px;
 }

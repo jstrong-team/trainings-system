@@ -173,13 +173,13 @@
 
             <div class="form-group" ng-if="!isCollapsedET">
 
-                <label class="control-label col-md-4" for="trainerMail">
+                <label class="control-label col-md-4 required" for="trainerMail">
                     {{'CREATE_TRAINING_EXTERNAL_TRAINER_MAIL' | translate}}
                 </label>
 
                 <div class="col-md-8">
-                    <input type="text" rows="6" class="form-control" id="trainerMail"
-                           ng-model="createInfo.externalTrainerMail"
+                    <input type="email" rows="6" class="form-control" id="trainerMail"
+                           ng-model="createInfo.externalTrainerMail" required
                            placeholder="{{'CREATE_TRAINING_EXTERNAL_TRAINER_MAIL_PLACEHOLDER' | translate}}">
                 </div>
             </div>

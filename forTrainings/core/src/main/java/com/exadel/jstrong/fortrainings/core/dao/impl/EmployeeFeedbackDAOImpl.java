@@ -26,7 +26,7 @@ public class EmployeeFeedbackDAOImpl extends BaseDAO<EmployeeFeedback> implement
         if (id != 0) {
             feedback.setId(id);
         }
-        super.update(feedback).getId();
+        super.update(feedback);
     }
     
     //TODO: replace e.printStackTrace --> logger.warn/error
@@ -65,7 +65,7 @@ public class EmployeeFeedbackDAOImpl extends BaseDAO<EmployeeFeedback> implement
             Root<EmployeeFeedback> root = query.from(EmployeeFeedback.class);
             Predicate p1 = criteriaBuilder.equal(root.<Integer>get("trainingId"), trainingId);
             Predicate p2 = criteriaBuilder.equal(root.<Integer>get("employeeId"), userId);
-            query.where(criteriaBuilder.or(p1, p2));
+            query.where(criteriaBuilder.and(p1, p2));
             EmployeeFeedback employeeFeedback = em.createQuery(query).getSingleResult();
             return employeeFeedback.getId();
         } catch (Throwable e) {

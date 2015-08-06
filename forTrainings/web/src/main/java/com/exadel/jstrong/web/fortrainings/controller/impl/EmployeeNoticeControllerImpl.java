@@ -1,5 +1,6 @@
 package com.exadel.jstrong.web.fortrainings.controller.impl;
 
+import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeNoticeDAO;
 import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeNoticeController;
@@ -21,6 +22,8 @@ import java.util.List;
 @Component
 public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
 
+    @Autowired
+    private EmployeeDAO employeeDAO;
     @Autowired
     private EmployeeNoticeDAO employeeNoticeDAO;
 
@@ -48,6 +51,7 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
                 noticeUI = new NoticeUI();
                 noticeUI.setId(n.getId());
                 noticeUI.setSenderId(n.getSenderId());
+                noticeUI.setSenderName(employeeDAO.getNameById(noticeUI.getSenderId()));
                 noticeUI.setStatus(n.getStatus());
                 noticeUI.setTheme(n.getTheme());
                 noticeUI.setText(n.getText());
@@ -63,6 +67,7 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
                 noticeUI = new NoticeUI();
                 noticeUI.setId(n.getId());
                 noticeUI.setSenderId(n.getSenderId());
+                noticeUI.setSenderName(employeeDAO.getNameById(noticeUI.getSenderId()));
                 noticeUI.setStatus(n.getStatus());
                 noticeUI.setTheme(n.getTheme());
                 noticeUI.setText(n.getText());

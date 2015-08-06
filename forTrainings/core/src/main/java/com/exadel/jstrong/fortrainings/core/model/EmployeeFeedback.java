@@ -15,6 +15,7 @@ public class EmployeeFeedback {
 
     @Id
     @Column
+    @GeneratedValue
     private Integer id;
 
     @Column(name = "employee_id")

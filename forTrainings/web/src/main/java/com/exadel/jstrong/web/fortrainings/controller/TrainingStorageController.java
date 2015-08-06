@@ -14,10 +14,11 @@ public interface TrainingStorageController {
     boolean check(int uId, int tId);
     void addEmployeeFeedback(EmployeeFeedback ef);
     List<SubscriberUI> getSubscribers(int uId, int tId);
+    int getEmployeeIdBySubscribe(int subscribeId);
     List<EmployeeNamedFeedbackUI> getEmployeeNamedFeedback(int id, boolean isAdmin);
     boolean deleteFeedback(int id);
-    boolean deleteSuscriber(int userId, int trainingId);
-    void editTraining(int oldTrainingId, Training training);
+    boolean deleteSubscriber(int userId, int trainingId);
+    void editTraining(int oldTrainingId, Training training, int senderId);
     void changeTrainingStatus(int trainingId);
     int approveTraining(int transactionId);
     //List<MeetReportUI> getMeetReportUIs(int subscribeId);
