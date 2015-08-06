@@ -73,22 +73,6 @@ public class TokenDAOImpl extends BaseDAO<Token> implements TokenDAO {
     }
 
     @Override
-    @Transactional
-    public void updateDateBySession(String session, Date date) {
-        Token token = getTokenBySession(session);
-        token.setDate(date);
-        em.merge(token);
-    }
-
-    @Override
-    @Transactional
-    public void updateDate(int id, Date date) {
-        Token token = getTokenByEmployeeId(id);
-        token.setDate(date);
-        em.merge(token);
-    }
-
-    @Override
     public int getIdBySession(String session) {
         try {
             int id = (int) em.createQuery("SELECT t.id FROM Token t WHERE t.session = :value").setParameter("value", session).getSingleResult();
@@ -110,16 +94,6 @@ public class TokenDAOImpl extends BaseDAO<Token> implements TokenDAO {
     }
 
     @Override
-    public Date getDateBySession(String session) {
-        try {
-            Date date = (Date) em.createQuery("SELECT t.date FROM Token t WHERE t.session = :value").setParameter("value", session).getSingleResult();
-            return date;
-        } catch (Throwable e) {
-            return new Date(0);
-        }
-    }
-
-    @Override
     @Transactional
     public void addToken(Token token) {
         save(token);
@@ -129,14 +103,6 @@ public class TokenDAOImpl extends BaseDAO<Token> implements TokenDAO {
     @Transactional
     public void deleteToken(Token token) {
         delete(token);
-    }
-
-    @Override
-    @Transactional
-    public void updatePathById(int id, String path) {
-        Token token = getTokenById(id);
-        token.setPath(path);
-        em.merge(token);
     }
 
     @Override

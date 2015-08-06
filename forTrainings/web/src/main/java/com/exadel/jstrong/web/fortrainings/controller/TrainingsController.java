@@ -1,7 +1,6 @@
 package com.exadel.jstrong.web.fortrainings.controller;
 
-import com.exadel.jstrong.fortrainings.core.model.Event;
-import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
+import com.exadel.jstrong.web.fortrainings.model.ReportList;
 import com.exadel.jstrong.web.fortrainings.model.SearchEventUI;
 import com.exadel.jstrong.web.fortrainings.model.TrainingsUI;
 
@@ -11,5 +10,5 @@ public interface TrainingsController {
     TrainingsUI getAllTrainings(int userId);
     List<SearchEventUI> getSearchData(String str);
     boolean isTrainer(int uId, int tId);
-    List<EmployeeUI> getUsersToReport();
+    ReportList getReportLists();
 }

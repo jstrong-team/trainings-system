@@ -26,5 +26,6 @@ public interface TrainingDAO extends GenericDAO<Training>{
     void changeStatus(int trainingId);
     List<Integer> getMeetIdsByTrainingId(int trainingId);
     Training getTrainingByTransactionID(int transactionId);
+    List<Training> getApprovedTrainings();
     int updateOldTraining(Training training);
 }

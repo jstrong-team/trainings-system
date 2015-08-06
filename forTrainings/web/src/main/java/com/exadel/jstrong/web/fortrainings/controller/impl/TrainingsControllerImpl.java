@@ -8,13 +8,9 @@ import com.exadel.jstrong.fortrainings.core.model.Event;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.fortrainings.core.model.comparator.EventComp;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
-import com.exadel.jstrong.web.fortrainings.model.EmployeeUI;
-import com.exadel.jstrong.web.fortrainings.model.SearchEventUI;
-import com.exadel.jstrong.web.fortrainings.model.TrainingsUI;
-import org.hibernate.Hibernate;
+import com.exadel.jstrong.web.fortrainings.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -92,22 +88,29 @@ public class TrainingsControllerImpl implements TrainingsController {
     public boolean isTrainer(int uId, int tId) {return trainingDAO.isTrainer(uId, tId);}
 
     @Override
-    @Transactional
-    public List<EmployeeUI> getUsersToReport() {
-        List<EmployeeUI> employeeUIs = new ArrayList<>();
-        List<Employee> employees = employeeDAO.getAllUsers();
-        EmployeeUI employeeUI = null;
-        int id;
-        String name;
-        for(Employee employee: employees) {
-            employeeUI = new EmployeeUI();
-            id = employee.getId();
-            name = employee.getName();
-            employeeUI.setId(id);
-            employeeUI.setName(name);
-            employeeUIs.add(employeeUI);
+    public ReportList getReportLists() {
+        ReportList list = new ReportList();
+        List<EmployeeInfo> usersList = new ArrayList<>();
+        List<TrainingInfo> trainingsList = new ArrayList<>();
+        List<Employee> employees = employeeDAO.getAllInsideUsers();
+        List<Training> trainings = trainingDAO.getApprovedTrainings();
+        EmployeeInfo employeeInfo;
+        TrainingInfo trainingInfo;
+        for (Training t: trainings){
+            trainingInfo = new TrainingInfo();
+            trainingInfo.setId(t.getId());
+            trainingInfo.setName(t.getName());
+            trainingsList.add(trainingInfo);
         }
-        return employeeUIs;
+        list.setTrainings(trainingsList);
+        for (Employee e: employees){
+            employeeInfo = new EmployeeInfo();
+            employeeInfo.setId(e.getId());
+            employeeInfo.setName(e.getName());
+            usersList.add(employeeInfo);
+        }
+        list.setUsers(usersList);
+        return list;
     }
 
 }

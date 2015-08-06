@@ -106,6 +106,7 @@
   "DATE_VALIDATION_ERROR": "Не существующая дата!",
   "DATE_VALIDATION_FIRST_LAST": "Первая дата должна быть раньше последней!",
   "DATE_VALIDATION_LATER_THAN_CURRENT": "Введенная дата должна быть позже текущего момента!",
+  "DATE_VALIDATION_HAS_DUPLICATE": "Некоторые даты повторяются!",
 
 
 
@@ -136,6 +137,31 @@
   "REPORTS_NO_RESULTS": "Нет данных по выбранному сотруднику!",
   "REPORTS_TABLE_ATTENDANCE_VALUE_TRUE": "Н",
   "REPORTS_TABLE_ATTENDANCE_VALUE_FALSE": "",
+
+
+
+  "EDIT_TRAINING_MAIN_TITLE": "Редактировать тренинг",
+  "EDIT_TRAINING_TRAINING": "Название тренинга",
+  "EDIT_TRAINING_ANNOTATION": "Аннотация",
+  "EDIT_TRAINING_DATES": "Даты",
+  "EDIT_TRAINING_PLACE": "Место",
+  "EDIT_TRAINING_TARGET_AUDIENCE": "Целевая аудитория",
+  "EDIT_TRAININGS_MAX_PARTICIPANTS": "Максимальное число участников",
+  "EDIT_TRAINING_DESCRIPTION": "Описание",
+  "EDIT_TRAINING_INTERNAL": "Внутренний",
+  "EDIT_TRAINING_EXTERNAL": "Внешний",
+  "EDIT_TRAINING_PAID": "Платный",
+  "EDIT_TRAINING_FREE": "Бесплатный",
+  "EDIT_TRAINING_BUTTON": "Применить изменения",
+  "EDIT_TRAINING_DATE_LIST_BUTTON": "Показать список дат",
+
+  "EDIT_TRAINING_TRAINING_PLACEHOLDER": "Введите название тренера",
+  "EDIT_TRAINING_ANNOTATION_PLACEHOLDER": "Введите аннотацию",
+  "EDIT_TRAINING_DATES_PLACEHOLDER": "ГГГГ-ММ-ДД ЧЧ-мм",
+  "EDIT_TRAINING_PLACE_PLACEHOLDER": "Введите место проведения тренинга",
+  "EDIT_TRAINING_TARGET_AUDIENCE_PLACEHOLDER": "Опишите целевую аудиторию",
+  "EDIT_TRAININGS_MAX_PARTICIPANTS_PLACEHOLDER": "Введите максимальное число участников",
+  "EDIT_TRAINING_DESCRIPTION_PLACEHOLDER": "Опишите тренинг",
 
 
 

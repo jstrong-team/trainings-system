@@ -1,31 +1,29 @@
-angular.module('trainingEditModule').controller('editController', ['$scope', '$routeParams', 'getTrainingInfo','editService', function ($scope, $routeParams, getTrainingInfo,editService) {
+angular.module('trainingEditModule').controller('editController', ['$scope', '$routeParams', 'getTrainingInfo', 'editService', function ($scope, $routeParams, getTrainingInfo, editService) {
 
     getTrainingInfo().then(function (data, status, headers, config) {
+        for (var i = 0; i < data.data.meets.length; ++i) {
+            data.data.meets[i].date = moment(data.data.meets[i].date).format('YYYY-MM-DD HH:mm');
+        }
+
         $scope.editInfo = data.data;
     }, function (error) {
         console.error(error);
     });
 
     $scope.addDate = function (index) {
-        $scope.editInfo.meets.splice(index,0,{date:'',id:null});
+        $scope.editInfo.meets.splice(index, 0, {date: '', id: null});
     };
 
     $scope.removeDate = function (index) {
-        $scope.editInfo.meets.splice(index,1);
-        //console.log(index);
+        $scope.editInfo.meets.splice(index, 1);
     };
-
-    $scope.showInput='Show';
 
     $scope.isCollapsed = true;
 
-    $scope.changeCollapse=function(collapsed){
+    $scope.errorEditDateValidation = '';
+
+    $scope.changeCollapse = function (collapsed) {
         $scope.isCollapsed = !$scope.isCollapsed;
-        if(collapsed){
-            $scope.showInput='Hide';
-        }else{
-            $scope.showInput='Show';
-        }
     };
 
     $scope.datesChange = function (index, value) {
@@ -33,7 +31,39 @@ angular.module('trainingEditModule').controller('editController', ['$scope', '$r
     };
 
     $scope.applyCahnges = function () {
-        editService($routeParams.trainingId ,$scope.editInfo);
+
+        var arrDate = [];
+
+        function hasDuplicates(array) {
+            var valuesSoFar = Object.create(null);
+            for (var i = 0; i < array.length; ++i) {
+                var value = array[i];
+                if (value in valuesSoFar) {
+                    return true;
+                }
+                valuesSoFar[value] = true;
+            }
+            return false;
+        }
+
+        for (var i = 0; i < $scope.editInfo.meets.length; ++i) {
+
+            var date = $scope.editInfo.meets[i].date;
+            arrDate.push(date);
+
+            if (!moment(date, 'YYYY-MM-DD HH:mm', true).isValid()) {
+                $scope.errorEditDateValidation = 'DATE_VALIDATION_ERROR';
+                return 'DATE_VALIDATION_ERROR';
+            }
+
+        }
+
+        if (hasDuplicates(arrDate) === true) {
+            $scope.errorEditDateValidation = 'DATE_VALIDATION_HAS_DUPLICATE';
+            return 'DATE_VALIDATION_HAS_DUPLICATE';
+        }
+
+        editService($routeParams.trainingId, $scope.editInfo);
     };
 
 }]);

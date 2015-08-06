@@ -36,15 +36,15 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             events = em.createQuery(query).getResultList();
 
             List<Integer> ids = (List<Integer>) em.createNativeQuery("SELECT training_id FROM subscribe WHERE employee_id = :id AND status='Approve'").setParameter("id", userId).getResultList();
-            List<Integer> trainerIds = (List<Integer>) em.createNativeQuery("SELECT id FROM training WHERE trainer_id =:uId").setParameter("uId", userId).getResultList();
+            List<Integer> trainerIds = (List<Integer>)em.createNativeQuery("SELECT id FROM training WHERE trainer_id =:uId").setParameter("uId", userId).getResultList();
             Event event;
-            for (int i = 0; i < events.size(); i++) {
+            for(int i = 0; i < events.size(); i++) {
                 event = events.get(i);
                 event.setIsSubscribe(ids.contains(event.getTrainingId()));
                 event.setIsTrainer(trainerIds.contains(event.getTrainingId()));
                 event.setDate(event.getDate());
             }
-        } catch (Throwable e) {
+        } catch(Throwable e) {
             e.printStackTrace();
         }
 
@@ -65,10 +65,10 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             Predicate p3 = criteriaBuilder.like(root.<String>get("description"), "%" + st + "%");
             query.where(criteriaBuilder.or(p1, p2, p3));
             trainings = em.createQuery(query).getResultList();
-            for (Training t : trainings) {
+            for (Training t: trainings){
                 t.getMeets().size();
             }
-        } catch (Throwable e) {
+        } catch(Throwable e){
             e.printStackTrace();
         }
         return trainings;
@@ -76,7 +76,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
 
     @Override
     @Transactional
-    public int add(Training training) {
+    public int add (Training training){
         training = super.save(training);
         return training.getId();
     }
@@ -96,7 +96,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             Training tr = getById(Training.class, id);
             Hibernate.initialize(tr.getFeedbacks());
             return tr;
-        } catch (Throwable e) {
+        } catch(Throwable e){
             e.printStackTrace();
         }
         return null;
@@ -104,11 +104,11 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
 
     //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
-    public boolean isSubscribeById(int employeeId, int trainingId) {
+    public boolean isSubscribeById (int employeeId, int trainingId){
 
         try {
             String result = (String) em.createNativeQuery("select status from subscribe where training_id =:training_Id and employee_id =:employee_Id").setParameter("training_Id", trainingId).setParameter("employee_Id", employeeId).getSingleResult();
-            if (result.compareToIgnoreCase("approve") == 0 || result.compareToIgnoreCase("wait") == 0) {
+            if(result.compareToIgnoreCase("approve") == 0 || result.compareToIgnoreCase("wait") == 0) {
                 return true;
             } else {
                 return false;
@@ -120,7 +120,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     }
 
     @Override
-    public boolean isTrainer(int userId, int trainingId) {
+    public boolean isTrainer(int userId, int trainingId){
         CriteriaQuery<Training> query = em.getCriteriaBuilder().createQuery(Training.class);
         Root<Training> root = query.from(Training.class);
 
@@ -134,7 +134,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
 
     @Override
     public boolean isApprove(int trainingId) {
-        int maxParticipants = (Integer) em.createNativeQuery("SELECT max_participants FROM training WHERE id = :id").setParameter("id", trainingId).getSingleResult();
+        int maxParticipants = (Integer)em.createNativeQuery("SELECT max_participants FROM training WHERE id = :id").setParameter("id", trainingId).getSingleResult();
         int realParticipants = em.createNativeQuery("SELECT * FROM subscribe WHERE training_id = :id and status = 'Approve'").setParameter("id", trainingId).getResultList().size();
         return (maxParticipants > realParticipants);
     }
@@ -144,10 +144,10 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     public int getRate(Training training) {
         List<EmployeeFeedback> feedbacks = training.getFeedbacks();
         int rate = 0;
-        for (EmployeeFeedback ef : feedbacks) {
+        for(EmployeeFeedback ef: feedbacks) {
             rate += ef.getRate();
         }
-        if (feedbacks.size() != 0) {
+        if(feedbacks.size() != 0) {
             return rate / feedbacks.size();
         } else {
             return 0;
@@ -271,5 +271,13 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         }
     }
 
-
+    @Override
+    public List<Training> getApprovedTrainings() {
+        try{
+            return em.createNativeQuery("SELECT * FROM training WHERE approve = 1", Training.class).getResultList();
+        } catch(Throwable e){
+            logger.warn(e.toString());
+            return new ArrayList<>();
+        }
+    }
 }

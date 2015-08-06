@@ -1,7 +1,6 @@
 package com.exadel.jstrong.fortrainings.core.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by Maria on 20.07.2015.
@@ -24,13 +23,6 @@ public class Token {
 
     @Column
     private String session;
-
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
-
-    @Column
-    private String path;
 
     @OneToOne
     @JoinColumn(name = "employee_id", insertable = false, updatable = false)
@@ -63,13 +55,6 @@ public class Token {
         this.employee_id = employee_id;
     }
 
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
 
     public String getSession() {
         return session;
@@ -79,11 +64,4 @@ public class Token {
         this.session = session;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 }

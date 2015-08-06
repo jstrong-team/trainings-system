@@ -1,9 +1,6 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
-import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
-import com.exadel.jstrong.fortrainings.core.model.Participant;
-import com.exadel.jstrong.fortrainings.core.model.TrainerFeedback;
-import com.exadel.jstrong.fortrainings.core.model.Training;
+import com.exadel.jstrong.fortrainings.core.model.*;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
@@ -42,11 +39,12 @@ public class TrainingStorageSpringController {
     @RequestMapping(method = RequestMethod.POST)
     public void addTraining(@RequestBody Training training, HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            int id = restService.getUserId(request);
-            training.setTrainer_id(id);
+            if (training.getExternalTrainerName()==null) {
+                int id = restService.getUserId(request);
+                training.setTrainer_id(id);
+            }
             training.setApprove(false);
             tsci.addTraining(training);
-
         } catch (Exception e) {
             logger.warn(e.toString());
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);

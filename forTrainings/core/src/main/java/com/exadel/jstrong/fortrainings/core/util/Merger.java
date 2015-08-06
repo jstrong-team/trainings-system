@@ -1,8 +1,6 @@
 package com.exadel.jstrong.fortrainings.core.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 
 public class Merger {
@@ -25,13 +23,59 @@ public class Merger {
             }
         }
 
+        int prevDiff = Integer.MIN_VALUE;
+        for (int i = 0; i < sourceMatchWords.size(); i++) {
+            WordDescriptor word = sourceMatchWords.get(i);
+            int index = getIndex(updateMatchWords, word);
+            WordDescriptor updatedWord = updateMatchWords.get(index);
+            int diff = word.getPosition() - updatedWord.getPosition();
+            diff = Math.abs(diff);
+            if (diff < prevDiff) {
+                WordDescriptor remWord = sourceMatchWords.remove(i--);
+                int remIndex = getIndex(updateMatchWords, remWord);
+                sourceWords.add(remWord);
+                updateWords.add(updateMatchWords.remove(remIndex));
+            } else {
+                prevDiff = diff;
+            }
+        }
+
+        Comparator<WordDescriptor> comp = new Comparator<WordDescriptor>() {
+            @Override
+            public int compare(WordDescriptor o1, WordDescriptor o2) {
+                return o1.getPosition() - o2.getPosition();
+            }
+        };
+
         List<WordDescriptor> deletedWords = sourceWords;
         List<WordDescriptor> addedWords = updateWords;
+        Collections.sort(deletedWords, comp);
+        Collections.sort(addedWords, comp);
 
         int inserted = 0;
         int deleted = 0;
         int replaced = 0;
+
         StringBuilder builder = new StringBuilder();
+
+        int initialShift = sourceMatchWords.isEmpty() ? 0 : sourceMatchWords.get(0).getPosition() - updateMatchWords.get(0).getPosition();
+        if (initialShift < 0) {     //means words was added in the beginning
+            int shift = - initialShift;
+            for (int i = 0; i < shift; i++) {
+                WordDescriptor insertedWord = getByPosition(addedWords, i);
+                appendAddedWord(builder, insertedWord);
+                addedWords.remove(insertedWord);
+                inserted++;
+            }
+        } else if (initialShift > 0) {  //means words were removed in the beginning
+            for (int i = 0; i < initialShift; i++) {
+                WordDescriptor removedWord = getByPosition(deletedWords, i);
+                appendRemovedWord(builder, removedWord);
+                deletedWords.remove(removedWord);
+                deleted++;
+            }
+        }
+
         for (int i = 0; i < sourceMatchWords.size(); i++) {
             WordDescriptor sourceWordDesc = sourceMatchWords.get(i);
             WordDescriptor updateWordDesc = updateMatchWords.get(i);
@@ -45,13 +89,13 @@ public class Merger {
                 if (assumeReplaced != null && assumeReplacer != null) {
                     deletedWords.remove(assumeReplaced);
                     addedWords.remove(assumeReplacer);
-                    builder.append(String.format("!{rlc: %s -> %s} ", assumeReplaced.getWord(), assumeReplacer.getWord()));
+                    builder.append(String.format("!{rm: %s} !{add: %s} ", assumeReplaced.getWord(), assumeReplacer.getWord()));
                     replaced++;
                     i--;
                     continue;
                 }
 
-                builder.append(sourceWordDesc.getWord()).append(' ');
+                builder.append("!{").append(sourceWordDesc.getWord()).append('}').append(' ');
                 continue;
             }
             if (code < 0) {     //means inserted
@@ -123,17 +167,4 @@ public class Merger {
         }
         return descriptors;
     }
-
-//    private static List<WordDescriptor> splitWords(String source) {
-//        List<WordDescriptor> descriptors = new ArrayList<>();
-//        int position = 0;
-//        String[] words = source.split(" ");
-//        for (int i = 0; i < words.length; i++) {
-//            if (!words[i].isEmpty()) {
-//                descriptors.add(new WordDescriptor(words[i], position));
-//                position++;
-//            }
-//        }
-//        return descriptors;
-//    }
 }

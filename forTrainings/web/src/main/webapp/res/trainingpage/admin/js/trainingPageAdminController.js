@@ -11,7 +11,8 @@
         'unsubscribeService',
         '$route',
         'subscribeService',
-        'attendanceSendService'
+        'attendanceSendService',
+        '$modal'
     ];
     var controller =function ($scope,
                               $q,
@@ -24,16 +25,19 @@
                               unsubscribeService,
                               $route,
                               subscribeService,
-                              attendanceSendService) {
+                              attendanceSendService,
+                              $modal) {
 
         $scope.isCollapsed = {
             dates: true,
-            subscribers: false
+            subscribers: false,
+            addSubscriber:true
         };
 
         $scope.show = {
             subscribers: 'Hide',
-            dates: 'Show'
+            dates: 'Show',
+            addSubscriber:'Hide'
         };
 
 
@@ -52,6 +56,14 @@
                     $scope.show.subscribers = 'Show';
                 } else {
                     $scope.show.subscribers = 'Hide';
+                }
+            },
+            addSubscriber: function(){
+                $scope.isCollapsed.addSubscriber = !$scope.isCollapsed.addSubscriber;
+                if ($scope.isCollapsed.addSubscriber) {
+                    $scope.show.addSubscriber = 'Show';
+                } else {
+                    $scope.show.addSubscriber = 'Hide';
                 }
             }
         };
@@ -77,12 +89,50 @@
             openModalService($scope.feedback,$scope.training.id);
         };
 
+
+
         $scope.unsubscribe=function(){
             unsubscribeService($scope.training.id).then(function(){
                 $route.reload();
             },function(error){
                 console.error(error);
             });
+        };
+
+        $scope.trainerFeedback = {
+            employeeId:null,
+            presence:null,
+            attitude:null,
+            communication:null,
+            question:null,
+            interest:null,
+            result:null,
+            level:null,
+            rating:null,
+            other:null
+        };
+
+        $scope.openTrainerModal = function () {
+            var modalInstance = $modal.open({
+                animation: true,
+                templateUrl: '/res/trainingpage/trainer/userRevieModal.html',
+                controller: 'userRevieModalController',
+                resolve: {
+                    feedbacks: function () {
+                        return {
+                            feedback: $scope.trainerFeedback,
+                            trainingId: $scope.training.id,
+                            subscribers:$scope.subscribers
+                        };
+                    }
+                }
+            });
+            modalInstance.result.then(function (response) {
+                console.log(response);
+            }, function (error) {
+                console.error(error);
+            });
+
         };
 
 
@@ -143,7 +193,6 @@
             });
             getFeedbacksService(id).then(function (data, status, headers, config) {
                 $scope.feedbacks = data.data;
-                console.log($scope.feedbacks);
             }, function (error) {
                 console.error(error);
             });
