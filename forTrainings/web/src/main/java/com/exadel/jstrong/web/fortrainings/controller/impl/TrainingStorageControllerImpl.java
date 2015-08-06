@@ -350,41 +350,41 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         }
     }
 
-    @Override
-    public List<MeetReportUI> getMeetReportUIs(int employeeId) {
-        List<Subscribe> subscribes = sDAO.getSubscribersByEmployeeId(employeeId);
-        List<MeetReportUI> meetReportUIs = new ArrayList<>();
+//    @Override
+//    public List<MeetReportUI> getMeetReportUIs(int employeeId) {
+//        List<Subscribe> subscribes = sDAO.getSubscribersByEmployeeId(employeeId);
+//        List<MeetReportUI> meetReportUIs = new ArrayList<>();
+//
+//        MeetReportUI meetReportUI = null;
+//        for (Subscribe s : subscribes) {
+//            int trainingId = s.getTrainingId();
+//            List<Participant> participants = tDAO.getAllBySubscribeId(s.getId());
+//            for (Participant p : participants) {
+//                meetReportUI = new MeetReportUI();
+//                meetReportUI.setAbsent(p.isAbsent());
+//                //meetReportUI.setDate(p.getDate());
+//                meetReportUI.setReason(p.getReason());
+//                meetReportUI.setTrainingName(tDAO.getTrainingName(trainingId));
+//                meetReportUIs.add(meetReportUI);
+//            }
+//        }
+//        return meetReportUIs;
+//    }
 
-        MeetReportUI meetReportUI = null;
-        for (Subscribe s : subscribes) {
-            int trainingId = s.getTrainingId();
-            List<Participant> participants = tDAO.getAllBySubscribeId(s.getId());
-            for (Participant p : participants) {
-                meetReportUI = new MeetReportUI();
-                meetReportUI.setAbsent(p.isAbsent());
-                //meetReportUI.setDate(p.getDate());
-                meetReportUI.setReason(p.getReason());
-                meetReportUI.setTrainingName(tDAO.getTrainingName(trainingId));
-                meetReportUIs.add(meetReportUI);
-            }
-        }
-        return meetReportUIs;
-    }
-
-    @Override
-    public List<TrainingReportUI> getReportUI(int employeeId) {
-        List<Subscribe> subscribes = sDAO.getSubscribersByEmployeeId(employeeId);
-        List<TrainingReportUI> trainingReportUIs = new ArrayList<>();
-        TrainingReportUI trainingReportUI = null;
-        for (Subscribe s : subscribes) {
-            trainingReportUI = new TrainingReportUI();
-            trainingReportUI.setMeetReportUIs(getMeetReportUIs(s.getId()));
-            int trainingId = s.getTrainingId();
-            trainingReportUI.setTrainingName(tDAO.getTrainingName(trainingId));
-            trainingReportUIs.add(trainingReportUI);
-        }
-        return trainingReportUIs;
-    }
+//    @Override
+//    public List<TrainingReportUI> getReportUI(int employeeId) {
+//        List<Subscribe> subscribes = sDAO.getSubscribersByEmployeeId(employeeId);
+//        List<TrainingReportUI> trainingReportUIs = new ArrayList<>();
+//        TrainingReportUI trainingReportUI = null;
+//        for (Subscribe s : subscribes) {
+//            trainingReportUI = new TrainingReportUI();
+//            trainingReportUI.setMeets(getMeetReportUIs(s.getId()));
+//            int trainingId = s.getTrainingId();
+//            trainingReportUI.setName(tDAO.getTrainingName(trainingId));
+//            trainingReportUIs.add(trainingReportUI);
+//        }
+//        return trainingReportUIs;
+//    }
 
     @Override
     public void changeTrainingStatus(int trainingId) {

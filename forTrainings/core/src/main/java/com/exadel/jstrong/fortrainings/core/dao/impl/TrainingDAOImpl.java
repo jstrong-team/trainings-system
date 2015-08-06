@@ -260,4 +260,14 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             return new ArrayList<>();
         }
     }
+
+    @Override
+    public List<Training> getTrainingsByUser(int userId) {
+        try{
+            return em.createNativeQuery("SELECT * FROM training WHERE id IN (SELECT training_id FROM subscribe WHERE employee_id = :userId)", Training.class).setParameter("userId", userId).getResultList();
+        }catch(Throwable e){
+            logger.warn(e.toString());
+            return new ArrayList<>();
+        }
+    }
 }

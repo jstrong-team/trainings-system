@@ -2,8 +2,10 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
+import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Participant;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,8 @@ import java.util.List;
  */
 @Service
 public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO {
+
+    Logger logger = Logger.getLogger(SubscribeDAOImpl.class);
 
     @Override
     @Transactional
@@ -200,5 +204,15 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
         return null;
     }
 
-//    public Integer get
+    @Override
+    public List<Employee> getSubscribersAsEmployees(int trainingId) {
+        try{
+            return em.createNativeQuery("SELECT * FROM employee WHERE id IN (SELECT employee_id FROM subscribe WHERE training_id = :tId)", Employee.class).setParameter("tId", trainingId).getResultList();
+        }catch(Throwable e){
+            logger.warn(e.toString());
+            return new ArrayList<>();
+        }
+    }
+
+    //    public Integer get
 }

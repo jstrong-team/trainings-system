@@ -1,5 +1,6 @@
 package com.exadel.jstrong.fortrainings.core.dao;
 
+import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Participant;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 
@@ -20,4 +21,5 @@ public interface SubscribeDAO extends GenericDAO<Subscribe>{
     int getSubscribeIdToWait(int trainingId);
     int getSubscribeIdToApprove(int trainingId);
     List<Integer> getSubscribeIdsToWait(int trainingId, int count);
+    List<Employee> getSubscribersAsEmployees (int trainingId);
 }

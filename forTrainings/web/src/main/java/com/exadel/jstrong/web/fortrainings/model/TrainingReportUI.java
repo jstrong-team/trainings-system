@@ -6,23 +6,32 @@ import java.util.List;
  * Created by Администратор on 30.07.2015.
  */
 public class TrainingReportUI {
-    private String trainingName;
-    private List<MeetReportUI> meetReportUIs;
 
-    public String getTrainingName() {
-        return trainingName;
+    private int id;
+    private String name;
+    private List<UserReportUI> users;
+
+    public String getName() {
+        return name;
     }
 
-    public void setTrainingName(String trainingName) {
-        this.trainingName = trainingName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-
-    public List<MeetReportUI> getMeetReportUIs() {
-        return meetReportUIs;
+    public int getId() {
+        return id;
     }
 
-    public void setMeetReportUIs(List<MeetReportUI> meetReportUIs) {
-        this.meetReportUIs = meetReportUIs;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<UserReportUI> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserReportUI> users) {
+        this.users = users;
     }
 }

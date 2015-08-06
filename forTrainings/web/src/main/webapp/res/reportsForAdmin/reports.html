@@ -14,7 +14,7 @@
             <label for="sel2">{{ 'REPORTS_SELECT_TRAINING_NAME_TITLE' | translate }}:</label>
             <select ng-model="training" class="form-control" id="sel2">
                 <option value="" disabled selected>{{ 'REPORTS_SELECT_TRAINING_PLACEHOLDER' | translate }}</option>
-                <option ng-repeat="training in employeeInfo" value={{training}}>{{training.trainingName}}</option>
+                <option ng-repeat="training in employeeInfo" value={{training}}>{{training.name}}</option>
             </select>
         </div>
 
@@ -46,7 +46,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="item in employeeInfo">
-                <td>{{item.trainingName}}</td>
+                <td>{{item.name}}</td>
                 <td>{{item.date}}</td>
                 <td>{{ item.absent | translate }}</td>
                 <td>{{item.reason}}</td>
