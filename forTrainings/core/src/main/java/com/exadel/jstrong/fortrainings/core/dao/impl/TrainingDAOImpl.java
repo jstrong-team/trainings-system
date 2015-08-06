@@ -340,4 +340,14 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             return null;
         }
     }
+
+    @Override
+    public void approveNewTraining(int trainingId) {
+        try{
+            Query query = em.createNativeQuery("update training set approve=1 WHERE id = :trainingId ").setParameter("trainingId", trainingId);
+            query.executeUpdate();
+        } catch(Throwable e) {
+            logger.warn(e.toString());
+        }
+    }
 }

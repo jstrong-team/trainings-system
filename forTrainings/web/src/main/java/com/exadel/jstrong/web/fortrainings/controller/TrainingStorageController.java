@@ -30,5 +30,6 @@ public interface TrainingStorageController {
     void addTrainerFeedback(TrainerFeedback trainerFeedback);
     List<TrainerFeedbackUI> getTrainerFeedbacks(int employeeID);
     void addExternalUser(ExternalUserUI newEmployeeUI, int trainingId);
+    void approveNewTraining(int trainingId);
 }
 

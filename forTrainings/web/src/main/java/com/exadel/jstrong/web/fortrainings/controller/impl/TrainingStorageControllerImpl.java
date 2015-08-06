@@ -631,4 +631,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<String> mails = eDAO.getAllMails();
         Sender.send(notice, mails);
     }
+
+    public void approveNewTraining(int trainingId) {
+        tDAO.approveNewTraining(trainingId);
+    }
 }
