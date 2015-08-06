@@ -314,7 +314,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             meet = new Meet();
             transactionMeet = new Transaction();
             meet.setTraining_id(oldTrainingId);
-            meet.setDate(meets.get(i).getDate());
+            meet.setDate(dates.get(i));
             meet.setId(meets.get(i).getId());
             String jsonMeet = gson.toJson(meet);
             transactionMeet.setJson(jsonMeet);

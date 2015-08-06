@@ -174,18 +174,11 @@ public class TrainingStorageSpringController {
     }
 
 
-        if(tsci.check(userId, employeeFeedback.getTrainingId())) {
-            tsci.addEmployeeFeedback(employeeFeedback);
-        } else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
-    }
-
     @RequestMapping(value = "/removeSubscriber", method = RequestMethod.DELETE)
     public void removeSubscriber(HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
         int userId = restService.getUserId(request);
-        if (!tsci.deleteSuscriber(userId, trainingId)) {
+        if (!tsci.deleteSubscriber(userId, trainingId)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
