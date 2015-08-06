@@ -2,7 +2,8 @@
     var services = [
         '$scope',
         'getTrainingInfo',
-        '$http', '$modal',
+        '$http',
+        '$modal',
         '$routeParams',
         'getSubscribersService',
         '$route',
@@ -68,7 +69,6 @@
             openModalService($scope.feedback, $scope.training.id);
         };
 
-        //TODO:  move http post in service
         $scope.subscribe = function () {
             subscribeService($scope.training.id, $scope.feedback).then(function (response) {
                 getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
@@ -114,6 +114,8 @@
             }, function (error) {
                 console.log(error);
             });
+        },function(error){
+            console.error(error);
         });
 
     };

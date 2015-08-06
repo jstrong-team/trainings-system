@@ -64,6 +64,7 @@
             other:null
         };
 
+
         $scope.openModal = function () {
             var modalInstance = $modal.open({
                 animation: true,
