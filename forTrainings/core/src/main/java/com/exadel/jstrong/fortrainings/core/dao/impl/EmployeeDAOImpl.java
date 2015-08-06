@@ -3,6 +3,7 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
+import com.exadel.jstrong.fortrainings.core.model.Role;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -58,5 +59,16 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
     @Override
     public void saveEmployee(Employee employee) {
         super.update(employee);
+    }
+
+    @Override
+    public List<Employee> getAdmins() {
+        Role admin = em.find(Role.class, 1);
+        return admin.getEmployees();
+    }
+
+    @Override
+    public Employee getById(int id) {
+        return super.getById(Employee.class, id);
     }
 }

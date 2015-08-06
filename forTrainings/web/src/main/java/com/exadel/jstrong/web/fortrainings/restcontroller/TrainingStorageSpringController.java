@@ -180,7 +180,7 @@ public class TrainingStorageSpringController {
     public void removeSubscriber(HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
         int userId = restService.getUserId(request);
-        if(!tsci.deleteSuscriber(userId, trainingId)){
+        if(!tsci.deleteSubscriber(userId, trainingId)){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
@@ -196,8 +196,8 @@ public class TrainingStorageSpringController {
     @RequestMapping(value = "/editTraining", method = RequestMethod.PUT)
     public void editTraining(@RequestBody Training training, HttpServletRequest request, HttpServletResponse response) {
         int oldTrainingId = Integer.parseInt(request.getParameter("id"));
-
-        tsci.editTraining(oldTrainingId, training);
+        int userId = restService.getUserId(request);
+        tsci.editTraining(oldTrainingId, training, userId);
     }
 
     //FIXME
