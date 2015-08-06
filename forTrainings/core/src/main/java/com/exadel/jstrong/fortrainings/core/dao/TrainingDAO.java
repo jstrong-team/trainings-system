@@ -21,6 +21,7 @@ public interface TrainingDAO extends GenericDAO<Training>{
     List<Subscribe> getSubscribers(int trainingId);
     void editTraining(Training training);
     int updateTraining(Training training);
+    void deleteTraining(int trainingId);
     String getTrainingName(int trainingId);
     List<Participant> getAllBySubscribeId(int subscribeId);
     void changeStatus(int trainingId);

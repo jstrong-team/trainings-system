@@ -82,6 +82,17 @@ public class TrainingStorageSpringController {
         return null;
     }
 
+    @RequestMapping(value = "/deleteTraining", method = RequestMethod.DELETE)
+    public void deleteTraining(HttpServletRequest request, HttpServletResponse response) {
+        int trainingId = Integer.parseInt(request.getParameter("trainingId"));
+        int userId = restService.getUserId(request);
+        if(tsci.isTrainer(userId, trainingId) || ec.isAdmin(userId)) {
+            tsci.deleteTraining(trainingId);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
     //TODO: add error logigng
     @RequestMapping(value = "/addsubscriber", method = RequestMethod.POST)
     public void addSubscriber(HttpServletRequest request, HttpServletResponse response) {
