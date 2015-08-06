@@ -2,13 +2,15 @@
     var services = [
         '$scope',
         'getTrainingInfo',
-        '$http', '$modal',
+        '$http',
+        '$modal',
         '$routeParams',
         'getSubscribersService',
         '$route',
         'unsubscribeService',
         'openModalService',
-        'subscribeService'
+        'subscribeService',
+        'absentOutputService'
     ];
     var controller = function ($scope,
                                getTrainingInfo,
@@ -19,7 +21,8 @@
                                $route,
                                unsubscribeService,
                                openModalService,
-                               subscribeService) {
+                               subscribeService,
+                               absentOutputService) {
 
         $scope.isCollapsed = {
             dates: true,
@@ -66,16 +69,12 @@
             openModalService($scope.feedback, $scope.training.id);
         };
 
-        //TODO:  move http post in service
         $scope.subscribe = function () {
-            console.log('/ui/trainingPage/user/' + $scope.training.id);
             subscribeService($scope.training.id, $scope.feedback).then(function (response) {
-
-                //TODO:edit
                 getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                     $scope.subscribers = data.data;
                     $scope.training.isSubscribe = true;
-                    //$scope.$apply();
+                    absentOutputService.prepare($scope.subscribers, $scope.training);
                 }, function (error) {
                     console.log(error);
                 });
@@ -87,16 +86,13 @@
 
         $scope.unsubscribe = function () {
             unsubscribeService($scope.training.id).then(function (response) {
-                console.log(response);
-
-                //TODO: edit
                 getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                     $scope.subscribers = data.data;
                     $scope.training.isSubscribe = false;
+                    absentOutputService.prepare($scope.subscribers, $scope.training);
                 }, function (error) {
                     console.log(error);
                 });
-
             }, function (error) {
                 console.error(error);
             });
@@ -114,24 +110,12 @@
             }
             getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                 $scope.subscribers = data.data;
-                var temp;
-                for(var i=0;i<$scope.subscribers.length;i++){
-                    temp=$scope.subscribers[i].participants;
-                    $scope.subscribers[i].participants=new Array($scope.training.meets.length);
-                    var index=0;
-                    for(var j=0;(j<$scope.training.meets.length)&&(index<temp.length);j++){
-                        for(var k=0;k<temp.length;k++)
-                        {
-                            if($scope.training.meets[j].id==temp[k].meetId){
-                                $scope.subscribers[i].participants[j]=temp[k];
-                                index++;
-                            }
-                        }
-                    }
-                }
+                absentOutputService.prepare($scope.subscribers, $scope.training);
             }, function (error) {
                 console.log(error);
             });
+        },function(error){
+            console.error(error);
         });
 
     };

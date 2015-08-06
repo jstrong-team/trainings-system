@@ -131,36 +131,48 @@
             </div>
 
             <div class="row buttons">
-                <div class="col-md-6 " ng-show="!training.isSubscribe" ng-cloak>
-                    <button type="button" class="btn  editDatesButton" ng-click="subscribe()">subscribe</button>
-                </div>
-                <div class="col-md-6">
-                    <button type="button" class="btn editDatesButton " ng-click="openModal()" ng-show="training.isSubscribe">
+                <div class="col-md-6" ng-show="training.isSubscribe">
+                    <button type="button"
+                            class="btn editDatesButton "
+                            ng-click="openModal()">
                         Leave feedback
                     </button>
                 </div>
-                <div class="col-md-6" ng-show="training.isSubscribe" ng-cloak>
-                    <button type="button" class="btn btn-danger " ng-click="unsubscribe()">unsubscribe</button>
+                <div class="col-md-6" ng-show="training.isSubscribe" >
+                    <button type="button"
+                            class="btn btn-danger "
+                            ng-click="unsubscribe()">
+                        unsubscribe
+                    </button>
+                </div>
+                <div class="col-md-6 " ng-show="!training.isSubscribe" >
+                    <button type="button"
+                            class="btn editDatesButton "
+                            ng-click="subscribe()">
+                        subscribe
+                    </button>
                 </div>
             </div>
-
             <div class="row buttons">
                 <div class="col-md-6 ">
-                    <button type="button" class="btn editDatesButton " ng-click="editTraining()">Edit training</button>
+                    <button type="button" class="btn  editDatesButton" ng-click="editTraining()">Edit training</button>
                 </div>
                 <div class="col-md-6 ">
                     <button type="button" class="btn btn-danger " ng-click="subscribe()">Remove training</button>
                 </div>
             </div>
-
             <div class="row buttons">
+                <div class="col-md-12">
+                    <button class="btn btn-default editDatesButton "
+                            ng-click="openTrainerModal()">Feedback on the subscriber</button>
+                </div>
                 <div class="col-md-12"  ng-cloak>
-                    <button class="btn btn-default"
+                    <button class="btn editDatesButton"
                             ng-click="changeCollapse.dates()">
-                        <span>{{show.dates}} dates</span>
+                        {{show.dates}} dates
                     </button>
                 </div>
-                <div class="col-md-12 dateTime">
+                <div class="dateTime">
                     <div collapse="isCollapsed.dates">
                         <table class="table">
                             <tr>
@@ -188,16 +200,15 @@
                         </table>
                     </div>
                 </div>
-
                 <div class="col-md-12 buttons"  ng-cloak>
-                    <button class="btn btn-default"
+                    <button class="btn editDatesButton"
                             ng-click="changeCollapse.subscribers()">
-                        <span>{{show.subscribers}} subscribers</span>
+                        {{show.subscribers}} subscribers
                     </button>
                 </div>
                 <div class="col-md-12 dateTime">
                     <div collapse="isCollapsed.subscribers">
-                           <table class="table subscribersTable">
+                        <table class="table subscribersTable">
                             <tr>
                                 <th>#</th>
                                 <th>subscriber</th>
@@ -212,9 +223,9 @@
                                 </td>
                                 <td><span class="glyphicon"
                                           ng-class="{
-                                          'glyphicon-ok': subscriber.status==='Approve',
-                                          'glyphicon-remove': subscriber.status==='Deleted',
-                                          'glyphicon-time': subscriber.status==='Wait',
+                                          'glyphicon-ok glyphGreen': subscriber.status==='Approve',
+                                          'glyphicon-remove glyphRed': subscriber.status==='Deleted',
+                                          'glyphicon-time glyphYellow': subscriber.status==='Wait',
                                           }"></span></td>
                             </tr>
                         </table>
@@ -222,18 +233,23 @@
                                 class="btn btn-default buttonBottom"
                                 ng-click="changeCollapse.addSubscriber()">Add subscriber</button>
                         <input type="text"
+                               ng-model="foreignUser.name"
                                placeholder="name"
                                collapse="isCollapsed.addSubscriber"
                                class="buttonBottom form-control"/>
                         <input type="email"
+                               ng-model="foreignUser.email"
                                placeholder="E-mail"
                                collapse="isCollapsed.addSubscriber"
                                class="buttonBottom form-control"/>
                         <input type="tel"
+                               ng-model="foreignUser.phone"
                                placeholder="Phone number"
                                collapse="isCollapsed.addSubscriber"
                                class="buttonBottom form-control"/>
                         <button type="text"
+                                ng-click="addForeignUser()"
+                                ng-cloak
                                 collapse="isCollapsed.addSubscriber"
                                 class="btn btn-default buttonBottom">Save subscriber</button>
                     </div>

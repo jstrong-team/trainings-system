@@ -13,5 +13,5 @@ public interface ParticipantDAO {
     void deleteParticipants(List<Participant> participants);
     int contains(int subscribeId, int meetId);
     int updateParticipant(Participant participant);
-
+    boolean deleteParticipantsByMeetID(int meetId);
 }

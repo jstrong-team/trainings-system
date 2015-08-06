@@ -7,7 +7,7 @@ angular.module('approvePageModule').factory('parseService', [function () {
     var service = {};
 
     service.parse = function (input) {
-        input = '!{This} !{add: special} !{training} !{add: course} !{is} !{rm: was} !{for} !{Java} !{Developers} !{and} !{rlc: Java -> other} !{rlc: Beginners -> employees} !{in} !{company} !{add: Exadel}';
+        //input = '!{This} !{add: special} !{training} !{add: course} !{is} !{rm: was} !{for} !{Java} !{Developers} !{and} !{rlc: Java -> other} !{rlc: Beginners -> employees} !{in} !{company} !{add: Exadel}';
         array.expression = [];
         array.type = [];
         var regExp = /\!?\{([^}]+)\}/;
@@ -28,9 +28,9 @@ angular.module('approvePageModule').factory('parseService', [function () {
             } else if (/rm:\s+/.test(res[i])) {
                 res[i] = res[i].replace(/rm:\s/, '');
                 array.type[i] = 2;
-            } else if (/rlc:\s+/.test(res[i])) {
-                res[i] = res[i].replace(/rlc:\s/, '');
-                array.type[i] = 3;
+            //} else if (/rlc:\s+/.test(res[i])) {
+            //    res[i] = res[i].replace(/rlc:\s/, '');
+            //    array.type[i] = 3;
             } else {
                 array.type[i] = 0;
             }

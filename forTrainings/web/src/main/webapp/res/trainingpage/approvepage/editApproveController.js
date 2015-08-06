@@ -6,7 +6,11 @@ angular.module('approvePageModule').controller('editApproveController', ['$scope
         $scope.editInfo.oldDateTime=[];
         $scope.editInfo.newTime=[];
         $scope.editInfo.newDateTime=[];
-        $scope.editInfo.annotation=parseService.parse('!{add: Englishasd} !{rm: English}');
+        $scope.editInfo.name=parseService.parse($scope.editInfo.name);
+        $scope.editInfo.annotation=parseService.parse($scope.editInfo.annotation);
+        $scope.editInfo.description=parseService.parse($scope.editInfo.description);
+        $scope.editInfo.target=parseService.parse($scope.editInfo.target);
+        $scope.editInfo.place=parseService.parse($scope.editInfo.place);
         console.log($scope.editInfo.annotation);
         for(var j=0;j<$scope.editInfo.oldDates.length;j++) {
             $scope.editInfo.oldTime.push(moment($scope.editInfo.oldDates[j]).format('HH:mm'));

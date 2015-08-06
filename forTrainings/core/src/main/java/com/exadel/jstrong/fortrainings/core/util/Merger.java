@@ -89,7 +89,7 @@ public class Merger {
                 if (assumeReplaced != null && assumeReplacer != null) {
                     deletedWords.remove(assumeReplaced);
                     addedWords.remove(assumeReplacer);
-                    builder.append(String.format("!{rlc: %s -> %s} ", assumeReplaced.getWord(), assumeReplacer.getWord()));
+                    builder.append(String.format("!{rm: %s} !{add: %s} ", assumeReplaced.getWord(), assumeReplacer.getWord()));
                     replaced++;
                     i--;
                     continue;

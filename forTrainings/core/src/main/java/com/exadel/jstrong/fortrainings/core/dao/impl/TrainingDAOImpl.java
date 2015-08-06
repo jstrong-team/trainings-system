@@ -159,14 +159,17 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Transactional
     public List<Subscribe> getSubscribers(int trainingId) {
         try {
-            Training training = getById(Training.class, trainingId);
-            Hibernate.initialize(training.getSubscribes());
-            List<Subscribe> subscribers = training.getSubscribes();
-            return subscribers;
-        } catch (Throwable e){
+//            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+//            CriteriaQuery<Subscribe> query = criteriaBuilder.createQuery(Subscribe.class);
+//            Root<Subscribe> root = query.from(Subscribe.class);
+//            query.where(criteriaBuilder.equal(root.<Integer>get("trainingId"), trainingId));
+//            return em.createQuery(query).getResultList();
+            return em.createNativeQuery("select * from subscribe s where s.training_id =:tId", Subscribe.class).setParameter("tId", trainingId).getResultList();
+//            return query.getResultList();
+        } catch (Throwable e) {
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
 
     @Override
@@ -194,7 +197,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         try {
             Query query = em.createNativeQuery("update training set approve=true training_id =:tId").setParameter("tId", trainingId);
             int res = query.executeUpdate();
-            if(res == 0) {
+            if (res == 0) {
                 logger.info("No meets to change");
             }
         } catch (Throwable e) {
@@ -223,7 +226,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             query.where(criteriaBuilder.equal(root.<Integer>get("subscribeId"), subscribeId));
             participants = em.createQuery(query).getResultList();
             return participants;
-        } catch(Throwable e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
         return null;
@@ -232,8 +235,8 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public List<Integer> getMeetIdsByTrainingId(int trainingId) {
         try {
-            return (List<Integer>)em.createNativeQuery("SELECT id FROM meet WHERE training_id = :tId").setParameter("tId", trainingId).getResultList();
-        } catch(Throwable e){
+            return (List<Integer>) em.createNativeQuery("SELECT id FROM meet WHERE training_id = :tId").setParameter("tId", trainingId).getResultList();
+        } catch (Throwable e) {
             logger.warn(e.toString());
             return new ArrayList<>();
         }
@@ -249,6 +252,23 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         Gson gson = new Gson();
         Training training = gson.fromJson(json, Training.class);
         return training;
+    }
+
+    @Override
+    @Transactional
+    public int updateOldTraining(Training training) {
+        try {
+            Query qyery = em.createNativeQuery("UPDATE training set id=:nId, trainer_id=:ntId, annotation=:nA WHERE training_id = :tId")
+                    .setParameter("nId", training.getId())
+                    .setParameter("ntId", training.getTrainer_id())
+                    .setParameter("nA", training.getAnnotation())
+                    .setParameter("tId", training.getId());
+            qyery.executeUpdate();
+            return 1;
+        } catch (Throwable e) {
+            logger.warn(e.toString());
+            return 0;
+        }
     }
 
     @Override
