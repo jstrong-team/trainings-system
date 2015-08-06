@@ -4,11 +4,10 @@
         '$scope',
         '$http',
         '$filter',
-        'reportInfoFormat',
-        'ngTableParams'
+        'reportInfoFormat'
     ];
 
-    var controller = function ($scope, $http, reportInfoFormat, ngTableParams) {
+    var controller = function ($scope, $http, reportInfoFormat) {
 
         $http.get('/rest/trainings/users_trainings').then(
             function(data){
@@ -18,14 +17,6 @@
             function(data, status){
                 console.log(status);
             });
-
-        //$scope.employeeItem = '';
-        //$scope.trainingItem = '';
-        //$scope.dateTimeFrom = '';
-        //
-        //$scope.submitForm = function () {
-        //
-        //};
 
         var positiveFeedback = [
             {
@@ -60,35 +51,29 @@
             }
         ];
 
-        var u1 = [info, positiveFeedback, negativeFeedback, training];
-        var u2 = [info, positiveFeedback, negativeFeedback, training,];
+        var u1 = [info, positiveFeedback, negativeFeedback];
+        var u2 = [info, positiveFeedback, negativeFeedback];
         var u3 = [info, positiveFeedback, negativeFeedback];
 
-        var EXAMPLE = [u1, u2, u3];
+        var training = [u1, u2, u3];
 
-        console.log(EXAMPLE);
+        $scope.trainings = [training];
 
+        $scope.employeeItem = '';
+        $scope.trainingItem = '';
+        $scope.dateTimeFrom = '';
+        $scope.dateTimeTo = '';
+        //$scope.submitForm = function () {
+        //
+        //};
 
-        $scope.tableParams = new ngTableParams({
-            page: 1,
-            count: 30
-        }, {
-            groupBy: 'role',
-            total: data.length,
-            getData: function($defer, params) {
-                var orderedData = params.sorting() ?
-                    $filter('orderBy')(data, $scope.tableParams.orderBy()) :
-                    data;
+        $scope.submitForm = function () {
 
-                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-            }
-        });
+            var userId = JSON.parse($scope.employeeItem).id;
+            var trainingId = JSON.parse($scope.trainingItem).id;
 
 
-        $scope.getEmployeeReport = function () {
-            var obj = JSON.parse($scope.item);
-            var id = obj.id;
-            var name = obj.name;
+            console.log(userId + ' ' + trainingId + ' ' + $scope.dateTimeFrom + ' ' + $scope.dateTimeTo);
 
             //var elem = document.getElementById('employeeInput');
             //elem.style.paddingTop = '0px';
