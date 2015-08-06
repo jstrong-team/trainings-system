@@ -272,7 +272,7 @@ public class TrainingStorageSpringController {
     public void addExternalUser(@RequestBody ExternalUserUI externalUserUI, HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("trainingId"));
         int userId = restService.getUserId(request);
-        if(ec.isAdmin(userId)) {
+        if(ec.isAdmin(userId) || tsci.isTrainer(userId, trainingId)) {
             tsci.addExternalUser(externalUserUI, trainingId);
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

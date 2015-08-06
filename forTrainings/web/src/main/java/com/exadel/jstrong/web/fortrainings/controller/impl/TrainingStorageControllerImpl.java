@@ -506,6 +506,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     @Override
+    @Transactional
     public void addExternalUser(ExternalUserUI externalUserUI, int trainingId) {
         Employee employee = new Employee();
         employee.setName(externalUserUI.getName());
