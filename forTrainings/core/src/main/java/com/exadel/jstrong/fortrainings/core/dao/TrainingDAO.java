@@ -29,4 +29,7 @@ public interface TrainingDAO extends GenericDAO<Training>{
     List<Training> getApprovedTrainings();
     List<Training> getTrainingsByUser(int userId);
     int updateOldTraining(Training training);
+    List<Training> getSubscribedTrainings();
+    Training getTrainingIfSubscribed(int id);
+    Training getTrainingIfSubscribedByUser(int trainingId, int userId);
 }
