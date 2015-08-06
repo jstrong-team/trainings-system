@@ -1,36 +1,35 @@
 package com.exadel.jstrong.web.fortrainings.model;
 
-import com.exadel.jstrong.fortrainings.core.jsonutil.DateDeserializer;
-import com.exadel.jstrong.fortrainings.core.jsonutil.DateSerializer;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * Created by ������������� on 30.07.2015.
  */
 public class MeetReportUI {
-    private Date date;
+    private String date;
     private Boolean absent;
     private String reason;
-    private String trainingName;
 
-    public String getTrainingName() {
-        return trainingName;
+    private final DateFormat formatter;
+
+    public MeetReportUI(){
+        formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 
-    public void setTrainingName(String trainingName) {
-        this.trainingName = trainingName;
-    }
-
-    @JsonSerialize(using = DateSerializer.class)
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    @JsonDeserialize(using = DateDeserializer.class)
     public void setDate(Date date) {
+        this.date = formatter.format(date);
+    }
+
+    @JsonSetter("date")
+    public void setDate(String date){
         this.date = date;
     }
 

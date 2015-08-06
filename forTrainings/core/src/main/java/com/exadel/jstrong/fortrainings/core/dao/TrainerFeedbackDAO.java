@@ -11,5 +11,6 @@ public interface TrainerFeedbackDAO extends GenericDAO<TrainerFeedback> {
 
     void addFeedback(TrainerFeedback feedback);
     List<TrainerFeedback> getAllFeedbacks(int employeeId);
+    List<TrainerFeedback> getTrainingFeedbacks(int employeeId, int trainingId);
 
 }

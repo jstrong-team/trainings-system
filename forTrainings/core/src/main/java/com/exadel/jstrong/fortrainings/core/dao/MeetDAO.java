@@ -10,11 +10,12 @@ import java.util.List;
  */
 public interface MeetDAO extends GenericDAO<Meet>{
 
-    void add(Meet meet);
+    int add(Meet meet);
     List<Meet> getMeetsByTrainingId(int id);
 
     boolean isGoing(int trainingId);
     void removeMeets(int trainingId);
     List<Meet> getMeetsInDateScope(Date dateFrom, Date dateTo);
-
+    void deleteMeets(List<Meet> meets);
+    int updateMeet(Meet meet);
 }

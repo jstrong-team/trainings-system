@@ -5,6 +5,7 @@ import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.RoleDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Role;
+import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +94,29 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
             em.createNativeQuery("INSERT INTO employee_role (employee_id, role_id) VALUES (:eId, :rId)").setParameter("eId", employee.getId()).setParameter("rId", roleId).executeUpdate();
         } catch(Throwable e){
             logger.warn(e.toString());
+        }
+    }
+
+    @Override
+    public Employee getEmployee(int id) {
+        try{
+            return getById(Employee.class, id);
+        }catch (Throwable e){
+            logger.warn(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public boolean isSubscriber(int id) {
+        try {
+            CriteriaQuery<Subscribe> query = em.getCriteriaBuilder().createQuery(Subscribe.class);
+            Root<Subscribe> root = query.from(Subscribe.class);
+            query.where(root.get("employeeId").in(id));
+            em.createQuery(query).getResultList();
+            return true;
+        } catch (Throwable e) {
+            return false;
         }
     }
 }

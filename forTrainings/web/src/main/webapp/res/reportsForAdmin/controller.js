@@ -59,6 +59,9 @@
 
         $scope.trainings = [training];
 
+        $scope.noReportFound = null;
+        $scope.initialState = null;
+
         $scope.employeeItem = '';
         $scope.trainingItem = '';
         $scope.dateTimeFrom = '';
@@ -78,18 +81,21 @@
             //var elem = document.getElementById('employeeInput');
             //elem.style.paddingTop = '0px';
 
-            $http.get('/rest/storagetraining/getReport?userId=' + userId + '&trainingsId=' + trainingId +
-            '&from=' + fromDateTime + '&to=' + toDateTime).then(
+            $http.get('/rest/storagetraining/getReport?userId=' + userId + '&trainingId=' + trainingId +
+            '&dateFrom=' + $scope.fromDateTime + '&dateTo=' + $scope.toDateTime).then(
                 function(data){
-                    $scope.employeeInfo = reportInfoFormat(data.data);
+                    $scope.initialState = true;
+                    //$scope.employeeInfo = reportInfoFormat(data.data);
 
-                    if ($scope.employeeInfo.length !== 0) {
-                        $scope.selectedEmployee = name;
-                        $scope.noReportFound = null;
-                    } else {
-                        $scope.selectedEmployee = null;
-                        $scope.noReportFound = true;
-                    }
+                    console.log(data);
+
+                    //if ($scope.employeeInfo.length !== 0) {
+                    //    $scope.selectedEmployee = name;
+                    //    $scope.noReportFound = null;
+                    //} else {
+                    //    $scope.selectedEmployee = null;
+                    //    $scope.noReportFound = true;
+                    //}
 
                 },
                 function(data, status){

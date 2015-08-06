@@ -12,8 +12,8 @@
             </div>
 
             <div class="col-md-12 inputReport">
-                <label for="sel2">{{ 'REPORTS_SELECT_TRAINING_NAME_TITLE' | translate }}:</label>
-                <select ng-model="trainingItem" class="form-control" id="sel2">
+                <label for="sel1">{{ 'REPORTS_SELECT_TRAINING_NAME_TITLE' | translate }}:</label>
+                <select ng-model="trainingItem" class="form-control" id="sel1">
                     <option value="">{{ 'REPORTS_SELECT_TRAINING_PLACEHOLDER' | translate }}</option>
                     <option ng-repeat="trainingItem in trainingsList" value={{trainingItem}}>{{trainingItem.name}}</option>
                 </select>
@@ -39,8 +39,8 @@
         </div>
     </form>
 
-    <div id="printableArea">
-        <accordion class="col-md-12" close-others="false">
+    <div id="printableArea" ng-show="initialState">
+        <accordion class="col-md-12 resultAccordion" close-others="false">
             <accordion-group ng-repeat="training in trainings" is-open="status1.open">
                 <accordion-heading>
                     <strong>Training</strong>
@@ -70,7 +70,6 @@
                                 </tr>
                             </tbody>
                         </table>
-
                         <p class="bg-success feedbackReport">OK</p>
                         <p class="bg-danger feedbackReport">NE OK</p>
                     </accordion-group>

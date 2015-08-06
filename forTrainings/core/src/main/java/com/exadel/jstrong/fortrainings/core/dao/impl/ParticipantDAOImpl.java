@@ -3,9 +3,11 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.ParticipantDAO;
 import com.exadel.jstrong.fortrainings.core.model.Participant;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -17,6 +19,8 @@ import java.util.List;
  */
 @Service
 public class ParticipantDAOImpl extends BaseDAO<Participant> implements ParticipantDAO {
+
+    private static Logger logger = Logger.getLogger(ParticipantDAO.class.getName());
 
     @Override
     @Transactional
@@ -42,7 +46,7 @@ public class ParticipantDAOImpl extends BaseDAO<Participant> implements Particip
             Participant participant = em.createQuery(query).getSingleResult();
             return participant.getId();
         } catch (Throwable e) {
-            e.printStackTrace();
+            logger.info("No participants");
             return 0;
         }
     }
@@ -57,6 +61,16 @@ public class ParticipantDAOImpl extends BaseDAO<Participant> implements Particip
         return super.update(participant).getId();
     }
 
-
-
+    @Override
+    @Transactional
+    public boolean deleteParticipantsByMeetID(int meetId) {
+        try {
+            Query query = em.createNativeQuery("delete from participant where meet_id=:mId").setParameter("mId", meetId);
+            query.executeUpdate();
+            return true;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
