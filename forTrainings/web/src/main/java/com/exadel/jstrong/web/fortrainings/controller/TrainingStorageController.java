@@ -21,8 +21,8 @@ public interface TrainingStorageController {
     void editTraining(int oldTrainingId, Training training, int senderId);
     void changeTrainingStatus(int trainingId);
     int approveTraining(int transactionId);
-    List<MeetReportUI> getMeetReportUIs(int subscribeId);
-    List<TrainingReportUI> getReportUI(int employeeId);
+    //List<MeetReportUI> getMeetReportUIs(int subscribeId);
+    //List<TrainingReportUI> getReportUI(int employeeId);
     void updateParticipants(List<Participant> participants);
     void killTransaction(int transactionId);
     MergedTrainingUI mergeTraining(int transactionId);

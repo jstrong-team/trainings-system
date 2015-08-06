@@ -20,4 +20,7 @@ public interface EmployeeDAO extends GenericDAO<Employee> {
     //List<Employee> getAllEnglishTeachers();
     void setEmployeeRole(Employee employee, String role);
     List<Employee> getAllInsideUsers();
+    Employee getEmployee(int id);
+    boolean isSubscriber(int id);
+
 }

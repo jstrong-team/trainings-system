@@ -2,17 +2,22 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
+import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Participant;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,6 +25,8 @@ import java.util.List;
  */
 @Service
 public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO {
+
+    private static Logger logger = Logger.getLogger(SubscribeDAOImpl.class.getName());
 
     @Override
     @Transactional
@@ -51,7 +58,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
             Integer id = (Integer)em.createNativeQuery("select id from subscribe where status='Wait' and training_id =:tId order by add_date limit 1").setParameter("tId", trainingId).getSingleResult();
             return id;
         } catch (Throwable e) {
-            e.printStackTrace();
+            logger.info("No subscribers by trainingId: " + trainingId);
         }
         return 0;
     }
@@ -65,7 +72,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
             query.executeUpdate();
             return true;
         } catch (Throwable e) {
-            e.printStackTrace();
+            logger.info("No subscribers by trainingId: " + trainingId);
         }
         return false;
     }
@@ -116,7 +123,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
             query.executeUpdate();
             return true;
         } catch (Throwable e) {
-            e.printStackTrace();
+            logger.info("No subscribers by trainingId: " + trainingId);
         }
         return false;
     }
@@ -150,7 +157,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
             subscribes = em.createQuery(query).getResultList();
             return subscribes;
         } catch (Throwable e) {
-            e.printStackTrace();
+            logger.info("Nothing found by employeeId: " + employeeId);
         }
         return null;
     }
@@ -200,5 +207,40 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
         return null;
     }
 
-//    public Integer get
+    @Override
+    public List<Employee> getSubscribersAsEmployees(int trainingId) {
+        try{
+            return em.createNativeQuery("SELECT * FROM employee WHERE id IN (SELECT employee_id FROM subscribe WHERE training_id = :tId)", Employee.class).setParameter("tId", trainingId).getResultList();
+        }catch(Throwable e){
+            logger.warn(e.toString());
+            return new ArrayList<>();
+        }
+    }
+
+    //    public Integer get
+
+    public boolean dateMeetChecker(int trainingId) {
+        try {
+            Date currentDate = new Date();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(currentDate);
+            cal.add(Calendar.HOUR_OF_DAY, 1);
+            Date hourAdd = cal.getTime();
+            Query query = em.createNativeQuery("SELECT * FROM for_trainings.meet where date between ? and ? and training_id=:tId");
+            query.setParameter(1, currentDate, TemporalType.TIMESTAMP);
+            query.setParameter(2, hourAdd, TemporalType.TIMESTAMP);
+            query.setParameter("tId", trainingId);
+            int size = query.getResultList().size();
+
+            if(size != 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Throwable e) {
+
+        }
+        return false;
+    }
+
 }

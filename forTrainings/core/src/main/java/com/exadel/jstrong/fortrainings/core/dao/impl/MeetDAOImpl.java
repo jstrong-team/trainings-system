@@ -3,6 +3,7 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.MeetDAO;
 import com.exadel.jstrong.fortrainings.core.model.Meet;
+import com.exadel.jstrong.fortrainings.core.model.Participant;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,14 @@ public class MeetDAOImpl extends BaseDAO<Meet> implements MeetDAO {
 
     @Override
     @Transactional
-    public void add(Meet meet){
-        em.merge(meet);
+    public int add(Meet meet){
+        try {
+            meet = save(meet);
+            return meet.getId();
+        } catch(Throwable e){
+            logger.warn(e.toString());
+            return 0;
+        }
     }
 
     //TODO: replace e.printStackTrace --> logger.warn/error
@@ -97,5 +104,17 @@ public class MeetDAOImpl extends BaseDAO<Meet> implements MeetDAO {
             e.printStackTrace();
             return new ArrayList<Meet>();
         }
+    }
+
+    @Override
+    @Transactional
+    public void deleteMeets(List<Meet> meets) {
+        deleteAll(meets);
+    }
+
+    @Override
+    @Transactional
+    public int updateMeet(Meet meet) {
+        return super.update(meet).getId();
     }
 }

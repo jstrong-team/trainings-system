@@ -1,7 +1,11 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
-import com.exadel.jstrong.fortrainings.core.model.*;
+import com.exadel.jstrong.fortrainings.core.model.EmployeeFeedback;
+import com.exadel.jstrong.fortrainings.core.model.Participant;
+import com.exadel.jstrong.fortrainings.core.model.TrainerFeedback;
+import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
+import com.exadel.jstrong.web.fortrainings.controller.ReportController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
 import com.exadel.jstrong.web.fortrainings.services.RestService;
@@ -19,7 +23,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(value="/storagetraining")
+@RequestMapping(value = "/storagetraining")
 public class TrainingStorageSpringController {
 
     private final String APPROVE = "approve";
@@ -32,6 +36,9 @@ public class TrainingStorageSpringController {
     private EmployeeController ec;
 
     @Autowired
+    private ReportController reportController;
+
+    @Autowired
     private RestService restService;
 
     private static Logger logger = Logger.getLogger(TrainingStorageSpringController.class);
@@ -39,7 +46,7 @@ public class TrainingStorageSpringController {
     @RequestMapping(method = RequestMethod.POST)
     public void addTraining(@RequestBody Training training, HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            if (training.getExternalTrainerName()==null) {
+            if (training.getExternalTrainerName() == null) {
                 int id = restService.getUserId(request);
                 training.setTrainer_id(id);
             }
@@ -53,21 +60,23 @@ public class TrainingStorageSpringController {
 
     //TODO: add error logging
     @RequestMapping(value = "/getTraining", method = RequestMethod.GET)
-    public @ResponseBody TrainingUI getTraining (HttpServletRequest request, HttpServletResponse response) {
-        try{
+    public
+    @ResponseBody
+    TrainingUI getTraining(HttpServletRequest request, HttpServletResponse response) {
+        try {
             int tId = Integer.parseInt(request.getParameter("id"));
             int uId = restService.getUserId(request);
             TrainingUI trainingUI = tsci.getTraining(tId, uId);
-            if(trainingUI.isApprove()) {
+            if (trainingUI.isApprove()) {
                 return trainingUI;
             } else {
-                if(ec.isAdmin(uId)) {
+                if (ec.isAdmin(uId)) {
                     return trainingUI;
                 } else {
                     response.setStatus(HttpServletResponse.SC_CONFLICT);
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
         return null;
@@ -79,14 +88,14 @@ public class TrainingStorageSpringController {
         try {
             int trainingId = Integer.parseInt(request.getParameter("id"));
             int userId = restService.getUserId(request);
-            if(!tsci.isTrainer(userId, trainingId)) {
-                if(tsci.addSubscriber(tsci.buildSubscriber(userId, trainingId))==0) {
+            if (!tsci.isTrainer(userId, trainingId)) {
+                if (tsci.addSubscriber(tsci.buildSubscriber(userId, trainingId)) == 0) {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 }
             } else {
                 response.setStatus(HttpServletResponse.SC_CONFLICT);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
@@ -102,7 +111,7 @@ public class TrainingStorageSpringController {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         ef.setAddDate(date);
 
-        if(tsci.check(userId, ef.getTrainingId())) {
+        if (tsci.check(userId, ef.getTrainingId())) {
             tsci.addEmployeeFeedback(ef);
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -111,7 +120,9 @@ public class TrainingStorageSpringController {
 
     //TODO: replace e.printStackTrace --> logger.warn/error
     @RequestMapping(value = "/feedbacks", method = RequestMethod.GET)
-    public @ResponseBody List<EmployeeNamedFeedbackUI> getFeedbacks(HttpServletRequest request, HttpServletResponse response) {
+    public
+    @ResponseBody
+    List<EmployeeNamedFeedbackUI> getFeedbacks(HttpServletRequest request, HttpServletResponse response) {
         try {
             int userId = restService.getUserId(request);
             int trainingId = Integer.parseInt(request.getParameter("id"));
@@ -123,20 +134,24 @@ public class TrainingStorageSpringController {
     }
 
     @RequestMapping(value = "/getSubscribers", method = RequestMethod.GET)
-    public @ResponseBody List<SubscriberUI> getSubscribers(HttpServletRequest request, HttpServletResponse response) {
+    public
+    @ResponseBody
+    List<SubscriberUI> getSubscribers(HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
         int userId = restService.getUserId(request);
         return tsci.getSubscribers(userId, trainingId);
     }
 
     @RequestMapping(value = "/role", method = RequestMethod.GET)
-    public @ResponseBody RoleUI getRole(HttpServletRequest request, HttpServletResponse response) {
+    public
+    @ResponseBody
+    RoleUI getRole(HttpServletRequest request, HttpServletResponse response) {
         int userId = restService.getUserId(request);
         int trainingId = Integer.parseInt(request.getParameter("id"));
         RoleUI role = new RoleUI();
-        if(ec.isAdmin(userId)) {
+        if (ec.isAdmin(userId)) {
             role.setRole("admin");
-        } else if(tsci.isTrainer(userId, trainingId)) {
+        } else if (tsci.isTrainer(userId, trainingId)) {
             role.setRole("trainer");
         } else {
             role.setRole("user");
@@ -145,10 +160,12 @@ public class TrainingStorageSpringController {
     }
 
     @RequestMapping(value = "isAdmin", method = RequestMethod.GET)
-    public @ResponseBody RoleUI getRoleAdmin(HttpServletRequest request, HttpServletResponse response) {
+    public
+    @ResponseBody
+    RoleUI getRoleAdmin(HttpServletRequest request, HttpServletResponse response) {
         int userId = restService.getUserId(request);
         RoleUI role = new RoleUI();
-        if(ec.isAdmin(userId)) {
+        if (ec.isAdmin(userId)) {
             role.setRole("admin");
         } else {
             role.setRole("");
@@ -157,11 +174,18 @@ public class TrainingStorageSpringController {
     }
 
 
+        if(tsci.check(userId, employeeFeedback.getTrainingId())) {
+            tsci.addEmployeeFeedback(employeeFeedback);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
     @RequestMapping(value = "/removeSubscriber", method = RequestMethod.DELETE)
     public void removeSubscriber(HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
         int userId = restService.getUserId(request);
-        if(!tsci.deleteSubscriber(userId, trainingId)){
+        if (!tsci.deleteSuscriber(userId, trainingId)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
@@ -169,7 +193,7 @@ public class TrainingStorageSpringController {
     @RequestMapping(value = "/deleteFeedback", method = RequestMethod.DELETE)
     public void deleteFeedback(HttpServletRequest request, HttpServletResponse response) {
         int feedbackId = Integer.parseInt(request.getParameter("id"));
-        if(!tsci.deleteFeedback(feedbackId)) {
+        if (!tsci.deleteFeedback(feedbackId)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
@@ -184,7 +208,7 @@ public class TrainingStorageSpringController {
     //FIXME
     @RequestMapping(value = "/approve", method = RequestMethod.PUT)
     public void adminRequest(@RequestBody ApproveUI approveUI, HttpServletRequest request, HttpServletResponse response) {
-        if(ec.isAdmin(restService.getUserId(request))) {
+        if (ec.isAdmin(restService.getUserId(request))) {
             if (APPROVE.compareToIgnoreCase(approveUI.getAdminAnswer()) == 0) {
                 tsci.approveTraining(approveUI.getNewTrainingId());
             } else {
@@ -196,11 +220,37 @@ public class TrainingStorageSpringController {
     }
 
     @RequestMapping(value = "/getReport", method = RequestMethod.GET)
-    public @ResponseBody List<MeetReportUI> getReport (HttpServletRequest request, HttpServletResponse response) {
-        int employeeId = Integer.parseInt(request.getParameter("id"));
+    public
+    @ResponseBody
+    ReportUI getReport(HttpServletRequest request, HttpServletResponse response) {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Integer employeeId;
+        try {
+            employeeId = Integer.parseInt(request.getParameter("userId"));
+        } catch (Exception e) {
+            employeeId = null;
+        }
+        Integer trainingId;
+        try {
+            trainingId = Integer.parseInt(request.getParameter("trainingId"));
+        } catch (Exception e) {
+            trainingId = null;
+        }
+        Date dateFrom;
+        try{
+            dateFrom = formatter.parse(request.getParameter("dateFrom"));
+        } catch (Exception e) {
+            dateFrom = null;
+        }
+        Date dateTo;
+        try{
+            dateTo = formatter.parse(request.getParameter("dateTo"));
+        } catch (Exception e) {
+            dateTo = null;
+        }
         int userId = restService.getUserId(request);
-        if(ec.isAdmin(userId)) {
-            return tsci.getMeetReportUIs(employeeId);
+        if (ec.isAdmin(userId)) {
+            return reportController.getReport(employeeId, trainingId, dateFrom, dateTo);
         }
         return null;
     }
@@ -210,19 +260,21 @@ public class TrainingStorageSpringController {
 
         List<Participant> participants = participant.getParticipant();
         int size = participants.size();
-        if(size != 0) {
+        if (size != 0) {
             tsci.updateParticipants(participants);
         }
     }
 
     @RequestMapping(value = "/mergeTrainings", method = RequestMethod.GET)
-    public @ResponseBody MergedTrainingUI getMerge(HttpServletRequest request, HttpServletResponse response) {
+    public
+    @ResponseBody
+    MergedTrainingUI getMerge(HttpServletRequest request, HttpServletResponse response) {
         int transactionId = Integer.parseInt(request.getParameter("id"));
         int userId = restService.getUserId(request);
         if (ec.isAdmin(userId)) {
             MergedTrainingUI mergedTrainingUI = tsci.mergeTraining(transactionId);
-            if(mergedTrainingUI != null) {
-                return  mergedTrainingUI;
+            if (mergedTrainingUI != null) {
+                return mergedTrainingUI;
             } else {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return null;
