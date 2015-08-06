@@ -113,8 +113,8 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
             CriteriaQuery<Subscribe> query = em.getCriteriaBuilder().createQuery(Subscribe.class);
             Root<Subscribe> root = query.from(Subscribe.class);
             query.where(root.get("employeeId").in(id));
-            em.createQuery(query).getResultList();
-            return true;
+            List<Subscribe> subscribes = em.createQuery(query).getResultList();
+            return !subscribes.isEmpty();
         } catch (Throwable e) {
             return false;
         }
