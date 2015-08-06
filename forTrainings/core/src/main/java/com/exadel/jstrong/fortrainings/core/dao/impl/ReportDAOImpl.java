@@ -25,12 +25,12 @@ public class ReportDAOImpl extends BaseDAO<Report> implements ReportDAO {
                 return em.createNativeQuery("SELECT * FROM report WHERE subscribe_id IN (SELECT id FROM subscribe WHERE employee_id = :userId AND training_id = :trainingId)", Report.class).setParameter("userId", userId).setParameter("trainingId", trainingId).getResultList();
             }
             if (dateFrom != null) {
-                return em.createNativeQuery("SELECT * FROM report WHERE subscribe_id IN (SELECT id FROM subscribe WHERE employee_id = :userId AND training_id = :trainingId) AND date > :dateFrom", Report.class).setParameter("userId", userId).setParameter("trainingId", trainingId).setParameter("dateFrom", dateFrom).getResultList();
+                return em.createNativeQuery("SELECT * FROM report WHERE subscribe_id IN (SELECT id FROM subscribe WHERE employee_id = :userId AND training_id = :trainingId) AND date_format(date, '%Y-%m-%d') >= :dateFrom", Report.class).setParameter("userId", userId).setParameter("trainingId", trainingId).setParameter("dateFrom", dateFrom).getResultList();
             }
             if (dateTo != null) {
-                return em.createNativeQuery("SELECT * FROM report WHERE subscribe_id IN (SELECT id FROM subscribe WHERE employee_id = :userId AND training_id = :trainingId) AND date < :dateTo", Report.class).setParameter("userId", userId).setParameter("trainingId", trainingId).setParameter("dateTo", dateTo).getResultList();
+                return em.createNativeQuery("SELECT * FROM report WHERE subscribe_id IN (SELECT id FROM subscribe WHERE employee_id = :userId AND training_id = :trainingId) AND date_format(date, '%Y-%m-%d') <= :dateTo", Report.class).setParameter("userId", userId).setParameter("trainingId", trainingId).setParameter("dateTo", dateTo).getResultList();
             }
-            return em.createNativeQuery("SELECT * FROM report WHERE subscribe_id IN (SELECT id FROM subscribe WHERE employee_id = :userId AND training_id = :trainingId) AND date BETWEEN :dateFrom AND :dateTo", Report.class).setParameter("userId", userId).setParameter("trainingId", trainingId).setParameter("dateFrom", dateFrom).setParameter("dateTo", dateTo).getResultList();
+            return em.createNativeQuery("SELECT * FROM report WHERE subscribe_id IN (SELECT id FROM subscribe WHERE employee_id = :userId AND training_id = :trainingId) AND date_format(date, '%Y-%m-%d') BETWEEN :dateFrom AND :dateTo", Report.class).setParameter("userId", userId).setParameter("trainingId", trainingId).setParameter("dateFrom", dateFrom).setParameter("dateTo", dateTo).getResultList();
         } catch (Throwable e) {
             logger.warn(e.toString());
             return new ArrayList<>();

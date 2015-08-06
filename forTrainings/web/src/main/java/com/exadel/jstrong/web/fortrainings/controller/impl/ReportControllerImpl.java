@@ -104,7 +104,7 @@ public class ReportControllerImpl implements ReportController {
         for (TrainerFeedback f : feedbacks){
             reportFeedback = new FeedbackReportUI();
             reportFeedback.setDate(f.getAddDate());
-            reportFeedback.setText(getFeedbackText(f));
+            reportFeedback.setText(f.getTextBody());
             reportFeedbacks.add(reportFeedback);
         }
         return reportFeedbacks;
@@ -133,11 +133,6 @@ public class ReportControllerImpl implements ReportController {
         userReport.setNegativeFeedbacks(getReportFeedbacks(negativeFeedbacks));
 
         return userReport;
-    }
-
-    private String getFeedbackText(TrainerFeedback feedback){
-        StringBuilder text = new StringBuilder("coming soon");
-        return text.toString();
     }
 
 }
