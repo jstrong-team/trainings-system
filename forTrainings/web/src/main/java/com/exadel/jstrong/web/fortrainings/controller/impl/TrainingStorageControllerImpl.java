@@ -44,6 +44,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     private NoticeDAO noticeDAO;
     @Autowired
     private TrainerFeedbackDAO trainerFeedbackDAO;
+    @Autowired
+    private RoleDAO roleDAO;
 
     private static Logger logger = Logger.getLogger(TrainingStorageControllerImpl.class);
 
@@ -147,7 +149,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         s.setAddDate(date);
 
 
-        Employee system = eDAO.getById(666);
+        Employee system = eDAO.getById(NoticeFactory.systemId);
         Notice userNotice = null;
         Notice adminNotice = null;
         Employee employee = eDAO.getById(uId);
@@ -168,7 +170,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
     @Override
     public boolean check(int uId, int tId) {
-        return (mDAO.isGoing(tId) && tDAO.isSubscribeById(uId, tId));
+        //return (mDAO.isGoing(tId) && tDAO.isSubscribeById(uId, tId));
+        return  tDAO.isSubscribeById(uId, tId);
     }
 
     @Override
@@ -261,7 +264,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             participantDAO.addParticipants(participantsToAdd);
         }
 
-        Employee system = eDAO.getById(666);
+        Employee system = eDAO.getById(NoticeFactory.systemId);
         Notice employeeNotice = NoticeFactory.getDeletedParticipantNotice(system.getId(), tDAO.getTrainingById(trainingId));
         Employee employee = eDAO.getById(userId);
         Notice adminNotice = NoticeFactory.getDeletedParticipantNotice(system.getId(), tDAO.getTrainingById(trainingId), employee);
@@ -340,7 +343,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             subscribeUsers(newMaxParticipant, id, countApprove);
         }
 
-        Employee system = eDAO.getById(666);
+        Employee system = eDAO.getById(NoticeFactory.systemId);
         Notice notice = NoticeFactory.getTrainingEditNotice(data, transactionId, system.getId());
         List<Employee> employees = eDAO.getAllUsers();
         addNotices(notice, employees);
@@ -437,7 +440,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     @Override
     public void changeTrainingStatus(int trainingId) {
         tDAO.changeStatus(trainingId);
-        Employee system = eDAO.getById(666);
+        Employee system = eDAO.getById(NoticeFactory.systemId);
         Notice notice = NoticeFactory.getTrainingCreateNotice(tDAO.getTrainingById(trainingId), system.getId());
         List<Employee> employees = eDAO.getAllUsers();
         addNotices(notice, employees);
@@ -515,6 +518,12 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         employee.setLogin("");
         employee.setPassword("");
         eDAO.save(employee);
+
+        Role external = roleDAO.getRoleByName("external");
+        List<Role> roles = new ArrayList<>();
+        roles.add(external);
+        employee.setRoles(roles);
+
         Subscribe subscribe = buildSubscriber(employee.getId(), trainingId);
         addSubscriber(subscribe);
     }

@@ -16,6 +16,7 @@ import java.util.List;
 public class NoticeFactory {
 
     private static Logger logger = Logger.getLogger(NoticeFactory.class);
+    public final static Integer systemId = 666;
 
     public static Notice getMeetByDelayNotice(Meet meet, Training training, Pair<Long, String> delay){
         try {

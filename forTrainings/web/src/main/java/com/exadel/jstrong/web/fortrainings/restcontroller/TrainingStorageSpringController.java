@@ -156,23 +156,6 @@ public class TrainingStorageSpringController {
         return role;
     }
 
-    //fix!!! --> you can use //FIXME
-    @RequestMapping(value = "/editFeedback", method = RequestMethod.PUT)
-    public void editFeedback(@RequestBody EmployeeFeedback employeeFeedback, HttpServletRequest request, HttpServletResponse response) {
-        int trainingId = Integer.parseInt(request.getParameter("id"));
-        int userId = restService.getUserId(request);
-        employeeFeedback.setEmployeeId(userId);
-        employeeFeedback.setTrainingId(trainingId);
-        Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        employeeFeedback.setAddDate(date);
-
-        if(tsci.check(userId, employeeFeedback.getTrainingId())) {
-            tsci.addEmployeeFeedback(employeeFeedback);
-        } else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
-    }
 
     @RequestMapping(value = "/removeSubscriber", method = RequestMethod.DELETE)
     public void removeSubscriber(HttpServletRequest request, HttpServletResponse response) {
