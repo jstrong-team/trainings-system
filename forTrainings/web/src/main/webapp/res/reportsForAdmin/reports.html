@@ -1,59 +1,87 @@
 <div class="container wrappered">
     <h1 class="text-center reportsTitle">{{ 'REPORTS_MAIN_TITLE' | translate }}</h1>
-    <div class="col-md-3"></div>
-    <div class="col-md-6 form" id="employeeInput">
-        <div class="col-md-12 inputReport">
-            <label for="sel1">{{ 'REPORTS_SELECT_EMPLOYEE_TITLE' | translate }}:</label>
-            <select ng-change="getEmployeeReport()" ng-model="item" class="form-control" id="sel1">
-                <option value="" disabled selected>{{ 'REPORTS_SELECT_EMPLOYEE_PLACEHOLDER' | translate }}</option>
-                <option ng-repeat="item in employeeList" value={{item}}>{{item.name}}</option>
-            </select>
+    <form class="form-horizontal createTraining" name="getReport" role="form" ng-submit="submitForm()" novalidate>
+        <div class="col-md-3"></div>
+        <div class="col-md-6 form" id="employeeInput">
+            <div class="col-md-12 inputReport">
+                <label for="sel1">{{ 'REPORTS_SELECT_EMPLOYEE_TITLE' | translate }}:</label>
+                <select ng-model="employeeItem" class="form-control" id="sel1">
+                    <option value="">{{ 'REPORTS_SELECT_EMPLOYEE_PLACEHOLDER' | translate }}</option>
+                    <option ng-repeat="employeeItem in employeeList" value={{employeeItem}}>{{employeeItem.name}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-12 inputReport">
+                <label for="sel2">{{ 'REPORTS_SELECT_TRAINING_NAME_TITLE' | translate }}:</label>
+                <select ng-model="trainingItem" class="form-control" id="sel2">
+                    <option value="">{{ 'REPORTS_SELECT_TRAINING_PLACEHOLDER' | translate }}</option>
+                    <option ng-repeat="trainingItem in trainingsList" value={{trainingItem}}>{{trainingItem.name}}</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 inputReport">
+                <label for="sel3">{{ 'REPORTS_SELECT_FROM' | translate }}:</label>
+                <input type="text" class="form-control" id="sel3" ng-model="dateTimeFrom"
+                       placeholder="{{ 'REPORTS_SELECT_FROM_PLACEHOLDER' | translate }}">
+                <p ng-show="errorDateValidation" class="text-danger">{{ errorDateValidation | translate }}</p>
+            </div>
+
+            <div class="col-md-6 inputReport">
+                <label for="sel4">{{ 'REPORTS_SELECT_TO' | translate }}:</label>
+                <input type="text" class="form-control" id="sel4" ng-model="dateTimeTo"
+                       placeholder="{{ 'REPORTS_SELECT_TO_PLACEHOLDER' | translate }}">
+                <p ng-show="errorDateValidation" class="text-danger">{{ errorDateValidation | translate }}</p>
+            </div>
+
+            <div class="col-md-12">
+                <button type="submit" ng-disabled="getReport.$invalid" class="btn btn-md getReportButton">
+                    {{ 'REPORTS_GET_REPORT_BUTTON' | translate }}
+                </button>
+            </div>
         </div>
+    </form>
 
-        <div class="col-md-12 inputReport">
-            <label for="sel2">{{ 'REPORTS_SELECT_TRAINING_NAME_TITLE' | translate }}:</label>
-            <select ng-model="training" class="form-control" id="sel2">
-                <option value="" disabled selected>{{ 'REPORTS_SELECT_TRAINING_PLACEHOLDER' | translate }}</option>
-                <option ng-repeat="training in employeeInfo" value={{training}}>{{training.name}}</option>
-            </select>
-        </div>
-
-        <div class="col-md-6 inputReport">
-            <label for="sel3">{{ 'REPORTS_SELECT_FROM' | translate }}:</label>
-            <input type="text" class="form-control" id="sel3"
-                   placeholder="{{ 'REPORTS_SELECT_FROM_PLACEHOLDER' | translate }}">
-        </div>
-
-        <div class="col-md-6 inputReport">
-            <label for="sel4">{{ 'REPORTS_SELECT_TO' | translate }}:</label>
-            <input type="text" class="form-control" id="sel4"
-                   placeholder="{{ 'REPORTS_SELECT_TO_PLACEHOLDER' | translate }}">
-        </div>
-    </div>
-
-    <div id="printableArea" ng-show="selectedEmployee">
-        <h4 class="selectedEmployee well">{{selectedEmployee}}</h4>
-
-        <div class="col-md-2"></div>
-        <table class="col-md-8 table table-striped table-bordered reportTable">
-            <thead>
-            <tr>
-                <th>{{ 'REPORTS_TABLE_TRAINING' | translate }}</th>
-                <th>{{ 'REPORTS_TABLE_DATE' | translate }}</th>
-                <th>{{ 'REPORTS_TABLE_ATTENDANCE' | translate }}</th>
-                <th>{{ 'REPORTS_TABLE_REASON' | translate}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="item in employeeInfo">
-                <td>{{item.name}}</td>
-                <td>{{item.date}}</td>
-                <td>{{ item.absent | translate }}</td>
-                <td>{{item.reason}}</td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="col-md-2"></div>
+    <div id="printableArea" ng-show="initialState">
+        <accordion class="col-md-12 resultAccordion" close-others="false">
+            <accordion-group ng-repeat="training in reportInfo.trainings" is-open="status1.open">
+                <accordion-heading>
+                    <strong>{{training.name}}</strong>
+                    <span class="glyphicon glyphicon glyphicon-flag"></span>
+                    <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status1.open, 'glyphicon-chevron-right': !status1.open}"></i>
+                </accordion-heading>
+                <accordion close-others="false">
+                    <accordion-group ng-repeat="user in training.users" is-open="status2.open">
+                        <accordion-heading>
+                            <strong>{{user.name}}</strong>
+                            <span class="glyphicon glyphicon glyphicon-user"></span>
+                            <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status2.open, 'glyphicon-chevron-right': !status2.open}"></i>
+                        </accordion-heading>
+                        <table class="table table-striped table-bordered reportTable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%">{{ 'REPORTS_TABLE_DATE' | translate }}</th>
+                                    <th style="width: 20%">{{ 'REPORTS_TABLE_ATTENDANCE' | translate }}</th>
+                                    <th style="width: 60%">{{ 'REPORTS_TABLE_REASON' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="trainingInfo in user.meets">
+                                    <td>{{item.date}}</td>
+                                    <td>{{ item.absent | translate }}</td>
+                                    <td>{{item.reason}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="bg-success feedbackReport" ng-repeat="positItem in user.positiveFeedbacks">
+                            <b>{{positItem.date}}: </b>{{positItem.text}}
+                        </p>
+                        <p class="bg-danger feedbackReport" ng-repeat="negItem in user.negativeFeedbacks">
+                            <b>{{negItem.date}}: </b>{{negItem.text}}
+                        </p>
+                    </accordion-group>
+                </accordion>
+            </accordion-group>
+        </accordion>
     </div>
 
     <div class="noReports col-md-12" ng-show="noReportFound">
@@ -62,10 +90,12 @@
         </h2>
     </div>
 
-    <button ng-show="selectedEmployee" type="button" class="btn btn-md printButton"
-            ng-click="printService('printableArea')">
-        <span class="glyphicon glyphicon-print"></span>
-        {{ 'REPORTS_PRINT' | translate }}
-    </button>
+    <div class="col-md-12">
+        <button ng-show="initialState" type="button" class="btn btn-md printButton"
+                ng-click="printService('printableArea')">
+            <span class="glyphicon glyphicon-print"></span>
+            {{ 'REPORTS_PRINT' | translate }}
+        </button>
+    </div>
 
 </div>
