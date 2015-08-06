@@ -35,7 +35,7 @@ public class ReportControllerImpl implements ReportController {
     public ReportUI getReport(Integer userId, Integer trainingId, Date dateFrom, Date dateTo) {
         ReportUI report = new ReportUI();
         List<TrainingReportUI> reportTrainings;
-        if (userId != null && employeeDAO.isSubscriber(userId)){
+        if (userId != null && !employeeDAO.isSubscriber(userId)){
             report.setTrainings(new ArrayList<TrainingReportUI>());
             return report;
         }
@@ -93,6 +93,7 @@ public class ReportControllerImpl implements ReportController {
             meet.setDate(r.getDate());
             meet.setAbsent(r.isAbsent());
             meet.setReason(r.getReason());
+            meets.add(meet);
         }
         return meets;
     }
