@@ -41,7 +41,7 @@
             <h2><br>{{ 'CALENDAR_RECENT_TRAININGS_TITLE' | translate}}:</h2>
             <ul class="pastMeetings">
                 <li ng-repeat="lastTraining in pastTrainingHistory">
-                    <div><a href="" ng-click="redirectToTrainingPage(lastTraining.id)"><h3>{{lastTraining.name}}</h3></a></div>
+                    <div><a href="" ng-click="redirectToTrainingPage(lastTraining.trainingId)"><h3>{{lastTraining.name}}</h3></a></div>
                     <div><h4><small>{{lastTraining.dateNum}} {{ lastTraining.month | translate }} {{lastTraining.year}}</small></h4></div>
                 </li>
             </ul>

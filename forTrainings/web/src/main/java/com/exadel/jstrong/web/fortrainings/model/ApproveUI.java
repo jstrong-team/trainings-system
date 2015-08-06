@@ -4,24 +4,24 @@ package com.exadel.jstrong.web.fortrainings.model;
  * Created by ������������� on 29.07.2015.
  */
 public class ApproveUI {
-    private Integer newTrainingId;
-    private Integer oldTrainingId;
+    private Integer transactionId;
+    private Integer trainingId;
     private String adminAnswer;
 
-    public Integer getNewTrainingId() {
-        return newTrainingId;
+    public Integer getTransactionId() {
+        return transactionId;
     }
 
-    public void setNewTrainingId(Integer newTrainingId) {
-        this.newTrainingId = newTrainingId;
+    public void setTransactionId(Integer transactionId) {
+        this.transactionId = transactionId;
     }
 
-    public Integer getOldTrainingId() {
-        return oldTrainingId;
+    public Integer getTrainingId() {
+        return trainingId;
     }
 
-    public void setOldTrainingId(Integer oldTrainingId) {
-        this.oldTrainingId = oldTrainingId;
+    public void setTrainingId(Integer trainingId) {
+        this.trainingId = trainingId;
     }
 
     public String getAdminAnswer() {

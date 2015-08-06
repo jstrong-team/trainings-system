@@ -8,6 +8,7 @@ import java.util.List;
 public interface TrainingStorageController {
     TrainingUI getTraining(int tId, int uId);
     int addTraining(Training training);
+    void deleteTraining(int trainingId);
     Subscribe buildSubscriber(int uId, int tId);
     boolean isTrainer(int uId, int tId);
     int addSubscriber(Subscribe s);
@@ -29,5 +30,6 @@ public interface TrainingStorageController {
     void addTrainerFeedback(TrainerFeedback trainerFeedback);
     List<TrainerFeedbackUI> getTrainerFeedbacks(int employeeID);
     void addExternalUser(ExternalUserUI newEmployeeUI, int trainingId);
+    void approveNewTraining(int trainingId);
 }
 

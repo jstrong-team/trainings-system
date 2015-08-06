@@ -116,6 +116,17 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     @Override
+    public void deleteTraining(int trainingId) {
+        tDAO.deleteTraining(trainingId);
+        /*Employee system = eDAO.getById(NoticeFactory.systemId);
+        Notice notice = NoticeFactory.getDeleteTrainingNotice(system.getId(), tDAO.getTrainingById(trainingId));
+
+        addNotices(notice, employee);
+        List<Employee> admins = eDAO.getAdmins();
+        addNotices(notice, admins);*/
+    }
+
+    @Override
     public boolean isTrainer(int uId, int tId) {
         return tDAO.isTrainer(uId, tId);
     }
@@ -280,8 +291,12 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<Employee> admins = eDAO.getAdmins();
         addNotices(adminNotice, admins);
 
-        if(sDAO.removeSubscriber(userId, trainingId) && sDAO.changeStatusToApprove(trainingId)) {
-
+        Subscribe subscribe = sDAO.getSubscribe(userId, trainingId);
+        boolean isApprove = subscribe.getStatus().equals("Approve");
+        if(sDAO.removeSubscriber(userId, trainingId)) {
+            if(isApprove) {
+                sDAO.changeStatusToApprove(trainingId);
+            }
             return true;
         } else {
             return false;
@@ -505,7 +520,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
     @Override
     public void killTransaction(int transactionId) {
-        transactionDAO.killTransaction(transactionId);
+        List<Transaction> transactions = transactionDAO.getAllTransactionsById(transactionId);
+        transactionDAO.deleteTransaction(transactions);
     }
 
     @Override
@@ -614,5 +630,9 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         noticeDAO.addEmployeeNotices(notice.getId(), employeeNotices);
         List<String> mails = eDAO.getAllMails();
         Sender.send(notice, mails);
+    }
+
+    public void approveNewTraining(int trainingId) {
+        tDAO.approveNewTraining(trainingId);
     }
 }

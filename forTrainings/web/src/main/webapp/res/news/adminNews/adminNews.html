@@ -9,13 +9,16 @@
 
         <div class="col-md-10">
             <div ng-repeat="actualItem in actualCurrentListItems">
-                <a href="redirectToTrainingPage(actualItem.id)">
                     <div class="alert alert-{{actualItem.status}} fade in">
                         <a href="#" ng-dblclick="" ng-click="removeActualItem(actualItem.id)" class="close"
                            data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{{actualItem.theme}}: </strong>{{actualItem.text}}
+                            <div class="actualDate">{{actualItem.addDate}}</div>
+                        <a href="" ng-click="redirectToTrainingPage(actualItem.id, actualItem.transactionId)">
+                            <strong>{{actualItem.theme}}. </strong>{{actualItem.text}}
+                        </a>
+                            <br>
+                            <i>{{actualItem.senderName}}</i>
                     </div>
-                </a>
             </div>
 
             <div ng-show="noNewsInHotNews" class="noNewsInHotNews">
@@ -35,10 +38,12 @@
 
             <div class="list-group">
 
-                <a href="" ng-click="redirectToTrainingPage(item.id)" ng-repeat="item in historyCurrentListItems"
+                <a href="" ng-click="redirectToTrainingPage(item.id, item.transactionId)" ng-repeat="item in historyCurrentListItems"
                    class="list-group-item historyNews">
                     <div class="historyDate">{{item.addDate}}</div>
-                    {{item.text}}
+                    <strong>{{item.theme}}. </strong>{{item.text}}
+                    <br>
+                    <i>{{item.senderName}}</i>
                 </a>
 
             </div>

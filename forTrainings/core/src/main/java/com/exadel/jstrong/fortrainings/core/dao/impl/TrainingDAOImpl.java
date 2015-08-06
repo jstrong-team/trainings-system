@@ -65,9 +65,13 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
             CriteriaQuery<Training> query = criteriaBuilder.createQuery(Training.class);
             Root<Training> root = query.from(Training.class);
-            Predicate p1 = criteriaBuilder.like(root.<String>get("name"), "%" + st + "%");
-            Predicate p2 = criteriaBuilder.like(root.<String>get("annotation"), "%" + st + "%");
-            Predicate p3 = criteriaBuilder.like(root.<String>get("description"), "%" + st + "%");
+            StringBuilder stringBuilder = new StringBuilder("%");
+            stringBuilder.append(st);
+            stringBuilder.append("%");
+            String str = stringBuilder.toString();
+            Predicate p1 = criteriaBuilder.like(root.<String>get("name"), str);
+            Predicate p2 = criteriaBuilder.like(root.<String>get("annotation"), str);
+            Predicate p3 = criteriaBuilder.like(root.<String>get("description"), str);
             query.where(criteriaBuilder.or(p1, p2, p3));
             trainings = em.createQuery(query).getResultList();
             for (Training t: trainings){
@@ -91,6 +95,17 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     public int updateTraining(Training training) {
         training = super.update(training);
         return training.getId();
+    }
+
+    @Override
+    @Transactional
+    public void deleteTraining(int trainingId) {
+        try {
+            Query query = em.createNativeQuery("update training set is_delete = 1 where id = :trainingId").setParameter("trainingId", trainingId);
+            query.executeUpdate();
+        } catch (Throwable e) {
+            logger.warn("Throwable exception");
+        }
     }
 
     //TODO: replace e.printStackTrace --> logger.warn/error
@@ -200,7 +215,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public void changeStatus(int trainingId) {
         try {
-            Query query = em.createNativeQuery("update training set approve=true training_id =:tId").setParameter("tId", trainingId);
+            Query query = em.createNativeQuery("update training set approve=true WHERE training_id=:tId").setParameter("tId", trainingId);
             int res = query.executeUpdate();
             if (res == 0) {
                 logger.info("No meets to change");
@@ -323,6 +338,16 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         }catch(Throwable e){
             logger.warn(e.toString());
             return null;
+        }
+    }
+
+    @Override
+    public void approveNewTraining(int trainingId) {
+        try{
+            Query query = em.createNativeQuery("update training set approve=1 WHERE id = :trainingId ").setParameter("trainingId", trainingId);
+            query.executeUpdate();
+        } catch(Throwable e) {
+            logger.warn(e.toString());
         }
     }
 }

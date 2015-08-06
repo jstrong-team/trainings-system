@@ -11,10 +11,9 @@
         'unsubscribeService',
         '$route',
         'subscribeService',
-        'attendanceSendService',
         '$modal',
         '$http',
-        'absentOutputService'
+        'absentService'
     ];
     var controller =function ($scope,
                               $q,
@@ -27,10 +26,9 @@
                               unsubscribeService,
                               $route,
                               subscribeService,
-                              attendanceSendService,
                               $modal,
                               $http,
-                              absentOutputService) {
+                              absentService) {
 
         $scope.isCollapsed = {
             dates: true,
@@ -39,34 +37,34 @@
         };
 
         $scope.show = {
-            subscribers: 'Hide',
-            dates: 'Show',
-            addSubscriber:'Hide'
+            subscribers: 'TRAINING_PAGE_HIDE',
+            dates: 'TRAINING_PAGE_SHOW',
+            addSubscriber:'TRAINING_PAGE_HIDE'
         };
 
         $scope.changeCollapse = {
             dates: function () {
                 $scope.isCollapsed.dates = !$scope.isCollapsed.dates;
                 if ($scope.isCollapsed.dates) {
-                    $scope.show.dates = 'Show';
+                    $scope.show.dates = 'TRAINING_PAGE_SHOW';
                 } else {
-                    $scope.show.dates = 'Hide';
+                    $scope.show.dates = 'TRAINING_PAGE_HIDE';
                 }
             },
             subscribers: function () {
                 $scope.isCollapsed.subscribers = !$scope.isCollapsed.subscribers;
                 if ($scope.isCollapsed.subscribers) {
-                    $scope.show.subscribers = 'Show';
+                    $scope.show.subscribers = 'TRAINING_PAGE_SHOW';
                 } else {
-                    $scope.show.subscribers = 'Hide';
+                    $scope.show.subscribers = 'TRAINING_PAGE_HIDE';
                 }
             },
             addSubscriber: function(){
                 $scope.isCollapsed.addSubscriber = !$scope.isCollapsed.addSubscriber;
                 if ($scope.isCollapsed.addSubscriber) {
-                    $scope.show.addSubscriber = 'Show';
+                    $scope.show.addSubscriber = 'TRAINING_PAGE_SHOW';
                 } else {
-                    $scope.show.addSubscriber = 'Hide';
+                    $scope.show.addSubscriber = 'TRAINING_PAGE_HIDE';
                 }
             }
         };
@@ -76,11 +74,12 @@
         };
 
         $scope.subscribe = function () {
+            //subscribeService($scope.training,$scope.subscribers);
             subscribeService($scope.training.id, $scope.feedback).then(function (response) {
                 getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                     $scope.subscribers = data.data;
                     $scope.training.isSubscribe = true;
-                    absentOutputService.prepare($scope.subscribers, $scope.training);
+                    absentService.prepare($scope.subscribers, $scope.training);
                 }, function (error) {
                     console.log(error);
                 });
@@ -104,7 +103,7 @@
         };
 
         $scope.acceptAttendanceChanges=function(){
-            attendanceSendService($scope.training.id);
+            absentService.sendAttendance($scope.training.id);
         };
 
         $scope.openModal=function(){
@@ -115,7 +114,7 @@
             unsubscribeService($scope.training.id).then(function (response) {
                 getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                     $scope.subscribers = data.data;
-                    absentOutputService.prepare($scope.subscribers, $scope.training);
+                    absentService.prepare($scope.subscribers, $scope.training);
                     $scope.training.isSubscribe = false;
                 }, function (error) {
                     console.log(error);
@@ -179,7 +178,7 @@
         }).then(function(id){
             getSubscribersService(id).then(function (data, status, headers, config) {
                 $scope.subscribers = data.data;
-                absentOutputService.prepare($scope.subscribers, $scope.training);
+                absentService.prepare($scope.subscribers, $scope.training);
             },function(reject){
                 console.error(reject);
             });

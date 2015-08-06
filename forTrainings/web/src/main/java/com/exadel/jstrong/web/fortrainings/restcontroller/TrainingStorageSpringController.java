@@ -82,6 +82,17 @@ public class TrainingStorageSpringController {
         return null;
     }
 
+    @RequestMapping(value = "/deleteTraining", method = RequestMethod.DELETE)
+    public void deleteTraining(HttpServletRequest request, HttpServletResponse response) {
+        int trainingId = Integer.parseInt(request.getParameter("trainingId"));
+        int userId = restService.getUserId(request);
+        if(tsci.isTrainer(userId, trainingId) || ec.isAdmin(userId)) {
+            tsci.deleteTraining(trainingId);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
     //TODO: add error logigng
     @RequestMapping(value = "/addsubscriber", method = RequestMethod.POST)
     public void addSubscriber(HttpServletRequest request, HttpServletResponse response) {
@@ -203,9 +214,9 @@ public class TrainingStorageSpringController {
     public void adminRequest(@RequestBody ApproveUI approveUI, HttpServletRequest request, HttpServletResponse response) {
         if (ec.isAdmin(restService.getUserId(request))) {
             if (APPROVE.compareToIgnoreCase(approveUI.getAdminAnswer()) == 0) {
-                tsci.approveTraining(approveUI.getNewTrainingId());
+                tsci.approveTraining(approveUI.getTransactionId());
             } else {
-                tsci.killTransaction(approveUI.getNewTrainingId());
+                tsci.killTransaction(approveUI.getTransactionId());
             }
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -302,6 +313,19 @@ public class TrainingStorageSpringController {
         int userId = restService.getUserId(request);
         if(ec.isAdmin(userId) || tsci.isTrainer(userId, trainingId)) {
             tsci.addExternalUser(externalUserUI, trainingId);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/approveNew", method = RequestMethod.PUT)
+    public void approveNew(@RequestBody ApproveUI approveUI, HttpServletRequest request, HttpServletResponse response) {
+        if (ec.isAdmin(restService.getUserId(request))) {
+            if (APPROVE.compareToIgnoreCase(approveUI.getAdminAnswer()) == 0) {
+                tsci.approveNewTraining(approveUI.getTrainingId());
+            } else {
+                tsci.deleteTraining(approveUI.getTrainingId());
+            }
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }

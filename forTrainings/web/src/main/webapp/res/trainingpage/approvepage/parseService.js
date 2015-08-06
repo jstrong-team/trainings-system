@@ -42,11 +42,14 @@ angular.module('approvePageModule').factory('parseService', [function () {
         console.log('______________________________________');
         return angular.copy(array);
     };
+
     service.get = function () {
         return angular.copy(array);
     };
+
     service.clear = function () {
         array = [];
     };
+
     return service;
 }]);
