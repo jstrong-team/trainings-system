@@ -17,65 +17,81 @@
     <div classs="row " style="padding-top: 50px">
         <div class="col-md-8 newWell textBlock">
             <div class="breakText">
-                <span>Annotation:<br></span>{{training.annotation}}
+                <span>{{ 'TRAINING_PAGE_ANNOTATION' | translate }}<br></span>{{training.annotation}}
             </div>
             <div class="breakText">
-                <span>Description:<br></span>{{training.description}}
+                <span>{{ 'TRAINING_PAGE_DESCRIPTION' | translate }}<br></span>{{training.description}}
             </div>
             <div class="breakText">
-                <span>Target audience:<br></span>{{training.target}}
+                <span>{{ 'TRAINING_PAGE_TARGET_AUDIENCE' | translate }}<br></span>{{training.target}}
             </div>
             <div class="breakText">
-                <span>Subscribers:</span>
+                <span>{{ 'TRAINING_PAGE_MAX_PARTICIPANTS' | translate }}<br></span>{{training.max_participants}}
             </div>
 
-            <table>
+            <div class="breakText" ng-show="subscribers.length > 0">
+                <span>{{ 'TRAINING_PAGE_PARTICIPANTS' | translate }}</span>
+            </div>
+            <table ng-show="subscribers.length > 0">
                 <tr>
                     <td class=>
                         <div tooltip-placement="top"
                              tooltip-popup-delay='3000'
                              tooltip="double click to leave absent reason"
-                             class="panel panel-default table-responsive scrollTable1">
+                             class="panel panel-default table-responsive  scrollTable1">
                             <table class="table table-bordered">
                                 <tr>
                                     <th>#</th>
                                 </tr>
-                                <tr ng-repeat="subscriber in subscribers">
-                                    <td >{{$index+1}}</td>
+                                <tr ng-repeat="subscriber in subscribers|filter:'Approve'">
+                                    <td>{{$index+1}}</td>
                                 </tr>
                             </table>
                         </div>
                     </td>
-                    <td >
+                    <td>
                         <div tooltip-placement="top"
                              tooltip-popup-delay='3000'
                              tooltip="double click to leave absent reason"
-                             class="panel panel-default table-responsive scrollTable2">
+                             class="panel panel-default table-responsive  scrollTable2">
                             <table class="table table-bordered">
                                 <tr>
-                                    <th> user</th>
-                                    <th>status</th>
-                                    <th ng-repeat="meet in training.meets">
+                                    <th> {{ 'TRAINING_PAGE_USER' | translate }}</th>
+                                    <th nowrap ng-repeat="meet in training.meets">
                                         {{$index+1}}
+                                        <!--{{training.dateTime[$index]}}-->
                                     </th>
                                 </tr>
-                                <tr ng-repeat="subscriber in subscribers">
+                                <tr ng-repeat="subscriber in subscribers|filter:'Approve'">
                                     <td nowrap>{{subscriber.name}}</td>
-                                    <td>{{subscriber.status}}</td>
                                     <td table-catch-directive ng-repeat="meet in training.meets"
                                         class="{{subscriber.id+' '+meet.id}}"
-                                        data-toggle="tooltip" title="{{subscriber.participants[$index].reason}}">{{subscriber.participants[$index].absent|attendanceFilter}}</td>
+                                        data-toggle="tooltip" title="{{subscriber.participants[$index].reason}}">
+                                        {{subscriber.participants[$index].absent|attendanceFilter}}
+                                    </td>
                                 </tr>
                             </table>
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        <div class=" buttonBottom" ng-show="subscribers.length > 0">
+                            <button type="button" class="btn  editDatesButton " ng-click="acceptAttendanceChanges()">
+                                {{ 'TRAINING_PAGE_SAVE_CHANGES' | translate }}</button>
+                        </div>
+                    </td>
+                </tr>
             </table>
-            <div class=" buttonBottom">
-                <button type="button" class="btn  editDatesButton " ng-click="acceptAttendanceChanges()">Save changes</button>
+
+
+
+            <div class="breakText " ng-show="feedbacks.length > 0">
+                <span>{{ 'TRAINING_PAGE_COMMENTS' | translate }}:</span>
             </div>
-            <span>Comments:</span>
-            <p></p>
             <div class="panel panel-default " ng-repeat="comment in feedbacks">
                 <table class="table ">
                     <tr>
@@ -86,31 +102,32 @@
                                         max="5">
                                 </rating>
                                 <div>
-                                    <label class="control-label ">Author:
-                                        {{comment.understand|yesNoFilter}}</label>
+                                    <label class="control-label ">{{ 'USER_FEEDBACK_AUTHOR' | translate }}:
+                                        {{comment.name}}</label>
                                 </div>
                                 <div>
-                                    <label class="control-label ">Understand all:
-                                        {{comment.understand|yesNoFilter}}</label>
+                                    <label class="control-label ">{{ 'USER_FEEDBACK_UNDERSTAND' | translate }}:
+                                        {{comment.understand|yesNoFilter| translate }}</label>
                                 </div>
                                 <div>
-                                    <label class="control-label ">Interested in:
-                                        {{comment.interested|yesNoFilter}}</label>
+                                    <label class="control-label ">{{ 'USER_FEEDBACK_INTERESTED' | translate }}:
+                                        {{comment.interested|yesNoFilter| translate }}</label>
                                 </div>
                                 <div>
-                                    <label class="control-label ">Like to learn from this coach:
-                                        {{comment.continueWithThisTrainer|yesNoFilter}}</label>
+                                    <label class="control-label ">{{ 'USER_FEEDBACK_LIKE' | translate }}:
+                                        {{comment.continueWithThisTrainer|yesNoFilter| translate}}</label>
                                 </div>
                                 <div>
-                                    <label class="control-label ">Learn something new:
-                                        {{comment.smthNew|yesNoFilter}}</label>
+                                    <label class="control-label ">{{ 'USER_FEEDBACK_NEW' | translate }}:
+                                        {{comment.smthNew|yesNoFilter| translate }}</label>
                                 </div>
                                 <div>
-                                    <label class="control-label ">Recommend to your colleagues to visit this training:
-                                        {{comment.recommend|yesNoFilter}}</label>
+                                    <label class="control-label ">{{ 'USER_FEEDBACK_RECOMMEND' | translate }}:
+                                        {{comment.recommend|yesNoFilter| translate }}</label>
                                 </div>
                                 <div>
-                                    <label class="control-label ">Other: {{comment.other}}</label>
+                                    <label class="control-label ">{{ 'USER_FEEDBACK_OTHER' | translate }}:
+                                        {{comment.other}}</label>
                                 </div>
                             </div>
                         </td>
@@ -119,57 +136,63 @@
             </div>
         </div>
 
-        <div class="col-md-3 newWell LeftTextBlock" >
-            <div class="breakText">
-                <span>Trainer:</span>{{training.trainerName}}
-            </div>
-            <div class="breakText">
-                <span>Time:</span>
-            </div>
-            <div class="breakText">
-                <span>Place:</span>{{training.place}}
-            </div>
 
+
+        <div class="col-md-3 newWell LeftTextBlock">
+            <div class="breakText">
+                <span>{{ 'TRAINING_PAGE_TRAINER' | translate }}:</span>{{training.trainerName}}
+            </div>
+            <div class="breakText">
+                <span>{{ 'TRAINING_PAGE_TIME' | translate }}:</span>
+            </div>
+            <div class="breakText">
+                <span>{{ 'TRAINING_PAGE_PLACE' | translate }}:</span>{{training.place}}
+            </div>
             <div class="row buttons">
                 <div class="col-md-6" ng-show="training.isSubscribe">
                     <button type="button"
                             class="btn editDatesButton "
                             ng-click="openModal()">
-                        Leave feedback
+                        {{ 'TRAINING_PAGE_LEAVE_FEEDBACK' | translate }}
                     </button>
                 </div>
-                <div class="col-md-6" ng-show="training.isSubscribe" >
+                <div class="col-md-6" ng-show="training.isSubscribe">
                     <button type="button"
                             class="btn btn-danger "
                             ng-click="unsubscribe()">
-                        unsubscribe
+                        {{ 'TRAINING_PAGE_UNSUBSCRIBE' | translate }}
                     </button>
                 </div>
-                <div class="col-md-6 " ng-show="!training.isSubscribe" >
+                <div class="col-md-6 " ng-show="!training.isSubscribe">
                     <button type="button"
                             class="btn editDatesButton "
                             ng-click="subscribe()">
-                        subscribe
+                        {{ 'TRAINING_PAGE_SUBSCRIBE' | translate }}
                     </button>
                 </div>
             </div>
             <div class="row buttons">
                 <div class="col-md-6 ">
-                    <button type="button" class="btn  editDatesButton" ng-click="editTraining()">Edit training</button>
+                    <button type="button" class="btn  editDatesButton" ng-click="editTraining()">
+                        {{ 'TRAINING_PAGE_EDIT_TRAINING' | translate }}
+                    </button>
                 </div>
                 <div class="col-md-6 ">
-                    <button type="button" class="btn btn-danger " ng-click="subscribe()">Remove training</button>
+                    <button type="button" class="btn btn-danger " ng-click="">
+                        {{ 'TRAINING_PAGE_REMOVE_TRAINING' | translate }}
+                    </button>
                 </div>
             </div>
             <div class="row buttons">
                 <div class="col-md-12">
                     <button class="btn btn-default editDatesButton "
-                            ng-click="openTrainerModal()">Feedback on the subscriber</button>
+                            ng-click="openTrainerModal()">{{ 'TRAINING_PAGE_FEEDBACK_ON_USER' | translate }}
+                    </button>
                 </div>
-                <div class="col-md-12"  ng-cloak>
+                <div class="col-md-12" ng-cloak>
                     <button class="btn editDatesButton"
                             ng-click="changeCollapse.dates()">
-                        {{show.dates}} dates
+                        {{show.dates|translate}} {{ 'TRAINING_PAGE_DATES' | translate }}
                     </button>
                 </div>
                 <div class="dateTime">
@@ -177,8 +200,8 @@
                         <table class="table">
                             <tr>
                                 <th>#</th>
-                                <th>date</th>
-                                <th>time</th>
+                                <th>{{ 'TRAINING_PAGE_DATE' | translate }}</th>
+                                <th>{{ 'TRAINING_PAGE_TIME' | translate }}</th>
                             </tr>
                             <tr ng-repeat="curTraining in training.meets">
                                 <td>
@@ -200,19 +223,19 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-md-12 buttons"  ng-cloak>
+                <div class="col-md-12 buttons" ng-cloak ng-show="subscribers.length > 0">
                     <button class="btn editDatesButton"
                             ng-click="changeCollapse.subscribers()">
-                        {{show.subscribers}} subscribers
+                        {{show.subscribers|translate}} {{ 'TRAINING_PAGE_SUBSCRIBERS' | translate }}
                     </button>
                 </div>
-                <div class="col-md-12 dateTime">
+                <div class="col-md-12 dateTime" ng-show="subscribers.length > 0">
                     <div collapse="isCollapsed.subscribers">
                         <table class="table subscribersTable">
                             <tr>
                                 <th>#</th>
-                                <th>subscriber</th>
-                                <th>state</th>
+                                <th>{{ 'TRAINING_PAGE_SUBSCRIBER' | translate }}</th>
+                                <th>{{ 'TRAINING_PAGE_STATE' | translate }}</th>
                             </tr>
                             <tr ng-repeat="subscriber in subscribers">
                                 <td>
@@ -231,27 +254,31 @@
                         </table>
                         <button type="text"
                                 class="btn btn-default buttonBottom"
-                                ng-click="changeCollapse.addSubscriber()">Add subscriber</button>
+                                ng-click="changeCollapse.addSubscriber()">
+                            {{ 'ADMIN_ADD_SUBSCRIBER_OPEN' | translate }}
+                        </button>
                         <input type="text"
                                ng-model="foreignUser.name"
-                               placeholder="name"
+                               placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_NAME' | translate }}"
                                collapse="isCollapsed.addSubscriber"
                                class="buttonBottom form-control"/>
                         <input type="email"
-                               ng-model="foreignUser.mail"
-                               placeholder="E-mail"
+                               ng-model="foreignUser.email"
+                               placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_EMAIL' | translate }}"
                                collapse="isCollapsed.addSubscriber"
                                class="buttonBottom form-control"/>
                         <input type="tel"
                                ng-model="foreignUser.phone"
-                               placeholder="Phone number"
+                               placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_PHONE' | translate }}"
                                collapse="isCollapsed.addSubscriber"
                                class="buttonBottom form-control"/>
                         <button type="text"
                                 ng-click="addForeignUser()"
                                 ng-cloak
                                 collapse="isCollapsed.addSubscriber"
-                                class="btn btn-default buttonBottom">Save subscriber</button>
+                                class="btn btn-default buttonBottom">
+                            {{ 'ADMIN_ADD_SUBSCRIBER_SAVE' | translate }}
+                        </button>
                     </div>
                 </div>
             </div>

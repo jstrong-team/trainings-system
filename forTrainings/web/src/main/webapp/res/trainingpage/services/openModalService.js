@@ -4,7 +4,6 @@ angular.module('trainingPageModule').factory('openModalService', ['$http','$moda
             animation: true,
             templateUrl: '/res/trainingpage/user/feedbackModal.html',
             controller: 'ModalInstanceCtrl',
-            size: 'lg',
             resolve: {
                 feedbacks: function () {
                     return {

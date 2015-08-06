@@ -10,7 +10,7 @@
         'unsubscribeService',
         'openModalService',
         'subscribeService',
-        'absentOutputService'
+        'absentService'
     ];
     var controller = function ($scope,
                                getTrainingInfo,
@@ -22,7 +22,7 @@
                                unsubscribeService,
                                openModalService,
                                subscribeService,
-                               absentOutputService) {
+                               absentService) {
 
         $scope.isCollapsed = {
             dates: true,
@@ -30,8 +30,8 @@
         };
 
         $scope.show = {
-            subscribers: 'Hide',
-            dates: 'Show'
+            subscribers: 'TRAINING_PAGE_HIDE',
+            dates: 'TRAINING_PAGE_SHOW'
         };
 
 
@@ -39,17 +39,17 @@
             dates: function () {
                 $scope.isCollapsed.dates = !$scope.isCollapsed.dates;
                 if ($scope.isCollapsed.dates) {
-                    $scope.show.dates = 'Show';
+                    $scope.show.dates ='TRAINING_PAGE_SHOW';
                 } else {
-                    $scope.show.dates = 'Hide';
+                    $scope.show.dates ='TRAINING_PAGE_HIDE';
                 }
             },
             subscribers: function () {
                 $scope.isCollapsed.subscribers = !$scope.isCollapsed.subscribers;
                 if ($scope.isCollapsed.subscribers) {
-                    $scope.show.subscribers = 'Show';
+                    $scope.show.subscribers = 'TRAINING_PAGE_SHOW';
                 } else {
-                    $scope.show.subscribers = 'Hide';
+                    $scope.show.subscribers = 'TRAINING_PAGE_HIDE';
                 }
             }
         };
@@ -74,7 +74,7 @@
                 getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                     $scope.subscribers = data.data;
                     $scope.training.isSubscribe = true;
-                    absentOutputService.prepare($scope.subscribers, $scope.training);
+                    absentService.prepare($scope.subscribers, $scope.training);
                 }, function (error) {
                     console.log(error);
                 });
@@ -89,7 +89,7 @@
                 getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                     $scope.subscribers = data.data;
                     $scope.training.isSubscribe = false;
-                    absentOutputService.prepare($scope.subscribers, $scope.training);
+                    absentService.prepare($scope.subscribers, $scope.training);
                 }, function (error) {
                     console.log(error);
                 });
@@ -110,7 +110,7 @@
             }
             getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                 $scope.subscribers = data.data;
-                absentOutputService.prepare($scope.subscribers, $scope.training);
+                absentService.prepare($scope.subscribers, $scope.training);
             }, function (error) {
                 console.log(error);
             });

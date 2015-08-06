@@ -17,22 +17,22 @@
     <div classs="row " style="padding-top: 50px">
         <div class="col-md-8 newWell textBlock">
             <div class="breakText">
-                <span>Annotation:<br></span>{{training.annotation}}
+                <span>{{ 'TRAINING_PAGE_ANNOTATION' | translate }}<br></span>{{training.annotation}}
             </div>
             <div class="breakText">
-                <span>Description:<br></span>{{training.description}}
+                <span>{{ 'TRAINING_PAGE_DESCRIPTION' | translate }}<br></span>{{training.description}}
             </div>
             <div class="breakText">
-                <span>Target audience:<br></span>{{training.target}}
+                <span>{{ 'TRAINING_PAGE_TARGET_AUDIENCE' | translate }}<br></span>{{training.target}}
             </div>
             <div class="breakText">
-                <span>Max particiants:<br></span>{{training.max_participants}}
+                <span>{{ 'TRAINING_PAGE_MAX_PARTICIPANTS' | translate }}<br></span>{{training.max_participants}}
             </div>
             <div class="breakText">
-                <span>Participants:</span>
+                <span>{{ 'TRAINING_PAGE_PARTICIPANTS' | translate }}</span>
             </div>
 
-            <table>
+            <table ng-show="subscribers.length > 0">
                 <tr>
                     <td class=>
                         <div tooltip-placement="top"
@@ -56,7 +56,7 @@
                              class="panel panel-default table-responsive scrollTable2">
                             <table class="table table-bordered">
                                 <tr>
-                                    <th> user</th>
+                                    <th>{{ 'TRAINING_PAGE_USER' | translate }}</th>
                                     <th ng-repeat="meet in training.meets">
                                         {{$index+1}}
                                     </th>
@@ -64,7 +64,8 @@
                                 <tr ng-repeat="subscriber in subscribers|filter:'Approve'">
                                     <td nowrap>{{subscriber.name}}</td>
                                     <td ng-repeat="meet in training.meets"
-                                        title="{{subscriber.participants[$index].reason}}">{{subscriber.participants[$index].absent|attendanceFilter}}</td>
+                                        title="{{subscriber.participants[$index].reason}}">
+                                        {{subscriber.participants[$index].absent|attendanceFilter}}</td>
                                 </tr>
                             </table>
                         </div>
@@ -78,13 +79,13 @@
 
         <div class="col-md-3 newWell LeftTextBlock" >
             <div class="breakText">
-                <span>Trainer:</span>{{training.trainerName}}
+                <span>{{ 'TRAINING_PAGE_TRAINER' | translate }}:</span>{{training.trainerName}}
             </div>
             <div class="breakText">
-                <span>Time:</span>
+                <span>{{ 'TRAINING_PAGE_TIME' | translate }}:</span>
             </div>
             <div class="breakText">
-                <span>Place:</span>{{training.place}}
+                <span>{{ 'TRAINING_PAGE_PLACE' | translate }}:</span>{{training.place}}
             </div>
 
             <div class="row buttons">
@@ -92,21 +93,21 @@
                     <button type="button"
                             class="btn editDatesButton "
                             ng-click="openModal()">
-                        Leave feedback
+                        {{ 'TRAINING_PAGE_LEAVE_FEEDBACK' | translate }}
                     </button>
                 </div>
                 <div class="col-md-6" ng-show="training.isSubscribe" >
                     <button type="button"
                             class="btn btn-danger "
                             ng-click="unsubscribe()">
-                        unsubscribe
+                        {{ 'TRAINING_PAGE_UNSUBSCRIBE' | translate }}
                     </button>
                 </div>
                 <div class="col-md-6 " ng-show="!training.isSubscribe" >
                     <button type="button"
                             class="btn editDatesButton "
                             ng-click="subscribe()">
-                        subscribe
+                        {{ 'TRAINING_PAGE_SUBSCRIBE' | translate }}
                     </button>
                 </div>
             </div>
@@ -115,7 +116,7 @@
                 <div class="col-md-12"  ng-cloak>
                     <button class="btn editDatesButton"
                             ng-click="changeCollapse.dates()">
-                        {{show.dates}} dates
+                        {{show.dates|translate}} {{ 'TRAINING_PAGE_DATES' | translate }}
                     </button>
                 </div>
                 <div class="dateTime">
@@ -123,8 +124,8 @@
                         <table class="table">
                             <tr>
                                 <th>#</th>
-                                <th>date</th>
-                                <th>time</th>
+                                <th>{{ 'TRAINING_PAGE_DATE' | translate }}</th>
+                                <th>{{ 'TRAINING_PAGE_TIME' | translate }}</th>
                             </tr>
                             <tr ng-repeat="curTraining in training.meets">
                                 <td>
@@ -147,19 +148,19 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 buttons"  ng-cloak>
+                <div class="col-md-12 buttons"  ng-cloak ng-show="subscribers.length > 0">
                     <button class="btn editDatesButton"
                             ng-click="changeCollapse.subscribers()">
-                        {{show.subscribers}} subscribers
+                        {{show.subscribers|translate}} {{ 'TRAINING_PAGE_SUBSCRIBERS' | translate }}
                     </button>
                 </div>
-                <div class="col-md-12 dateTime">
+                <div class="col-md-12 dateTime" ng-show="subscribers.length > 0">
                     <div collapse="isCollapsed.subscribers">
                         <table class="table">
                             <tr>
                                 <th>#</th>
-                                <th>subscriber</th>
-                                <th>state</th>
+                                <th>{{ 'TRAINING_PAGE_SUBSCRIBER' | translate }}</th>
+                                <th>{{ 'TRAINING_PAGE_STATE' | translate }}</th>
                             </tr>
                             <tr ng-repeat="subscriber in subscribers">
                                 <td>

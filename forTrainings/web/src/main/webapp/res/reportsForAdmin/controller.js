@@ -113,11 +113,9 @@
             '&dateFrom=' + $scope.fromDateTime + '&dateTo=' + $scope.toDateTime).then(
                 function(data){
 
-                    $scope.initialState = true;
-
                     $scope.reportInfo = data.data;
 
-                    if ($scope.reportInfo.length !== 0) {
+                    if ($scope.reportInfo.trainings.length !== 0) {
                         $scope.initialState = true;
                         $scope.noReportFound = null;
                     } else {
