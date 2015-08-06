@@ -289,7 +289,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public List<Training> getTrainingsByUser(int userId) {
         try{
-            return em.createNativeQuery("SELECT * FROM training WHERE id IN (SELECT training_id FROM subscribe WHERE employee_id = :userId)", Training.class).setParameter("userId", userId).getResultList();
+            return em.createNativeQuery("SELECT * FROM training WHERE id IN (SELECT training_id FROM subscribe WHERE employee_id = :userId AND status <> 'Deleted')", Training.class).setParameter("userId", userId).getResultList();
         }catch(Throwable e){
             logger.warn(e.toString());
             return new ArrayList<>();
@@ -299,7 +299,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public List<Training> getSubscribedTrainings() {
         try{
-            return em.createNativeQuery("SELECT * FROM training WHERE (SELECT COUNT(*) FROM subscribe WHERE training_id = training.id)>0", Training.class).getResultList();
+            return em.createNativeQuery("SELECT * FROM training WHERE (SELECT COUNT(*) FROM subscribe WHERE training_id = training.id AND status <> 'Deleted')>0", Training.class).getResultList();
         }catch(Throwable e){
             logger.warn(e.toString());
             return new ArrayList<>();
@@ -309,7 +309,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public Training getTrainingIfSubscribed(int id) {
         try{
-            return (Training)em.createNativeQuery("SELECT * FROM training WHERE id = :trainingId AND (SELECT COUNT(*) FROM subscribe WHERE training_id = training.id)>0", Training.class).setParameter("trainingId", id).getSingleResult();
+            return (Training)em.createNativeQuery("SELECT * FROM training WHERE id = :trainingId AND (SELECT COUNT(*) FROM subscribe WHERE training_id = training.id AND status <> 'Deleted')>0", Training.class).setParameter("trainingId", id).getSingleResult();
         }catch(Throwable e){
             logger.warn(e.toString());
             return null;
@@ -319,7 +319,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Override
     public Training getTrainingIfSubscribedByUser(int trainingId, int userId) {
         try{
-            return (Training)em.createNativeQuery("SELECT * FROM training WHERE id = :trainingId AND (SELECT COUNT(*) FROM subscribe WHERE training_id = training.id AND employee_id = :userId)>0", Training.class).setParameter("trainingId", trainingId).setParameter("userId", userId).getSingleResult();
+            return (Training)em.createNativeQuery("SELECT * FROM training WHERE id = :trainingId AND (SELECT COUNT(*) FROM subscribe WHERE training_id = training.id AND employee_id = :userId AND status <> 'Deleted')>0", Training.class).setParameter("trainingId", trainingId).setParameter("userId", userId).getSingleResult();
         }catch(Throwable e){
             logger.warn(e.toString());
             return null;

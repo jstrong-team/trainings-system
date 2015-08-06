@@ -7,28 +7,11 @@ import java.util.List;
  */
 public class UserReportUI {
 
-    private int trainingId;
-    private String trainingName;
     private String name;
+    private Integer absentCount;
     private List<MeetReportUI> meets;
     private List<FeedbackReportUI> positiveFeedbacks;
     private List<FeedbackReportUI> negativeFeedbacks;
-
-    public int getTrainingId() {
-        return trainingId;
-    }
-
-    public void setTrainingId(int trainingId) {
-        this.trainingId = trainingId;
-    }
-
-    public String getTrainingName() {
-        return trainingName;
-    }
-
-    public void setTrainingName(String trainingName) {
-        this.trainingName = trainingName;
-    }
 
     public List<MeetReportUI> getMeets() {
         return meets;
@@ -60,5 +43,13 @@ public class UserReportUI {
 
     public void setNegativeFeedbacks(List<FeedbackReportUI> negativeFeedbacks) {
         this.negativeFeedbacks = negativeFeedbacks;
+    }
+
+    public Integer getAbsentCount() {
+        return absentCount;
+    }
+
+    public void setAbsentCount(Integer absentCount) {
+        this.absentCount = absentCount;
     }
 }

@@ -82,7 +82,6 @@ public class ReportControllerImpl implements ReportController {
         TrainingReportUI reportTraining;
         for (Training t: trainings){
             reportTraining = new TrainingReportUI();
-            reportTraining.setId(t.getId());
             reportTraining.setName(t.getName());
             reportTrainings.add(reportTraining);
         }
@@ -117,11 +116,17 @@ public class ReportControllerImpl implements ReportController {
     private UserReportUI getUserReport(Employee employee, TrainingReportUI training, Date dateFrom, Date dateTo){
         UserReportUI userReport = new UserReportUI();
         userReport.setName(employee.getName());
-        userReport.setTrainingId(training.getId());
-        userReport.setTrainingName(training.getName());
 
         List<Report> dbReports = reportDAO.getReportForEmployee(employee.getId(), training.getId(), dateFrom, dateTo);
-        userReport.setMeets(getReportMeets(dbReports));
+        List<MeetReportUI> meets = getReportMeets(dbReports);
+        int count = 0;
+        for (MeetReportUI meet: meets){
+            if (meet.isAbsent()){
+                count++;
+            }
+        }
+        userReport.setMeets(meets);
+        userReport.setAbsentCount(count);
 
         List<TrainerFeedback> feedbacks = trainerFeedbackDAO.getTrainingFeedbacks(employee.getId(), training.getId());
         List<TrainerFeedback> positiveFeedbacks = new ArrayList<>();
