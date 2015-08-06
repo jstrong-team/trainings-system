@@ -21,7 +21,8 @@
     margin-bottom: 10px;
 }
 
-.historyDate {
+.historyDate, .actualDate {
     float: right;
     padding-left: 10px;
+    padding-right: 10px;
 }
