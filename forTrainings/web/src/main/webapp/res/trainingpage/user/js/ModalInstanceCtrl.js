@@ -11,4 +11,8 @@ angular.module('trainingPageModule').controller('ModalInstanceCtrl', ['$scope', 
         });
     };
 
+    $scope.cancel = function () {
+        $modalInstance.dismiss();
+    };
+
 }]);

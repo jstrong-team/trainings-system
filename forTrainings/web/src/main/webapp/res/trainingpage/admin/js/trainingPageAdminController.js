@@ -11,10 +11,9 @@
         'unsubscribeService',
         '$route',
         'subscribeService',
-        'attendanceSendService',
         '$modal',
         '$http',
-        'absentOutputService'
+        'absentService'
     ];
     var controller =function ($scope,
                               $q,
@@ -27,10 +26,9 @@
                               unsubscribeService,
                               $route,
                               subscribeService,
-                              attendanceSendService,
                               $modal,
                               $http,
-                              absentOutputService) {
+                              absentService) {
 
         $scope.isCollapsed = {
             dates: true,
@@ -76,11 +74,12 @@
         };
 
         $scope.subscribe = function () {
+            //subscribeService($scope.training,$scope.subscribers);
             subscribeService($scope.training.id, $scope.feedback).then(function (response) {
                 getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                     $scope.subscribers = data.data;
                     $scope.training.isSubscribe = true;
-                    absentOutputService.prepare($scope.subscribers, $scope.training);
+                    absentService.prepare($scope.subscribers, $scope.training);
                 }, function (error) {
                     console.log(error);
                 });
@@ -104,7 +103,7 @@
         };
 
         $scope.acceptAttendanceChanges=function(){
-            attendanceSendService($scope.training.id);
+            absentService.sendAttendance($scope.training.id);
         };
 
         $scope.openModal=function(){
@@ -115,7 +114,7 @@
             unsubscribeService($scope.training.id).then(function (response) {
                 getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                     $scope.subscribers = data.data;
-                    absentOutputService.prepare($scope.subscribers, $scope.training);
+                    absentService.prepare($scope.subscribers, $scope.training);
                     $scope.training.isSubscribe = false;
                 }, function (error) {
                     console.log(error);
@@ -179,7 +178,7 @@
         }).then(function(id){
             getSubscribersService(id).then(function (data, status, headers, config) {
                 $scope.subscribers = data.data;
-                absentOutputService.prepare($scope.subscribers, $scope.training);
+                absentService.prepare($scope.subscribers, $scope.training);
             },function(reject){
                 console.error(reject);
             });

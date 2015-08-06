@@ -3,57 +3,69 @@
         <div class=" textBlock" >
             <form ng-submit = "submit()">
                 <div>
-                    <label class="control-label ">Did you understand all? </label>
+                    <label class="control-label ">{{ 'USER_FEEDBACK_UNDERSTAND' | translate }}?</label>
                     <div class="radio">
-                        <label><input type="radio" value="true" name="understand" ng-model="feedback.understand">yes</label>
+                        <label><input type="radio" value="true"
+                                      name="understand"
+                                      ng-model="feedback.understand">
+                            {{ 'USER_FEEDBACK_YES' | translate }}</label>
                     </div>
                     <div class="radio">
-                        <label><input type="radio" value="false" name="understand" ng-model="feedback.understand">no</label>
+                        <label><input type="radio" value="false" name="understand" ng-model="feedback.understand">
+                            {{ 'USER_FEEDBACK_NO' | translate }}</label>
                     </div>
                     <p></p>
                 </div>
                 <div >
-                    <label class="control-label ">whether you're interested in?</label>
+                    <label class="control-label ">{{ 'USER_FEEDBACK_INTERESTED' | translate }}?</label>
                     <div class="radio">
-                        <label><input type="radio" value="true" name="interested" ng-model="feedback.interested">yes</label>
+                        <label><input type="radio" value="true" name="interested" ng-model="feedback.interested">
+                            {{ 'USER_FEEDBACK_YES' | translate }}</label></label>
                     </div>
                     <div class="radio">
-                        <label><input type="radio" value="false" name="interested" ng-model="feedback.interested">no</label>
-                    </div>
-                    <p></p>
-                </div>
-                <div>
-                    <label class="control-label ">Would you like to learn from this coach?</label>
-                    <div class="radio">
-                        <label><input type="radio" value="true" name="continueWithThisTrainer" ng-model="feedback.continueWithThisTrainer">yes</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" value="false" name="continueWithThisTrainer" ng-model="feedback.continueWithThisTrainer">no</label>
+                        <label><input type="radio" value="false" name="interested" ng-model="feedback.interested">
+                            {{ 'USER_FEEDBACK_NO' | translate }}</label>
                     </div>
                     <p></p>
                 </div>
                 <div>
-                    <label class="control-label ">Did you learn something new?</label>
+                    <label class="control-label ">{{ 'USER_FEEDBACK_LIKE' | translate }}?</label>
                     <div class="radio">
-                        <label><input type="radio" value="true" name="smthNew" ng-model="feedback.smthNew">yes</label>
+                        <label><input type="radio" value="true" name="continueWithThisTrainer" ng-model="feedback.continueWithThisTrainer">
+                            {{ 'USER_FEEDBACK_YES' | translate }}</label></label>
                     </div>
                     <div class="radio">
-                        <label><input type="radio" value="false" name="smthNew" ng-model="feedback.smthNew">no</label>
-                    </div>
-                    <p></p>
-                </div>
-                <div>
-                    <label class="control-label ">Would you recommend to your colleagues to visit this training?</label>
-                    <div class="radio">
-                        <label><input type="radio" value="true" name="recommend" ng-model="feedback.recommend">yes</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" value="false" name="recommend" ng-model="feedback.recommend">no</label>
+                        <label><input type="radio" value="false" name="continueWithThisTrainer" ng-model="feedback.continueWithThisTrainer">
+                            {{ 'USER_FEEDBACK_NO' | translate }}</label>
                     </div>
                     <p></p>
                 </div>
                 <div>
-                    <label class="control-label ">how effectively the last session (Rate from 1 to 5)?</label>
+                    <label class="control-label ">{{ 'USER_FEEDBACK_NEW' | translate }}?</label>
+                    <div class="radio">
+                        <label><input type="radio" value="true" name="smthNew" ng-model="feedback.smthNew">
+                            {{ 'USER_FEEDBACK_YES' | translate }}</label></label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" value="false" name="smthNew" ng-model="feedback.smthNew">
+                            {{ 'USER_FEEDBACK_NO' | translate }}</label>
+                    </div>
+                    <p></p>
+                </div>
+                <div>
+                    <label class="control-label ">{{ 'USER_FEEDBACK_RECOMMEND' | translate }}?</label>
+                    <div class="radio">
+                        <label><input type="radio" value="true" name="recommend" ng-model="feedback.recommend">
+                            {{ 'USER_FEEDBACK_YES' | translate }}</label></label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" value="false" name="recommend" ng-model="feedback.recommend">
+                            {{ 'USER_FEEDBACK_NO' | translate }}</label>
+                    </div>
+                    <p></p>
+                </div>
+                <div>
+                    <label class="control-label ">{{ 'USER_FEEDBACK_RATE' | translate }}?</label>
                     <div ng-controller="ratingController">
                         <span >
                             <rating ng-model="feedback.rate"
@@ -68,12 +80,14 @@
                     <p></p>
                 </div>
                 <div>
-                    <label class="control-label ">Other:</label><textarea type="text" rows="3"
+                    <label class="control-label ">{{ 'USER_FEEDBACK_OTHER' | translate }}:</label><textarea type="text" rows="3"
                                                                           class="form-control"
                                                                           ng-model="feedback.other" ></textarea><p></p>
                 </div>
-                <button type="submit" class="btn btn-primary ">Send feedback</button>
-                <p></p>
+                <div class="trainerFedbackInputDiv">
+                    <button type="submit" class="btn btn-primary ">{{ 'USER_FEEDBACK_SEND' | translate }}</button>
+                    <input type="button" value="{{ 'TRAINER_FEEDBACK_CANCEL' | translate }}" ng-click="cancel()" class="btn btn-danger ">
+                </div><br>
             </form>
         </div>
     </div>
