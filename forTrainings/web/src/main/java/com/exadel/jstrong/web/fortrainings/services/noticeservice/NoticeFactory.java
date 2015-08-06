@@ -130,7 +130,7 @@ public class NoticeFactory {
     public static Notice getNotApprovedNewTrainingNotice(Training training){
         try {
             Notice notice = new Notice();
-            notice.setTheme("Approve training");
+            notice.setTheme("Approve create training");
             notice.setText("Need approve of the new training \"" + training.getName() + "\"");
             notice.setStatus("warning");
             notice.setSenderId(training.getTrainer_id());
@@ -146,7 +146,7 @@ public class NoticeFactory {
     public static Notice getNotApprovedEditedTrainingNotice(Training training, int senderId, int transactionId) {
         try {
             Notice notice = new Notice();
-            notice.setTheme("Approve training");
+            notice.setTheme("Approve edit training");
             notice.setText("Need approve changes in training \"" + training.getName() + "\"");
             notice.setStatus("warning");
             notice.setSenderId(senderId);
