@@ -21,6 +21,7 @@ public interface TrainingDAO extends GenericDAO<Training>{
     List<Subscribe> getSubscribers(int trainingId);
     void editTraining(Training training);
     int updateTraining(Training training);
+    void deleteTraining(int trainingId);
     String getTrainingName(int trainingId);
     List<Participant> getAllBySubscribeId(int subscribeId);
     void changeStatus(int trainingId);
@@ -29,4 +30,7 @@ public interface TrainingDAO extends GenericDAO<Training>{
     List<Training> getApprovedTrainings();
     List<Training> getTrainingsByUser(int userId);
     int updateOldTraining(Training training);
+    List<Training> getSubscribedTrainings();
+    Training getTrainingIfSubscribed(int id);
+    Training getTrainingIfSubscribedByUser(int trainingId, int userId);
 }
