@@ -21,7 +21,7 @@ public class ReportDAOImpl extends BaseDAO<Report> implements ReportDAO {
     @Override
     public List<Report> getReportForEmployee(int userId, int trainingId, Date dateFrom, Date dateTo) {
         try {
-            if (dateFrom != null && dateTo != null) {
+            if (dateFrom == null && dateTo == null) {
                 return em.createNativeQuery("SELECT * FROM report WHERE subscribe_id IN (SELECT id FROM subscribe WHERE employee_id = :userId AND training_id = :trainingId)", Report.class).setParameter("userId", userId).setParameter("trainingId", trainingId).getResultList();
             }
             if (dateFrom != null) {
