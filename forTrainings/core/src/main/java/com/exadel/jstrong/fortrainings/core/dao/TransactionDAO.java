@@ -13,5 +13,7 @@ public interface TransactionDAO extends GenericDAO<Transaction> {
     Transaction getTransactionById(int id);
     List<Transaction> getTransactionsByParent(int parentId);
     boolean killTransaction(int transactionId);
+    void deleteTransaction(List<Transaction> transactions);
+    List<Transaction> getAllTransactionsById(int transactionId);
 
 }

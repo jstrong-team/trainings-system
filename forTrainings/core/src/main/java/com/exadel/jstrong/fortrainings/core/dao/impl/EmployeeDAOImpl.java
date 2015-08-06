@@ -84,7 +84,6 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
     @Override
     public List<Employee> getAdmins() {
         Role admin = roleDAO.getRoleByName("admin");
-                //em.find(Role.class, 1);
         return admin.getEmployees();
     }
 

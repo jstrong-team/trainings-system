@@ -2,9 +2,9 @@ angular.module('trainingPageTrainerModule').filter('yesNoFilter', function () {
     return function (input) {
         input = input || '';
         if (input == true) {
-            return 'yes';
+            return 'USER_FEEDBACK_YES';
         } else {
-            return 'no';
+            return 'USER_FEEDBACK_NO';
         }
-    }
+    };
 });

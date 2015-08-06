@@ -3,6 +3,7 @@ package com.exadel.jstrong.fortrainings.core.dao.impl;
 import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TransactionDAO;
 import com.exadel.jstrong.fortrainings.core.model.Meet;
+import com.exadel.jstrong.fortrainings.core.model.Participant;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.fortrainings.core.model.Transaction;
 import org.apache.log4j.Logger;
@@ -13,7 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,7 +61,11 @@ public class TransactionDAOImpl extends BaseDAO<Transaction> implements Transact
     @Override
     public boolean killTransaction(int transactionId) {
         try {
-            Query query = em.createNativeQuery("delete from transaction where id=:tId or parent_id=:tId").setParameter("tId", transactionId);
+            List<Integer> deleteIds = (List<Integer>) em.createNativeQuery("select id from transaction where id=:tId or parent_id=:tId")
+                    .setParameter("tId", transactionId)
+                    .getResultList();
+
+            Query query = em.createNativeQuery("delete from transaction where id in :list").setParameter("list", deleteIds);
             int res = query.executeUpdate();
             if (res == 0) {
                 logger.info("No trainings to change");
@@ -69,5 +76,28 @@ public class TransactionDAOImpl extends BaseDAO<Transaction> implements Transact
             logger.warn("Throwable exception.");
         }
         return false;
+    }
+
+    public List<Transaction> getAllTransactionsById(int transactionId) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Transaction> query = cb.createQuery(Transaction.class);
+            Root<Transaction> root = query.from(Transaction.class);
+
+            Predicate p1 = root.get("id").in(transactionId);
+            Predicate p2 = root.get("parentId").in(transactionId);
+            query.where(em.getCriteriaBuilder().or(p1, p2));
+            List<Transaction> result = executeQuery(query);
+            return result;
+        } catch(Throwable e){
+            logger.info("Nothing found!");
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public void deleteTransaction(List<Transaction> transactions) {
+        deleteAll(transactions);
     }
 }

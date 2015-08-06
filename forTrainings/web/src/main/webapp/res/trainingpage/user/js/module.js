@@ -7,6 +7,27 @@ angular.module('trainingPageModule', []).config(['$routeProvider', function ($ro
                 var def = $q.defer();
                 var id=$route.current.params.trainingId;
                 getRole(id).then(function (data, status, headers, config){
+
+                    var role = data.data.role;
+                    switch (role) {
+                        case 'user':
+                            getTrainingData(id).then(function (data, status, headers, config) {
+                                def.resolve(data);
+                            }, function (error) {
+                                console.error(error);
+                            });
+                            break;
+                        case 'trainer':
+                            $location.url('/ui/trainingPage/trainer/' + id);
+                            break;
+                        case 'admin':
+                            $location.url('/ui/trainingPage/admin/' + id);
+                            break;
+                        default:
+                            $location.url('/ui/trainings');
+                    }
+
+
                     if (data.data.role === 'user') {
                         getTrainingData(id).then(function (data, status, headers, config) {
                             def.resolve(data);
