@@ -14,6 +14,7 @@ public class NoticeUI {
 
     private Integer id;
     private Integer senderId;
+    private String senderName;
     private Integer transactionId;
     private String theme;
     private String text;
@@ -76,5 +77,13 @@ public class NoticeUI {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
     }
 }

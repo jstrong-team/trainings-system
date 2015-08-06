@@ -173,29 +173,12 @@ public class TrainingStorageSpringController {
         return role;
     }
 
-    //fix!!! --> you can use //FIXME
-    @RequestMapping(value = "/editFeedback", method = RequestMethod.PUT)
-    public void editFeedback(@RequestBody EmployeeFeedback employeeFeedback, HttpServletRequest request, HttpServletResponse response) {
-        int trainingId = Integer.parseInt(request.getParameter("id"));
-        int userId = restService.getUserId(request);
-        employeeFeedback.setEmployeeId(userId);
-        employeeFeedback.setTrainingId(trainingId);
-        Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        employeeFeedback.setAddDate(date);
-
-        if (tsci.check(userId, employeeFeedback.getTrainingId())) {
-            tsci.addEmployeeFeedback(employeeFeedback);
-        } else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
-    }
 
     @RequestMapping(value = "/removeSubscriber", method = RequestMethod.DELETE)
     public void removeSubscriber(HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("id"));
         int userId = restService.getUserId(request);
-        if (!tsci.deleteSuscriber(userId, trainingId)) {
+        if (!tsci.deleteSubscriber(userId, trainingId)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
@@ -211,8 +194,8 @@ public class TrainingStorageSpringController {
     @RequestMapping(value = "/editTraining", method = RequestMethod.PUT)
     public void editTraining(@RequestBody Training training, HttpServletRequest request, HttpServletResponse response) {
         int oldTrainingId = Integer.parseInt(request.getParameter("id"));
-
-        tsci.editTraining(oldTrainingId, training);
+        int userId = restService.getUserId(request);
+        tsci.editTraining(oldTrainingId, training, userId);
     }
 
     //FIXME
@@ -304,7 +287,9 @@ public class TrainingStorageSpringController {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         tf.setAddDate(date);
-        if (tsci.check(tf.getEmployeeId(), tf.getTrainingId()) && tsci.isTrainer(feedbackerId, tf.getTrainingId())) {
+        int subscribeId = tf.getEmployeeId();
+        tf.setEmployeeId(tsci.getEmployeeIdBySubscribe(subscribeId));
+        if(tsci.isTrainer(feedbackerId, tf.getTrainingId()) || ec.isAdmin(feedbackerId)) {
             tsci.addTrainerFeedback(tf);
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -315,7 +300,7 @@ public class TrainingStorageSpringController {
     public void addExternalUser(@RequestBody ExternalUserUI externalUserUI, HttpServletRequest request, HttpServletResponse response) {
         int trainingId = Integer.parseInt(request.getParameter("trainingId"));
         int userId = restService.getUserId(request);
-        if (ec.isAdmin(userId)) {
+        if(ec.isAdmin(userId) || tsci.isTrainer(userId, trainingId)) {
             tsci.addExternalUser(externalUserUI, trainingId);
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

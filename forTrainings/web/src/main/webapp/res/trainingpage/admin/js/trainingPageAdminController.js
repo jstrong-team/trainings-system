@@ -92,13 +92,13 @@
 
         $scope.foreignUser={
             name:null,
-            email:null,
+            mail:null,
             phone:null
         };
 
         $scope.addForeignUser=function(){
+            console.log($scope.foreignUser);
             $http.post('rest/storagetraining//addExternalUser?trainingId=' + $scope.training.id,$scope.foreignUser).catch(function(error){
-                console.log($scope.foreignUser);
                 console.error(error);
             });
         };

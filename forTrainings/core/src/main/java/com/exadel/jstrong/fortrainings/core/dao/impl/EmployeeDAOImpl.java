@@ -80,6 +80,19 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
         return em.createNativeQuery("SELECT mail FROM employee").getResultList();
     }
 
+
+    @Override
+    public List<Employee> getAdmins() {
+        Role admin = roleDAO.getRoleByName("admin");
+                //em.find(Role.class, 1);
+        return admin.getEmployees();
+    }
+
+    @Override
+    public Employee getById(int id) {
+        return super.getById(Employee.class, id);
+    }
+
     @Override
     public Employee saveEmployee(Employee employee) {
         employee.setPassword(DigestUtils.md5Hex(employee.getPassword()));
@@ -113,8 +126,8 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
             CriteriaQuery<Subscribe> query = em.getCriteriaBuilder().createQuery(Subscribe.class);
             Root<Subscribe> root = query.from(Subscribe.class);
             query.where(root.get("employeeId").in(id));
-            em.createQuery(query).getResultList();
-            return true;
+            List<Subscribe> subscribes = em.createQuery(query).getResultList();
+            return !subscribes.isEmpty();
         } catch (Throwable e) {
             return false;
         }

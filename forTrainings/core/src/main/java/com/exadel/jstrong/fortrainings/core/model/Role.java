@@ -44,4 +44,7 @@ public class Role {
         this.employees = employees;
     }
 
+    public List<Employee> getEmployees() {
+        return employees;
+    }
 }
