@@ -210,7 +210,7 @@ public class SubscribeDAOImpl extends BaseDAO<Subscribe> implements SubscribeDAO
     @Override
     public List<Employee> getSubscribersAsEmployees(int trainingId) {
         try{
-            return em.createNativeQuery("SELECT * FROM employee WHERE id IN (SELECT employee_id FROM subscribe WHERE training_id = :tId)", Employee.class).setParameter("tId", trainingId).getResultList();
+            return em.createNativeQuery("SELECT * FROM employee WHERE id IN (SELECT employee_id FROM subscribe WHERE training_id = :tId AND status <> 'Deleted')", Employee.class).setParameter("tId", trainingId).getResultList();
         }catch(Throwable e){
             logger.warn(e.toString());
             return new ArrayList<>();

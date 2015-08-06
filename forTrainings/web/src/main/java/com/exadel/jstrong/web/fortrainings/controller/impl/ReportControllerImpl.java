@@ -82,6 +82,7 @@ public class ReportControllerImpl implements ReportController {
         TrainingReportUI reportTraining;
         for (Training t: trainings){
             reportTraining = new TrainingReportUI();
+            reportTraining.setId(t.getId());
             reportTraining.setName(t.getName());
             reportTrainings.add(reportTraining);
         }
@@ -121,7 +122,7 @@ public class ReportControllerImpl implements ReportController {
         List<MeetReportUI> meets = getReportMeets(dbReports);
         int count = 0;
         for (MeetReportUI meet: meets){
-            if (meet.isAbsent()){
+            if (meet.isAbsent() != null && meet.isAbsent()){
                 count++;
             }
         }
