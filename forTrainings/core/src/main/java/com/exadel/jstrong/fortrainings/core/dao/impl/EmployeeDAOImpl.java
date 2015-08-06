@@ -77,10 +77,6 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
         return em.createNativeQuery("SELECT mail FROM employee").getResultList();
     }
 
-    @Override
-    public void saveEmployee(Employee employee) {
-        super.update(employee);
-    }
 
     @Override
     public List<Employee> getAdmins() {
@@ -91,6 +87,9 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
     @Override
     public Employee getById(int id) {
         return super.getById(Employee.class, id);
+    }
+
+    @Override
     public Employee saveEmployee(Employee employee) {
         employee.setPassword(DigestUtils.md5Hex(employee.getPassword()));
         return super.save(employee);

@@ -259,7 +259,9 @@ public class TrainingStorageSpringController {
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         tf.setAddDate(date);
-        if(tsci.check(tf.getEmployeeId(), tf.getTrainingId()) && tsci.isTrainer(feedbackerId, tf.getTrainingId())) {
+        int subscribeId = tf.getEmployeeId();
+        tf.setEmployeeId(tsci.getEmployeeIdBySubscribe(subscribeId));
+        if(tsci.isTrainer(feedbackerId, tf.getTrainingId()) || ec.isAdmin(feedbackerId)) {
             tsci.addTrainerFeedback(tf);
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

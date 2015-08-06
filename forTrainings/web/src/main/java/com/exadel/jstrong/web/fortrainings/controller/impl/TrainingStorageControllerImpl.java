@@ -231,6 +231,12 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     @Override
+    public int getEmployeeIdBySubscribe(int subscribeId) {
+        Subscribe subscribe = sDAO.getById(Subscribe.class, subscribeId);
+        return subscribe.getEmployeeId();
+    }
+
+    @Override
     public boolean deleteFeedback(int id) {
         return emDAO.deleteFeedback(id);
     }
@@ -510,5 +516,36 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         eDAO.save(employee);
         Subscribe subscribe = buildSubscriber(employee.getId(), trainingId);
         addSubscriber(subscribe);
+    }
+
+
+
+    public void addNotices(Notice notice, List<Employee> employees) {
+        noticeDAO.addNotice(notice);
+        List<EmployeeNotice> en = NoticeFactory.getEmployeeNoticesFromEmployees(notice.getId(), employees);
+        noticeDAO.addEmployeeNotices(notice.getId(), en);
+        List<String> mails = eDAO.getAllMails();
+        Sender.send(notice, mails);
+    }
+
+
+    public void addNotices(Notice notice, Employee employee) {
+        noticeDAO.addNotice(notice);
+        EmployeeNotice en = NoticeFactory.getEmployeeNoticeFromEmployee(notice.getId(), employee);
+        List<EmployeeNotice> employeeNotices = new ArrayList<>();
+        employeeNotices.add(en);
+        noticeDAO.addEmployeeNotices(notice.getId(), employeeNotices);
+        List<String> mails = eDAO.getAllMails();
+        Sender.send(notice, mails);
+    }
+
+    public void addSubscribeNotices(Notice notice, Subscribe subscribe) {
+        noticeDAO.addNotice(notice);
+        EmployeeNotice en = NoticeFactory.getEmployeeNoticeFromSubscriber(notice.getId(), subscribe);
+        List<EmployeeNotice> employeeNotices = new ArrayList<>();
+        employeeNotices.add(en);
+        noticeDAO.addEmployeeNotices(notice.getId(), employeeNotices);
+        List<String> mails = eDAO.getAllMails();
+        Sender.send(notice, mails);
     }
 }
