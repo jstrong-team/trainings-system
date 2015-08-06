@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="approveWrapDiv">
-                    <span>Annotation:</span>
+                    <span>{{ 'TRAINING_PAGE_ANNOTATION' | translate }}:</span>
                     <div class="approveTextDiv mergeText">
                         <span
                                 ng-repeat="word in editInfo.annotation.expression track by $index"
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="approveWrapDiv ">
-                    <span>Description:</span>
+                    <span>{{ 'TRAINING_PAGE_DESCRIPTION' | translate }}:</span>
                     <div class="approveTextDiv mergeText">
                         <span
                                 ng-repeat="word in editInfo.description.expression track by $index"
@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="approveWrapDiv">
-                    <span>Target audience:</span>
+                    <span>{{ 'TRAINING_PAGE_TARGET_AUDIENCE' | translate }}:</span>
                     <div class="approveTextDiv mergeText">
                         <span
                                 ng-repeat="word in editInfo.target.expression track by $index"
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="approveWrapDiv">
-                    <span>Place:</span>
+                    <span>{{ 'TRAINING_PAGE_PLACE' | translate }}:</span>
                     <div class="approveTextDiv mergeText">
                         <span
                                 ng-repeat="word in editInfo.place.expression track by $index"
@@ -79,37 +79,37 @@
                     <!--</div>-->
                 <!--</div>-->
                 <div class="approveRadio col-md-6 approveWrapDiv">
-                    <span>Max participants old value:</span>
+                    <span>{{ 'ADMIN_APPROVE_EDIT_MAX_OLD' | translate }}:</span>
                     <div class="approveTextDiv">
                         {{editInfo.oldMax_participants}}
                     </div>
                 </div>
                 <div class="approveRadio col-md-6 approveWrapDiv">
-                    <span>Max participants new value:</span>
+                    <span>{{ 'ADMIN_APPROVE_EDIT_MAX_NEW' | translate }}:</span>
                     <div class="approveTextDiv">
                         {{editInfo.newMax_participants}}
                     </div>
                 </div>
                 <div class="approveRadio col-md-6 approveWrapDiv">
-                    <span>Paid/Free old value:</span>
+                    <span>{{ 'ADMIN_APPROVE_EDIT_PAID_OLD' | translate }}:</span>
                     <div class="approveTextDiv">
                         {{editInfo.oldPaid}}
                     </div>
                 </div>
                 <div class="approveRadio col-md-6 approveWrapDiv">
-                    <span>Paid/Free new value:</span>
+                    <span>{{ 'ADMIN_APPROVE_EDIT_PAID_NEW' | translate }}:</span>
                     <div class="approveTextDiv">
                         {{editInfo.newPaid}}
                     </div>
                 </div>
                 <div class="approveRadio col-md-6 approveWrapDiv">
-                    <span>Internal/External old value:</span>
+                    <span>{{ 'ADMIN_APPROVE_EDIT_INTERNAL_OLD' | translate }}:</span>
                     <div class="approveTextDiv">
                         {{editInfo.oldInternal}}
                     </div>
                 </div>
                 <div class="approveRadio col-md-6 approveWrapDiv">
-                    <span>Internal/External new value:</span>
+                    <span>{{ 'ADMIN_APPROVE_EDIT_INTERNAL_NEW' | translate }}:</span>
                     <div class="approveTextDiv">
                         {{editInfo.newInternal}}
                     </div>
@@ -117,14 +117,15 @@
 
                 <div class="col-md-6 approveRadio approveWrapDiv">
                     <button type="button"
-                            class="btn editDatesButton approveButton">
-                        Approve
+                            class="btn editDatesButton approveButton"
+                            ng-click="approve()">
+                        {{ 'ADMIN_APPROVE_EDIT_APPROVE' | translate }}
                     </button>
                 </div>
                 <div class="col-md-6  approveRadio approveWrapDiv">
                     <button type="button"
                             class="btn btn-danger approveButton">
-                        Dismiss
+                        {{ 'ADMIN_APPROVE_EDIT_DISMISS' | translate }}
                     </button>
                 </div>
 
@@ -133,7 +134,9 @@
                 <div class="col-md-12 buttons approveRadio" ng-cloak>
                     <button class="btn editDatesButton approveButton"
                             ng-click="changeCollapse()">
-                        <span>{{showInput}} dates</span>
+                        <span>
+                            {{ showInput | translate }} {{ 'TRAINING_PAGE_DATES' | translate }}
+                        </span>
                     </button>
                 </div>
                 <div class="col-md-6 dateTime"

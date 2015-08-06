@@ -224,5 +224,15 @@
   "ADMIN_ADD_SUBSCRIBER_NAME":"имя",
   "ADMIN_ADD_SUBSCRIBER_EMAIL":"e-mail",
   "ADMIN_ADD_SUBSCRIBER_PHONE":"номер телефона",
-  "ADMIN_ADD_SUBSCRIBER_SAVE":"Сохранить пользователя"
+  "ADMIN_ADD_SUBSCRIBER_SAVE":"Сохранить пользователя",
+
+
+  "ADMIN_APPROVE_EDIT_MAX_OLD":"Максимальное количество участников до изменения",
+  "ADMIN_APPROVE_EDIT_MAX_NEW":"Максимальное количество участников после изменения",
+  "ADMIN_APPROVE_EDIT_PAID_OLD":"Платное или нет было",
+  "ADMIN_APPROVE_EDIT_PAID_NEW":"Платное или нет сейчас",
+  "ADMIN_APPROVE_EDIT_INTERNAL_OLD":"Было ли внешним",
+  "ADMIN_APPROVE_EDIT_INTERNAL_NEW":"Стало ли внешним",
+  "ADMIN_APPROVE_EDIT_APPROVE":"Подтвердить",
+  "ADMIN_APPROVE_EDIT_DISMISS":"Отклонить"
 }

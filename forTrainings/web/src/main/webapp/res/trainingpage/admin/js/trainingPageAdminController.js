@@ -1,4 +1,4 @@
-(function(){
+(function () {
     var services = [
         '$scope',
         '$q',
@@ -13,33 +13,35 @@
         'subscribeService',
         '$modal',
         '$http',
-        'absentService'
+        'absentService',
+        'deleteTrainingService'
     ];
-    var controller =function ($scope,
-                              $q,
-                              $location,
-                              getTrainingInfo,
-                              getSubscribersService,
-                              getFeedbacksService,
-                              editTrainingService,
-                              openModalService,
-                              unsubscribeService,
-                              $route,
-                              subscribeService,
-                              $modal,
-                              $http,
-                              absentService) {
+    var controller = function ($scope,
+                               $q,
+                               $location,
+                               getTrainingInfo,
+                               getSubscribersService,
+                               getFeedbacksService,
+                               editTrainingService,
+                               openModalService,
+                               unsubscribeService,
+                               $route,
+                               subscribeService,
+                               $modal,
+                               $http,
+                               absentService,
+                               deleteTrainingService) {
 
         $scope.isCollapsed = {
             dates: true,
             subscribers: false,
-            addSubscriber:true
+            addSubscriber: true
         };
 
         $scope.show = {
             subscribers: 'TRAINING_PAGE_HIDE',
             dates: 'TRAINING_PAGE_SHOW',
-            addSubscriber:'TRAINING_PAGE_HIDE'
+            addSubscriber: 'TRAINING_PAGE_HIDE'
         };
 
         $scope.changeCollapse = {
@@ -59,7 +61,7 @@
                     $scope.show.subscribers = 'TRAINING_PAGE_HIDE';
                 }
             },
-            addSubscriber: function(){
+            addSubscriber: function () {
                 $scope.isCollapsed.addSubscriber = !$scope.isCollapsed.addSubscriber;
                 if ($scope.isCollapsed.addSubscriber) {
                     $scope.show.addSubscriber = 'TRAINING_PAGE_SHOW';
@@ -89,25 +91,29 @@
             });
         };
 
-        $scope.foreignUser={
-            name:null,
-            mail:null,
-            phone:null
+        $scope.foreignUser = {
+            name: null,
+            mail: null,
+            phone: null
         };
 
-        $scope.addForeignUser=function(){
+        $scope.addForeignUser = function () {
             console.log($scope.foreignUser);
-            $http.post('rest/storagetraining//addExternalUser?trainingId=' + $scope.training.id,$scope.foreignUser).catch(function(error){
+            $http.post('rest/storagetraining//addExternalUser?trainingId=' + $scope.training.id, $scope.foreignUser).catch(function (error) {
                 console.error(error);
             });
         };
 
-        $scope.acceptAttendanceChanges=function(){
+        $scope.acceptAttendanceChanges = function () {
             absentService.sendAttendance($scope.training.id);
         };
 
-        $scope.openModal=function(){
-            openModalService($scope.feedback,$scope.training.id);
+        $scope.removeTraining = function () {
+            deleteTrainingService($scope.training.id);
+        };
+
+        $scope.openModal = function () {
+            openModalService($scope.feedback, $scope.training.id);
         };
 
         $scope.unsubscribe = function () {
@@ -125,16 +131,16 @@
         };
 
         $scope.trainerFeedback = {
-            employeeId:null,
-            presence:null,
-            attitude:null,
-            communication:null,
-            question:null,
-            interest:null,
-            result:null,
-            level:null,
-            rating:null,
-            other:null
+            employeeId: null,
+            presence: null,
+            attitude: null,
+            communication: null,
+            question: null,
+            interest: null,
+            result: null,
+            level: null,
+            rating: null,
+            other: null
         };
 
         $scope.openTrainerModal = function () {
@@ -147,7 +153,7 @@
                         return {
                             feedback: $scope.trainerFeedback,
                             trainingId: $scope.training.id,
-                            subscribers:$scope.subscribers
+                            subscribers: $scope.subscribers
                         };
                     }
                 }
@@ -175,11 +181,11 @@
             //dfd.reject('dosd');
             return dfd.promise;
 
-        }).then(function(id){
+        }).then(function (id) {
             getSubscribersService(id).then(function (data, status, headers, config) {
                 $scope.subscribers = data.data;
                 absentService.prepare($scope.subscribers, $scope.training);
-            },function(reject){
+            }, function (reject) {
                 console.error(reject);
             });
             getFeedbacksService(id).then(function (data, status, headers, config) {
