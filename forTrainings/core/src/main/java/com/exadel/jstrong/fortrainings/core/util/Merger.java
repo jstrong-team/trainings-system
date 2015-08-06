@@ -1,7 +1,7 @@
 package com.exadel.jstrong.fortrainings.core.util;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Merger {
     public static final String EMPTY_STRING = "";
@@ -10,118 +10,23 @@ public class Merger {
         List<WordDescriptor> sourceWords = splitWords(source);
         List<WordDescriptor> updateWords = splitWords(update);
 
-        List<WordDescriptor> sourceMatchWords = new ArrayList<>(sourceWords.size());
-        List<WordDescriptor> updateMatchWords = new ArrayList<>(updateWords.size());
-
-        for (int i = 0; i < sourceWords.size(); i++) {
-            WordDescriptor word = sourceWords.get(i);
-            int index = getIndex(updateWords, word);
-            //int index = getIndex(updateWords, sourceWords.get(i));
-            if (index != -1) {
-                sourceMatchWords.add(sourceWords.remove(i--));
-                updateMatchWords.add(updateWords.remove(index));
-            }
-        }
-
-        int prevDiff = Integer.MIN_VALUE;
-        for (int i = 0; i < sourceMatchWords.size(); i++) {
-            WordDescriptor word = sourceMatchWords.get(i);
-            int index = getIndex(updateMatchWords, word);
-            WordDescriptor updatedWord = updateMatchWords.get(index);
-            int diff = word.getPosition() - updatedWord.getPosition();
-            diff = Math.abs(diff);
-            if (diff < prevDiff) {
-                WordDescriptor remWord = sourceMatchWords.remove(i--);
-                int remIndex = getIndex(updateMatchWords, remWord);
-                sourceWords.add(remWord);
-                updateWords.add(updateMatchWords.remove(remIndex));
-            } else {
-                prevDiff = diff;
-            }
-        }
-
-        Comparator<WordDescriptor> comp = new Comparator<WordDescriptor>() {
-            @Override
-            public int compare(WordDescriptor o1, WordDescriptor o2) {
-                return o1.getPosition() - o2.getPosition();
-            }
-        };
-
-        List<WordDescriptor> deletedWords = sourceWords;
-        List<WordDescriptor> addedWords = updateWords;
-        Collections.sort(deletedWords, comp);
-        Collections.sort(addedWords, comp);
-
-        int inserted = 0;
-        int deleted = 0;
-        int replaced = 0;
-
         StringBuilder builder = new StringBuilder();
 
-        int initialShift = sourceMatchWords.isEmpty() ? 0 : sourceMatchWords.get(0).getPosition() - updateMatchWords.get(0).getPosition();
-        if (initialShift < 0) {     //means words was added in the beginning
-            int shift = - initialShift;
-            for (int i = 0; i < shift; i++) {
-                WordDescriptor insertedWord = getByPosition(addedWords, i);
-                appendAddedWord(builder, insertedWord);
-                addedWords.remove(insertedWord);
-                inserted++;
-            }
-        } else if (initialShift > 0) {  //means words were removed in the beginning
-            for (int i = 0; i < initialShift; i++) {
-                WordDescriptor removedWord = getByPosition(deletedWords, i);
-                appendRemovedWord(builder, removedWord);
-                deletedWords.remove(removedWord);
-                deleted++;
-            }
-        }
-
-        for (int i = 0; i < sourceMatchWords.size(); i++) {
-            WordDescriptor sourceWordDesc = sourceMatchWords.get(i);
-            WordDescriptor updateWordDesc = updateMatchWords.get(i);
-            int code = sourceWordDesc.getPosition() - updateWordDesc.getPosition() + inserted - deleted;
-            if (code == 0) {
-                //check replaced
-                int diffCode = sourceWordDesc.getPosition() - updateWordDesc.getPosition();
-                int val = i + replaced + deleted;
-                WordDescriptor assumeReplaced = getByPosition(deletedWords, val);
-                WordDescriptor assumeReplacer = getByPosition(addedWords, val - diffCode);
-                if (assumeReplaced != null && assumeReplacer != null) {
-                    deletedWords.remove(assumeReplaced);
-                    addedWords.remove(assumeReplacer);
-                    builder.append(String.format("!{rm: %s} !{add: %s} ", assumeReplaced.getWord(), assumeReplacer.getWord()));
-                    replaced++;
-                    i--;
-                    continue;
+        for (int i = 0; i < sourceWords.size(); i++) {
+            WordDescriptor word = sourceWords.remove(i--);
+            int index = getIndex(updateWords, word);
+            if (index != -1) {
+                for (int j = 0; j < index; j++) {
+                    appendAddedWord(builder, updateWords.remove(0));
                 }
-
-                builder.append("!{").append(sourceWordDesc.getWord()).append('}').append(' ');
-                continue;
-            }
-            if (code < 0) {     //means inserted
-                int insertedIndex = updateWordDesc.getPosition() + code;
-                WordDescriptor insertedWord = getByPosition(addedWords, insertedIndex);
-                appendAddedWord(builder, insertedWord);
-                addedWords.remove(insertedWord);
-                inserted++;
-                i--;
-                continue;
-            }
-            if (code > 0) {     //means deleted
-                int deletedIndex = sourceWordDesc.getPosition() - code;
-                WordDescriptor deletedWord = getByPosition(deletedWords, deletedIndex);
-                appendRemovedWord(builder, deletedWord);
-                deletedWords.remove(deletedWord);
-                i--;
-                deleted++;
+                updateWords.remove(0);
+                builder.append("!{").append(word.getWord()).append("} ");
+            } else {
+                appendRemovedWord(builder, word);
             }
         }
-
-        for (WordDescriptor insertedWord : addedWords) {
-            appendAddedWord(builder, insertedWord);
-        }
-        for (WordDescriptor insertedWord : deletedWords) {
-            appendRemovedWord(builder, insertedWord);
+        for (int j = 0; j < updateWords.size(); j++ ) {
+            appendAddedWord(builder, updateWords.get(j));
         }
         return builder.toString();
     }
@@ -134,15 +39,6 @@ public class Merger {
         builder.append(String.format("!{rm: %s} ", insertedWord.getWord()));
     }
 
-    private static WordDescriptor getByPosition(List<WordDescriptor> addedWords, int insertedIndex) {
-        for (WordDescriptor addedWord : addedWords) {
-            if (addedWord.getPosition() == insertedIndex) {
-                return addedWord;
-            }
-        }
-        return null;
-    }
-
     private static int getIndex(List<WordDescriptor> updateWords, WordDescriptor word) {
         for (int j = 0; j < updateWords.size(); j++) {
             if (updateWords.get(j).getWord().equals(word.getWord())) {
@@ -153,17 +49,14 @@ public class Merger {
     }
 
     private static List<WordDescriptor> splitWords(String source) {
-        List<String> words = Arrays.asList(source.split(" "));
-        for (int i = 0; i < words.size(); i++) {
-            String word = words.get(i);
-            if (word.isEmpty()) {
-                words.remove(i--);
+        List<WordDescriptor> descriptors = new ArrayList<>();
+        int position = 0;
+        String[] words = source.split(" ");
+        for (int i = 0; i < words.length; i++) {
+            if (!words[i].isEmpty()) {
+                descriptors.add(new WordDescriptor(words[i], position));
+                position++;
             }
-        }
-        List<WordDescriptor> descriptors = new ArrayList<>(words.size());
-        for (int i = 0; i < words.size(); i++) {
-            String word = words.get(i);
-            descriptors.add(new WordDescriptor(word, i));
         }
         return descriptors;
     }
