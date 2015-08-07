@@ -9,6 +9,7 @@ import com.exadel.jstrong.web.fortrainings.controller.ReportController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
 import com.exadel.jstrong.web.fortrainings.services.RestService;
+import com.exadel.jstrong.web.fortrainings.util.ServletUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -260,7 +261,7 @@ public class TrainingStorageSpringController {
     }
 
     @RequestMapping(value = "/getReportFile", method = RequestMethod.GET)
-    public void getReportFile(HttpServletRequest request, HttpServletResponse response) {
+    public void getReportFile(HttpServletRequest request, HttpServletResponse response) throws IOException {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Integer employeeId;
         try {
@@ -286,8 +287,8 @@ public class TrainingStorageSpringController {
         } catch (Exception e) {
             dateTo = null;
         }
-        int userId = restService.getUserId(request);
-        String fileName = reportController.getReportFile(employeeId, trainingId, dateFrom, dateTo);
+        byte[] file = reportController.getReportFile(employeeId, trainingId, dateFrom, dateTo);
+        ServletUtils.sendFile(response, file);
     }
 
     @RequestMapping(value = "/updateAttendance", method = RequestMethod.POST)

@@ -13,7 +13,6 @@ import com.exadel.jstrong.web.fortrainings.services.noticeservice.NoticeFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -118,12 +117,10 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     @Override
     public void deleteTraining(int trainingId) {
         tDAO.deleteTraining(trainingId);
-        /*Employee system = eDAO.getById(NoticeFactory.systemId);
-        Notice notice = NoticeFactory.getDeleteTrainingNotice(system.getId(), tDAO.getTrainingById(trainingId));
-
-        addNotices(notice, employee);
+        Employee system = eDAO.getById(NoticeFactory.systemId);
+        Notice notice = NoticeFactory.getTrainingDeleteNotice(tDAO.getTrainingById(trainingId), system);
         List<Employee> admins = eDAO.getAdmins();
-        addNotices(notice, admins);*/
+        addNotices(notice, admins);
     }
 
     @Override
@@ -369,7 +366,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
         Employee system = eDAO.getById(NoticeFactory.systemId);
         Notice notice = NoticeFactory.getTrainingEditNotice(data, transactionId, system.getId());
-        List<Employee> employees = eDAO.getAllUsers();
+        List<Employee> employees = eDAO.getEmployeesBySubscribe(data.getId());
         addNotices(notice, employees);
         return id;
     }
@@ -607,7 +604,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         noticeDAO.addNotice(notice);
         List<EmployeeNotice> en = NoticeFactory.getEmployeeNoticesFromEmployees(notice.getId(), employees);
         noticeDAO.addEmployeeNotices(notice.getId(), en);
-        List<String> mails = eDAO.getAllMails();
+        List<String> mails = eDAO.getEmployeesMails(employees);
         Sender.send(notice, mails);
     }
 
@@ -618,10 +615,10 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<EmployeeNotice> employeeNotices = new ArrayList<>();
         employeeNotices.add(en);
         noticeDAO.addEmployeeNotices(notice.getId(), employeeNotices);
-        List<String> mails = eDAO.getAllMails();
-        Sender.send(notice, mails);
+        String mail = eDAO.getEmail(employee.getId());
+        Sender.send(notice, mail);
     }
-
+/*
     public void addSubscribeNotices(Notice notice, Subscribe subscribe) {
         noticeDAO.addNotice(notice);
         EmployeeNotice en = NoticeFactory.getEmployeeNoticeFromSubscriber(notice.getId(), subscribe);
@@ -631,7 +628,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<String> mails = eDAO.getAllMails();
         Sender.send(notice, mails);
     }
-
+*/
     public void approveNewTraining(int trainingId) {
         tDAO.approveNewTraining(trainingId);
     }
