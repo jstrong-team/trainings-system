@@ -56,6 +56,7 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
                 noticeUI.setTheme(n.getTheme());
                 noticeUI.setText(n.getText());
                 noticeUI.setTransactionId(n.getTransactionId());
+                noticeUI.setTrainingId(n.getTrainingId());
                 noticeUI.setAddDate(n.getAddDate());
                 noticesUI.add(noticeUI);
             }
@@ -72,6 +73,7 @@ public class EmployeeNoticeControllerImpl implements EmployeeNoticeController {
                 noticeUI.setTheme(n.getTheme());
                 noticeUI.setText(n.getText());
                 noticeUI.setTransactionId(n.getTransactionId());
+                noticeUI.setTrainingId(n.getTrainingId());
                 noticeUI.setAddDate(n.getAddDate());
                 noticesUI.add(noticeUI);
             }

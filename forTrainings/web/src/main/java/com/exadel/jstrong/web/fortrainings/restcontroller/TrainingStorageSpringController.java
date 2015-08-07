@@ -10,6 +10,7 @@ import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
 import com.exadel.jstrong.web.fortrainings.services.RestService;
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -260,7 +261,7 @@ public class TrainingStorageSpringController {
     }
 
     @RequestMapping(value = "/getReportFile", method = RequestMethod.GET)
-    public void getReportFile(HttpServletRequest request, HttpServletResponse response) {
+    public void getReportFile(HttpServletRequest request, HttpServletResponse response) throws IOException {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Integer employeeId;
         try {
@@ -286,8 +287,11 @@ public class TrainingStorageSpringController {
         } catch (Exception e) {
             dateTo = null;
         }
-        int userId = restService.getUserId(request);
-        String fileName = reportController.getReportFile(employeeId, trainingId, dateFrom, dateTo);
+        HSSFWorkbook workbook = reportController.getReportFile(employeeId, trainingId, dateFrom, dateTo);
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment; filename=report.xls");
+        workbook.write(response.getOutputStream());
+        workbook.close();
     }
 
     @RequestMapping(value = "/updateAttendance", method = RequestMethod.POST)
@@ -360,6 +364,29 @@ public class TrainingStorageSpringController {
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(value = "/getNotApprovedTraining", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    TrainingUI getNotApprovedTraining(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            int tId = Integer.parseInt(request.getParameter("id"));
+            int uId = restService.getUserId(request);
+            TrainingUI trainingUI = tsci.getTraining(tId, uId);
+            if (!trainingUI.isApprove()) {
+                if (ec.isAdmin(uId)) {
+                    return trainingUI;
+                } else {
+                    response.setStatus(HttpServletResponse.SC_CONFLICT);
+                }
+            } else {
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+            }
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return null;
     }
 }
 

@@ -1,6 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.controller;
 
 import com.exadel.jstrong.web.fortrainings.model.ReportUI;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.util.Date;
 
@@ -10,6 +11,6 @@ import java.util.Date;
 public interface ReportController {
 
     ReportUI getReport(Integer userId, Integer trainingId, Date dateFrom, Date dateTo);
-    String getReportFile(Integer userId, Integer trainingId, Date dateFrom, Date dateTo);
+    HSSFWorkbook getReportFile(Integer userId, Integer trainingId, Date dateFrom, Date dateTo);
 
 }

@@ -9,8 +9,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.List;
 
 /**
@@ -20,52 +18,46 @@ public class XLSService {
 
     private static Logger logger = Logger.getLogger(XLSService.class.getName());
 
-    public static String createReportXLSFile(ReportUI report) {
+    public static HSSFWorkbook createReportXLSFile(ReportUI report) {
         List<TrainingReportUI> trainings = report.getTrainings();
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Report");
         int rowCount = 0;
+        int cellCount = 0;
         Row row = sheet.createRow(rowCount++);
         Cell cell;
-        cell = row.createCell(0);
+        cell = row.createCell(cellCount++);
         cell.setCellValue("Training name");
-        cell = row.createCell(1);
+        cell = row.createCell(cellCount++);
         cell.setCellValue("Employee name");
-        cell = row.createCell(2);
+        cell = row.createCell(cellCount++);
         cell.setCellValue("Passes count");
-        cell = row.createCell(3);
+        cell = row.createCell(cellCount++);
         cell.setCellValue("Meets");
-        cell = row.createCell(4);
+        cell = row.createCell(cellCount++);
         cell.setCellValue("Positive feedbacks");
-        cell = row.createCell(5);
+        cell = row.createCell(cellCount++);
         cell.setCellValue("Negative feedbacks");
         for (TrainingReportUI t : trainings) {
+            cellCount = 0;
             row = sheet.createRow(rowCount++);
             List<UserReportUI> users = t.getUsers();
-            for (UserReportUI u : users){
-                cell = row.createCell(0);
+            for (UserReportUI u : users) {
+                cell = row.createCell(cellCount++);
                 cell.setCellValue(t.getName());
-                cell = row.createCell(1);
+                cell = row.createCell(cellCount++);
                 cell.setCellValue(u.getName());
-                cell = row.createCell(2);
+                cell = row.createCell(cellCount++);
                 cell.setCellValue(u.getAbsentCount());
-                cell = row.createCell(3);
+                cell = row.createCell(cellCount++);
                 cell.setCellValue(u.meetsToString());
-                cell = row.createCell(4);
+                cell = row.createCell(cellCount++);
                 cell.setCellValue(u.positiveFeedbacksToString());
-                cell = row.createCell(5);
+                cell = row.createCell(cellCount++);
                 cell.setCellValue(u.negativeFeedbacksToString());
             }
         }
-        try {
-            FileOutputStream out = new FileOutputStream(new File("D:\\report.xls"));
-            workbook.write(out);
-            out.close();
-            return "report.xls";
-        } catch(Exception e){
-            logger.warn(e.toString());
-            return null;
-        }
+        return workbook;
     }
 
 }

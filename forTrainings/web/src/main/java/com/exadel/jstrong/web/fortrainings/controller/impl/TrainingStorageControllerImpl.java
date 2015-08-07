@@ -547,8 +547,15 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     @Override
+    @Transactional
     public void addTrainerFeedback(TrainerFeedback trainerFeedback) {
         trainerFeedbackDAO.addFeedback(trainerFeedback);
+        Training training = tDAO.getTrainingById(trainerFeedback.getTrainingId());
+        Employee sender = eDAO.getById(trainerFeedback.getFeedbackerId());
+        Employee employee = eDAO.getById(trainerFeedback.getEmployeeId());
+        Notice notice = NoticeFactory.getTrainerFeedbackNotice(training, sender, employee);
+        List<Employee> admins = eDAO.getAdmins();
+        addNotices(notice, admins);
     }
 
     @Override

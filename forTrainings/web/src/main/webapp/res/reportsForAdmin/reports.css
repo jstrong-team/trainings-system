@@ -2,9 +2,10 @@
     padding-bottom: 40px;
 }
 
-.printButton, .getReportButton {
+.printButton, .getReportButton, .downloadXls {
     float: right;
     background-color: #2E729F;
+    margin-left: 10px;
     color: #ffffff;
 }
 

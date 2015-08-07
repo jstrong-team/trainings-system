@@ -3,11 +3,11 @@
     var services = [
         '$scope',
         '$http',
-        '$filter',
+        '$window',
         'reportInfoFormat'
     ];
 
-    var controller = function ($scope, $http, reportInfoFormat) {
+    var controller = function ($scope, $http, $window, reportInfoFormat) {
 
         $http.get('/rest/trainings/users_trainings').then(
             function(data){
@@ -18,47 +18,6 @@
                 console.log(status);
             });
 
-        var positiveFeedback = [
-            {
-                date: '2015-08-17',
-                text: 'blabla'
-            }
-        ];
-
-        var negativeFeedback = [
-            {
-                date: '2015-08-17',
-                text: 'blabla'
-            },
-
-            {
-                date: '2015-08-29',
-                text: 'blablacar'
-            }
-        ];
-
-        var info = [
-            {
-                date: '2015-08-14',
-                absent: 'true',
-                reson: 'ill'
-            },
-
-            {
-                date: '2015-08-20',
-                absent: 'true',
-                reson: 'drive'
-            }
-        ];
-
-        var u1 = [info, positiveFeedback, negativeFeedback];
-        var u2 = [info, positiveFeedback, negativeFeedback];
-        var u3 = [info, positiveFeedback, negativeFeedback];
-
-        var training = [u1, u2, u3];
-
-        $scope.trainings = [training];
-
         $scope.noReportFound = null;
         $scope.initialState = null;
 
@@ -66,6 +25,10 @@
         $scope.trainingItem = '';
         $scope.dateTimeFrom = '';
         $scope.dateTimeTo = '';
+
+        var userId = null;
+        var trainingId = null;
+
 
         $scope.submitForm = function () {
 
@@ -98,8 +61,8 @@
                 }
             }
 
-            var userId = $scope.employeeItem;
-            var trainingId = $scope.trainingItem;
+            userId = $scope.employeeItem;
+            trainingId = $scope.trainingItem;
 
             if ($scope.employeeItem !== '') {
                 userId = JSON.parse(userId).id
@@ -134,6 +97,10 @@
         $scope.printService = function (printElement) {
             localStorage.setItem('printHtml',document.getElementById(printElement).innerHTML);
             window.open('/ui/admin/reports/print');
+        };
+
+        $scope.download = function () {
+            $window.open('http://localhost:8080/rest/storagetraining/getReportFile?userId='+ userId +'&trainingId='+ trainingId +'&dateFrom='+ $scope.dateTimeFrom +'&dateTo=' + $scope.dateTimeTo, '_blank');
         };
 
     };
