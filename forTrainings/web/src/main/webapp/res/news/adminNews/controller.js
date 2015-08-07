@@ -43,10 +43,7 @@
                     }
                 },
                 function(error){
-                    if(error.status===401){
-                        $location.url('/ui/');
-                    }
-                    console.log(status);
+                    console.error(error);
                 });
         });
 
@@ -62,10 +59,7 @@
 
                 },
                 function(error){
-                    if(error.status===401){
-                        $location.url('/ui/');
-                    }
-                    console.log(status);
+                    console.error(error);
                 });
         };
 

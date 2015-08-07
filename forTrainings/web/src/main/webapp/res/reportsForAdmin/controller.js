@@ -15,11 +15,8 @@
                 $scope.employeeList = data.data.users;
                 $scope.trainingsList = data.data.trainings;
             },
-            function(data, status){
-                if(status===401){
-                    $location.url('/ui/');
-                }
-                console.log(status);
+            function(error){
+                console.error(error);
             });
 
         $scope.noReportFound = null;

@@ -81,9 +81,6 @@
             modalInstance.result.then(function (response) {
                 console.log(response);
             }, function (error) {
-                if(error.status===401){
-                    $location.url('/ui/');
-                }
                 console.error(error);
             });
 
@@ -109,17 +106,11 @@
                 $scope.subscribers = data.data;
                 absentService.prepare($scope.subscribers, $scope.training);
             }, function (error) {
-                if(error.status===401){
-                    $location.url('/ui/');
-                }
                 console.error(error);
             });
             getFeedbacksService($scope.training.id).then(function (data, status, headers, config) {
                 $scope.feedbacks = data.data;
             }, function (error) {
-                if(error.status===401){
-                    $location.url('/ui/');
-                }
                 console.error(error);
             });
         });
