@@ -42,7 +42,7 @@ public class XLSService {
             cellCount = 0;
             row = sheet.createRow(rowCount++);
             List<UserReportUI> users = t.getUsers();
-            for (UserReportUI u : users){
+            for (UserReportUI u : users) {
                 cell = row.createCell(cellCount++);
                 cell.setCellValue(t.getName());
                 cell = row.createCell(cellCount++);
@@ -57,6 +57,8 @@ public class XLSService {
                 cell.setCellValue(u.negativeFeedbacksToString());
             }
         }
+        //OutputStream outputStream = new ByteArrayOutputStream();
+        //workbook.write(outputStream);
         return workbook.getBytes();
     }
 

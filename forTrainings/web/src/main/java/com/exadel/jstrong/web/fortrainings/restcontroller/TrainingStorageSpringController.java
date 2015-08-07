@@ -288,6 +288,8 @@ public class TrainingStorageSpringController {
             dateTo = null;
         }
         byte[] file = reportController.getReportFile(employeeId, trainingId, dateFrom, dateTo);
+        response.setHeader("Content-Disposition", "attachment; filename=report.xls");
+        response.setHeader("Content-Type", "application/csv;charset=UTF-8");
         ServletUtils.sendFile(response, file);
     }
 

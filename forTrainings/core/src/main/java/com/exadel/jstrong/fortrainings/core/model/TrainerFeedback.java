@@ -57,6 +57,7 @@ public class TrainerFeedback {
     @Column
     private String other;
 
+
     private final String PRESENCE = "presence: ";
     private final String ATTITUDE = "attitude: ";
     private final String COMMUNICATION = "communication: ";
