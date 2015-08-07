@@ -1,4 +1,4 @@
-angular.module('approvePageModule').controller('editApproveController', ['$scope', '$routeParams', 'getApproveData','parseService', function ($scope, $routeParams, getApproveData,parseService) {
+angular.module('approvePageModule').controller('editApproveController', ['$scope', '$routeParams', 'getApproveData','parseService','approveService', function ($scope, $routeParams, getApproveData,parseService,approveService) {
 
     getApproveData().then(function (data, status, headers, config) {
         $scope.editInfo = data.data;
@@ -24,17 +24,23 @@ angular.module('approvePageModule').controller('editApproveController', ['$scope
         console.error(error);
     });
 
+    $scope.approve=function(){
+        approveService.approve($routeParams.trainingId);
+    };
 
+    $scope.dismiss=function(){
+        approveService.dismiss($routeParams.trainingId);
+    };
 
-    $scope.showInput='Show';
+    $scope.showInput='TRAINING_PAGE_SHOW';
 
     $scope.isCollapsed = true;
 
     $scope.changeCollapse=function(){
         if($scope.isCollapsed){
-            $scope.showInput='Hide';
+            $scope.showInput='TRAINING_PAGE_HIDE';
         }else{
-            $scope.showInput='Show';
+            $scope.showInput='TRAINING_PAGE_SHOW';
         }
         $scope.isCollapsed = !$scope.isCollapsed;
     };

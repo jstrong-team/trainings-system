@@ -13,8 +13,8 @@ angular.module('approvePageModule').factory('parseService', [function () {
         var regExp = /\!?\{([^}]+)\}/;
         var replReg = /\!?\{/;
         console.clear();
-        console.log(input);
-        console.log('______________________________________');
+        //console.log(input);
+        //console.log('______________________________________');
         //0 - word; 1 - add; 2 - rm ; 3 -rlc
         var res = input.split('!{');
         array.type = new Array(res.length);
@@ -35,8 +35,8 @@ angular.module('approvePageModule').factory('parseService', [function () {
                 array.type[i] = 0;
             }
         }
-        console.log(res);
-        console.log(array.type);
+        //console.log(res);
+        //console.log(array.type);
         array.expression=res;
         //console.log(regExp.exec(input));
         console.log('______________________________________');

@@ -58,8 +58,8 @@
                                 <tr>
                                     <th> {{ 'TRAINING_PAGE_USER' | translate }}</th>
                                     <th nowrap ng-repeat="meet in training.meets">
-                                        {{$index+1}}
-                                        <!--{{training.dateTime[$index]}}-->
+                                        <!--{{$index+1}}-->
+                                        {{training.dateTime[$index]}}
                                     </th>
                                 </tr>
                                 <tr ng-repeat="subscriber in subscribers|filter:'Approve'">
@@ -178,7 +178,7 @@
                     </button>
                 </div>
                 <div class="col-md-6 ">
-                    <button type="button" class="btn btn-danger " ng-click="">
+                    <button type="button" class="btn btn-danger " ng-click="removeTraining()">
                         {{ 'TRAINING_PAGE_REMOVE_TRAINING' | translate }}
                     </button>
                 </div>

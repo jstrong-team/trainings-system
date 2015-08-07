@@ -110,7 +110,7 @@
             }
 
             $http.get('/rest/storagetraining/getReport?userId=' + userId + '&trainingId=' + trainingId +
-            '&dateFrom=' + $scope.fromDateTime + '&dateTo=' + $scope.toDateTime).then(
+            '&dateFrom=' + $scope.dateTimeFrom + '&dateTo=' + $scope.dateTimeTo).then(
                 function(data){
 
                     $scope.reportInfo = data.data;
