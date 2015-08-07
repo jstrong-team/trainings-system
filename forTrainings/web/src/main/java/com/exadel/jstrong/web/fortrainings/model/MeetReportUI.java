@@ -48,4 +48,14 @@ public class MeetReportUI {
     public void setReason(String reason) {
         this.reason = reason;
     }
+
+    @Override
+    public String toString(){
+        StringBuilder str = new StringBuilder(date);
+        if (absent != null && absent){
+            str.append(" N(").append(reason).append(")");
+        }
+        return str.toString();
+    }
+
 }

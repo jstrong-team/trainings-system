@@ -151,7 +151,7 @@ public class Sender {
         }
     }
 
-    public static boolean sendAccountData(Employee employee){
+    public static boolean sendAccountData(Employee employee) {
         String text = "Your login: " + employee.getName() + "\r\nYour password: " + employee.getPassword();
         try {
             Session session = Session.getInstance(props, new Authenticator() {

@@ -7,6 +7,7 @@ import com.exadel.jstrong.fortrainings.core.model.TrainerFeedback;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.ReportController;
 import com.exadel.jstrong.web.fortrainings.model.*;
+import com.exadel.jstrong.web.fortrainings.services.XLSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -72,9 +73,9 @@ public class ReportControllerImpl implements ReportController {
     }
 
     @Override
-    public ReportUI getReportFile(Integer userId, Integer trainingId, Date dateFrom, Date dateTo) {
-
-        return null;
+    public String getReportFile(Integer userId, Integer trainingId, Date dateFrom, Date dateTo) {
+        ReportUI report = getReport(userId, trainingId, dateFrom, dateTo);
+        return XLSService.createReportXLSFile(report);
     }
 
     private List<TrainingReportUI> getReportTrainings (List<Training> trainings){
