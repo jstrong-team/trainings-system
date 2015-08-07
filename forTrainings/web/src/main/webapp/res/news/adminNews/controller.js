@@ -4,11 +4,10 @@
         '$rootScope',
         '$scope',
         '$http',
-        '$location',
-        'trainingRedirectService'
+        '$location'
     ];
 
-    var controller = function ($rootScope, $scope, $http, $location, trainingRedirectService) {
+    var controller = function ($rootScope, $scope, $http, $location) {
 
         var badgeCount = 0;
         var ITEMS_PER_PAGE = 10;
@@ -72,7 +71,7 @@
         $scope.redirectToTrainingPage = function (id, transactionId) {
 
             if (transactionId === null) {
-                trainingRedirectService(id);
+                $location.url('/ui/trainingPage/approveCreate/' + id);
             } else {
                 $location.url('/ui/trainingPage/approve/' + transactionId);
             }
