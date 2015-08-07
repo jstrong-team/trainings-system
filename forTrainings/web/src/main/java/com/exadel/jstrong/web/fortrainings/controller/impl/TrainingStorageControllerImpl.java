@@ -8,8 +8,11 @@ import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
 import com.exadel.jstrong.web.fortrainings.model.comparator.SubscriberUIComp;
 import com.exadel.jstrong.web.fortrainings.services.ExternalService;
+import com.exadel.jstrong.web.fortrainings.services.TaskExecutor;
 import com.exadel.jstrong.web.fortrainings.services.mailservice.Sender;
 import com.exadel.jstrong.web.fortrainings.services.noticeservice.NoticeFactory;
+import com.exadel.jstrong.web.fortrainings.services.tasks.TaskFactory;
+import com.exadel.jstrong.web.fortrainings.services.tasks.TaskFactoryImpl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
@@ -45,6 +48,10 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     private TrainerFeedbackDAO trainerFeedbackDAO;
     @Autowired
     private RoleDAO roleDAO;
+    @Autowired
+    private TaskExecutor taskExecutor;
+    @Autowired
+    private TaskFactory taskFactory;
 
     private static Logger logger = Logger.getLogger(TrainingStorageControllerImpl.class);
 
@@ -161,23 +168,15 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             Date date = new Date();
             s.setAddDate(date);
 
-
             Employee system = eDAO.getById(NoticeFactory.systemId);
-            Notice userNotice = null;
-            Notice adminNotice = null;
             Employee employee = eDAO.getById(uId);
             if (tDAO.isApprove(tId)) {
                 s.setStatus(SubscribeStatus.Approve.toString());
-                userNotice = NoticeFactory.getNewParticipantNotice(system.getId(), tDAO.getTrainingById(tId), "Approve");
-                adminNotice = NoticeFactory.getNewParticipantNotice(system.getId(), tDAO.getTrainingById(tId), "Approve", employee);
+                taskExecutor.submitTask(taskFactory.createAddSubscriberTask("Wait", tId, system.getId(), employee));
             } else {
                 s.setStatus(SubscribeStatus.Wait.toString());
-                userNotice = NoticeFactory.getNewParticipantNotice(system.getId(), tDAO.getTrainingById(tId), "Wait");
-                adminNotice = NoticeFactory.getNewParticipantNotice(system.getId(), tDAO.getTrainingById(tId), "Wait", employee);
+                taskExecutor.submitTask(taskFactory.createAddSubscriberTask("Wait", tId, system.getId(), employee));
             }
-            addNotices(userNotice, employee);
-            List<Employee> admins = eDAO.getAdmins();
-            addNotices(adminNotice, admins);
             return s;
         }
         else { return null; }
@@ -262,13 +261,13 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
     @Override
     @Transactional
-    public boolean deleteSubscriber(int userId, int trainingId) {
+    public boolean deleteSubscriber(final int userId, final int trainingId) {
         int id = sDAO.contains(userId, trainingId);
         List<Integer> meetIds = tDAO.getMeetIdsByTrainingId(trainingId);
         List<Participant> participants = sDAO.getParticipantsByMeetIds(id, meetIds);
         participantDAO.deleteParticipants(participants);
 
-        int subscribeId = sDAO.getSubscribeIdToApprove(id);
+        int subscribeId = sDAO.getSubscribeIdToApprove(trainingId);
         if(subscribeId != 0) {
             List<Participant> participantsToAdd = new ArrayList<>();
             for (Integer integer : meetIds) {
@@ -280,13 +279,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             participantDAO.addParticipants(participantsToAdd);
         }
 
-        Employee system = eDAO.getById(NoticeFactory.systemId);
-        Notice employeeNotice = NoticeFactory.getDeletedParticipantNotice(system.getId(), tDAO.getTrainingById(trainingId));
-        Employee employee = eDAO.getById(userId);
-        Notice adminNotice = NoticeFactory.getDeletedParticipantNotice(system.getId(), tDAO.getTrainingById(trainingId), employee);
-        addNotices(employeeNotice, employee);
-        List<Employee> admins = eDAO.getAdmins();
-        addNotices(adminNotice, admins);
+        taskExecutor.submitTask(taskFactory.createDeleteSubscriberTask(userId, trainingId));
 
         Subscribe subscribe = sDAO.getSubscribe(userId, trainingId);
         boolean isApprove = subscribe.getStatus().equals("Approve");
@@ -335,10 +328,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             transactionMeet.setParentId(id);
             transactionDAO.add(transactionMeet);
         }
-
-        Notice notice = NoticeFactory.getNotApprovedEditedTrainingNotice(training, senderId, transaction.getId());
-        List<Employee> admins = eDAO.getAdmins();
-        addNotices(notice, admins);
+        taskExecutor.submitTask(taskFactory.createEditTrainingTask(training, senderId, transaction.getId()));
     }
 
     @Override
@@ -365,9 +355,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         }
 
         Employee system = eDAO.getById(NoticeFactory.systemId);
-        Notice notice = NoticeFactory.getTrainingEditNotice(data, transactionId, system.getId());
-        List<Employee> employees = eDAO.getEmployeesBySubscribe(data.getId());
-        addNotices(notice, employees);
+
+        taskExecutor.submitTask(taskFactory.createApproveEditTask(data, system.getId(), transactionId));
         return id;
     }
 
@@ -558,8 +547,15 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     }
 
     @Override
+    @Transactional
     public void addTrainerFeedback(TrainerFeedback trainerFeedback) {
         trainerFeedbackDAO.addFeedback(trainerFeedback);
+        Training training = tDAO.getTrainingById(trainerFeedback.getTrainingId());
+        Employee sender = eDAO.getById(trainerFeedback.getFeedbackerId());
+        Employee employee = eDAO.getById(trainerFeedback.getEmployeeId());
+        Notice notice = NoticeFactory.getTrainerFeedbackNotice(training, sender, employee);
+        List<Employee> admins = eDAO.getAdmins();
+        addNotices(notice, admins);
     }
 
     @Override

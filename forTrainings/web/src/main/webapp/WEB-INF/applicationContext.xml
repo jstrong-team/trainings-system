@@ -13,4 +13,6 @@
        <bean name="authenticationFilter" class="com.exadel.jstrong.web.fortrainings.filters.AuthenticationFilter"/>
        <bean name="authenticationFilterV2" class="com.exadel.jstrong.web.fortrainings.filters.AuthenticationFilterV2"/>
        <bean name="PlannerBean" class="com.exadel.jstrong.web.fortrainings.services.scheduleservice.Planner" init-method="init" destroy-method="destroy"/>
+       <bean name="taskExecutor" class="com.exadel.jstrong.web.fortrainings.services.TaskExecutor" init-method="init" destroy-method="destroy"/>
+       <bean name="taskFactory" class="com.exadel.jstrong.web.fortrainings.services.tasks.TaskFactoryImpl"/>
 </beans>

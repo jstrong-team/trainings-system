@@ -16,6 +16,7 @@ public class NoticeUI {
     private Integer senderId;
     private String senderName;
     private Integer transactionId;
+    private Integer trainingId;
     private String theme;
     private String text;
     private String status;
@@ -53,6 +54,14 @@ public class NoticeUI {
 
     public void setTransactionId(Integer transactionId) {
         this.transactionId = transactionId;
+    }
+
+    public Integer getTrainingId() {
+        return trainingId;
+    }
+
+    public void setTrainingId(Integer trainingId) {
+        this.trainingId = trainingId;
     }
 
     public String getTheme() {

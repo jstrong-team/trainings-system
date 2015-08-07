@@ -18,7 +18,7 @@ public class XLSService {
 
     private static Logger logger = Logger.getLogger(XLSService.class.getName());
 
-    public static byte[] createReportXLSFile(ReportUI report) {
+    public static HSSFWorkbook createReportXLSFile(ReportUI report) {
         List<TrainingReportUI> trainings = report.getTrainings();
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Report");
@@ -42,7 +42,7 @@ public class XLSService {
             cellCount = 0;
             row = sheet.createRow(rowCount++);
             List<UserReportUI> users = t.getUsers();
-            for (UserReportUI u : users){
+            for (UserReportUI u : users) {
                 cell = row.createCell(cellCount++);
                 cell.setCellValue(t.getName());
                 cell = row.createCell(cellCount++);
@@ -57,7 +57,7 @@ public class XLSService {
                 cell.setCellValue(u.negativeFeedbacksToString());
             }
         }
-        return workbook.getBytes();
+        return workbook;
     }
 
 }

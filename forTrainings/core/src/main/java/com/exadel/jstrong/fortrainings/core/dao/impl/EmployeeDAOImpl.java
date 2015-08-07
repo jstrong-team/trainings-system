@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +61,11 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
     public List<Employee> getAllInsideUsers() {
         try{
             Role role = roleDAO.getRoleByName("external");
-            return em.createNativeQuery("SELECT * FROM employee WHERE id IN (SELECT employee_id FROM employee_role WHERE role_id <> :roleId)", Employee.class).setParameter("roleId", role.getId()).getResultList();
+            StringBuilder request = new StringBuilder();
+            request.append("SELECT * FROM employee WHERE id IN (SELECT employee_id FROM employee_role WHERE role_id <> :roleId)");
+            request.append(" UNION ");
+            request.append("SELECT * FROM employee WHERE (SELECT COUNT(*) FROM employee_role WHERE employee_id = employee.id) = 0");
+            return em.createNativeQuery(request.toString(), Employee.class).setParameter("roleId", role.getId()).getResultList();
         }catch(Throwable e){
             logger.warn(e.toString());
             return new ArrayList<Employee>();
