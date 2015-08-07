@@ -4,6 +4,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Created by Sergey Nalivko.
@@ -12,8 +13,9 @@ public class ServletUtils {
 
     /**
      * Writes data from thegiven file to response's output stream
-     * @param req request object
-     * @param res response object
+     *
+     * @param req  request object
+     * @param res  response object
      * @param path path to file to be send in responce
      * @throws IOException
      */
@@ -25,5 +27,11 @@ public class ServletUtils {
             res.getOutputStream().write(buf, 0, read);
         }
         inputStream.close();
+    }
+
+    public static void sendFile(ServletResponse response, byte[] bytes) throws IOException {
+        OutputStream out = response.getOutputStream();
+        out.write(bytes);
+        out.flush();
     }
 }

@@ -30,6 +30,9 @@
   "CALENDAR_RECENT_TRAININGS_TITLE": "Недавно прошедшие тренинги",
   "CALENDAR_MODAL_DAY_TITLE": "Тренинги в этот день",
   "CALENDAR_MODAL_DAY_NO_RESULTS": "Никаких тренингов в этот день!",
+  "CALENDAR_LEGEND_I_WILL_GO": "Я пойду на этот тренинг",
+  "CALENDAR_LEGEND_I_WILL_NOT_GO": "Я могу пойти на этот тренинг",
+  "CALENDAR_LEGEND_I_TRAINER": "Я тренер на этом тренинге",
 
   "CALENDAR_MONTH_JANUARY": "Январь",
   "CALENDAR_MONTH_FEBRUARY": "Февраль",
@@ -138,6 +141,7 @@
   "REPORTS_NO_RESULTS": "Нет данных по выбранному сотруднику!",
   "REPORTS_TABLE_ATTENDANCE_VALUE_TRUE": "Н",
   "REPORTS_TABLE_ATTENDANCE_VALUE_FALSE": "",
+  "REPORTS_DOWNLOAD": "Скачать .xls",
 
 
 

@@ -29,6 +29,9 @@
   "CALENDAR_RECENT_TRAININGS_TITLE": "Recent trainings",
   "CALENDAR_MODAL_DAY_TITLE": "Trainings in this day",
   "CALENDAR_MODAL_DAY_NO_RESULTS": "No trainings in this day!",
+  "CALENDAR_LEGEND_I_WILL_GO": "I will go to this training",
+  "CALENDAR_LEGEND_I_WILL_NOT_GO": "I can go to this training",
+  "CALENDAR_LEGEND_I_TRAINER": "I am a trainer in this training",
 
   "CALENDAR_MONTH_JANUARY": "January",
   "CALENDAR_MONTH_FEBRUARY": "February",
@@ -136,6 +139,7 @@
   "REPORTS_NO_RESULTS": "There are no information about this person!",
   "REPORTS_TABLE_ATTENDANCE_VALUE_TRUE": "N",
   "REPORTS_TABLE_ATTENDANCE_VALUE_FALSE": "",
+  "REPORTS_DOWNLOAD": "Download .xls",
 
 
 
