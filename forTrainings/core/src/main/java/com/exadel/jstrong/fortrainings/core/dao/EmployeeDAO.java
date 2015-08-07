@@ -23,5 +23,6 @@ public interface EmployeeDAO extends GenericDAO<Employee> {
     List<Employee> getAllInsideUsers();
     Employee getEmployee(int id);
     boolean isSubscriber(int id);
+    List<Employee> getEmployeesBySubscribe(int trainingId);
 
 }
