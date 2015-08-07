@@ -58,13 +58,14 @@
                                 <tr>
                                     <th>{{ 'TRAINING_PAGE_USER' | translate }}</th>
                                     <th ng-repeat="meet in training.meets">
-                                        {{$index+1}}
+                                        {{training.tableDate[$index]}}
                                     </th>
                                 </tr>
                                 <tr ng-repeat="subscriber in subscribers|filter:'Approve'">
                                     <td nowrap>{{subscriber.name}}</td>
                                     <td ng-repeat="meet in training.meets"
-                                        title="{{subscriber.participants[$index].reason}}">
+                                        title="{{subscriber.participants[$index].reason}}"
+                                            class="tableDate">
                                         {{subscriber.participants[$index].absent|attendanceFilter}}</td>
                                 </tr>
                             </table>

@@ -81,7 +81,6 @@ public class Sender {
             Transport.send(message, addresses);
             return true;
         } catch (Throwable e) {
-            e.printStackTrace();
             logger.warn("Messages didn't send");
             return false;
         }
