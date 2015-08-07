@@ -94,8 +94,11 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
 
     @Override
     public List<Employee> getAdmins() {
-        Role admin = roleDAO.getRoleByName("admin");
-        return admin.getEmployees();
+        //Role admin = roleDAO.getRoleByName("admin");
+        //return admin.getEmployees();
+        String request = "SELECT * FROM for_trainings.employee WHERE id IN (SELECT employee_id FROM for_trainings.employee_role WHERE role_id = 1)";
+        Query query = em.createNativeQuery(request, Employee.class);
+        return query.getResultList();
     }
 
     @Override

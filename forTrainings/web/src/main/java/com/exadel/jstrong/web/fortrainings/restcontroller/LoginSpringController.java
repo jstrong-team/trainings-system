@@ -63,6 +63,7 @@ public class LoginSpringController {
         } catch (JsonParseException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         return null;
     }
 }

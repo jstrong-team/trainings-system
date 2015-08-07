@@ -12,7 +12,6 @@ import com.exadel.jstrong.web.fortrainings.services.TaskExecutor;
 import com.exadel.jstrong.web.fortrainings.services.mailservice.Sender;
 import com.exadel.jstrong.web.fortrainings.services.noticeservice.NoticeFactory;
 import com.exadel.jstrong.web.fortrainings.services.tasks.TaskFactory;
-import com.exadel.jstrong.web.fortrainings.services.tasks.TaskFactoryImpl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
@@ -79,18 +78,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         }
         training.setMeets(meets);
 
-        Notice notice = NoticeFactory.getNotApprovedNewTrainingNotice(training);
-        List<Employee> admins = eDAO.getAdmins();
-        addNotices(notice, admins);
-
-
-        /*Notice notice = NoticeFactory.getTrainingCreateNotice(training);
-        noticeDAO.addNotice(notice);
-        List<Employee> employees = eDAO.getAllUsers();
-        List<EmployeeNotice> en = NoticeFactory.getEmployeeNoticesFromEmployees(notice.getId(), employees);
-        noticeDAO.addNotices(notice.getId(), en);
-        List<String> mails = eDAO.getAllMails();
-        Sender.send(notice, mails);*/
+        taskExecutor.submitTask(taskFactory.createAddTrainingTask(training));
 
         return id;
     }
@@ -125,9 +113,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     public void deleteTraining(int trainingId) {
         tDAO.deleteTraining(trainingId);
         Employee system = eDAO.getById(NoticeFactory.systemId);
-        Notice notice = NoticeFactory.getTrainingDeleteNotice(tDAO.getTrainingById(trainingId), system);
-        List<Employee> admins = eDAO.getAdmins();
-        addNotices(notice, admins);
+
+        taskExecutor.submitTask(taskFactory.createDeleteTrainingTask(trainingId, system));
     }
 
     @Override
@@ -194,9 +181,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         emDAO.addFeedback(employeeFeedback);
         Training training = tDAO.getTrainingById(employeeFeedback.getTrainingId());
         Employee sender = eDAO.getById(employeeFeedback.getEmployeeId());
-        Notice notice = NoticeFactory.getEmployeeFeedbackNotice(training, sender);
-        List<Employee> admins = eDAO.getAdmins();
-        addNotices(notice, admins);
+
+        taskExecutor.submitTask(taskFactory.createAddEmpoyeeFeedbackTask(training, sender));
     }
 
 //    @Override
@@ -300,7 +286,6 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         training.setId(oldTrainingId);
         String json = gson.toJson(training);
-        //List<Transaction> meets = new ArrayList<>();
 
         Transaction transaction = new Transaction();
         transaction.setEntityName("training");
@@ -459,49 +444,9 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         return newMeets;
     }
 
-//    @Override
-//    public List<MeetReportUI> getMeetReportUIs(int employeeId) {
-//        List<Subscribe> subscribes = sDAO.getSubscribersByEmployeeId(employeeId);
-//        List<MeetReportUI> meetReportUIs = new ArrayList<>();
-//
-//        MeetReportUI meetReportUI = null;
-//        for (Subscribe s : subscribes) {
-//            int trainingId = s.getTrainingId();
-//            List<Participant> participants = tDAO.getAllBySubscribeId(s.getId());
-//            for (Participant p : participants) {
-//                meetReportUI = new MeetReportUI();
-//                meetReportUI.setAbsent(p.isAbsent());
-//                //meetReportUI.setDate(p.getDate());
-//                meetReportUI.setReason(p.getReason());
-//                meetReportUI.setTrainingName(tDAO.getTrainingName(trainingId));
-//                meetReportUIs.add(meetReportUI);
-//            }
-//        }
-//        return meetReportUIs;
-//    }
-
-//    @Override
-//    public List<TrainingReportUI> getReportUI(int employeeId) {
-//        List<Subscribe> subscribes = sDAO.getSubscribersByEmployeeId(employeeId);
-//        List<TrainingReportUI> trainingReportUIs = new ArrayList<>();
-//        TrainingReportUI trainingReportUI = null;
-//        for (Subscribe s : subscribes) {
-//            trainingReportUI = new TrainingReportUI();
-//            trainingReportUI.setMeets(getMeetReportUIs(s.getId()));
-//            int trainingId = s.getTrainingId();
-//            trainingReportUI.setName(tDAO.getTrainingName(trainingId));
-//            trainingReportUIs.add(trainingReportUI);
-//        }
-//        return trainingReportUIs;
-//    }
-
     @Override
     public void changeTrainingStatus(int trainingId) {
         tDAO.changeStatus(trainingId);
-        Employee system = eDAO.getById(NoticeFactory.systemId);
-        Notice notice = NoticeFactory.getTrainingCreateNotice(tDAO.getTrainingById(trainingId), system.getId());
-        List<Employee> employees = eDAO.getAllUsers();
-        addNotices(notice, employees);
     }
 
     @Override
@@ -553,9 +498,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         Training training = tDAO.getTrainingById(trainerFeedback.getTrainingId());
         Employee sender = eDAO.getById(trainerFeedback.getFeedbackerId());
         Employee employee = eDAO.getById(trainerFeedback.getEmployeeId());
-        Notice notice = NoticeFactory.getTrainerFeedbackNotice(training, sender, employee);
-        List<Employee> admins = eDAO.getAdmins();
-        addNotices(notice, admins);
+
+        taskExecutor.submitTask(taskFactory.createAddTrainerFeedbackTask(training, sender, employee));
     }
 
     @Override
@@ -594,38 +538,10 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         addSubscriber(subscribe);
     }
 
-
-
-    public void addNotices(Notice notice, List<Employee> employees) {
-        noticeDAO.addNotice(notice);
-        List<EmployeeNotice> en = NoticeFactory.getEmployeeNoticesFromEmployees(notice.getId(), employees);
-        noticeDAO.addEmployeeNotices(notice.getId(), en);
-        List<String> mails = eDAO.getEmployeesMails(employees);
-        Sender.send(notice, mails);
-    }
-
-
-    public void addNotices(Notice notice, Employee employee) {
-        noticeDAO.addNotice(notice);
-        EmployeeNotice en = NoticeFactory.getEmployeeNoticeFromEmployee(notice.getId(), employee);
-        List<EmployeeNotice> employeeNotices = new ArrayList<>();
-        employeeNotices.add(en);
-        noticeDAO.addEmployeeNotices(notice.getId(), employeeNotices);
-        String mail = eDAO.getEmail(employee.getId());
-        Sender.send(notice, mail);
-    }
-/*
-    public void addSubscribeNotices(Notice notice, Subscribe subscribe) {
-        noticeDAO.addNotice(notice);
-        EmployeeNotice en = NoticeFactory.getEmployeeNoticeFromSubscriber(notice.getId(), subscribe);
-        List<EmployeeNotice> employeeNotices = new ArrayList<>();
-        employeeNotices.add(en);
-        noticeDAO.addEmployeeNotices(notice.getId(), employeeNotices);
-        List<String> mails = eDAO.getAllMails();
-        Sender.send(notice, mails);
-    }
-*/
     public void approveNewTraining(int trainingId) {
         tDAO.approveNewTraining(trainingId);
+        Employee system = eDAO.getById(NoticeFactory.systemId);
+
+        taskExecutor.submitTask(taskFactory.createCreateTrainingTask(trainingId, system.getId()));
     }
 }
