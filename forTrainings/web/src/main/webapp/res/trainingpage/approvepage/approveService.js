@@ -1,5 +1,24 @@
 angular.module('approvePageModule').factory('approveService', ['$rootScope','$http','$location', function($rootScope,$http,$location) {
     var service={};
+
+    service.approveCreate = function(id) {
+        console.log({
+            transactionId:id,
+            adminAnswer:'Approve'
+        });
+        $http.put('rest/storagetraining/approve',{
+            transactionId:id,
+            adminAnswer:'a'
+        }).then(function(){
+            $location.url('/ui/news');
+        }, function(error){
+            if(error.status===401){
+                $location.url('/ui/');
+            }
+            console.log(error);
+        });
+    };
+
     service.approve = function(id) {
         console.log({
             transactionId:id,

@@ -224,6 +224,7 @@
   "ADMIN_ADD_SUBSCRIBER_PHONE":"phone number",
   "ADMIN_ADD_SUBSCRIBER_SAVE":"Save subscriber",
 
+  "ADMIN_APPROVE_EDIT_TRAINING_NAME":"Training name",
   "ADMIN_APPROVE_EDIT_MAX_OLD":"Max participants old value",
   "ADMIN_APPROVE_EDIT_MAX_NEW":"Max participants new value",
   "ADMIN_APPROVE_EDIT_PAID_OLD":"Paid/Free old value",
@@ -231,5 +232,6 @@
   "ADMIN_APPROVE_EDIT_INTERNAL_OLD":"Internal/External old value",
   "ADMIN_APPROVE_EDIT_INTERNAL_NEW":"Internal/External new value",
   "ADMIN_APPROVE_EDIT_APPROVE":"Approve",
-  "ADMIN_APPROVE_EDIT_DISMISS":"Dismiss"
+  "ADMIN_APPROVE_EDIT_DISMISS":"Dismiss",
+  "ADMIN_APPROVE_PAGE_NAME":"Approve page"
 }
