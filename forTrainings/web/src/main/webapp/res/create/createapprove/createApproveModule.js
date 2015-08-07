@@ -8,7 +8,7 @@ angular.module('createApproveModule', []).config(['$routeProvider', function ($r
                 var id = $route.current.params.trainingId;
                 getRole(id).then(function (data, status, headers, config) {
                     if (data.data.role === 'admin') {
-                        getTrainingData(id).then(function (data, status, headers, config) {
+                        $http.get('rest/storagetraining//getNotApprovedTraining?id='+id).then(function (data, status, headers, config) {
                             def.resolve(data);
                         }, function (error) {
                             console.error(error);
