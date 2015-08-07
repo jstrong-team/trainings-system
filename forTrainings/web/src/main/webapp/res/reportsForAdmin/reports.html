@@ -96,6 +96,12 @@
             <span class="glyphicon glyphicon-print"></span>
             {{ 'REPORTS_PRINT' | translate }}
         </button>
+
+        <button ng-show="initialState" type="button" class="btn btn-md downloadXls"
+                ng-click="download()">
+            <span class="glyphicon glyphicon-download-alt"></span>
+            {{ 'REPORTS_DOWNLOAD' | translate }}
+        </button>
     </div>
 
 </div>

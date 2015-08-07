@@ -140,3 +140,27 @@ hr {
 .pastMeetings a:hover {
     color: #2E729F;
 }
+
+.calLegendItem {
+    display: inline-block;
+    height: 50px;
+    width: 10%;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: white;
+    text-align: center;
+    color: #000000;
+    opacity: 0.85;
+}
+
+.calLegendItem p {
+    padding-top: 5px;
+    margin: 0;
+}
+
+.calLegendDescription {
+    display: inline-block;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+}
