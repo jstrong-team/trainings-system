@@ -101,8 +101,6 @@
 
         $scope.download = function () {
             $window.open('http://localhost:8080/rest/storagetraining/getReportFile?userId='+ userId +'&trainingId='+ trainingId +'&dateFrom='+ $scope.dateTimeFrom +'&dateTo=' + $scope.dateTimeTo, '_blank');
-
-            //window.open('/ui/admin/reports/download');
         };
 
     };
