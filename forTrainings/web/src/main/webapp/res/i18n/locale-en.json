@@ -237,5 +237,7 @@
   "ADMIN_APPROVE_EDIT_INTERNAL_NEW":"Internal/External new value",
   "ADMIN_APPROVE_EDIT_APPROVE":"Approve",
   "ADMIN_APPROVE_EDIT_DISMISS":"Dismiss",
+  "ADMIN_APPROVE_EDIT_OLD_DATES":"Old dates",
+  "ADMIN_APPROVE_EDIT_NEW_DATES":"New dates",
   "ADMIN_APPROVE_PAGE_NAME":"Approve page"
 }

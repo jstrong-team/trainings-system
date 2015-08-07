@@ -84,10 +84,13 @@
                     if (error.status === 401) {
                         $location.url('/ui/');
                     }
-                    console.log(error);
+                    console.error(error);
                 });
 
             }, function (error) {
+                if (error.status === 401) {
+                    $location.url('/ui/');
+                }
                 console.log(error);
             });
         };
@@ -141,6 +144,9 @@
                     absentService.prepare($scope.subscribers, $scope.training);
                     $scope.training.isSubscribe = false;
                 }, function (error) {
+                    if (error.status === 401) {
+                        $location.url('/ui/');
+                    }
                     console.log(error);
                 });
             }, function (error) {

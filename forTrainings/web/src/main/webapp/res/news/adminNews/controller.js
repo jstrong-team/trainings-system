@@ -42,7 +42,10 @@
                         $scope.noNewsInHistory = true;
                     }
                 },
-                function(data, status){
+                function(error){
+                    if(error.status===401){
+                        $location.url('/ui/');
+                    }
                     console.log(status);
                 });
         });
@@ -58,7 +61,10 @@
                     }
 
                 },
-                function(data, status){
+                function(error){
+                    if(error.status===401){
+                        $location.url('/ui/');
+                    }
                     console.log(status);
                 });
         };
