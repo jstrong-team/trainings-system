@@ -607,7 +607,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         noticeDAO.addNotice(notice);
         List<EmployeeNotice> en = NoticeFactory.getEmployeeNoticesFromEmployees(notice.getId(), employees);
         noticeDAO.addEmployeeNotices(notice.getId(), en);
-        List<String> mails = eDAO.getAllMails();
+        List<String> mails = eDAO.getEmployeesMails(employees);
         Sender.send(notice, mails);
     }
 
@@ -618,8 +618,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
         List<EmployeeNotice> employeeNotices = new ArrayList<>();
         employeeNotices.add(en);
         noticeDAO.addEmployeeNotices(notice.getId(), employeeNotices);
-        List<String> mails = eDAO.getAllMails();
-        Sender.send(notice, mails);
+        String mail = eDAO.getEmail(employee.getId());
+        Sender.send(notice, mail);
     }
 
     public void addSubscribeNotices(Notice notice, Subscribe subscribe) {

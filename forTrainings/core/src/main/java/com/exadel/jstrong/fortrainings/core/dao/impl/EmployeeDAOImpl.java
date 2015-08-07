@@ -80,6 +80,14 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
         return em.createNativeQuery("SELECT mail FROM employee").getResultList();
     }
 
+    @Override
+    public List<String> getEmployeesMails(List<Employee> employees) {
+        List<String> emails = new ArrayList<>();
+        for(Employee employee: employees) {
+            emails.add(getEmail(employee.getId()));
+        }
+        return  emails;
+    }
 
     @Override
     public List<Employee> getAdmins() {
