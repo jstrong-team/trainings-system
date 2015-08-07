@@ -14,6 +14,9 @@ angular.module('trainingPageModule', []).config(['$routeProvider', function ($ro
                             getTrainingData(id).then(function (data, status, headers, config) {
                                 def.resolve(data);
                             }, function (error) {
+                                if(error.status===401){
+                                    $location.url('/ui/');
+                                }
                                 console.error(error);
                             });
                             break;
@@ -42,6 +45,9 @@ angular.module('trainingPageModule', []).config(['$routeProvider', function ($ro
                         $location.url('/ui/trainings');
                     }
                 }, function (error) {
+                    if(error.status===401){
+                        $location.url('/ui/');
+                    }
                     console.error(error);
                 });
                 return function () {

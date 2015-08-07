@@ -27,11 +27,16 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
 
     @Override
     public Employee selectByAuthorization(String login, String password) {
-        password = DigestUtils.md5Hex(password);
-        Query query = em.createQuery("SELECT e FROM Employee e WHERE e.login = :log  AND  e.password = :pas", Employee.class).setParameter("log", login).setParameter("pas", password);
-        Employee employee = (Employee)query.getSingleResult();
+        try {
+            password = DigestUtils.md5Hex(password);
+            Query query = em.createQuery("SELECT e FROM Employee e WHERE e.login = :log  AND  e.password = :pas", Employee.class).setParameter("log", login).setParameter("pas", password);
+            Employee employee = (Employee) query.getSingleResult();
 
-        return employee;
+            return employee;
+        } catch(Throwable e){
+            logger.warn(e.toString());
+            return null;
+        }
     }
 
     @Override
@@ -94,8 +99,11 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
 
     @Override
     public List<Employee> getAdmins() {
-        Role admin = roleDAO.getRoleByName("admin");
-        return admin.getEmployees();
+        //Role admin = roleDAO.getRoleByName("admin");
+        //return admin.getEmployees();
+        String request = "SELECT * FROM for_trainings.employee WHERE id IN (SELECT employee_id FROM for_trainings.employee_role WHERE role_id = 1)";
+        Query query = em.createNativeQuery(request, Employee.class);
+        return query.getResultList();
     }
 
     @Override

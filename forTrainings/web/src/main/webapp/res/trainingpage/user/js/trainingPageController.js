@@ -97,6 +97,9 @@
                     $scope.training.isSubscribe = false;
                     absentService.prepare($scope.subscribers, $scope.training);
                 }, function (error) {
+                    if(error.status===401){
+                        $location.url('/ui/');
+                    }
                     console.log(error);
                 });
             }, function (error) {

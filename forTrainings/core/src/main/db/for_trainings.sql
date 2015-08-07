@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.6.17, for osx10.7 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `for_trainings` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `for_trainings`;
+-- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
 -- Host: localhost    Database: for_trainings
 -- ------------------------------------------------------
--- Server version	5.6.17
+-- Server version	5.6.25-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,7 +32,7 @@ CREATE TABLE `employee` (
   `mail` varchar(50) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=667 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +41,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1,'anton','784742a66a3a0c271feced5b149ff8db','Grigoriev Anton','toxa.z@mail.ru',NULL),(2,'masha','c3cc6e312d2bad42cf535aac3a259abd','Grakova Maria','mariagracova96@gmail.com',NULL),(3,'stas','c211c9e7e7689217c0cb99aafe30f3d7','Petrovich Stanislav','staspetrovichbsu@gmail.com',NULL),(4,'kolya','ec3da25081aa81b637fe6faa3debe26e','Lebedev Nikolay','nickylebedev@gmail.com',NULL),(5,'dima','0f5b25cd58319cde0e6e33715b66db4c','Nedelko Dmitriy',NULL,NULL),(6,'maks','051f7661ee7c287be66ee572768ec8f5','Skavysh Maksim',NULL,NULL),(7,'admin','21232f297a57a5a743894a0e4a801fc3','Vasilenko Janna','toxa.z@mail.ru',NULL),(8,'anton','ad9e11ec2d2a34f4c29caa301eb3a06c','Nikiforenko Anton',NULL,NULL),(9,'kostya','81922bb5975b271921aea035bb39626d','Volchkov Konstantin',NULL,NULL),(10,'lesha','f67df4dfbbf865db31b1b6abbd6ceb87','Zapolskiy Aleksey',NULL,NULL),(11,'dasha','e99fc70a6ce263ef79c408d90476a6f1','Rovdo Darya',NULL,NULL),(12,'nadya','fe88a9844b952d9761c452e68139786b','Ivanyukovich Nadezhda',NULL,NULL),(13,'misha','84e33d34422398ed4933dd0f8868d3eb','Kukuev Mihail',NULL,NULL),(14,'ivan','b8cce9b45064f1bf82c4724ec2a0ca88','Palaznik Ivan',NULL,NULL),(15,'kolya','5e399f2ec329784df6d1015c79d2097c','Cherepkin Nikolay',NULL,NULL),(16,'ivan','69665d771ffe152be4608ac1df1f60bc','Poyda Ivan',NULL,NULL),(17,'vika','47d20d4a971f24d77ab97ad9d3ebc2be','Hlystun Viktoriya',NULL,NULL),(18,'klim','c8463d0639afa2bd23a5597818e9d0f1','Shuplenkov Klim',NULL,NULL),(19,'artem','13a22a4ad71d82018313acf1c85d344e','Yudovin Artem',NULL,NULL),(20,'anna','585779d62c67474a86e32e4e483717d1','Aneychik Anna',NULL,NULL),(21,'anton','cab30242c57005a5b3c11bb2824dc54e','Dosov Anton',NULL,NULL),(22,'dasha','0f8e62d9ae788cfb940341238b431623','Busel Darya',NULL,NULL),(23,'mlada','a4a013d37b02159480726317b456a8da','Ignatovich Mlada',NULL,NULL),(24,'viktor','b96393093fff43b3e8abe68016a8527c','Romashko Viktor',NULL,NULL),(25,'lesha','4a4f9945e37d7799509883985615e3af','Hvorostovskiy Aleksey',NULL,NULL),(26,'anton','d389ef1ae5074383a727261ffaf6bb54','Belyy Anton',NULL,NULL),(27,'gena','cdc93091c32dbf68ee186258638fb03f','Trubach Gennadiy',NULL,NULL),(28,'yana','2565f0e9d0416f2ab1e32f2f18c9572a','Yaroshevich Yana',NULL,NULL),(29,'svyat','3d305fad3885a17ce3e934f619821d60','Schavrovskiy Svyatoslav',NULL,NULL),(30,'ivan','387be6215df7610aa835dd875ae860c3','Zhamoydin Ivan',NULL,NULL),(31,'aleksandr','dd01eb45e3cd4085fecc213caa1d1958','Pshenichnik Aleksandr',NULL,NULL),(32,'konstantin','2866c320a60e6852feb055cd7f657c30','Marmalyukov Konstantin',NULL,NULL),(33,'pavel','5cc391fedb13d796e925da4d17dc710b','Shapovalov Pavel',NULL,NULL),(34,'sergey','b77119ed2372929d47788953db9a4748','Nalivko Sergey',NULL,NULL),(35,'vyacheslav','ffab4554791718ecd4e12ffe1cc9f85c','Brezhnev Vyacheslav',NULL,NULL),(36,'dmitriy','41dcdc1fd3a765644f8081ae349b3071','Skrashchuk Dmitriy',NULL,NULL),(37,'oleg','4d4a558fbec8dd2ef8a872b2bfdcc42b','Babashko Oleg',NULL,NULL),(38,'ilya','c9f5e2998b6490e2bf0a8f369a4ea629','Buzyuk Ilya',NULL,NULL),(39,'aleksey','f90cce048060852e00912c866e830647','Kirilchik Aleksey',NULL,NULL),(40,'inna','becc7c963c9b296d0512302cdb123cd5','Starodubceva Inna',NULL,NULL),(41,'valeriy','10fed361baa188f75060a6469868aa8e','Sushkevich Valeriy',NULL,NULL),(42,'aleksey','dab4a6fbf94c3edf210bc7f5bcee6d0c','Chumakov Aleksey',NULL,NULL),(43,'sergey','43cdda53fd868a090a57c1c2106d3692','Koval Sergey',NULL,NULL),(44,'aleksey','39acb0471d5675582b66fe7c4219dcf5','Trofimov Aleksey',NULL,NULL),(45,'admin','0cc175b9c0f1b6a831c399e269772661','admin',NULL,NULL),(46,'user','ee11cbb19052e40b07aac0ca060c23ee','user',NULL,NULL);
+INSERT INTO `employee` VALUES (1,'anton','784742a66a3a0c271feced5b149ff8db','Grigoriev Anton','toxa.z@mail.ru',NULL),(2,'masha','c3cc6e312d2bad42cf535aac3a259abd','Grakova Maria','mariagracova96@gmail.com',NULL),(3,'stas','c211c9e7e7689217c0cb99aafe30f3d7','Petrovich Stanislav','staspetrovichbsu@gmail.com',NULL),(4,'kolya','ec3da25081aa81b637fe6faa3debe26e','Lebedev Nikolay','nickylebedev@gmail.com',NULL),(5,'dima','0f5b25cd58319cde0e6e33715b66db4c','Nedelko Dmitriy',NULL,NULL),(6,'maks','051f7661ee7c287be66ee572768ec8f5','Skavysh Maksim',NULL,NULL),(7,'admin','21232f297a57a5a743894a0e4a801fc3','Vasilenko Janna','toxa.z@mail.ru',NULL),(8,'anton','ad9e11ec2d2a34f4c29caa301eb3a06c','Nikiforenko Anton',NULL,NULL),(9,'kostya','81922bb5975b271921aea035bb39626d','Volchkov Konstantin',NULL,NULL),(10,'lesha','f67df4dfbbf865db31b1b6abbd6ceb87','Zapolskiy Aleksey',NULL,NULL),(11,'dasha','e99fc70a6ce263ef79c408d90476a6f1','Rovdo Darya',NULL,NULL),(12,'nadya','fe88a9844b952d9761c452e68139786b','Ivanyukovich Nadezhda',NULL,NULL),(13,'misha','84e33d34422398ed4933dd0f8868d3eb','Kukuev Mihail',NULL,NULL),(14,'ivan','b8cce9b45064f1bf82c4724ec2a0ca88','Palaznik Ivan',NULL,NULL),(15,'kolya','5e399f2ec329784df6d1015c79d2097c','Cherepkin Nikolay',NULL,NULL),(16,'ivan','69665d771ffe152be4608ac1df1f60bc','Poyda Ivan',NULL,NULL),(17,'vika','47d20d4a971f24d77ab97ad9d3ebc2be','Hlystun Viktoriya',NULL,NULL),(18,'klim','c8463d0639afa2bd23a5597818e9d0f1','Shuplenkov Klim',NULL,NULL),(19,'artem','13a22a4ad71d82018313acf1c85d344e','Yudovin Artem',NULL,NULL),(20,'anna','585779d62c67474a86e32e4e483717d1','Aneychik Anna',NULL,NULL),(21,'anton','cab30242c57005a5b3c11bb2824dc54e','Dosov Anton',NULL,NULL),(22,'dasha','0f8e62d9ae788cfb940341238b431623','Busel Darya',NULL,NULL),(23,'mlada','a4a013d37b02159480726317b456a8da','Ignatovich Mlada',NULL,NULL),(24,'viktor','b96393093fff43b3e8abe68016a8527c','Romashko Viktor',NULL,NULL),(25,'lesha','4a4f9945e37d7799509883985615e3af','Hvorostovskiy Aleksey',NULL,NULL),(26,'anton','d389ef1ae5074383a727261ffaf6bb54','Belyy Anton',NULL,NULL),(27,'gena','cdc93091c32dbf68ee186258638fb03f','Trubach Gennadiy',NULL,NULL),(28,'yana','2565f0e9d0416f2ab1e32f2f18c9572a','Yaroshevich Yana',NULL,NULL),(29,'svyat','3d305fad3885a17ce3e934f619821d60','Schavrovskiy Svyatoslav',NULL,NULL),(30,'ivan','387be6215df7610aa835dd875ae860c3','Zhamoydin Ivan',NULL,NULL),(31,'aleksandr','dd01eb45e3cd4085fecc213caa1d1958','Pshenichnik Aleksandr',NULL,NULL),(32,'konstantin','2866c320a60e6852feb055cd7f657c30','Marmalyukov Konstantin',NULL,NULL),(33,'pavel','5cc391fedb13d796e925da4d17dc710b','Shapovalov Pavel',NULL,NULL),(34,'sergey','b77119ed2372929d47788953db9a4748','Nalivko Sergey',NULL,NULL),(35,'vyacheslav','ffab4554791718ecd4e12ffe1cc9f85c','Brezhnev Vyacheslav',NULL,NULL),(36,'dmitriy','41dcdc1fd3a765644f8081ae349b3071','Skrashchuk Dmitriy',NULL,NULL),(37,'oleg','4d4a558fbec8dd2ef8a872b2bfdcc42b','Babashko Oleg',NULL,NULL),(38,'ilya','c9f5e2998b6490e2bf0a8f369a4ea629','Buzyuk Ilya',NULL,NULL),(39,'aleksey','f90cce048060852e00912c866e830647','Kirilchik Aleksey',NULL,NULL),(40,'inna','becc7c963c9b296d0512302cdb123cd5','Starodubceva Inna',NULL,NULL),(41,'valeriy','10fed361baa188f75060a6469868aa8e','Sushkevich Valeriy',NULL,NULL),(42,'aleksey','dab4a6fbf94c3edf210bc7f5bcee6d0c','Chumakov Aleksey',NULL,NULL),(43,'sergey','43cdda53fd868a090a57c1c2106d3692','Koval Sergey',NULL,NULL),(44,'aleksey','39acb0471d5675582b66fe7c4219dcf5','Trofimov Aleksey',NULL,NULL),(45,'admin','0cc175b9c0f1b6a831c399e269772661','admin',NULL,NULL),(46,'user','ee11cbb19052e40b07aac0ca060c23ee','user',NULL,NULL),(666,'aef','awf','System',NULL,NULL);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,20 +219,19 @@ LOCK TABLES `meet_version` WRITE;
 UNLOCK TABLES;
 
 --
--- Temporary table structure for view `new_view`
+-- Temporary view structure for view `new_view`
 --
 
 DROP TABLE IF EXISTS `new_view`;
 /*!50001 DROP VIEW IF EXISTS `new_view`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `new_view` (
-  `id` tinyint NOT NULL,
-  `training_id` tinyint NOT NULL,
-  `name` tinyint NOT NULL,
-  `annotation` tinyint NOT NULL,
-  `date` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `new_view` AS SELECT 
+ 1 AS `id`,
+ 1 AS `training_id`,
+ 1 AS `name`,
+ 1 AS `annotation`,
+ 1 AS `date`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -293,20 +294,19 @@ LOCK TABLES `participant` WRITE;
 UNLOCK TABLES;
 
 --
--- Temporary table structure for view `report`
+-- Temporary view structure for view `report`
 --
 
 DROP TABLE IF EXISTS `report`;
 /*!50001 DROP VIEW IF EXISTS `report`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `report` (
-  `id` tinyint NOT NULL,
-  `subscribe_id` tinyint NOT NULL,
-  `date` tinyint NOT NULL,
-  `absent` tinyint NOT NULL,
-  `reason` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `report` AS SELECT 
+ 1 AS `id`,
+ 1 AS `subscribe_id`,
+ 1 AS `date`,
+ 1 AS `absent`,
+ 1 AS `reason`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -576,7 +576,6 @@ UNLOCK TABLES;
 -- Final view structure for view `new_view`
 --
 
-/*!50001 DROP TABLE IF EXISTS `new_view`*/;
 /*!50001 DROP VIEW IF EXISTS `new_view`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -595,7 +594,6 @@ UNLOCK TABLES;
 -- Final view structure for view `report`
 --
 
-/*!50001 DROP TABLE IF EXISTS `report`*/;
 /*!50001 DROP VIEW IF EXISTS `report`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -619,4 +617,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-07 13:52:48
+-- Dump completed on 2015-08-07 15:07:10

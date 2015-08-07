@@ -40,7 +40,7 @@ public class FeedbackReportUI {
 
     public String toString(){
         StringBuilder str = new StringBuilder(date);
-        str.append(": ").append(text);
+        str.append(": \r\n").append(text).append("\r\n");
         return str.toString();
     }
 
