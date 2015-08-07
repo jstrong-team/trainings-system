@@ -23,4 +23,5 @@ public interface TaskFactory {
     AddEmpoyeeFeedbackTask createAddEmpoyeeFeedbackTask(Training training, Employee sender);
     CreateTrainingTask createCreateTrainingTask(Integer trainingId, Integer systemId);
     DeleteTrainingTask createDeleteTrainingTask(Integer trainingId, Employee system);
+    AddExternalTask createAddExternalTask(Employee employee);
 }

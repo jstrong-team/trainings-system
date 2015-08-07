@@ -17,6 +17,7 @@ public class NoticeUI {
     private String senderName;
     private Integer transactionId;
     private Integer trainingId;
+    private Boolean isApproveTraining;
     private String theme;
     private String text;
     private String status;
@@ -94,5 +95,13 @@ public class NoticeUI {
 
     public void setSenderName(String senderName) {
         this.senderName = senderName;
+    }
+
+    public Boolean isApproveTraining() {
+        return isApproveTraining;
+    }
+
+    public void setIsApproveTraining(Boolean isApproveTraining) {
+        this.isApproveTraining = isApproveTraining;
     }
 }

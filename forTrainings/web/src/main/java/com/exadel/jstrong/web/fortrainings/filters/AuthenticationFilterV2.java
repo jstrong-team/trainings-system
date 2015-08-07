@@ -62,6 +62,7 @@ public class AuthenticationFilterV2 extends OncePerRequestFilter {
 
             if (isBaseUrl) {
                 if (isCorrect) {
+                    //isExternal redirect!!!
                     redirectUrl = "/ui/trainings";
                 } else {
                     authorized = true;
@@ -69,6 +70,7 @@ public class AuthenticationFilterV2 extends OncePerRequestFilter {
             } else {
                 if (isCorrect) {
                     authorized = true;
+                    //
                 } else {
                     redirectUrl = UI_PATH;
                 }

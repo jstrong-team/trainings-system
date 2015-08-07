@@ -41,7 +41,9 @@ public class NoticeFactory {
             notice.setText("There is the new training " + training.getName() + " in system");
             notice.setStatus("info");
             notice.setSenderId(senderId);
+            notice.setTransactionId(null);
             notice.setTrainingId(training.getId());
+            notice.setIsApproveTraining(false);
             notice.setAddDate(new Date());
             return notice;
         } catch(Throwable e){
@@ -57,7 +59,9 @@ public class NoticeFactory {
             notice.setText("Training \"" + training.getName() + "\" was edited");
             notice.setStatus("info");
             notice.setSenderId(editorId);
+            notice.setTransactionId(null);
             notice.setTrainingId(training.getId());
+            notice.setIsApproveTraining(false);
             notice.setAddDate(new Date());
             notice.setTransactionId(transactionId);
             return notice;
@@ -74,7 +78,9 @@ public class NoticeFactory {
             notice.setText("Training \"" + training.getName() + "\" was deleted");
             notice.setStatus("info");
             notice.setSenderId(deleter.getId());
+            notice.setTransactionId(null);
             notice.setTrainingId(training.getId());
+            notice.setIsApproveTraining(false);
             notice.setAddDate(new Date());
             return notice;
         } catch(Throwable e){
@@ -135,6 +141,7 @@ public class NoticeFactory {
             notice.setStatus("warning");
             notice.setSenderId(training.getTrainer_id());
             notice.setTrainingId(training.getId());
+            notice.setIsApproveTraining(true);
             notice.setAddDate(new Date());
             return notice;
         } catch(Throwable e){
@@ -152,6 +159,7 @@ public class NoticeFactory {
             notice.setSenderId(senderId);
             notice.setTrainingId(training.getId());
             notice.setTransactionId(transactionId);
+            notice.setIsApproveTraining(false);
             notice.setAddDate(new Date());
             return notice;
         } catch(Throwable e){
@@ -168,6 +176,8 @@ public class NoticeFactory {
             notice.setStatus("success");
             notice.setSenderId(senderId);
             notice.setTrainingId(training.getId());
+            notice.setIsApproveTraining(false);
+            notice.setTransactionId(null);
             notice.setAddDate(new Date());
             return notice;
         } catch(Throwable e){
@@ -184,6 +194,8 @@ public class NoticeFactory {
             notice.setStatus("success");
             notice.setSenderId(senderId);
             notice.setTrainingId(training.getId());
+            notice.setIsApproveTraining(false);
+            notice.setTransactionId(null);
             notice.setAddDate(new Date());
             return notice;
         } catch(Throwable e){
@@ -196,10 +208,12 @@ public class NoticeFactory {
         try {
             Notice notice = new Notice();
             notice.setTheme("Addition successfully completed");
-            notice.setText("User " + employee.getName() +  " was added to the \"" + training.getName() + "\" participants list with status " + status);
+            notice.setText("User " + employee.getName() + " was added to the \"" + training.getName() + "\" participants list with status " + status);
             notice.setStatus("success");
             notice.setSenderId(senderId);
             notice.setTrainingId(training.getId());
+            notice.setTransactionId(null);
+            notice.setIsApproveTraining(false);
             notice.setAddDate(new Date());
             return notice;
         } catch(Throwable e){
@@ -212,10 +226,12 @@ public class NoticeFactory {
         try {
             Notice notice = new Notice();
             notice.setTheme("Deletion completed");
-            notice.setText("User " + employee.getName() +  " was deleted from the \"" + training.getName() + "\" participants list");
+            notice.setText("User " + employee.getName() + " was deleted from the \"" + training.getName() + "\" participants list");
             notice.setStatus("success");
             notice.setSenderId(senderId);
             notice.setTrainingId(training.getId());
+            notice.setTransactionId(null);
+            notice.setIsApproveTraining(false);
             notice.setAddDate(new Date());
             return notice;
         } catch(Throwable e){
@@ -232,6 +248,8 @@ public class NoticeFactory {
             notice.setStatus("info");
             notice.setSenderId(sender.getId());
             notice.setTrainingId(training.getId());
+            notice.setTransactionId(null);
+            notice.setIsApproveTraining(false);
             notice.setAddDate(new Date());
             return notice;
         } catch(Throwable e){
@@ -248,6 +266,8 @@ public class NoticeFactory {
             notice.setStatus("info");
             notice.setSenderId(sender.getId());
             notice.setTrainingId(training.getId());
+            notice.setTransactionId(null);
+            notice.setIsApproveTraining(false);
             notice.setAddDate(new Date());
             return notice;
         } catch(Throwable e){
