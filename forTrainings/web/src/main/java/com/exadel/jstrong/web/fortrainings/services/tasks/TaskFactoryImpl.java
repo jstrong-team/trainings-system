@@ -96,4 +96,10 @@ public class TaskFactoryImpl implements TaskFactory {
         task.settDAO(trainingDAO);
         return task;
     }
+
+    @Override
+    public AddExternalTask createAddExternalTask(Employee employee) {
+        AddExternalTask task = new AddExternalTask(employee);
+        return task;
+    }
 }

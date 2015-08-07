@@ -23,7 +23,6 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
 
     private static Logger logger = Logger.getLogger(TrainingDAOImpl.class.getName());
 
-    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     public List<Event> getTrainingsInDateScope(int userId, Date dateFrom, Date dateTo) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -50,13 +49,12 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
                 event.setDate(event.getDate());
             }
         } catch(Throwable e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
 
         return events;
     }
 
-    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     @Transactional
     public List<Training> getSearchResponse(String st) {
@@ -78,7 +76,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
                 t.getMeets().size();
             }
         } catch(Throwable e){
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
         return trainings;
     }
@@ -108,7 +106,6 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         }
     }
 
-    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     @Transactional
     public Training getTrainingById(int id) {
@@ -122,7 +119,6 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         return null;
     }
 
-    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     public boolean isSubscribeById (int employeeId, int trainingId){
 
@@ -174,20 +170,13 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
         }
     }
 
-    //TODO: replace e.printStackTrace --> logger.warn/error
     @Override
     @Transactional
     public List<Subscribe> getSubscribers(int trainingId) {
         try {
-//            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-//            CriteriaQuery<Subscribe> query = criteriaBuilder.createQuery(Subscribe.class);
-//            Root<Subscribe> root = query.from(Subscribe.class);
-//            query.where(criteriaBuilder.equal(root.<Integer>get("trainingId"), trainingId));
-//            return em.createQuery(query).getResultList();
             return em.createNativeQuery("select * from subscribe s where s.training_id =:tId", Subscribe.class).setParameter("tId", trainingId).getResultList();
-//            return query.getResultList();
         } catch (Throwable e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
         return null;
     }
@@ -247,7 +236,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
             participants = em.createQuery(query).getResultList();
             return participants;
         } catch (Throwable e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
         return null;
     }
