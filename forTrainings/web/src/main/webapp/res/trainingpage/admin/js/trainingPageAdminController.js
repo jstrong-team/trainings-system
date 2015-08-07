@@ -8,7 +8,6 @@
         'getFeedbacksService',
         'editTrainingService',
         'openModalService',
-        'unsubscribeService',
         '$route',
         'subscribeService',
         '$modal',
@@ -24,7 +23,6 @@
                                getFeedbacksService,
                                editTrainingService,
                                openModalService,
-                               unsubscribeService,
                                $route,
                                subscribeService,
                                $modal,
@@ -77,12 +75,15 @@
 
         $scope.subscribe = function () {
             //subscribeService($scope.training,$scope.subscribers);
-            subscribeService($scope.training.id, $scope.feedback).then(function (response) {
+            subscribeService.subscribe($scope.training.id, $scope.feedback).then(function () {
                 getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                     $scope.subscribers = data.data;
                     $scope.training.isSubscribe = true;
                     absentService.prepare($scope.subscribers, $scope.training);
                 }, function (error) {
+                    if (error.status === 401) {
+                        $location.url('/ui/');
+                    }
                     console.log(error);
                 });
 
@@ -99,7 +100,24 @@
 
         $scope.addForeignUser = function () {
             console.log($scope.foreignUser);
-            $http.post('rest/storagetraining//addExternalUser?trainingId=' + $scope.training.id, $scope.foreignUser).catch(function (error) {
+            $http.post('rest/storagetraining//addExternalUser?trainingId=' + $scope.training.id, $scope.foreignUser).then(function () {
+                getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
+                    $scope.subscribers = data.data;
+                    absentService.prepare($scope.subscribers, $scope.training);
+                    $scope.training.isSubscribe = false;
+                    $scope.foreignUser.name=null;
+                    $scope.foreignUser.mail=null;
+                    $scope.foreignUser.phone=null;
+                }, function (error) {
+                    if (error.status === 401) {
+                        $location.url('/ui/');
+                    }
+                    console.log(error);
+                });
+            },function(error){
+                if (error.status === 401) {
+                    $location.url('/ui/');
+                }
                 console.error(error);
             });
         };
@@ -117,7 +135,7 @@
         };
 
         $scope.unsubscribe = function () {
-            unsubscribeService($scope.training.id).then(function (response) {
+            subscribeService.unsubscribe($scope.training.id).then(function () {
                 getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                     $scope.subscribers = data.data;
                     absentService.prepare($scope.subscribers, $scope.training);
@@ -126,6 +144,9 @@
                     console.log(error);
                 });
             }, function (error) {
+                if (error.status === 401) {
+                    $location.url('/ui/');
+                }
                 console.error(error);
             });
         };
@@ -161,6 +182,9 @@
             modalInstance.result.then(function (response) {
                 console.log(response);
             }, function (error) {
+                if (error.status === 401) {
+                    $location.url('/ui/');
+                }
                 console.error(error);
             });
 
@@ -178,19 +202,29 @@
                 $scope.training.year.push(moment($scope.training.meets[j].date).format('YYYY'));
             }
             dfd.resolve($scope.training.id);
-            //dfd.reject('dosd');
             return dfd.promise;
 
+        },function(error){
+            if (error.status === 401) {
+                $location.url('/ui/');
+            }
+            console.log(error);
         }).then(function (id) {
             getSubscribersService(id).then(function (data, status, headers, config) {
                 $scope.subscribers = data.data;
                 absentService.prepare($scope.subscribers, $scope.training);
-            }, function (reject) {
-                console.error(reject);
+            }, function (error) {
+                if (error.status === 401) {
+                    $location.url('/ui/');
+                }
+                console.error(error);
             });
             getFeedbacksService(id).then(function (data, status, headers, config) {
                 $scope.feedbacks = data.data;
             }, function (error) {
+                if (error.status === 401) {
+                    $location.url('/ui/');
+                }
                 console.error(error);
             });
         });

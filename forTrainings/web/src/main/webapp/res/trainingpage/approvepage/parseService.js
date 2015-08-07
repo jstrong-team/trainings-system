@@ -7,14 +7,10 @@ angular.module('approvePageModule').factory('parseService', [function () {
     var service = {};
 
     service.parse = function (input) {
-        //input = '!{This} !{add: special} !{training} !{add: course} !{is} !{rm: was} !{for} !{Java} !{Developers} !{and} !{rlc: Java -> other} !{rlc: Beginners -> employees} !{in} !{company} !{add: Exadel}';
         array.expression = [];
         array.type = [];
-        var regExp = /\!?\{([^}]+)\}/;
-        var replReg = /\!?\{/;
-        console.clear();
-        //console.log(input);
-        //console.log('______________________________________');
+        //var regExp = /\!?\{([^}]+)\}/;
+        //var replReg = /\!?\{/;
         //0 - word; 1 - add; 2 - rm ; 3 -rlc
         var res = input.split('!{');
         array.type = new Array(res.length);
@@ -35,11 +31,7 @@ angular.module('approvePageModule').factory('parseService', [function () {
                 array.type[i] = 0;
             }
         }
-        //console.log(res);
-        //console.log(array.type);
         array.expression=res;
-        //console.log(regExp.exec(input));
-        console.log('______________________________________');
         return angular.copy(array);
     };
 

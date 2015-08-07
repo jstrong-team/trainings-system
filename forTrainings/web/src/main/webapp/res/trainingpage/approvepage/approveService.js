@@ -9,9 +9,11 @@ angular.module('approvePageModule').factory('approveService', ['$rootScope','$ht
             transactionId:id,
             adminAnswer:'Approve'
         }).then(function(){
-            //$rootScope.$broadcast('removeNewsItem');
             $location.url('/ui/news');
         }, function(error){
+            if(error.status===401){
+                $location.url('/ui/');
+            }
             console.log(error);
         });
     };
@@ -28,6 +30,9 @@ angular.module('approvePageModule').factory('approveService', ['$rootScope','$ht
             //$rootScope.$broadcast('removeNewsItem');
             $location.url('/ui/news');
         }, function(error){
+            if(error.status===401){
+                $location.url('/ui/');
+            }
             console.log(error);
         });
     };

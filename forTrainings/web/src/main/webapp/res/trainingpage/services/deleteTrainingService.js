@@ -3,6 +3,9 @@ angular.module('trainingPageModule').factory('deleteTrainingService', ['$http','
         return $http.delete('rest/storagetraining/deleteTraining?trainingId='+id).then(function(){
             $location.url('ui/trainings');
         }, function(error){
+            if(error.status===401){
+                $location.url('/ui/');
+            }
             console.log(error);
         });
     };

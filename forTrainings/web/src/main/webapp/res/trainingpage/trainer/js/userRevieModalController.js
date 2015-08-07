@@ -1,5 +1,5 @@
-angular.module('trainingPageTrainerModule').controller('userRevieModalController', ['$scope', '$modalInstance', 'feedbacks', '$http', function ($scope, $modalInstance, feedbacks, $http) {
-
+angular.module('trainingPageTrainerModule').controller('userRevieModalController', ['$scope', '$modalInstance', 'feedbacks', '$http','$location',
+    function ($scope, $modalInstance, feedbacks, $http,$location) {
     $scope.feedback = feedbacks.feedback;
     $scope.trainingId = feedbacks.trainingId;
     $scope.subscribers = feedbacks.subscribers;
@@ -8,11 +8,12 @@ angular.module('trainingPageTrainerModule').controller('userRevieModalController
         if ($scope.feedback.rating === null) {
             $scope.rateshow = true;
         } else {
-            //console.log($scope.subscribers);
-            //console.log($scope.feedback);
             $http.post('/rest/storagetraining/addTrainerFeedback?trainingId='+$scope.trainingId, $scope.feedback).then(function(response){
                 $modalInstance.close(response);
             }, function(error){
+                if(error.status===401){
+                    $location.url('/ui/');
+                }
                 $modalInstance.dismiss(error);
             });
         }

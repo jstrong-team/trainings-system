@@ -3,11 +3,11 @@ angular.module('trainingPageAdminModule', []).config(function ($routeProvider) {
         templateUrl: 'res/trainingpage/admin/training.html',
         controller: 'trainingPageAdminController',
         resolve: {
-            getTrainingInfo: ['$http', '$q', '$routeParams', '$location', '$route', 'getRole', 'getTrainingData', 'storageService',
-                function ($http, $q, $routeParams, $location, $route, getRole, getTrainingData, storageService) {
+            getTrainingInfo: ['$http', '$q', '$routeParams', '$location', '$route', 'getRole', 'getTrainingData', 'absentService',
+                function ($http, $q, $routeParams, $location, $route, getRole, getTrainingData, absentService) {
                     var def = $q.defer();
                     var id = $route.current.params.trainingId;
-                    storageService.clear();
+                    absentService.clear();
                     getRole(id).then(function (data, status, headers, config) {
                         var role = data.data.role;
                         switch (role) {
