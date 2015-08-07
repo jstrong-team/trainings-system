@@ -98,9 +98,11 @@
             $scope.training.time = [];
             $scope.training.dateTime = [];
             $scope.training.year = [];
+            $scope.training.tableDate = [];
             for (var j = 0; j < $scope.training.meets.length; j++) {
                 $scope.training.time.push(moment($scope.training.meets[j].date).format('HH:mm'));
                 $scope.training.dateTime.push(moment($scope.training.meets[j].date).format('DD MMMM'));
+                $scope.training.tableDate.push(moment($scope.training.meets[j].date).format('DD.MM'));
                 $scope.training.year.push(moment($scope.training.meets[j].date).format('YYYY'));
             }
             getSubscribersService($scope.training.id).then(function (data, status, headers, config) {

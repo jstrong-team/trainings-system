@@ -57,19 +57,16 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <th> {{ 'TRAINING_PAGE_USER' | translate }}</th>
-                                    <th nowrap ng-repeat="meet in training.meets">
-                                        <!--{{$index+1}}-->
-                                        {{training.dateTime[$index]}}
+                                    <th  nowrap ng-repeat="meet in training.meets">
+                                        {{training.tableDate[$index]}}
                                     </th>
                                 </tr>
                                 <tr ng-repeat="subscriber in subscribers|filter:'Approve'">
                                     <td nowrap>{{subscriber.name}}</td>
                                     <td table-catch-directive ng-repeat="meet in training.meets"
-                                        class="{{subscriber.id+' '+meet.id}}"
-                                        data-toggle="tooltip" title="{{subscriber.participants[$index].reason}}">
-                                        {{subscriber.participants[$index].absent|attendanceFilter}}
-                                    </td>
-                                </tr>
+                                        class="{{subscriber.id+' '+meet.id}} tableDate"
+                                        data-toggle="tooltip" title="{{subscriber.participants[$index].reason}}">{{subscriber.participants[$index].absent|attendanceFilter}}</td>
+                                    </tr>
                             </table>
                         </div>
                     </td>
