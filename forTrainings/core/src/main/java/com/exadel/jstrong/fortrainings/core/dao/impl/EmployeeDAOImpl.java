@@ -80,6 +80,14 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
         return em.createNativeQuery("SELECT mail FROM employee").getResultList();
     }
 
+    @Override
+    public List<String> getEmployeesMails(List<Employee> employees) {
+        List<String> emails = new ArrayList<>();
+        for(Employee employee: employees) {
+            emails.add(getEmail(employee.getId()));
+        }
+        return  emails;
+    }
 
     @Override
     public List<Employee> getAdmins() {
@@ -130,5 +138,19 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
         } catch (Throwable e) {
             return false;
         }
+    }
+
+
+    @Override
+    public List<Employee> getEmployeesBySubscribe(int trainingId) {
+        Query query = em.createQuery("SELECT s.employeeId FROM Subscribe s WHERE s.trainingId = :trainingId and s.status = :status", Integer.class);
+        query.setParameter("trainingId", trainingId);
+        query.setParameter("status", "Approve");
+        List<Integer> ids = (List<Integer>)query.getResultList();
+        List<Employee> employees = new ArrayList<>();
+        for(Integer id: ids) {
+            employees.add(getEmployee(id));
+        }
+        return employees;
     }
 }
