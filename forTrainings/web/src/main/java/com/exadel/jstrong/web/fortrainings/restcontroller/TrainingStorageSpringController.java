@@ -259,6 +259,37 @@ public class TrainingStorageSpringController {
         return null;
     }
 
+    @RequestMapping(value = "/getReportFile", method = RequestMethod.GET)
+    public void getReportFile(HttpServletRequest request, HttpServletResponse response) {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Integer employeeId;
+        try {
+            employeeId = Integer.parseInt(request.getParameter("userId"));
+        } catch (Exception e) {
+            employeeId = null;
+        }
+        Integer trainingId;
+        try {
+            trainingId = Integer.parseInt(request.getParameter("trainingId"));
+        } catch (Exception e) {
+            trainingId = null;
+        }
+        Date dateFrom;
+        try{
+            dateFrom = formatter.parse(request.getParameter("dateFrom"));
+        } catch (Exception e) {
+            dateFrom = null;
+        }
+        Date dateTo;
+        try{
+            dateTo = formatter.parse(request.getParameter("dateTo"));
+        } catch (Exception e) {
+            dateTo = null;
+        }
+        int userId = restService.getUserId(request);
+        String fileName = reportController.getReportFile(employeeId, trainingId, dateFrom, dateTo);
+    }
+
     @RequestMapping(value = "/updateAttendance", method = RequestMethod.POST)
     public void updateParticipant(@RequestBody ParticipantUI participant, HttpServletRequest request, HttpServletResponse response) {
 

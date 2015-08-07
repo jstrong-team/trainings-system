@@ -1,11 +1,14 @@
 package com.exadel.jstrong.web.fortrainings.restcontroller;
 
+import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
+import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.web.fortrainings.controller.EmployeeController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingsController;
 import com.exadel.jstrong.web.fortrainings.model.ReportList;
 import com.exadel.jstrong.web.fortrainings.model.SearchEventUI;
 import com.exadel.jstrong.web.fortrainings.model.TrainingsUI;
 import com.exadel.jstrong.web.fortrainings.services.RestService;
+import com.exadel.jstrong.web.fortrainings.services.mailservice.Sender;
 import com.exadel.jstrong.web.fortrainings.util.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -102,6 +105,18 @@ public class TrainingsSpringController {
     @RequestMapping(value = "/users_trainings", method = RequestMethod.GET)
     public ReportList getUsers(HttpServletRequest request, HttpServletResponse response) {
         return trainingsController.getReportLists();
+    }
+
+    @Autowired
+    private EmployeeDAO employeeDAO;
+
+    @RequestMapping(value = "/email", method = RequestMethod.GET)
+    public void m(HttpServletRequest request, HttpServletResponse response) {
+        Notice notice = new Notice();
+        notice.setTheme("Test");
+        notice.setText("Test");
+        List<String> mails = employeeDAO.getAllMails();
+        Sender.send(notice, mails);
     }
 
 }

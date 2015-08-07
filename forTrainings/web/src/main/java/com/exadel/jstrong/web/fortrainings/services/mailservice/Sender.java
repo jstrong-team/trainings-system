@@ -15,6 +15,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -62,20 +63,25 @@ public class Sender {
                     return new PasswordAuthentication(USERNAME, PASSWORD);
                 }
             });
+            List<InternetAddress> tempList = new ArrayList<>();
+            for (String email : emails){
+                try {
+                    tempList.add(InternetAddress.parse(email)[0]);
+                }catch (Throwable e) {
+                    logger.warn("Wrong mail address");
+                }
+            }
+            InternetAddress[] addresses = new InternetAddress[tempList.size()];
+            tempList.toArray(addresses);
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(SENDER));
             message.setSubject(notice.getTheme());
             message.setText(notice.getText());
-            for (String email : emails) {
-                try {
-                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-                    Transport.send(message);
-                } catch (Throwable e) {
-                    logger.warn("Message didn't send");
-                }
-            }
+            message.setRecipients(Message.RecipientType.TO, addresses);
+            Transport.send(message, addresses);
             return true;
         } catch (Throwable e) {
+            e.printStackTrace();
             logger.warn("Messages didn't send");
             return false;
         }
@@ -145,7 +151,7 @@ public class Sender {
         }
     }
 
-    public static boolean sendAccountData(Employee employee){
+    public static boolean sendAccountData(Employee employee) {
         String text = "Your login: " + employee.getName() + "\r\nYour password: " + employee.getPassword();
         try {
             Session session = Session.getInstance(props, new Authenticator() {

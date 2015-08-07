@@ -10,6 +10,6 @@ import java.util.Date;
 public interface ReportController {
 
     ReportUI getReport(Integer userId, Integer trainingId, Date dateFrom, Date dateTo);
-    ReportUI getReportFile(Integer userId, Integer trainingId, Date dateFrom, Date dateTo);
+    String getReportFile(Integer userId, Integer trainingId, Date dateFrom, Date dateTo);
 
 }

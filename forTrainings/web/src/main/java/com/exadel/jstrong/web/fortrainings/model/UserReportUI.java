@@ -52,4 +52,29 @@ public class UserReportUI {
     public void setAbsentCount(Integer absentCount) {
         this.absentCount = absentCount;
     }
+
+    public String meetsToString(){
+        StringBuilder str = new StringBuilder();
+        for (MeetReportUI m : meets){
+            str.append(m.toString() + "\r\n");
+        }
+        return str.toString();
+    }
+
+    public String positiveFeedbacksToString(){
+        StringBuilder str = new StringBuilder();
+        for (FeedbackReportUI f : positiveFeedbacks){
+            str.append(f.toString() + "\r\n");
+        }
+        return str.toString();
+    }
+
+    public String negativeFeedbacksToString(){
+        StringBuilder str = new StringBuilder();
+        for (FeedbackReportUI f : negativeFeedbacks){
+            str.append(f.toString() + "\r\n");
+        }
+        return str.toString();
+    }
+
 }
