@@ -9,8 +9,8 @@ import com.exadel.jstrong.web.fortrainings.controller.ReportController;
 import com.exadel.jstrong.web.fortrainings.controller.TrainingStorageController;
 import com.exadel.jstrong.web.fortrainings.model.*;
 import com.exadel.jstrong.web.fortrainings.services.RestService;
-import com.exadel.jstrong.web.fortrainings.util.ServletUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -287,10 +287,11 @@ public class TrainingStorageSpringController {
         } catch (Exception e) {
             dateTo = null;
         }
-        byte[] file = reportController.getReportFile(employeeId, trainingId, dateFrom, dateTo);
+        HSSFWorkbook workbook = reportController.getReportFile(employeeId, trainingId, dateFrom, dateTo);
+        response.setContentType("application/vnd.ms-excel");
         response.setHeader("Content-Disposition", "attachment; filename=report.xls");
-        response.setHeader("Content-Type", "application/csv;charset=UTF-8");
-        ServletUtils.sendFile(response, file);
+        workbook.write(response.getOutputStream());
+        workbook.close();
     }
 
     @RequestMapping(value = "/updateAttendance", method = RequestMethod.POST)

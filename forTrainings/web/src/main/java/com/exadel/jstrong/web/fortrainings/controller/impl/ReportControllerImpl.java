@@ -8,6 +8,7 @@ import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.controller.ReportController;
 import com.exadel.jstrong.web.fortrainings.model.*;
 import com.exadel.jstrong.web.fortrainings.services.XLSService;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -73,7 +74,7 @@ public class ReportControllerImpl implements ReportController {
     }
 
     @Override
-    public byte[] getReportFile(Integer userId, Integer trainingId, Date dateFrom, Date dateTo) {
+    public HSSFWorkbook getReportFile(Integer userId, Integer trainingId, Date dateFrom, Date dateTo) {
         ReportUI report = getReport(userId, trainingId, dateFrom, dateTo);
         return XLSService.createReportXLSFile(report);
     }
