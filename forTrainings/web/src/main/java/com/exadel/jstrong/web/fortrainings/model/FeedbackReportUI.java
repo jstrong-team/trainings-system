@@ -37,4 +37,11 @@ public class FeedbackReportUI {
     public void setText(String text) {
         this.text = text;
     }
+
+    public String toString(){
+        StringBuilder str = new StringBuilder(date);
+        str.append(": ").append(text);
+        return str.toString();
+    }
+
 }
