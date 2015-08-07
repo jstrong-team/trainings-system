@@ -78,7 +78,6 @@ public class TrainerFeedback {
     @Transient
     private final String SEPARATOR = "\n";
 
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id", insertable = false, updatable = false)
     private Employee employee;

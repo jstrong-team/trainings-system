@@ -321,6 +321,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     }
 
     @Override
+    @Transactional
     public Training getTrainingIfSubscribedByUser(int trainingId, int userId) {
         try{
             return (Training)em.createNativeQuery("SELECT * FROM training WHERE id = :trainingId AND (SELECT COUNT(*) FROM subscribe WHERE training_id = training.id AND employee_id = :userId AND status <> 'Deleted')>0", Training.class).setParameter("trainingId", trainingId).setParameter("userId", userId).getSingleResult();
