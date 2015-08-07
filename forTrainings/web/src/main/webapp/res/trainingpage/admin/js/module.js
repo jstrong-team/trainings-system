@@ -21,9 +21,6 @@ angular.module('trainingPageAdminModule', []).config(function ($routeProvider) {
                                 getTrainingData(id).then(function (data, status, headers, config) {
                                     def.resolve(data);
                                 }, function (error) {
-                                    if (error.status === 401) {
-                                        $location.url('/ui/');
-                                    }
                                     console.error(error);
                                 });
                                 break;
@@ -33,9 +30,6 @@ angular.module('trainingPageAdminModule', []).config(function ($routeProvider) {
 
                     }, function (error) {
                         console.error(error);
-                        if (error.status === 401) {
-                            $location.url('/ui/');
-                        }
                     });
                     return function () {
                         return def.promise;

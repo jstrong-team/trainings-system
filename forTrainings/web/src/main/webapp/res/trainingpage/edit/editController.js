@@ -8,9 +8,6 @@ angular.module('trainingEditModule').controller('editController', ['$scope', '$r
 
         $scope.editInfo = data.data;
     }, function (error) {
-        if(error.status===401){
-            $location.url('/ui/');
-        }
         console.error(error);
     });
 

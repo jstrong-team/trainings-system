@@ -26,10 +26,7 @@
                     $scope.badgeCount = data;
                 },
                 function(error){
-                    if(error.status===401){
-                        $location.url('/ui/');
-                    }
-                    console.log(status);
+                    console.error(error);
                 });
         };
 
@@ -51,9 +48,6 @@
                     $scope.isAdmin = data.data.role;
                 },
                 function(error){
-                    if(error.status===401){
-                        $location.url('/ui/');
-                    }
                     console.log(error);
                 });
         })();
@@ -82,10 +76,7 @@
                     $scope.noResultsFound = false;
                 }
             }, function (error) {
-                if(error.status===401){
-                    $location.url('/ui/');
-                }
-                console.log(error);
+                console.error(error);
             });
         };
 
@@ -98,10 +89,7 @@
                 console.log(data);
                 $location.url('/ui');
             }, function (error) {
-                if(error.status===401){
-                    $location.url('/ui/');
-                }
-                console.log(error);
+                console.error(error);
             });
         };
 

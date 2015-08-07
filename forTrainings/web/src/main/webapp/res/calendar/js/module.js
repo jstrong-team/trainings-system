@@ -9,9 +9,6 @@ angular.module('calendarModule', []).config(function($routeProvider) {
                     def.resolve(data);
                 })
                     .error(function(data, status){
-                        if(status===401){
-                            $location.url('/ui/');
-                        }
                         console.log(status);
                         return data;
                     });

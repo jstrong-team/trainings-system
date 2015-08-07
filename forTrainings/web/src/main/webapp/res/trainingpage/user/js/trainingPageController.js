@@ -9,8 +9,7 @@
         '$route',
         'openModalService',
         'subscribeService',
-        'absentService',
-        '$location'
+        'absentService'
     ];
     var controller = function ($scope,
                                getTrainingInfo,
@@ -21,8 +20,7 @@
                                $route,
                                openModalService,
                                subscribeService,
-                               absentService,
-                               $location) {
+                               absentService) {
 
         $scope.isCollapsed = {
             dates: true,
@@ -76,16 +74,10 @@
                     $scope.training.isSubscribe = true;
                     absentService.prepare($scope.subscribers, $scope.training);
                 }, function (error) {
-                    if(error.status===401){
-                        $location.url('/ui/');
-                    }
                     console.log(error);
                 });
 
             }, function (error) {
-                if(error.status===401){
-                    $location.url('/ui/');
-                }
                 console.log(error);
             });
         };
@@ -97,15 +89,9 @@
                     $scope.training.isSubscribe = false;
                     absentService.prepare($scope.subscribers, $scope.training);
                 }, function (error) {
-                    if(error.status===401){
-                        $location.url('/ui/');
-                    }
-                    console.log(error);
+                    console.error(error);
                 });
             }, function (error) {
-                if(error.status===401){
-                    $location.url('/ui/');
-                }
                 console.error(error);
             });
         };
@@ -126,15 +112,9 @@
                 $scope.subscribers = data.data;
                 absentService.prepare($scope.subscribers, $scope.training);
             }, function (error) {
-                if(error.status===401){
-                    $location.url('/ui/');
-                }
-                console.log(error);
+                console.error(error);
             });
         },function(error){
-            if(error.status===401){
-                $location.url('/ui/');
-            }
             console.error(error);
         });
 
