@@ -58,6 +58,27 @@ public class TrainerFeedback {
     private String other;
 
     @Transient
+<<<<<<< HEAD
+    private final String PRESENCE = "Presence: ";
+    @Transient
+    private final String ATTITUDE = "Attitude: ";
+    @Transient
+    private final String COMMUNICATION = "Communication: ";
+    @Transient
+    private final String QUESTION = "Question: ";
+    @Transient
+    private final String INTEREST = "Interest: ";
+    @Transient
+    private final String RESULT = "Result: ";
+    @Transient
+    private final String LEVEL = "Level: ";
+    @Transient
+    private final String RATING = "Rating: ";
+    @Transient
+    private final String OTHER = "Other: ";
+    @Transient
+    private final String SEPARATOR = "\n";
+=======
     private final String PRESENCE = "presence: ";
     @Transient
     private final String ATTITUDE = "attitude: ";
@@ -75,6 +96,7 @@ public class TrainerFeedback {
     private final String RATING = "rating: ";
     @Transient
     private final String OTHER = "other: ";
+>>>>>>> d51571ef3662826bb2d27e3be4fa3b60cf3b5e25
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id", insertable = false, updatable = false)
@@ -207,23 +229,23 @@ public class TrainerFeedback {
     public String getTextBody(){
         StringBuilder str = new StringBuilder();
         str.append(PRESENCE);
-        str.append(presence);
+        str.append(presence).append(SEPARATOR);
         str.append(ATTITUDE);
-        str.append(attitude);
+        str.append(attitude).append(SEPARATOR);
         str.append(COMMUNICATION);
-        str.append(communication);
+        str.append(communication).append(SEPARATOR);
         str.append(QUESTION);
-        str.append(question);
+        str.append(question).append(SEPARATOR);
         str.append(INTEREST);
-        str.append(interest);
+        str.append(interest).append(SEPARATOR);
         str.append(RESULT);
-        str.append(result);
+        str.append(result).append(SEPARATOR);
         str.append(LEVEL);
-        str.append(level);
+        str.append(level).append(SEPARATOR);
         str.append(RATING);
-        str.append(rating.toString());
+        str.append(rating.toString()).append(SEPARATOR);
         str.append(OTHER);
-        str.append(other);
+        str.append(other).append(SEPARATOR);
         return str.toString();
     }
 }

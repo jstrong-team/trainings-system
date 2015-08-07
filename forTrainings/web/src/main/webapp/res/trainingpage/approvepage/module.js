@@ -13,12 +13,18 @@ angular.module('approvePageModule', []).config(['$routeProvider', function ($rou
                             console.log(data);
                             def.resolve(data);
                         }, function (error) {
+                            if (error.status === 401) {
+                                $location.url('/ui/');
+                            }
                             console.error(error);
                         });
                     } else {
                         $location.url('/ui/trainings');
                     }
                 }, function (error) {
+                    if (error.status === 401) {
+                        $location.url('/ui/');
+                    }
                     console.error(error);
                 });
                 return function () {

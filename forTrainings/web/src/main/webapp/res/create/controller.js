@@ -79,6 +79,9 @@
                     $location.url('/ui/creation_response_external');
                 }
             }, function (error) {
+                if(error.status===401){
+                    $location.url('/ui/');
+                }
                 console.error(error);
                 $scope.error = 'Error';
             });

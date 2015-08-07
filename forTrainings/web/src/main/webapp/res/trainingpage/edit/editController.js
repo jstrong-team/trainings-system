@@ -1,4 +1,5 @@
-angular.module('trainingEditModule').controller('editController', ['$scope', '$routeParams', 'getTrainingInfo', 'editService', function ($scope, $routeParams, getTrainingInfo, editService) {
+angular.module('trainingEditModule').controller('editController', ['$scope', '$routeParams', 'getTrainingInfo', 'editService','$location',
+    function ($scope, $routeParams, getTrainingInfo, editService,$location) {
 
     getTrainingInfo().then(function (data, status, headers, config) {
         for (var i = 0; i < data.data.meets.length; ++i) {
@@ -7,6 +8,9 @@ angular.module('trainingEditModule').controller('editController', ['$scope', '$r
 
         $scope.editInfo = data.data;
     }, function (error) {
+        if(error.status===401){
+            $location.url('/ui/');
+        }
         console.error(error);
     });
 

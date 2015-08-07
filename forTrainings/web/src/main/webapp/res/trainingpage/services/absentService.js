@@ -2,7 +2,6 @@ angular.module('trainingPageModule').factory('absentService', ['$http','storageS
     var services={};
 
     services.prepare = function (subscribers, training) {
-        //console.log('sssssssssssssssssssssssssssssssssssssssssssssss');
         var temp;
         for (var i = 0; i < subscribers.length; i++) {
             temp = subscribers[i].participants;

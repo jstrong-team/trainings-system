@@ -27,6 +27,7 @@ public class Sender {
     private static final String SENDER = "jsTrong<antongrigorievd@gmail.com>";
     private static Properties props;
     private static Session session;
+    private static String HTMLPage = "";
 
     static {
         props = new Properties();
@@ -122,6 +123,16 @@ public class Sender {
                     return new PasswordAuthentication(USERNAME, PASSWORD);
                 }
             });
+            List<InternetAddress> tempList = new ArrayList<>();
+            for (String email : emails){
+                try {
+                    tempList.add(InternetAddress.parse(email)[0]);
+                }catch (Throwable e) {
+                    logger.warn("Wrong mail address");
+                }
+            }
+            InternetAddress[] addresses = new InternetAddress[tempList.size()];
+            tempList.toArray(addresses);
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(SENDER));
             message.setSubject(notice.getTheme());
@@ -135,14 +146,8 @@ public class Sender {
             mp.addBodyPart(p1);
             mp.addBodyPart(p2);
             message.setContent(mp);
-            for (String email : emails) {
-                try {
-                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-                    Transport.send(message);
-                } catch (Throwable e) {
-                    logger.warn("Message didn't send");
-                }
-            }
+            message.setRecipients(Message.RecipientType.TO, addresses);
+            Transport.send(message, addresses);
             return true;
         } catch (Throwable e) {
             logger.warn("Messages didn't send");
@@ -169,6 +174,10 @@ public class Sender {
             logger.warn("Message didn't send");
             return false;
         }
+    }
+
+    private static String getHTMLPage(Notice notice){
+        return null;
     }
 
 }
