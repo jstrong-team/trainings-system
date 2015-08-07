@@ -4,10 +4,11 @@
         '$scope',
         '$http',
         '$window',
-        'reportInfoFormat'
+        'reportInfoFormat',
+        '$location'
     ];
 
-    var controller = function ($scope, $http, $window, reportInfoFormat) {
+    var controller = function ($scope, $http, $window, reportInfoFormat,$location) {
 
         $http.get('/rest/trainings/users_trainings').then(
             function(data){
@@ -15,6 +16,9 @@
                 $scope.trainingsList = data.data.trainings;
             },
             function(data, status){
+                if(status===401){
+                    $location.url('/ui/');
+                }
                 console.log(status);
             });
 

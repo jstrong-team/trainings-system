@@ -365,5 +365,28 @@ public class TrainingStorageSpringController {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
+
+    @RequestMapping(value = "/getNotApprovedTraining", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    TrainingUI getNotApprovedTraining(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            int tId = Integer.parseInt(request.getParameter("id"));
+            int uId = restService.getUserId(request);
+            TrainingUI trainingUI = tsci.getTraining(tId, uId);
+            if (!trainingUI.isApprove()) {
+                if (ec.isAdmin(uId)) {
+                    return trainingUI;
+                } else {
+                    response.setStatus(HttpServletResponse.SC_CONFLICT);
+                }
+            } else {
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+            }
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        return null;
+    }
 }
 

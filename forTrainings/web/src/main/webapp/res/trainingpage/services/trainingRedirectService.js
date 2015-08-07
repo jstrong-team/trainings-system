@@ -17,6 +17,9 @@ angular.module('trainingPageModule').factory('trainingRedirectService',['$locati
                     $location.url('/ui/trainings');
             }
         }, function (error) {
+            if(error.status===401){
+                $location.url('/ui/');
+            }
             console.error(error);
         });
     };

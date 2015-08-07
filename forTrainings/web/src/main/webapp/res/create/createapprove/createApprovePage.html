@@ -1,0 +1,131 @@
+<div class="container wrappered">
+    <div classs="row ">
+        <div class="col-md-6 col-md-offset-3 text-center">
+            <h1 class="titleTrainingPage ">{{ 'ADMIN_APPROVE_PAGE_NAME' | translate }}</h1>
+        </div>
+    </div>
+
+    <div classs="row " style="padding-top: 50px">
+        <div class="col-md-12 LeftTextBlock">
+            <div class="col-md-7">
+                <div class="approveWrapDiv">
+                    <span>{{ 'ADMIN_APPROVE_EDIT_TRAINING_NAME' | translate }}</span>
+                    <div class="approveTextDiv mergeText">
+                        {{editInfo.name}}
+                    </div>
+                </div>
+                <div class="approveWrapDiv">
+                    <span>{{ 'TRAINING_PAGE_ANNOTATION' | translate }}</span>
+                    <div class="approveTextDiv mergeText breakText">{{editInfo.annotation}}</div>
+                </div>
+                <div class="approveWrapDiv ">
+                    <span>{{ 'TRAINING_PAGE_DESCRIPTION' | translate }}</span>
+                    <div class="approveTextDiv mergeText breakText">{{editInfo.description}}</div>
+                </div>
+                <div class="approveWrapDiv">
+                    <span>{{ 'TRAINING_PAGE_TARGET_AUDIENCE' | translate }}</span>
+                    <div class="approveTextDiv mergeText">
+                        {{editInfo.target}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="approveWrapDiv">
+                    <span>{{ 'CREATE_TRAINING_EXTERNAL_TRAINER_NAME' | translate }}</span>
+                    <div class="approveTextDiv mergeText">
+                        {{editInfo.trainerName}}
+                    </div>
+                </div>
+
+                <div class="approveWrapDiv">
+                    <span>{{ 'CREATE_TRAININGS_MAX_PARTICIPANTS' | translate }}:</span>
+                    <div class="approveTextDiv">
+                        {{editInfo.max_participants}}
+                    </div>
+                </div>
+
+                <div class="approveWrapDiv">
+                    <span>{{ 'TRAINING_PAGE_PLACE' | translate }}:</span>
+                    <div class="approveTextDiv mergeText">
+                        {{editInfo.place}}
+                    </div>
+                </div>
+
+                <div class="approveRadio col-md-6 approveWrapDiv">
+                    <span>{{ 'EDIT_TRAINING_PAID' | translate }}:</span>
+                    <div class="approveTextDiv">
+                        {{editInfo.paid|yesNoFilter| translate}}
+                    </div>
+                </div>
+
+                <div class="approveRadio col-md-6 approveWrapDiv">
+                    <span>{{ 'EDIT_TRAINING_INTERNAL' | translate }}:</span>
+                    <div class="approveTextDiv">
+                        {{editInfo.internal|yesNoFilter| translate}}
+                    </div>
+                </div>
+
+                <div class="col-md-6 approveRadio approveWrapDiv">
+                    <button type="button"
+                            class="btn editDatesButton approveButton"
+                            ng-click="approve()">
+                        {{ 'ADMIN_APPROVE_EDIT_APPROVE' | translate }}
+                    </button>
+                </div>
+
+                <div class="col-md-6  approveRadio approveWrapDiv">
+                    <button type="button"
+                            class="btn btn-danger approveButton"
+                            ng-click="dismiss()">
+                        {{ 'ADMIN_APPROVE_EDIT_DISMISS' | translate }}
+                    </button>
+                </div>
+
+                <div class="col-md-12 buttons approveRadio" ng-cloak>
+                    <button class="btn editDatesButton approveButton"
+                            ng-click="changeCollapse()">
+                        <span>
+                            {{ showInput | translate }} {{ 'TRAINING_PAGE_DATES' | translate }}
+                        </span>
+                    </button>
+                </div>
+
+                <div class="dateTime"
+                     collapse="isCollapsed">
+                    <div >
+                        <table class="table">
+                            <tr>
+                                <th>#</th>
+                                <th>date</th>
+                                <th>time</th>
+                            </tr>
+                            <tr ng-repeat="curTraining in editInfo.meets">
+                                <td>
+                                    {{$index+1}}
+                                </td>
+                                <td>
+                                    <span class="glyphicon glyphicon-calendar"
+                                          style="color: grey">
+                                    </span>
+                                    {{editInfo.dateTime[$index]}}
+                                    {{editInfo.year[$index]}}
+                                </td>
+                                <td>
+                                    <span class="glyphicon glyphicon-time"
+                                          style="color: grey">
+                                    </span>
+                                    {{editInfo.time[$index]}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

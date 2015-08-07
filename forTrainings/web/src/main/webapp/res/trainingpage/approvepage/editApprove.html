@@ -1,7 +1,7 @@
 <div class="container wrappered">
     <div classs="row ">
         <div class="col-md-6 col-md-offset-3 text-center">
-            <h1 class="titleTrainingPage ">Approve</h1>
+            <h1 class="titleTrainingPage ">{{ 'ADMIN_APPROVE_PAGE_NAME' | translate }}</h1>
         </div>
     </div>
 
@@ -9,7 +9,7 @@
         <div class="col-md-12 LeftTextBlock">
             <div class="col-md-6">
                 <div class="approveWrapDiv">
-                    <span>Training name:</span>
+                    <span>{{ 'ADMIN_APPROVE_EDIT_TRAINING_NAME' | translate }}:</span>
                     <div class="approveTextDiv mergeText">
                         <span
                                 ng-repeat="word in editInfo.name.expression track by $index"
@@ -142,7 +142,7 @@
                 </div>
                 <div class="col-md-6 dateTime"
                      collapse="isCollapsed">
-                    <span>Old dates:</span>
+                    <span>{{ 'ADMIN_APPROVE_EDIT_OLD_DATES' | translate }}:</span>
                     <div >
                         <table class="table">
                             <tr>
@@ -172,7 +172,7 @@
                 </div>
                 <div class="col-md-6 dateTime"
                      collapse="isCollapsed">
-                    <span>New dates:</span>
+                    <span>{{ 'ADMIN_APPROVE_EDIT_NEW_DATES' | translate }}:</span>
                     <div>
                         <table class="table">
                             <tr>
