@@ -73,7 +73,7 @@ public class ReportControllerImpl implements ReportController {
     }
 
     @Override
-    public String getReportFile(Integer userId, Integer trainingId, Date dateFrom, Date dateTo) {
+    public byte[] getReportFile(Integer userId, Integer trainingId, Date dateFrom, Date dateTo) {
         ReportUI report = getReport(userId, trainingId, dateFrom, dateTo);
         return XLSService.createReportXLSFile(report);
     }
