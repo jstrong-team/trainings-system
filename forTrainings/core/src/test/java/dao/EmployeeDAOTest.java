@@ -4,6 +4,7 @@ import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,6 +26,7 @@ public class EmployeeDAOTest extends BaseDAOTest {
         Assert.assertEquals(expectedEmployee, actualEmployee);
     }*/
 
+    @Ignore()
     @Test
     @DatabaseSetup(INITIAL_DATA_LOCATION + "/get.xml")
     public void testSelectNameById() {

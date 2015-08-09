@@ -4,13 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Merger {
+
+    static class Struct {
+        String string;
+        int count;
+    }
+
     public static final String EMPTY_STRING = "";
 
     public static String merge(String source, String update) {
+        Struct direct = mainMerge(source, update);
+        Struct inverse = mainMerge(update, source);
+
+        if (direct.count <= inverse.count) {
+            return direct.string;
+        }   else {
+            inverse.string = inverse.string.replaceAll("!\\{rm:", "!{rmnew:");
+            inverse.string = inverse.string.replaceAll("!\\{add:", "!{rm:");
+            inverse.string = inverse.string.replaceAll("!\\{rmnew:", "!{add:");
+            return inverse.string;
+        }
+    }
+
+    public static Struct mainMerge(String source, String update) {
         List<WordDescriptor> sourceWords = splitWords(source);
         List<WordDescriptor> updateWords = splitWords(update);
 
         StringBuilder builder = new StringBuilder();
+        int count = 0;
 
         for (int i = 0; i < sourceWords.size(); i++) {
             WordDescriptor word = sourceWords.remove(i--);
@@ -18,17 +39,23 @@ public class Merger {
             if (index != -1) {
                 for (int j = 0; j < index; j++) {
                     appendAddedWord(builder, updateWords.remove(0));
+                    count++;
                 }
                 updateWords.remove(0);
                 builder.append("!{").append(word.getWord()).append("} ");
             } else {
                 appendRemovedWord(builder, word);
+                count++;
             }
         }
         for (int j = 0; j < updateWords.size(); j++ ) {
             appendAddedWord(builder, updateWords.get(j));
+            count++;
         }
-        return builder.toString();
+        Struct struct = new Struct();
+        struct.string = builder.toString();
+        struct.count = count;
+        return struct;
     }
 
     private static void appendAddedWord(StringBuilder builder, WordDescriptor insertedWord) {
