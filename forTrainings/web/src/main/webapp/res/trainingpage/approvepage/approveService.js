@@ -12,9 +12,6 @@ angular.module('approvePageModule').factory('approveService', ['$rootScope','$ht
         }).then(function(){
             $location.url('/ui/news');
         }, function(error){
-            if(error.status===401){
-                $location.url('/ui/');
-            }
             console.log(error);
         });
     };
@@ -30,10 +27,7 @@ angular.module('approvePageModule').factory('approveService', ['$rootScope','$ht
         }).then(function(){
             $location.url('/ui/news');
         }, function(error){
-            if(error.status===401){
-                $location.url('/ui/');
-            }
-            console.log(error);
+            console.error(error);
         });
     };
 
@@ -49,10 +43,7 @@ angular.module('approvePageModule').factory('approveService', ['$rootScope','$ht
             //$rootScope.$broadcast('removeNewsItem');
             $location.url('/ui/news');
         }, function(error){
-            if(error.status===401){
-                $location.url('/ui/');
-            }
-            console.log(error);
+            console.error(error);
         });
     };
     return service;

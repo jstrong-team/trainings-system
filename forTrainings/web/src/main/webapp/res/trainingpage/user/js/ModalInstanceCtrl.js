@@ -11,9 +11,6 @@ angular.module('trainingPageModule').controller('ModalInstanceCtrl', ['$scope', 
             $http.post('/rest/storagetraining/addemployeefeedback?id='+$scope.trainingId, $scope.feedback).then(function(response){
                 $modalInstance.close(response);
             }, function(error){
-                if(error.status===401){
-                    $location.url('/ui/');
-                }
                 $modalInstance.dismiss(error);
             });
         }

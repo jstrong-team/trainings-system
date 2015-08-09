@@ -81,17 +81,11 @@
                     $scope.training.isSubscribe = true;
                     absentService.prepare($scope.subscribers, $scope.training);
                 }, function (error) {
-                    if (error.status === 401) {
-                        $location.url('/ui/');
-                    }
                     console.error(error);
                 });
 
             }, function (error) {
-                if (error.status === 401) {
-                    $location.url('/ui/');
-                }
-                console.log(error);
+                console.error(error);
             });
         };
 
@@ -112,15 +106,9 @@
                     $scope.foreignUser.mail=null;
                     $scope.foreignUser.phone=null;
                 }, function (error) {
-                    if (error.status === 401) {
-                        $location.url('/ui/');
-                    }
                     console.log(error);
                 });
             },function(error){
-                if (error.status === 401) {
-                    $location.url('/ui/');
-                }
                 console.error(error);
             });
         };
@@ -144,15 +132,9 @@
                     absentService.prepare($scope.subscribers, $scope.training);
                     $scope.training.isSubscribe = false;
                 }, function (error) {
-                    if (error.status === 401) {
-                        $location.url('/ui/');
-                    }
                     console.log(error);
                 });
             }, function (error) {
-                if (error.status === 401) {
-                    $location.url('/ui/');
-                }
                 console.error(error);
             });
         };
@@ -188,9 +170,6 @@
             modalInstance.result.then(function (response) {
                 console.log(response);
             }, function (error) {
-                if (error.status === 401) {
-                    $location.url('/ui/');
-                }
                 console.error(error);
             });
 
@@ -213,26 +192,17 @@
             return dfd.promise;
 
         },function(error){
-            if (error.status === 401) {
-                $location.url('/ui/');
-            }
             console.log(error);
         }).then(function (id) {
             getSubscribersService(id).then(function (data, status, headers, config) {
                 $scope.subscribers = data.data;
                 absentService.prepare($scope.subscribers, $scope.training);
             }, function (error) {
-                if (error.status === 401) {
-                    $location.url('/ui/');
-                }
                 console.error(error);
             });
             getFeedbacksService(id).then(function (data, status, headers, config) {
                 $scope.feedbacks = data.data;
             }, function (error) {
-                if (error.status === 401) {
-                    $location.url('/ui/');
-                }
                 console.error(error);
             });
         });

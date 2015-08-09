@@ -12,9 +12,6 @@ angular.module('createApproveModule').controller('createApproveController', ['$s
                 $scope.editInfo.year.push(moment($scope.editInfo.meets[j].date).format('YYYY'));
             }
         }, function (error) {
-            if (error.status === 401) {
-                $location.url('/ui/');
-            }
             console.error(error);
         });
 

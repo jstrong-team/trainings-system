@@ -6,16 +6,10 @@ angular.module('trainingEditModule').factory('editService', ['$http','$location'
             editInfo.date[i]=editInfo.meets[i].date;
         }
         $http.put('/rest/storagetraining/editTraining?id='+id, editInfo).catch(function(error){
-            if(error.status===401){
-                $location.url('/ui/');
-            }
             console.error(error);
         }).then(function(){
             $location.url('/ui/creation_response');
         },function(error){
-            if(error.status===401){
-                $location.url('/ui/');
-            }
             console.error(error);
         });
     };
