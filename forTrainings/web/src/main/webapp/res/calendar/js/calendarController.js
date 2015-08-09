@@ -39,4 +39,8 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
     $scope.redirectToTrainingPage = function (id) {
         trainingRedirectService(id);
     };
+
+    $scope.showMore = function (data) {
+        alert(data);
+    }
 }]);
