@@ -192,8 +192,6 @@ public class Employee {
         this.employeeNotices = employeeNotices;
     }
 
-
-    //TODO: id is a unique key. (PRIMARY KEY). Why do we check login and pass and ...?
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -203,11 +201,7 @@ public class Employee {
         } else {
             Employee employee = (Employee) o;
 
-            return (employee.getId() == this.getId()) &&
-                    employee.getLogin().equals(this.getLogin()) &&
-                    employee.getPassword().equals(this.getPassword()) &&
-                    employee.getName().equals(this.getName()) &&
-                    employee.getMail().equals(this.getMail());
+            return (employee.getId() == this.getId());
         }
     }
 }
