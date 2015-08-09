@@ -3,7 +3,7 @@
         <h3 class="modal-title">{{ 'CALENDAR_MODAL_DAY_TITLE' | translate }}:</h3>
     </div>
     <div class="modal-body" style="padding-top: 0">
-        <div class="row" ng-repeat="training in curtrainings = (trainings | filter:date)" >
+        <div class="row" ng-repeat="training in trainings" >
             <div>
                 <div class="col-md-8 ">
                     <h4><a href ng-click="redirectToTrainingPage(training.trainingId)"> {{training.name}} </a></h4>
@@ -17,6 +17,6 @@
             </div>
             <hr>
         </div>
-        <h3 ng-hide="curtrainings.length" class="text-center"><small>{{ 'CALENDAR_MODAL_DAY_NO_RESULTS' | translate }}</small></h3>
+        <h3 ng-hide="trainings.length" class="text-center"><small>{{ 'CALENDAR_MODAL_DAY_NO_RESULTS' | translate }}</small></h3>
     </div>
 </div>
