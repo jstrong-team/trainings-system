@@ -23,9 +23,9 @@ angular.module('createApproveModule').controller('createApproveController', ['$s
             approveService.dismissCreate($routeParams.trainingId);
         };
 
-        $scope.showInput = 'TRAINING_PAGE_SHOW';
+        $scope.showInput = 'TRAINING_PAGE_HIDE';
 
-        $scope.isCollapsed = true;
+        $scope.isCollapsed = false;
 
         $scope.changeCollapse = function () {
             if ($scope.isCollapsed) {

@@ -102,6 +102,7 @@
             $scope.training.dateTime = [];
             $scope.training.tableDate = [];
             $scope.training.year = [];
+            $scope.training.nearest=null;
             for (var j = 0; j < $scope.training.meets.length; j++) {
                 if ((Date.parse($scope.training.meets[j].date) > Date.parse (new Date()))&&$scope.training.nearest===null) {
                     $scope.training.nearest=$scope.training.meets[j].date;

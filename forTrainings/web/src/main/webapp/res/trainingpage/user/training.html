@@ -28,7 +28,7 @@
             <div class="breakText">
                 <span>{{ 'TRAINING_PAGE_MAX_PARTICIPANTS' | translate }}<br></span>{{training.max_participants}}
             </div>
-            <div class="breakText">
+            <div class="breakText" ng-show="subscribers.length > 0">
                 <span>{{ 'TRAINING_PAGE_PARTICIPANTS' | translate }}</span>
             </div>
 
@@ -80,13 +80,13 @@
 
         <div class="col-md-3 newWell LeftTextBlock" >
             <div class="breakText">
-                <span>{{ 'TRAINING_PAGE_TRAINER' | translate }}:</span>{{training.trainerName}}
+                <span>{{ 'TRAINING_PAGE_TRAINER' | translate }}: </span>{{training.trainerName}}
             </div>
             <div class="breakText">
-                <span>{{ 'TRAINING_PAGE_TIME' | translate }}:</span>
+                <span>{{ 'TRAINING_PAGE_TIME' | translate }}: </span>{{training.nearest}}
             </div>
             <div class="breakText">
-                <span>{{ 'TRAINING_PAGE_PLACE' | translate }}:</span>{{training.place}}
+                <span>{{ 'TRAINING_PAGE_PLACE' | translate }}: </span>{{training.place}}
             </div>
 
             <div class="row buttons">

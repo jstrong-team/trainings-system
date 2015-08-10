@@ -155,11 +155,14 @@ public class Sender {
     }
 
     public static boolean sendAccountData(Employee employee) {
-        StringBuilder text = new StringBuilder("You have been registered in the system.\r\n");
-        text.append("Your login: ");
+        Notice notice = new Notice();
+        notice.setTheme("Registration");
+        StringBuilder text = new StringBuilder("You have been registered in the system as trainer.<br>");
+        text.append("<br>Your login:<br>");
         text.append(employee.getName());
-        text.append("\r\nYour password: ");
+        text.append("<br>Your password:");
         text.append(employee.getPassword());
+        notice.setText(text.toString());
         try {
             Session session = Session.getInstance(props, new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -170,7 +173,7 @@ public class Sender {
             message.setFrom(new InternetAddress(SENDER));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(employee.getMail()));
             message.setSubject("Registration");
-            message.setText(text.toString());
+            message.setContent(LetterFormService.getHTMLPage(notice), "text/html; charset=utf-8");
             Transport.send(message);
             return true;
         } catch (Throwable e) {
