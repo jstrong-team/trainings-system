@@ -9,7 +9,6 @@ import com.exadel.jstrong.web.fortrainings.model.*;
 import com.exadel.jstrong.web.fortrainings.model.comparator.SubscriberUIComp;
 import com.exadel.jstrong.web.fortrainings.services.ExternalService;
 import com.exadel.jstrong.web.fortrainings.services.TaskExecutor;
-import com.exadel.jstrong.web.fortrainings.services.mailservice.Sender;
 import com.exadel.jstrong.web.fortrainings.services.noticeservice.NoticeFactory;
 import com.exadel.jstrong.web.fortrainings.services.tasks.TaskFactory;
 import com.google.gson.Gson;
@@ -165,7 +164,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             Employee employee = eDAO.getById(uId);
             if (tDAO.isApprove(tId)) {
                 s.setStatus(SubscribeStatus.Approve.toString());
-                taskExecutor.submitTask(taskFactory.createAddSubscriberTask("Wait", tId, system.getId(), employee));
+                taskExecutor.submitTask(taskFactory.createAddSubscriberTask("Approve", tId, system.getId(), employee));
             } else {
                 s.setStatus(SubscribeStatus.Wait.toString());
                 taskExecutor.submitTask(taskFactory.createAddSubscriberTask("Wait", tId, system.getId(), employee));
