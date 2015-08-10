@@ -8,10 +8,9 @@ public class MergerTest {
 
     @Test
     public void mergeTest() {
-        String source = "This Java training is for Java. Developers and Java Beginners in company";
-        String updated = "This training is for Java. Developers and Java Beginners in company";
-//        String updated = "This training is for Javated));
+        String source = "This training is for Java Developers and Java Beginners in company";
+        String updated = "This Java training is for Java Developers and Java Beginners in company";
         System.out.println(Merger.merge(source, updated));
-        //System.out.println(Merger.merge(updated, source));
+        System.out.println(Merger.merge(updated, source));
   }
 }

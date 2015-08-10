@@ -58,25 +58,25 @@ public class TrainerFeedback {
     private String other;
 
     @Transient
+    private final String PRESENCE = "Presence: ";
+    @Transient
+    private final String ATTITUDE = "Attitude: ";
+    @Transient
+    private final String COMMUNICATION = "Communication: ";
+    @Transient
+    private final String QUESTION = "Question: ";
+    @Transient
+    private final String INTEREST = "Interest: ";
+    @Transient
+    private final String RESULT = "Result: ";
+    @Transient
+    private final String LEVEL = "Level: ";
+    @Transient
+    private final String RATING = "Rating: ";
+    @Transient
+    private final String OTHER = "Other: ";
+    @Transient
     private final String SEPARATOR = "\n";
-
-    private final String PRESENCE = "presence: ";
-    @Transient
-    private final String ATTITUDE = "attitude: ";
-    @Transient
-    private final String COMMUNICATION = "communication: ";
-    @Transient
-    private final String QUESTION = "question: ";
-    @Transient
-    private final String INTEREST = "interest: ";
-    @Transient
-    private final String RESULT = "result: ";
-    @Transient
-    private final String LEVEL = "level: ";
-    @Transient
-    private final String RATING = "rating: ";
-    @Transient
-    private final String OTHER = "other: ";
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id", insertable = false, updatable = false)

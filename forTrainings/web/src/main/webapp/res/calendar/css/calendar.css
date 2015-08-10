@@ -21,7 +21,7 @@
 }
 
 .descriptionItem {
-    padding-right: 20px;
+    padding-right: 10px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -43,7 +43,7 @@
 
 @media (min-width: 1199px) {
     .descriptionItem {
-        width: 180px;
+        width: 170px;
     }
 }
 
@@ -163,4 +163,9 @@ hr {
     height: 50px;
     text-align: center;
     vertical-align: middle;
+}
+
+.showMore {
+    width: 100px;
+    padding-right: 0;
 }

@@ -4,10 +4,11 @@
         '$rootScope',
         '$scope',
         '$http',
-        '$location'
+        '$location',
+        'trainingRedirectService'
     ];
 
-    var controller = function ($rootScope, $scope, $http, $location) {
+    var controller = function ($rootScope, $scope, $http, $location, trainingRedirectService) {
 
         var badgeCount = 0;
         var ITEMS_PER_PAGE = 10;
@@ -42,10 +43,7 @@
                     }
                 },
                 function(error){
-                    if(error.status===401){
-                        $location.url('/ui/');
-                    }
-                    console.log(status);
+                    console.error(error);
                 });
         });
 
@@ -61,17 +59,18 @@
 
                 },
                 function(error){
-                    if(error.status===401){
-                        $location.url('/ui/');
-                    }
-                    console.log(status);
+                    console.error(error);
                 });
         };
 
-        $scope.redirectToTrainingPage = function (id, transactionId) {
+        $scope.redirectToTrainingPage = function (id, transactionId, isApproveTraining) {
 
             if (transactionId === null) {
-                $location.url('/ui/trainingPage/approveCreate/' + id);
+                if (isApproveTraining === false) {
+                    trainingRedirectService(id);
+                } else {
+                    $location.url('/ui/trainingPage/approveCreate/' + id);
+                }
             } else {
                 $location.url('/ui/trainingPage/approve/' + transactionId);
             }

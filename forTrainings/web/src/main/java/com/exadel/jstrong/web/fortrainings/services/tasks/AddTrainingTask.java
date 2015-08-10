@@ -6,31 +6,26 @@ import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.exadel.jstrong.web.fortrainings.services.NoticeService;
 import com.exadel.jstrong.web.fortrainings.services.noticeservice.NoticeFactory;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by Администратор on 07.08.2015.
  */
-public class EditTrainingTask implements Runnable {
+public class AddTrainingTask implements Runnable {
     private EmployeeDAO eDAO;
     private NoticeService noticeService;
 
     private Training training;
-    private Integer senderId;
-    private Integer transactionId;
-    //private List<Employee>
 
-    public EditTrainingTask(Training training, Integer senderId, Integer transactionId) {
-        this.senderId = senderId;
+
+    public AddTrainingTask(Training training) {
         this.training = training;
-        this.transactionId = transactionId;
     }
 
     @Override
     public void run() {
-        Notice notice = NoticeFactory.getNotApprovedEditedTrainingNotice(training, senderId, transactionId);
+        Notice notice = NoticeFactory.getNotApprovedNewTrainingNotice(training);
         List<Employee> admins = eDAO.getAdmins();
         noticeService.addNotices(notice, admins);
     }

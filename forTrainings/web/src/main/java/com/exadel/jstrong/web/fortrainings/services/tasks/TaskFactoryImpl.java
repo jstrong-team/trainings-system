@@ -54,4 +54,52 @@ public class TaskFactoryImpl implements TaskFactory {
         task.setNoticeService(noticeService);
         return task;
     }
+
+    @Override
+    public AddTrainerFeedbackTask createAddTrainerFeedbackTask(Training training, Employee sender, Employee employee) {
+        AddTrainerFeedbackTask task = new AddTrainerFeedbackTask(training, sender, employee);
+        task.setNoticeService(noticeService);
+        task.seteDAO(employeeDAO);
+        return task;
+    }
+
+    @Override
+    public AddTrainingTask createAddTrainingTask(Training training) {
+        AddTrainingTask task = new AddTrainingTask(training);
+        task.setNoticeService(noticeService);
+        task.seteDAO(employeeDAO);
+        return task;
+    }
+
+    @Override
+    public AddEmpoyeeFeedbackTask createAddEmpoyeeFeedbackTask(Training training, Employee sender) {
+        AddEmpoyeeFeedbackTask task = new AddEmpoyeeFeedbackTask(training, sender);
+        task.setNoticeService(noticeService);
+        task.seteDAO(employeeDAO);
+        return task;
+    }
+
+    @Override
+    public CreateTrainingTask createCreateTrainingTask(Integer trainingId, Integer systemId) {
+        CreateTrainingTask task = new CreateTrainingTask(trainingId, systemId);
+        task.seteDAO(employeeDAO);
+        task.setNoticeService(noticeService);
+        task.settDAO(trainingDAO);
+        return task;
+    }
+
+    @Override
+    public DeleteTrainingTask createDeleteTrainingTask(Integer trainingId, Employee system) {
+        DeleteTrainingTask task = new DeleteTrainingTask(trainingId, system);
+        task.seteDAO(employeeDAO);
+        task.setNoticeService(noticeService);
+        task.settDAO(trainingDAO);
+        return task;
+    }
+
+    @Override
+    public AddExternalTask createAddExternalTask(Employee employee) {
+        AddExternalTask task = new AddExternalTask(employee);
+        return task;
+    }
 }

@@ -22,7 +22,13 @@
                     <div ng-repeat="line in description">
                         <div class="lineDescription">
                             <div ng-repeat="item in line" class="description">
-                                <div class="descriptionItem">
+                                <div ng-if="($index == 3)" class="descriptionItem showMore">
+                                    <br>
+                                    <b>
+                                        <a href="" ng-click="showMore(line)">Show more...</a>
+                                    </b>
+                                </div>
+                                <div ng-hide="($index == 3)" class="descriptionItem">
                                     <strong>
                                         <a href="" ng-click="redirectToTrainingPage(item.trainingId)">{{item.name}}</a>
                                     </strong>

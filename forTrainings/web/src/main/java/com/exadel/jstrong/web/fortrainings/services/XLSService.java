@@ -33,9 +33,9 @@ public class XLSService {
         Cell cell;
 
         for (TrainingReportUI t : trainings) {
-            cellCount = 0;
             List<UserReportUI> users = t.getUsers();
             for (UserReportUI u : users) {
+                cellCount = 0;
                 row = sheet.createRow(rowCount++);
 
                 cell = row.createCell(cellCount++);
@@ -63,13 +63,13 @@ public class XLSService {
                 getStyle(workbook, cell);
             }
         }
-        for(int colNum = 0; colNum<row.getLastCellNum();colNum++) {
+        for (int colNum = 0; colNum < row.getLastCellNum(); colNum++) {
             workbook.getSheetAt(0).autoSizeColumn(colNum);
         }
         return workbook;
     }
 
-    private static void getTitle(HSSFSheet sheet){
+    private static void getTitle(HSSFSheet sheet) {
         int cellCount = 0;
         Row row = sheet.createRow(0);
         Cell cell;
@@ -87,7 +87,7 @@ public class XLSService {
         cell.setCellValue("Negative feedbacks");
     }
 
-    private static void getStyle(HSSFWorkbook workbook, Cell cell){
+    private static void getStyle(HSSFWorkbook workbook, Cell cell) {
         CellStyle style = workbook.createCellStyle();
         style.setWrapText(true);
         style.setVerticalAlignment(CellStyle.VERTICAL_TOP);

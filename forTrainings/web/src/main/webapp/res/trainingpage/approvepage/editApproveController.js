@@ -22,9 +22,6 @@ angular.module('approvePageModule').controller('editApproveController', ['$scope
                 $scope.editInfo.newDateTime.push(moment($scope.editInfo.newDates[j]).format('DD MMMM'));
             }
         }, function (error) {
-            if (error.status === 401) {
-                $location.url('/ui/');
-            }
             console.error(error);
         });
 

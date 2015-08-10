@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `for_trainings` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `for_trainings`;
--- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.17, for osx10.6 (i386)
 --
--- Host: localhost    Database: for_trainings
+-- Host: 127.0.0.1    Database: for_trainings
 -- ------------------------------------------------------
--- Server version	5.6.25-log
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -100,7 +100,7 @@ CREATE TABLE `employee_notice` (
   KEY `fk_notice_employee_notice_idx` (`notice_id`),
   CONSTRAINT `fk_employee_employee_notice` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_notice_employee_notice` FOREIGN KEY (`notice_id`) REFERENCES `notice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,6 +109,7 @@ CREATE TABLE `employee_notice` (
 
 LOCK TABLES `employee_notice` WRITE;
 /*!40000 ALTER TABLE `employee_notice` DISABLE KEYS */;
+INSERT INTO `employee_notice` VALUES (77,1,56,0),(78,7,56,0),(79,45,56,0),(80,1,57,0),(81,1,58,0),(82,7,58,0),(83,45,58,0),(84,1,59,0),(85,7,59,0),(86,45,59,0);
 /*!40000 ALTER TABLE `employee_notice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,7 +180,7 @@ CREATE TABLE `meet` (
   PRIMARY KEY (`id`),
   KEY `training_id_idx` (`training_id`),
   CONSTRAINT `fk_training_meet` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +189,7 @@ CREATE TABLE `meet` (
 
 LOCK TABLES `meet` WRITE;
 /*!40000 ALTER TABLE `meet` DISABLE KEYS */;
-INSERT INTO `meet` VALUES (1,1,'2015-07-14 13:30:00'),(2,1,'2015-07-18 13:30:00'),(3,1,'2015-07-22 13:30:00'),(4,1,'2015-07-22 13:30:00'),(5,2,'2015-07-27 10:00:00'),(6,3,'2015-08-14 11:30:00'),(7,3,'2015-08-19 11:30:00'),(8,3,'2015-08-24 12:00:00'),(9,3,'2015-08-29 12:30:00'),(10,4,'2015-08-15 09:00:00'),(11,4,'2015-08-19 10:00:00'),(12,4,'2015-08-23 10:00:00'),(13,5,'2015-08-15 12:00:00'),(14,5,'2015-08-17 13:00:00'),(15,5,'2015-08-19 12:00:00'),(16,5,'2015-08-22 11:30:00'),(17,5,'2015-08-25 12:00:00'),(18,6,'2015-09-01 07:30:00'),(19,6,'2015-09-08 07:30:00'),(20,6,'2015-09-15 07:30:00'),(21,6,'2015-09-22 09:00:00'),(22,6,'2015-09-29 09:00:00'),(23,6,'2015-10-05 08:00:00'),(24,7,'2015-09-01 10:00:00'),(25,7,'2015-09-08 10:00:00'),(26,7,'2015-09-15 10:00:00'),(27,8,'2015-09-02 15:00:00'),(28,8,'2015-09-05 15:00:00'),(29,8,'2015-09-10 15:00:00'),(30,8,'2015-09-13 15:00:00'),(31,8,'2015-09-18 15:00:00'),(32,8,'2015-09-21 15:00:00'),(33,8,'2015-09-26 15:00:00'),(34,8,'2015-09-29 15:00:00'),(35,8,'2015-10-03 15:00:00'),(36,8,'2015-10-06 15:00:00'),(37,8,'2015-10-11 15:00:00'),(38,8,'2015-10-14 15:00:00'),(39,8,'2015-10-19 15:00:00'),(40,8,'2015-10-22 15:00:00'),(41,8,'2015-10-27 15:00:00'),(42,8,'2015-10-30 15:00:00'),(43,8,'2015-10-05 15:00:00'),(44,8,'2015-10-08 15:00:00'),(45,8,'2015-10-13 15:00:00'),(46,8,'2015-10-16 15:00:00'),(47,8,'2015-10-21 15:00:00'),(48,9,'2015-09-03 10:00:00'),(49,9,'2015-09-06 10:00:00'),(50,9,'2015-09-11 10:00:00'),(51,9,'2015-09-14 10:00:00'),(52,9,'2015-09-19 10:00:00'),(53,9,'2015-09-22 10:00:00'),(54,9,'2015-09-27 10:00:00'),(55,9,'2015-09-30 10:00:00'),(56,9,'2015-10-05 10:00:00'),(57,9,'2015-10-08 10:00:00'),(58,9,'2015-10-10 10:00:00'),(59,10,'2015-09-04 13:00:00'),(60,10,'2015-09-11 13:00:00'),(61,10,'2015-09-18 13:00:00'),(62,10,'2015-09-25 13:00:00'),(63,10,'2015-10-02 13:00:00'),(64,10,'2015-10-09 13:00:00'),(65,10,'2015-10-16 13:00:00'),(66,10,'2015-10-23 13:00:00'),(67,10,'2015-10-30 13:00:00'),(68,10,'2015-11-07 13:00:00'),(69,10,'2015-11-14 13:00:00'),(70,11,'2015-08-16 09:00:00'),(71,11,'2015-08-19 09:00:00'),(72,11,'2015-08-22 09:00:00'),(73,11,'2015-08-25 09:00:00'),(74,11,'2015-08-28 09:00:00'),(75,11,'2015-08-30 09:00:00'),(76,12,'2015-09-05 11:30:00'),(77,12,'2015-09-07 11:30:00'),(78,12,'2015-09-09 11:30:00'),(79,12,'2015-09-11 11:30:00'),(80,12,'2015-09-13 11:30:00'),(81,13,'2015-08-15 09:00:00'),(82,13,'2015-08-16 09:00:00'),(83,13,'2015-08-17 09:00:00'),(84,14,'2015-08-20 16:00:00');
+INSERT INTO `meet` VALUES (1,1,'2015-07-14 13:30:00'),(2,1,'2015-07-18 13:30:00'),(3,1,'2015-07-22 13:30:00'),(4,1,'2015-07-22 13:30:00'),(5,2,'2015-07-27 10:00:00'),(6,3,'2015-08-14 11:30:00'),(7,3,'2015-08-19 11:30:00'),(11,4,'2015-08-19 10:00:00'),(14,5,'2015-08-17 12:00:00'),(15,5,'2015-08-19 12:00:00'),(17,5,'2015-08-25 12:00:00'),(21,6,'2015-09-22 09:00:00'),(22,6,'2015-09-29 09:00:00'),(23,6,'2015-10-05 08:00:00'),(24,7,'2015-09-01 10:00:00'),(25,7,'2015-09-08 10:00:00'),(26,7,'2015-09-15 10:00:00'),(27,8,'2015-09-02 15:00:00'),(31,8,'2015-09-18 15:00:00'),(32,8,'2015-09-21 15:00:00'),(34,8,'2015-09-29 15:00:00'),(38,8,'2015-10-14 15:00:00'),(39,8,'2015-10-19 15:00:00'),(42,8,'2015-10-30 15:00:00'),(43,8,'2015-10-05 15:00:00'),(50,9,'2015-09-11 10:00:00'),(53,9,'2015-09-22 10:00:00'),(55,9,'2015-09-30 10:00:00'),(56,9,'2015-10-05 10:00:00'),(59,10,'2015-09-04 13:00:00'),(60,10,'2015-09-11 13:00:00'),(61,10,'2015-09-18 13:00:00'),(62,10,'2015-09-25 13:00:00'),(63,10,'2015-10-02 13:00:00'),(64,10,'2015-10-09 13:00:00'),(65,10,'2015-10-16 13:00:00'),(66,10,'2015-10-23 13:00:00'),(67,10,'2015-10-30 13:00:00'),(68,10,'2015-11-07 13:00:00'),(69,10,'2015-11-14 13:00:00'),(71,11,'2015-08-19 09:00:00'),(73,11,'2015-08-25 09:00:00'),(79,12,'2015-09-11 11:30:00'),(81,13,'2015-08-15 09:00:00'),(82,13,'2015-08-16 09:00:00'),(83,13,'2015-08-17 09:00:00'),(84,14,'2015-10-20 16:00:00'),(143,52,'2015-08-20 16:50:00');
 /*!40000 ALTER TABLE `meet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,19 +220,20 @@ LOCK TABLES `meet_version` WRITE;
 UNLOCK TABLES;
 
 --
--- Temporary view structure for view `new_view`
+-- Temporary table structure for view `new_view`
 --
 
 DROP TABLE IF EXISTS `new_view`;
 /*!50001 DROP VIEW IF EXISTS `new_view`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `new_view` AS SELECT 
- 1 AS `id`,
- 1 AS `training_id`,
- 1 AS `name`,
- 1 AS `annotation`,
- 1 AS `date`*/;
+/*!50001 CREATE TABLE `new_view` (
+  `id` tinyint NOT NULL,
+  `training_id` tinyint NOT NULL,
+  `name` tinyint NOT NULL,
+  `annotation` tinyint NOT NULL,
+  `date` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -250,10 +252,11 @@ CREATE TABLE `notice` (
   `sender_id` int(11) DEFAULT NULL,
   `status` varchar(45) NOT NULL,
   `transaction_id` int(11) DEFAULT NULL,
+  `approve` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_training_notice_idx` (`training_id`),
   CONSTRAINT `fk_training_notice` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,6 +265,7 @@ CREATE TABLE `notice` (
 
 LOCK TABLES `notice` WRITE;
 /*!40000 ALTER TABLE `notice` DISABLE KEYS */;
+INSERT INTO `notice` VALUES (56,52,'Approve create training','Need approve of the new training \"1\"','2015-08-07 16:15:08',7,'warning',NULL,1),(57,8,'Addition successfully completed','You was added to the \"JAVA\" participants list with status Wait','2015-08-07 16:15:48',666,'success',NULL,0),(58,8,'Addition successfully completed','User Grigoriev Anton was added to the \"JAVA\" participants list with status Approve','2015-08-07 16:15:48',666,'success',NULL,0),(59,8,'Approve edit training','Need approve changes in training \"JAVA*\"','2015-08-07 16:16:32',7,'warning',1,0);
 /*!40000 ALTER TABLE `notice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -281,7 +285,7 @@ CREATE TABLE `participant` (
   PRIMARY KEY (`id`),
   KEY `fk_subscribe_participant_idx` (`subscribe_id`),
   CONSTRAINT `fk_subscribe_participant` FOREIGN KEY (`subscribe_id`) REFERENCES `subscribe` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -290,23 +294,25 @@ CREATE TABLE `participant` (
 
 LOCK TABLES `participant` WRITE;
 /*!40000 ALTER TABLE `participant` DISABLE KEYS */;
+INSERT INTO `participant` VALUES (20,27,NULL,NULL,1),(20,28,NULL,NULL,2),(20,29,NULL,NULL,3),(20,30,NULL,NULL,4),(20,31,NULL,NULL,5),(20,32,NULL,NULL,6),(20,33,NULL,NULL,7),(20,34,NULL,NULL,8),(20,35,NULL,NULL,9),(20,36,NULL,NULL,10),(20,37,NULL,NULL,11),(20,38,NULL,NULL,12),(20,39,NULL,NULL,13),(20,40,NULL,NULL,14),(20,41,NULL,NULL,15),(20,42,NULL,NULL,16),(20,43,NULL,NULL,17),(20,44,NULL,NULL,18),(20,45,NULL,NULL,19),(20,46,NULL,NULL,20),(20,47,NULL,NULL,21);
 /*!40000 ALTER TABLE `participant` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Temporary view structure for view `report`
+-- Temporary table structure for view `report`
 --
 
 DROP TABLE IF EXISTS `report`;
 /*!50001 DROP VIEW IF EXISTS `report`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `report` AS SELECT 
- 1 AS `id`,
- 1 AS `subscribe_id`,
- 1 AS `date`,
- 1 AS `absent`,
- 1 AS `reason`*/;
+/*!50001 CREATE TABLE `report` (
+  `id` tinyint NOT NULL,
+  `subscribe_id` tinyint NOT NULL,
+  `date` tinyint NOT NULL,
+  `absent` tinyint NOT NULL,
+  `reason` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -378,7 +384,7 @@ CREATE TABLE `subscribe` (
   KEY `fk_training_subscribe_idx` (`training_id`),
   CONSTRAINT `fk_employee_subscribe` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_training_subscribe` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -387,6 +393,7 @@ CREATE TABLE `subscribe` (
 
 LOCK TABLES `subscribe` WRITE;
 /*!40000 ALTER TABLE `subscribe` DISABLE KEYS */;
+INSERT INTO `subscribe` VALUES (20,1,8,'Approve','2015-08-07 16:15:48');
 /*!40000 ALTER TABLE `subscribe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -430,7 +437,7 @@ CREATE TABLE `token` (
   PRIMARY KEY (`id`),
   KEY `fk_employee_token_idx` (`employee_id`),
   CONSTRAINT `fk_employee_token` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=667 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -439,7 +446,7 @@ CREATE TABLE `token` (
 
 LOCK TABLES `token` WRITE;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
-INSERT INTO `token` VALUES (1,'010815122730-540119915',1,'050815102000278181481',NULL,NULL),(2,'token',2,NULL,NULL,NULL),(3,'token',3,'050815130324-2137917408',NULL,NULL),(4,'240715155508-2059738913',4,NULL,NULL,NULL),(5,'310715151646-2122411317',5,NULL,NULL,NULL),(6,'token',6,NULL,NULL,NULL),(7,'0308150926211296953224',7,NULL,NULL,NULL);
+INSERT INTO `token` VALUES (1,'070815181543327011129',1,'070815181406-1308679184',NULL,NULL),(2,'token',2,NULL,NULL,NULL),(3,'token',3,'050815130324-2137917408',NULL,NULL),(4,'240715155508-2059738913',4,NULL,NULL,NULL),(5,'310715151646-2122411317',5,NULL,NULL,NULL),(6,'token',6,NULL,NULL,NULL),(7,'100815065432-956712087',7,'100815064538-1718799798',NULL,NULL),(8,'token',8,NULL,NULL,NULL),(9,'token',9,NULL,NULL,NULL),(10,'token',10,NULL,NULL,NULL),(11,'token',11,NULL,NULL,NULL),(12,'token',12,NULL,NULL,NULL),(13,'token',13,NULL,NULL,NULL),(14,'token',14,NULL,NULL,NULL),(15,'token',15,NULL,NULL,NULL),(16,'token',16,NULL,NULL,NULL),(17,'token',17,NULL,NULL,NULL),(18,'token',18,NULL,NULL,NULL),(19,'token',19,NULL,NULL,NULL),(20,'token',20,NULL,NULL,NULL),(21,'token',21,NULL,NULL,NULL),(22,'token',22,NULL,NULL,NULL),(23,'token',23,NULL,NULL,NULL),(24,'token',24,NULL,NULL,NULL),(25,'token',25,NULL,NULL,NULL),(26,'token',26,NULL,NULL,NULL),(27,'token',27,NULL,NULL,NULL),(28,'token',28,NULL,NULL,NULL),(29,'token',29,NULL,NULL,NULL),(30,'token',30,NULL,NULL,NULL),(31,'token',31,NULL,NULL,NULL),(32,'token',32,NULL,NULL,NULL),(33,'token',33,NULL,NULL,NULL),(34,'token',34,NULL,NULL,NULL),(35,'token',35,NULL,NULL,NULL),(36,'token',36,NULL,NULL,NULL),(37,'100815065416-812683562',37,NULL,NULL,NULL),(38,'token',38,NULL,NULL,NULL),(39,'token',39,NULL,NULL,NULL),(40,'token',40,NULL,NULL,NULL),(41,'token',41,NULL,NULL,NULL),(42,'token',42,NULL,NULL,NULL),(43,'token',43,NULL,NULL,NULL),(44,'token',44,NULL,NULL,NULL),(45,'token',45,NULL,NULL,NULL),(46,'token',46,NULL,NULL,NULL),(666,'token',666,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -507,7 +514,7 @@ CREATE TABLE `training` (
   PRIMARY KEY (`id`),
   KEY `trainer_id_idx` (`trainer_id`),
   CONSTRAINT `fk_employee_training` FOREIGN KEY (`trainer_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -516,7 +523,7 @@ CREATE TABLE `training` (
 
 LOCK TABLES `training` WRITE;
 /*!40000 ALTER TABLE `training` DISABLE KEYS */;
-INSERT INTO `training` VALUES (1,39,'Web usability','Some latest practices for web usability','The aim of this course is to help delegates design better web sites by showing how the various user experience tools and techniques fit into real-world design and development processes. This web usability training course will give you hands-on practice in all the key areas of usability, from identifying your customers through to usability testing your web site with them.','All-levels Web developers',0,1,1,20,'222',1),(2,40,'Accident Prevention','Accident prevention basics','Accident prevention refers to the plans, preparations and actions taken to avoid or stop an accident before it happens. Accidents can be classified as unplanned and unexpected events giving increased risk of injury, ill health, death and loss of property, damage to environment or any combination of thereof. Accident prevention includes all measures taken in an effort to save lives, escape from injury, lessen the degrees of injury, reduce loss of properties, treatment and compensation costs, production and time loss, and morale loss of the concerned organization.','All employees',0,1,0,30,'243',1),(3,35,'Front End: JS','JavaScript course for medium-level developers','This course is designed to accommodate website designers who have some experience building web pages. Lessons familiarize students with the ins and outs of basic JavaScript and then move on to advanced tools for adding really useful interactivity to a Web site as quickly and easily as possible with the help of pre-written jQuery libraries.','Medium-level Front End developers',1,0,1,15,'225',0),(4,41,'DB: advanced course','Advanced DB lectures and practise','This course introduces advanced part of database systems, as well as the modeling, desgin and manipulation of relational databases. The students will gain the required knowledge to describe databases, their characteristics, functions, pros and cons.     Topics include data modeling, database design theory, data definition and manipulation languages, storage and indexing techniques, etc. The course will enable the students to create and manipulate databases on Oracle database management system. ','DB Designers',0,1,1,20,'242',0),(5,42,'Hibernate','Hibernate, a popular open-source object/relational mapping (ORM) tool','This course introduces Hibernate, a popular open-source object/relational mapping (ORM) tool that helps Java developers store and access persistent objects. Topics covered include Hibernate configuration, the Hibernate mapping file, inheritance, collections, associations, and the Hibernate Query Language (HQL).','Medium-level JAVA developers',0,1,1,28,'242',0),(6,43,'Spring','Spring Framework, the leading full-stack framework for Java EE applications','This course introduces the Spring Framework, the leading full-stack framework for Java EE applications. Topics covered include the Spring container, dependency injection, data validation, aspect-oriented programming, the JDBC Template, and the Hibernate Template. A Web application is also presented to illustrate the use of the Spring Web MVC framework.','Medium-level JAVA developers',0,1,1,24,'314',0),(7,39,'Automation testing','Automation testing for anyone','This course is designed for anyone who is either planning to automate or is already involved. No technical skills or experience are required; all technical concepts will be explained. The course is tool and application neutral, but the concepts and examples are better suited to UI testing than services or APIs.','QA Engineer',0,1,0,12,'212',1),(8,7,'JAVA','Introduction to Programming in Java','This course is an introduction to software engineering, using the Java programming language. It covers concepts useful to 6.005 Elements of Software Construction. Students will learn the fundamentals of Java. The focus is on developing high quality, working software that solves real problems.','Begginers in JAVA Development',1,0,1,20,'214',0),(9,42,'Python','A Gentle Introduction to Programming Using Python','This course will provide a gentle, yet intense, introduction to programming using Python for highly motivated students with little or no prior experience in programming. The course will focus on planning and organizing programs, as well as the grammar of the Python programming language. The course is designed to help prepare students for 6.01 Introduction to EECS I.','Begginers in Python Development',0,1,1,10,'335',0),(10,33,'Computer Engineering','Introduction to Computers and Engineering Problem Solving','This course presents the fundamentals of object-oriented software design and development, computational methods and sensing for engineering, and scientific and managerial applications. Topics include classes, inheritance, graphical user interfaces, numerical methods, streams, threads, sensors, and data structures.\n','Engineers',1,0,0,12,'333',0),(11,33,'MATLAB Programming','Introduction to MATLAB Programming','This course teaches MATLAB from a mathematical point of view, rather than a programming one. The idea is that by thinking about mathematical problems, students are prodded into learning MATLAB for the purpose of solving the problem at hand. Topics include variables, arrays, conditional statements, loops, functions, and plots.','All level developers',0,0,1,16,'210',0),(12,34,'C and C++','Introduction to C and C++','This course provides a fast-paced introduction to the C and C++ programming languages. You will learn the required background knowledge, including memory management, pointers, preprocessor macros, object-oriented programming, and how to find bugs when you inevitably use any of those incorrectly.','Begginers in C and C++',1,0,1,28,'228',0),(13,44,'Software Construction','Elements of Software Construction','This course introduces fundamental principles and techniques of software development. Students learn how to write software that is safe from bugs, easy to understand, and ready for change.','All developers',0,1,0,30,'316',0),(14,34,'Programming Competition','The Battlecode Programming Competition','The Battlecode Programming Competition is a unique challenge that combines battle strategy, software engineering, and artificial intelligence. Using Java, student teams program virtual robots to play Battlecode, a real-time strategy game. Optional lectures are provided on topics and programming practices relevant to the game, and students learn and improve their programming skills experientially. The course culminates in a live tournament.','All JAVA developers',1,1,1,20,'333',0);
+INSERT INTO `training` VALUES (1,39,'Web usability','Some latest practices for web usability','The aim of this course is to help delegates design better web sites by showing how the various user experience tools and techniques fit into real-world design and development processes. This web usability training course will give you hands-on practice in all the key areas of usability, from identifying your customers through to usability testing your web site with them.','All-levels Web developers',0,1,1,20,'222',1),(2,40,'Accident Prevention','Accident prevention basics','Accident prevention refers to the plans, preparations and actions taken to avoid or stop an accident before it happens. Accidents can be classified as unplanned and unexpected events giving increased risk of injury, ill health, death and loss of property, damage to environment or any combination of thereof. Accident prevention includes all measures taken in an effort to save lives, escape from injury, lessen the degrees of injury, reduce loss of properties, treatment and compensation costs, production and time loss, and morale loss of the concerned organization.','All employees',0,1,0,30,'243',1),(3,35,'Front End: JS','JavaScript course for medium-level developers','This course is designed to accommodate website designers who have some experience building web pages. Lessons familiarize students with the ins and outs of basic JavaScript and then move on to advanced tools for adding really useful interactivity to a Web site as quickly and easily as possible with the help of pre-written jQuery libraries.','Medium-level Front End developers',1,0,1,15,'225',0),(4,41,'DB: advanced course','Advanced DB lectures and practise','This course introduces advanced part of database systems, as well as the modeling, desgin and manipulation of relational databases. The students will gain the required knowledge to describe databases, their characteristics, functions, pros and cons.     Topics include data modeling, database design theory, data definition and manipulation languages, storage and indexing techniques, etc. The course will enable the students to create and manipulate databases on Oracle database management system. ','DB Designers',0,1,1,20,'242',0),(5,42,'Hibernate','Hibernate, a popular open-source object/relational mapping (ORM) tool','This course introduces Hibernate, a popular open-source object/relational mapping (ORM) tool that helps Java developers store and access persistent objects. Topics covered include Hibernate configuration, the Hibernate mapping file, inheritance, collections, associations, and the Hibernate Query Language (HQL).','Medium-level JAVA developers',0,1,1,28,'242',0),(6,43,'Spring','Spring Framework, the leading full-stack framework for Java EE applications','This course introduces the Spring Framework, the leading full-stack framework for Java EE applications. Topics covered include the Spring container, dependency injection, data validation, aspect-oriented programming, the JDBC Template, and the Hibernate Template. A Web application is also presented to illustrate the use of the Spring Web MVC framework.','Medium-level JAVA developers',0,1,1,24,'314',0),(7,39,'Automation testing','Automation testing for anyone','This course is designed for anyone who is either planning to automate or is already involved. No technical skills or experience are required; all technical concepts will be explained. The course is tool and application neutral, but the concepts and examples are better suited to UI testing than services or APIs.','QA Engineer',0,1,0,12,'212',1),(8,7,'JAVA','Introduction to Programming in Java','This course is an introduction to software engineering, using the Java programming language. It covers concepts useful to 6.005 Elements of Software Construction. Students will learn the fundamentals of Java. The focus is on developing high quality, working software that solves real problems.','Begginers in JAVA Development',1,0,1,20,'214',0),(9,42,'Python','A Gentle Introduction to Programming Using Python','This course will provide a gentle, yet intense, introduction to programming using Python for highly motivated students with little or no prior experience in programming. The course will focus on planning and organizing programs, as well as the grammar of the Python programming language. The course is designed to help prepare students for 6.01 Introduction to EECS I.','Begginers in Python Development',0,1,1,10,'335',0),(10,33,'Computer Engineering','Introduction to Computers and Engineering Problem Solving','This course presents the fundamentals of object-oriented software design and development, computational methods and sensing for engineering, and scientific and managerial applications. Topics include classes, inheritance, graphical user interfaces, numerical methods, streams, threads, sensors, and data structures.\n','Engineers',1,0,0,12,'333',0),(11,33,'MATLAB Programming','Introduction to MATLAB Programming','This course teaches MATLAB from a mathematical point of view, rather than a programming one. The idea is that by thinking about mathematical problems, students are prodded into learning MATLAB for the purpose of solving the problem at hand. Topics include variables, arrays, conditional statements, loops, functions, and plots.','All level developers',0,0,1,16,'210',0),(12,34,'C and C++','Introduction to C and C++','This course provides a fast-paced introduction to the C and C++ programming languages. You will learn the required background knowledge, including memory management, pointers, preprocessor macros, object-oriented programming, and how to find bugs when you inevitably use any of those incorrectly.','Begginers in C and C++',1,0,1,28,'228',0),(13,44,'Software Construction','Elements of Software Construction','This course introduces fundamental principles and techniques of software development. Students learn how to write software that is safe from bugs, easy to understand, and ready for change.','All developers',0,1,0,30,'316',0),(14,34,'Programming Competition','The Battlecode Programming Competition','The Battlecode Programming Competition is a unique challenge that combines battle strategy, software engineering, and artificial intelligence. Using Java, student teams program virtual robots to play Battlecode, a real-time strategy game. Optional lectures are provided on topics and programming practices relevant to the game, and students learn and improve their programming skills experientially. The course culminates in a live tournament.','All JAVA developers',1,1,1,20,'333',0),(52,7,'1','1','1','1',1,1,0,1,'1',0);
 /*!40000 ALTER TABLE `training` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -547,6 +554,32 @@ LOCK TABLES `training_tag` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `training_version`
+--
+
+DROP TABLE IF EXISTS `training_version`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `training_version` (
+  `old_version` int(11) NOT NULL,
+  `new_version` int(11) NOT NULL,
+  PRIMARY KEY (`old_version`,`new_version`),
+  KEY `fk_training(new)_training_version_idx` (`new_version`),
+  CONSTRAINT `fk_training(new)_training_version` FOREIGN KEY (`new_version`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_training(old)_training_version` FOREIGN KEY (`old_version`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `training_version`
+--
+
+LOCK TABLES `training_version` WRITE;
+/*!40000 ALTER TABLE `training_version` DISABLE KEYS */;
+/*!40000 ALTER TABLE `training_version` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `transaction`
 --
 
@@ -560,7 +593,7 @@ CREATE TABLE `transaction` (
   `json` text NOT NULL,
   `entity_name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -569,6 +602,7 @@ CREATE TABLE `transaction` (
 
 LOCK TABLES `transaction` WRITE;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
+INSERT INTO `transaction` VALUES (1,NULL,8,'{\n  \"id\": 8,\n  \"name\": \"JAVA*\",\n  \"annotation\": \"Introduction to Programming in Java\",\n  \"description\": \"This course is an introduction to software engineering, using the Java programming language. It covers concepts useful to 6.005 Elements of Software Construction. Students will learn the fundamentals of Java. The focus is on developing high quality, working software that solves real problems.\",\n  \"target\": \"Begginers in JAVA Development\",\n  \"paid\": true,\n  \"max_participants\": 20,\n  \"place\": \"214\",\n  \"internal\": false,\n  \"approve\": true,\n  \"trainer_id\": 7,\n  \"date\": [\n    \"Sep 2, 2015 5:00:00 PM\",\n    \"Sep 5, 2015 5:00:00 PM\",\n    \"Sep 10, 2015 5:00:00 PM\",\n    \"Sep 13, 2015 5:00:00 PM\",\n    \"Sep 18, 2015 5:00:00 PM\",\n    \"Sep 21, 2015 5:00:00 PM\",\n    \"Sep 26, 2015 5:00:00 PM\",\n    \"Sep 29, 2015 5:00:00 PM\",\n    \"Oct 3, 2015 5:00:00 PM\",\n    \"Oct 6, 2015 5:00:00 PM\",\n    \"Oct 11, 2015 5:00:00 PM\",\n    \"Oct 14, 2015 5:00:00 PM\",\n    \"Oct 19, 2015 5:00:00 PM\",\n    \"Oct 22, 2015 5:00:00 PM\",\n    \"Oct 27, 2015 5:00:00 PM\",\n    \"Oct 30, 2015 5:00:00 PM\",\n    \"Oct 5, 2015 5:00:00 PM\",\n    \"Oct 8, 2015 5:00:00 PM\",\n    \"Oct 13, 2015 5:00:00 PM\",\n    \"Oct 16, 2015 5:00:00 PM\",\n    \"Oct 21, 2015 5:00:00 PM\"\n  ],\n  \"meets\": [\n    {\n      \"id\": 27\n    },\n    {\n      \"id\": 28\n    },\n    {\n      \"id\": 29\n    },\n    {\n      \"id\": 30\n    },\n    {\n      \"id\": 31\n    },\n    {\n      \"id\": 32\n    },\n    {\n      \"id\": 33\n    },\n    {\n      \"id\": 34\n    },\n    {\n      \"id\": 35\n    },\n    {\n      \"id\": 36\n    },\n    {\n      \"id\": 37\n    },\n    {\n      \"id\": 38\n    },\n    {\n      \"id\": 39\n    },\n    {\n      \"id\": 40\n    },\n    {\n      \"id\": 41\n    },\n    {\n      \"id\": 42\n    },\n    {\n      \"id\": 43\n    },\n    {\n      \"id\": 44\n    },\n    {\n      \"id\": 45\n    },\n    {\n      \"id\": 46\n    },\n    {\n      \"id\": 47\n    }\n  ],\n  \"isSubscribe\": false\n}','training'),(2,1,8,'{\n  \"date\": \"Sep 2, 2015 5:00:00 PM\",\n  \"id\": 27,\n  \"training_id\": 8\n}','meet'),(3,1,8,'{\n  \"date\": \"Sep 5, 2015 5:00:00 PM\",\n  \"id\": 28,\n  \"training_id\": 8\n}','meet'),(4,1,8,'{\n  \"date\": \"Sep 10, 2015 5:00:00 PM\",\n  \"id\": 29,\n  \"training_id\": 8\n}','meet'),(5,1,8,'{\n  \"date\": \"Sep 13, 2015 5:00:00 PM\",\n  \"id\": 30,\n  \"training_id\": 8\n}','meet'),(6,1,8,'{\n  \"date\": \"Sep 18, 2015 5:00:00 PM\",\n  \"id\": 31,\n  \"training_id\": 8\n}','meet'),(7,1,8,'{\n  \"date\": \"Sep 21, 2015 5:00:00 PM\",\n  \"id\": 32,\n  \"training_id\": 8\n}','meet'),(8,1,8,'{\n  \"date\": \"Sep 26, 2015 5:00:00 PM\",\n  \"id\": 33,\n  \"training_id\": 8\n}','meet'),(9,1,8,'{\n  \"date\": \"Sep 29, 2015 5:00:00 PM\",\n  \"id\": 34,\n  \"training_id\": 8\n}','meet'),(10,1,8,'{\n  \"date\": \"Oct 3, 2015 5:00:00 PM\",\n  \"id\": 35,\n  \"training_id\": 8\n}','meet'),(11,1,8,'{\n  \"date\": \"Oct 6, 2015 5:00:00 PM\",\n  \"id\": 36,\n  \"training_id\": 8\n}','meet'),(12,1,8,'{\n  \"date\": \"Oct 11, 2015 5:00:00 PM\",\n  \"id\": 37,\n  \"training_id\": 8\n}','meet'),(13,1,8,'{\n  \"date\": \"Oct 14, 2015 5:00:00 PM\",\n  \"id\": 38,\n  \"training_id\": 8\n}','meet'),(14,1,8,'{\n  \"date\": \"Oct 19, 2015 5:00:00 PM\",\n  \"id\": 39,\n  \"training_id\": 8\n}','meet'),(15,1,8,'{\n  \"date\": \"Oct 22, 2015 5:00:00 PM\",\n  \"id\": 40,\n  \"training_id\": 8\n}','meet'),(16,1,8,'{\n  \"date\": \"Oct 27, 2015 5:00:00 PM\",\n  \"id\": 41,\n  \"training_id\": 8\n}','meet'),(17,1,8,'{\n  \"date\": \"Oct 30, 2015 5:00:00 PM\",\n  \"id\": 42,\n  \"training_id\": 8\n}','meet'),(18,1,8,'{\n  \"date\": \"Oct 5, 2015 5:00:00 PM\",\n  \"id\": 43,\n  \"training_id\": 8\n}','meet'),(19,1,8,'{\n  \"date\": \"Oct 8, 2015 5:00:00 PM\",\n  \"id\": 44,\n  \"training_id\": 8\n}','meet'),(20,1,8,'{\n  \"date\": \"Oct 13, 2015 5:00:00 PM\",\n  \"id\": 45,\n  \"training_id\": 8\n}','meet'),(21,1,8,'{\n  \"date\": \"Oct 16, 2015 5:00:00 PM\",\n  \"id\": 46,\n  \"training_id\": 8\n}','meet'),(22,1,8,'{\n  \"date\": \"Oct 21, 2015 5:00:00 PM\",\n  \"id\": 47,\n  \"training_id\": 8\n}','meet');
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -576,6 +610,7 @@ UNLOCK TABLES;
 -- Final view structure for view `new_view`
 --
 
+/*!50001 DROP TABLE IF EXISTS `new_view`*/;
 /*!50001 DROP VIEW IF EXISTS `new_view`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -585,7 +620,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `new_view` AS select `meet`.`id` AS `id`,`training`.`id` AS `training_id`,`training`.`name` AS `name`,`training`.`annotation` AS `annotation`,`meet`.`date` AS `date` from (`training` join `meet`) where ((`training`.`approve` = 1) and (`meet`.`training_id` = `training`.`id`)) */;
+/*!50001 VIEW `new_view` AS select `meet`.`id` AS `id`,`training`.`id` AS `training_id`,`training`.`name` AS `name`,`training`.`annotation` AS `annotation`,`meet`.`date` AS `date` from (`training` join `meet`) where ((`training`.`approve` = 1) and (`training`.`is_delete` = 0) and (`meet`.`training_id` = `training`.`id`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -594,6 +629,7 @@ UNLOCK TABLES;
 -- Final view structure for view `report`
 --
 
+/*!50001 DROP TABLE IF EXISTS `report`*/;
 /*!50001 DROP VIEW IF EXISTS `report`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -617,4 +653,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-07 15:07:10
+-- Dump completed on 2015-08-10  7:20:41

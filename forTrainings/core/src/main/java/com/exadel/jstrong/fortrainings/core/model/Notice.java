@@ -42,6 +42,9 @@ public class Notice {
     @Column(name = "training_id")
     private Integer trainingId;
 
+    @Column(name = "approve")
+    private Boolean isApproveTraining;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "training_id", insertable = false, updatable = false)
     private Training training;
@@ -135,5 +138,13 @@ public class Notice {
 
     public void setTrainingId(Integer trainingId) {
         this.trainingId = trainingId;
+    }
+
+    public Boolean isApproveTraining() {
+        return isApproveTraining;
+    }
+
+    public void setIsApproveTraining(Boolean isApproveTraining) {
+        this.isApproveTraining = isApproveTraining;
     }
 }
