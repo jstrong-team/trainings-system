@@ -70,6 +70,7 @@ public class ReportControllerImpl implements ReportController {
             if (!usersReports.contains(null)) {
                 t.setUsers(usersReports);
             }
+            users.clear();
         }
         List<TrainingReportUI> resultTrainings = new ArrayList<>();
         for (TrainingReportUI t : reportTrainings) {
