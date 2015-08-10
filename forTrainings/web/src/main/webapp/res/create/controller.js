@@ -44,7 +44,6 @@
             $http.get('rest/storagetraining/isAdmin').then(
                 function(data){
                     $scope.isAdmin = data.data.role;
-                    console.log(data.data);
                 },
                 function(error){
                     console.log(error);
@@ -84,9 +83,7 @@
                 $scope.createInfo.date = multipleDatesService.multiple($scope.firstDate, $scope.lastDate, $scope.selectedDays);
             }
 
-            console.log($scope.createInfo);
             createService.serv($scope.createInfo).then(function (response) {
-                console.log(response);
                 if ($scope.createInfo.externalTrainerName === null) {
                     $location.url('/ui/creation_response');
                 } else {

@@ -1,6 +1,5 @@
 angular.module('trainingEditModule').factory('editService', ['$http','$location', function($http,$location) {
     var edit =function(id, editInfo) {
-        console.log(editInfo);
         editInfo.date=new Array(editInfo.meets.length);
         for(var i=0;i<editInfo.meets.length;i++){
             editInfo.date[i]=editInfo.meets[i].date;

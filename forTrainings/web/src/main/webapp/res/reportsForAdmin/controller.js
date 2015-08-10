@@ -88,8 +88,8 @@
                     }
 
                 },
-                function(data, status){
-                    console.log(status);
+                function(error){
+                    console.error(error);
                 });
         };
 
@@ -107,8 +107,6 @@
     };
 
     controller.$inject = services;
-
-    console.log(controller);
 
     angular.module('reportsModule').controller('reportsController', controller);
 

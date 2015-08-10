@@ -79,7 +79,6 @@
                 }
             });
             modalInstance.result.then(function (response) {
-                console.log(response);
             }, function (error) {
                 console.error(error);
             });

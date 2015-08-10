@@ -48,7 +48,7 @@
                     $scope.isAdmin = data.data.role;
                 },
                 function(error){
-                    console.log(error);
+                    console.error(error);
                 });
         })();
 
@@ -60,7 +60,7 @@
                     $scope.isExternal = data.data.role;
                 },
                 function(error){
-                    console.log(error);
+                    console.error(error);
                 });
         })();
 
@@ -98,7 +98,6 @@
             localStorage.clear();
             $scope.isAdmin = '';
             doLogoutService().then(function (data) {
-                console.log(data);
                 $location.url('/ui');
             }, function (error) {
                 console.error(error);

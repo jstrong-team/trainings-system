@@ -14,7 +14,6 @@ angular.module('trainingPageModule').factory('openModalService', ['$http','$moda
             }
         });
         modalInstance.result.then(function () {
-            //console.log(response);
         }, function (error) {
             console.error(error);
         });

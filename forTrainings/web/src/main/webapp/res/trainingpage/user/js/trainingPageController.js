@@ -74,11 +74,11 @@
                     $scope.training.isSubscribe = true;
                     absentService.prepare($scope.subscribers, $scope.training);
                 }, function (error) {
-                    console.log(error);
+                    console.error(error);
                 });
 
             }, function (error) {
-                console.log(error);
+                console.error(error);
             });
         };
 

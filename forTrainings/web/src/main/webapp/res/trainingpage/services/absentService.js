@@ -19,8 +19,6 @@ angular.module('trainingPageModule').factory('absentService', ['$http','storageS
     };
 
     services.sendAttendance=function (id) {
-        console.log(id);
-        console.log(storageService.get());
         return $http.post('rest/storagetraining/updateAttendance?id=' + id,storageService.get());
     };
 
