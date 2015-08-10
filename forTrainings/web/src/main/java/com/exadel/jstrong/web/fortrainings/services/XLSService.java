@@ -34,9 +34,10 @@ public class XLSService {
 
         for (TrainingReportUI t : trainings) {
             cellCount = 0;
-            row = sheet.createRow(rowCount++);
             List<UserReportUI> users = t.getUsers();
             for (UserReportUI u : users) {
+                row = sheet.createRow(rowCount++);
+
                 cell = row.createCell(cellCount++);
                 cell.setCellValue(t.getName());
                 getStyle(workbook, cell);

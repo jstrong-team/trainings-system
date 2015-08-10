@@ -53,8 +53,12 @@ public class MeetReportUI {
     public String toString(){
         StringBuilder str = new StringBuilder(date);
         if (absent != null && absent){
-            str.append(" N(").append(reason).append(")\r\n");
+            str.append(" N");
         }
+        if (reason != null){
+            str.append("(").append(reason).append(")");
+        }
+        str.append("\r\n");
         return str.toString();
     }
 

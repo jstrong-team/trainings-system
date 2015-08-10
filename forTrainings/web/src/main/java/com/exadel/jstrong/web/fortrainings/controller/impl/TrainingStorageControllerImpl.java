@@ -12,7 +12,6 @@ import com.exadel.jstrong.web.fortrainings.services.TaskExecutor;
 import com.exadel.jstrong.web.fortrainings.services.mailservice.Sender;
 import com.exadel.jstrong.web.fortrainings.services.noticeservice.NoticeFactory;
 import com.exadel.jstrong.web.fortrainings.services.tasks.TaskFactory;
-import com.exadel.jstrong.web.fortrainings.services.tasks.TaskFactoryImpl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.log4j.Logger;
@@ -52,6 +51,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     private TaskExecutor taskExecutor;
     @Autowired
     private TaskFactory taskFactory;
+    @Autowired
+    private TokenDAO tokenDAO;
 
     private static Logger logger = Logger.getLogger(TrainingStorageControllerImpl.class);
 
@@ -64,6 +65,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             Sender.sendAccountData(employee);
             employee = eDAO.saveEmployee(employee);
             eDAO.setEmployeeRole(employee, "external");
+            tokenDAO.addTokenForEmployee(employee.getId());
             training.setTrainer_id(employee.getId());
         }
         int id = tDAO.add(training);

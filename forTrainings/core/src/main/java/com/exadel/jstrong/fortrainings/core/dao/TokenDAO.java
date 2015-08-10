@@ -16,4 +16,5 @@ public interface TokenDAO extends GenericDAO<Token> {
     Token getTokenById(int id);
     void addToken(Token token);
     void deleteToken(Token token);
+    void addTokenForEmployee(int id);
 }
