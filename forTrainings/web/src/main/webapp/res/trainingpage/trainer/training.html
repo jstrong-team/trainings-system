@@ -1,7 +1,7 @@
 <div class="container wrappered">
     <div classs="row ">
         <div class="col-md-6 col-md-offset-3 text-center">
-            <span class="titleTrainingPage "> {{training.name}}</span>
+            <h1 class="titleTrainingPage "> {{training.name}}</h1>
         </div>
         <div class="col-md-2 " ng-controller="ratingController">
             <span class="rating">
@@ -78,7 +78,7 @@
                     </td>
                     <td>
                         <div class=" buttonBottom" ng-show="subscribers.length > 0">
-                            <button type="button" class="btn  editDatesButton " ng-click="acceptAttendanceChanges()">
+                            <button type="button" class="btn  editDatesButton subscribersTable" ng-click="acceptAttendanceChanges()">
                                 {{ 'TRAINING_PAGE_SAVE_CHANGES' | translate }}</button>
                         </div>
                     </td>

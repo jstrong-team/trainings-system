@@ -77,7 +77,7 @@
                     </td>
                     <td>
                         <div class=" buttonBottom" ng-show="subscribers.length > 0">
-                            <button type="button" class="btn  editDatesButton " ng-click="acceptAttendanceChanges()">
+                            <button type="button" class="btn  editDatesButton subscribersTable" ng-click="acceptAttendanceChanges()">
                                 {{ 'TRAINING_PAGE_SAVE_CHANGES' | translate }}</button>
                         </div>
                     </td>
@@ -257,28 +257,27 @@
                             ng-click="changeCollapse.addSubscriber()">
                         {{ 'ADMIN_ADD_SUBSCRIBER_OPEN' | translate }}
                     </button>
-                    <input type="text"
-                           ng-model="foreignUser.name"
-                           placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_NAME' | translate }}"
-                           collapse="isCollapsed.addSubscriber"
-                           class="buttonBottom form-control"/>
-                    <input type="email"
-                           ng-model="foreignUser.email"
-                           placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_EMAIL' | translate }}"
-                           collapse="isCollapsed.addSubscriber"
-                           class="buttonBottom form-control"/>
-                    <input type="tel"
-                           ng-model="foreignUser.phone"
-                           placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_PHONE' | translate }}"
-                           collapse="isCollapsed.addSubscriber"
-                           class="buttonBottom form-control"/>
-                    <button type="text"
-                            ng-click="addForeignUser()"
-                            ng-cloak
-                            collapse="isCollapsed.addSubscriber"
-                            class="btn btn-default buttonBottom">
-                        {{ 'ADMIN_ADD_SUBSCRIBER_SAVE' | translate }}
-                    </button>
+                    <form ng-submit="addForeignUser()"
+                          collapse="isCollapsed.addSubscriber"
+                          ng-cloak>
+                        <input type="text"
+                               ng-model="foreignUser.name"
+                               placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_NAME' | translate }}"
+                               class="buttonBottom form-control"
+                                required/>
+                        <input type="email"
+                               ng-model="foreignUser.email"
+                               placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_EMAIL' | translate }}"
+                               class="buttonBottom form-control"/>
+                        <input type="tel"
+                               ng-model="foreignUser.phone"
+                               placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_PHONE' | translate }}"
+                               class="buttonBottom form-control"/>
+                        <button type="text"
+                                class="btn btn-default buttonBottom">
+                            {{ 'ADMIN_ADD_SUBSCRIBER_SAVE' | translate }}
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
