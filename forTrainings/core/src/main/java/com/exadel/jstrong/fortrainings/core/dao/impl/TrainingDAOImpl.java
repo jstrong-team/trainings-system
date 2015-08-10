@@ -99,7 +99,7 @@ public class TrainingDAOImpl extends BaseDAO<Training> implements TrainingDAO {
     @Transactional
     public void deleteTraining(int trainingId) {
         try {
-            Query query = em.createNativeQuery("update training set is_delete = 1 where id = :trainingId").setParameter("trainingId", trainingId);
+            Query query = em.createNativeQuery("update training set is_delete=true where id = :trainingId").setParameter("trainingId", trainingId);
             query.executeUpdate();
         } catch (Throwable e) {
             logger.warn("Throwable exception");
