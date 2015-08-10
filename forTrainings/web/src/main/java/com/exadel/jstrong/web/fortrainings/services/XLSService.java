@@ -27,10 +27,11 @@ public class XLSService {
         getTitle(sheet);
 
         int rowCount = 1;
-        int cellCount = 0;
+        int cellCount;
 
         Row row = null;
         Cell cell;
+        CellStyle style = getStyle(workbook);
 
         for (TrainingReportUI t : trainings) {
             List<UserReportUI> users = t.getUsers();
@@ -40,27 +41,28 @@ public class XLSService {
 
                 cell = row.createCell(cellCount++);
                 cell.setCellValue(t.getName());
-                getStyle(workbook, cell);
+                cell.setCellStyle(style);
 
                 cell = row.createCell(cellCount++);
                 cell.setCellValue(u.getName());
-                getStyle(workbook, cell);
+                cell.setCellStyle(style);
 
                 cell = row.createCell(cellCount++);
                 cell.setCellValue(u.getAbsentCount());
-                getStyle(workbook, cell);
+                cell.setCellStyle(style);
 
                 cell = row.createCell(cellCount++);
                 cell.setCellValue(u.meetsToString());
-                getStyle(workbook, cell);
+                cell.setCellStyle(style);
 
                 cell = row.createCell(cellCount++);
                 cell.setCellValue(u.positiveFeedbacksToString());
-                getStyle(workbook, cell);
+                cell.setCellStyle(style);
 
                 cell = row.createCell(cellCount++);
                 cell.setCellValue(u.negativeFeedbacksToString());
-                getStyle(workbook, cell);
+                cell.setCellStyle(style);
+
             }
         }
         for (int colNum = 0; colNum < row.getLastCellNum(); colNum++) {
@@ -87,12 +89,11 @@ public class XLSService {
         cell.setCellValue("Negative feedbacks");
     }
 
-    private static void getStyle(HSSFWorkbook workbook, Cell cell) {
+    private static CellStyle getStyle(HSSFWorkbook workbook) {
         CellStyle style = workbook.createCellStyle();
         style.setWrapText(true);
         style.setVerticalAlignment(CellStyle.VERTICAL_TOP);
-
-        cell.setCellStyle(style);
+        return style;
     }
 
 }

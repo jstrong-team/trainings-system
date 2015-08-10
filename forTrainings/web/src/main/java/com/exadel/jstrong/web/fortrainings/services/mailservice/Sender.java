@@ -158,9 +158,9 @@ public class Sender {
         Notice notice = new Notice();
         notice.setTheme("Registration");
         StringBuilder text = new StringBuilder("You have been registered in the system as trainer.<br>");
-        text.append("<br>Your login:<br>");
+        text.append("<br>Your login:");
         text.append(employee.getName());
-        text.append("<br>Your password:");
+        text.append("<br><br>Your password:");
         text.append(employee.getPassword());
         notice.setText(text.toString());
         try {
