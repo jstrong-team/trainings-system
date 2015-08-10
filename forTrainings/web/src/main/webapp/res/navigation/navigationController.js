@@ -52,6 +52,18 @@
                 });
         })();
 
+        $scope.isExternal = '';
+
+        (function () {
+            $http.get('rest/storagetraining/isExternal').then(
+                function(data){
+                    $scope.isExternal = data.data.role;
+                },
+                function(error){
+                    console.log(error);
+                });
+        })();
+
         $scope.searchExpression = '';
 
         $rootScope.inputSearchText = '';

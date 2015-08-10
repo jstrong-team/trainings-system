@@ -4,11 +4,10 @@
         '$scope',
         '$http',
         '$window',
-        'reportInfoFormat',
-        '$location'
+        'reportInfoFormat'
     ];
 
-    var controller = function ($scope, $http, $window, reportInfoFormat,$location) {
+    var controller = function ($scope, $http, $window, reportInfoFormat) {
 
         $http.get('/rest/trainings/users_trainings').then(
             function(data){
@@ -77,6 +76,7 @@
             '&dateFrom=' + $scope.dateTimeFrom + '&dateTo=' + $scope.dateTimeTo).then(
                 function(data){
 
+                    reportInfoFormat(data.data.trainings);
                     $scope.reportInfo = data.data;
 
                     if ($scope.reportInfo.trainings.length !== 0) {
