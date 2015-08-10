@@ -1,6 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.services.tasks;
 
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
+import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Training;
@@ -17,6 +18,9 @@ public class TaskFactoryImpl implements TaskFactory {
 
     @Autowired
     private EmployeeDAO employeeDAO;
+
+    @Autowired
+    private SubscribeDAO subscribeDAO;
 
     @Autowired
     private TrainingDAO trainingDAO;
@@ -43,6 +47,7 @@ public class TaskFactoryImpl implements TaskFactory {
     public EditTrainingTask createEditTrainingTask(Training training, Integer senderId, Integer transactionId) {
         EditTrainingTask task = new EditTrainingTask(training, senderId, transactionId);
         task.seteDAO(employeeDAO);
+        task.setSubscribeDAO(subscribeDAO);
         task.setNoticeService(noticeService);
         return task;
     }

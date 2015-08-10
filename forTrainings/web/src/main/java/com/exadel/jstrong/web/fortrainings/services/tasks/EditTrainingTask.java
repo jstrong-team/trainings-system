@@ -1,6 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.services.tasks;
 
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
+import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.fortrainings.core.model.Training;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public class EditTrainingTask implements Runnable {
     private EmployeeDAO eDAO;
+    private SubscribeDAO sDAO;
     private NoticeService noticeService;
 
     private Training training;
@@ -32,11 +34,17 @@ public class EditTrainingTask implements Runnable {
     public void run() {
         Notice notice = NoticeFactory.getNotApprovedEditedTrainingNotice(training, senderId, transactionId);
         List<Employee> admins = eDAO.getAdmins();
+        List<Employee> subscribers = sDAO.getSubscribersAsEmployees(training.getId());
         noticeService.addNotices(notice, admins);
+        noticeService.addNotices(notice, subscribers);
     }
 
     public void seteDAO(EmployeeDAO eDAO) {
         this.eDAO = eDAO;
+    }
+
+    public void setSubscribeDAO(SubscribeDAO sDAO) {
+        this.sDAO = sDAO;
     }
 
     public void setNoticeService(NoticeService noticeService) {

@@ -165,7 +165,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
             Employee employee = eDAO.getById(uId);
             if (tDAO.isApprove(tId)) {
                 s.setStatus(SubscribeStatus.Approve.toString());
-                taskExecutor.submitTask(taskFactory.createAddSubscriberTask("Wait", tId, system.getId(), employee));
+                taskExecutor.submitTask(taskFactory.createAddSubscriberTask("Approve", tId, system.getId(), employee));
             } else {
                 s.setStatus(SubscribeStatus.Wait.toString());
                 taskExecutor.submitTask(taskFactory.createAddSubscriberTask("Wait", tId, system.getId(), employee));
