@@ -71,10 +71,10 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <p class="bg-success feedbackReport" ng-repeat="positItem in user.positiveFeedbacks">
+                        <p class="bg-danger feedbackReport" ng-repeat="positItem in user.positiveFeedbacks">
                             <b>{{positItem.date}}: </b>{{positItem.text}}
                         </p>
-                        <p class="bg-danger feedbackReport" ng-repeat="negItem in user.negativeFeedbacks">
+                        <p class="bg-success feedbackReport" ng-repeat="negItem in user.negativeFeedbacks">
                             <b>{{negItem.date}}: </b>{{negItem.text}}
                         </p>
                     </accordion-group>
