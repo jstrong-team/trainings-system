@@ -37,26 +37,24 @@ public class LetterFormService {
         page.append(PAGE_OPEN).append(HAT);
         page.append(THEME_OPEN).append(notice.getTheme()).append(THEME_CLOSE);
         page.append(TEXT_OPEN).append(notice.getText()).append(TEXT_CLOSE);
-        page.append(TEXT_OPEN).append(LINK_OPEN);
-        String link;
-        if (notice.getTransactionId() != null){
-            link = getTransactionURL(notice.getTransactionId());
-            page.append(link);
-            page.append(LINK_BODY_OPEN).append(link);
-        } else {
+        String link = null;
+        if (notice.getTrainingId() != null){
             if (notice.isApproveTraining()) {
                 link = getTrainingCreateURL(notice.getTrainingId());
-                page.append(link);
-                page.append(LINK_BODY_OPEN).append(link);
             } else {
                 link = getTrainingURL(notice.getTrainingId());
-                page.append(link);
-                page.append(LINK_BODY_OPEN).append(link);
+            }
+        } else {
+            if (notice.getTransactionId() != null){
+                link = getTransactionURL(notice.getTransactionId());
             }
         }
-        page.append(LINK_CLOSE).append(TEXT_CLOSE);
+        if (link != null){
+            page.append(TEXT_OPEN).append(LINK_OPEN);
+            page.append(link).append(LINK_BODY_OPEN).append(link);
+            page.append(LINK_CLOSE).append(TEXT_CLOSE);
+        }
         page.append(PAGE_CLOSE);
-        System.out.println(page.toString());
         return page.toString();
     }
 
