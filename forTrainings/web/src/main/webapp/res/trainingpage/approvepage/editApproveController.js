@@ -12,7 +12,6 @@ angular.module('approvePageModule').controller('editApproveController', ['$scope
             $scope.editInfo.description = parseService.parse($scope.editInfo.description);
             $scope.editInfo.target = parseService.parse($scope.editInfo.target);
             $scope.editInfo.place = parseService.parse($scope.editInfo.place);
-            console.log($scope.editInfo.annotation);
             for (var j = 0; j < $scope.editInfo.oldDates.length; j++) {
                 $scope.editInfo.oldTime.push(moment($scope.editInfo.oldDates[j]).format('HH:mm'));
                 $scope.editInfo.oldDateTime.push(moment($scope.editInfo.oldDates[j]).format('DD MMMM'));
@@ -33,9 +32,9 @@ angular.module('approvePageModule').controller('editApproveController', ['$scope
             approveService.dismiss($routeParams.trainingId);
         };
 
-        $scope.showInput = 'TRAINING_PAGE_SHOW';
+        $scope.showInput = 'TRAINING_PAGE_HIDE';
 
-        $scope.isCollapsed = true;
+        $scope.isCollapsed = false;
 
         $scope.changeCollapse = function () {
             if ($scope.isCollapsed) {

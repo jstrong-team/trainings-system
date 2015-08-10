@@ -59,4 +59,15 @@ public class EmployeeControllerImpl implements EmployeeController {
     public int getIdBySession(String session) {
         return tokenDAO.getIdBySession(session);
     }
+
+    @Override
+    public boolean isExternal(int userId) {
+        Integer roleId = employeeDao.getEmployeeRoleId(userId);
+        if (roleId != null) {
+            if (roleId == 2) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -3,7 +3,7 @@ angular.module('trainingPageModule').factory('deleteTrainingService', ['$http','
         return $http.delete('rest/storagetraining/deleteTraining?trainingId='+id).then(function(){
             $location.url('ui/trainings');
         }, function(error){
-            console.log(error);
+            console.error(error);
         });
     };
     return remove;

@@ -388,5 +388,19 @@ public class TrainingStorageSpringController {
         }
         return null;
     }
+
+    @RequestMapping(value = "isExternal", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    RoleUI getRoleExternal(HttpServletRequest request, HttpServletResponse response) {
+        int userId = restService.getUserId(request);
+        RoleUI role = new RoleUI();
+        if (ec.isExternal(userId)) {
+            role.setRole("external");
+        } else {
+            role.setRole("");
+        }
+        return role;
+    }
 }
 

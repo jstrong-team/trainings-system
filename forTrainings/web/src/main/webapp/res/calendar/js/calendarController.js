@@ -3,7 +3,6 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
     $scope.months = getThreeMonths();
 
     $scope.openModal = function (data) {
-        //console.log(data);
         $modal.open({
             animation: true,
             templateUrl: '/res/calendar/modal.html',
@@ -48,7 +47,6 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
     };
 
     $scope.showMore = function (data) {
-        console.log(data);
         $modal.open({
             animation: true,
             templateUrl: '/res/calendar/modal.html',

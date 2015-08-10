@@ -7,10 +7,8 @@ angular.module('approvePageModule', []).config(['$routeProvider', function ($rou
                 var def = $q.defer();
                 var id = $route.current.params.trainingId;
                 getRole(id).then(function (data, status, headers, config) {
-                    console.log(data);
                     if (data.data.role === 'admin') {
                         getApproveDataService(id).then(function (data, status, headers, config) {
-                            console.log(data);
                             def.resolve(data);
                         }, function (error) {
                             console.error(error);

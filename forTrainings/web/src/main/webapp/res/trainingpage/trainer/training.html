@@ -1,7 +1,7 @@
 <div class="container wrappered">
     <div classs="row ">
         <div class="col-md-6 col-md-offset-3 text-center">
-            <span class="titleTrainingPage "> {{training.name}}</span>
+            <h1 class="titleTrainingPage "> {{training.name}}</h1>
         </div>
         <div class="col-md-2 " ng-controller="ratingController">
             <span class="rating">
@@ -78,7 +78,7 @@
                     </td>
                     <td>
                         <div class=" buttonBottom" ng-show="subscribers.length > 0">
-                            <button type="button" class="btn  editDatesButton " ng-click="acceptAttendanceChanges()">
+                            <button type="button" class="btn  editDatesButton subscribersTable" ng-click="acceptAttendanceChanges()">
                                 {{ 'TRAINING_PAGE_SAVE_CHANGES' | translate }}</button>
                         </div>
                     </td>
@@ -133,13 +133,13 @@
 
         <div class="col-md-3 newWell LeftTextBlock" >
             <div class="breakText">
-                <span>{{ 'TRAINING_PAGE_TRAINER' | translate }}:</span>{{training.trainerName}}
+                <span>{{ 'TRAINING_PAGE_TRAINER' | translate }}: </span>{{training.trainerName}}
             </div>
             <div class="breakText">
-                <span>{{ 'TRAINING_PAGE_TIME' | translate }}:</span>
+                <span>{{ 'TRAINING_PAGE_TIME' | translate }}: </span>{{training.nearest}}
             </div>
             <div class="breakText">
-                <span>{{ 'TRAINING_PAGE_PLACE' | translate }}:</span>{{training.place}}
+                <span>{{ 'TRAINING_PAGE_PLACE' | translate }}: </span>{{training.place}}
             </div>
 
             <div class="row buttons">

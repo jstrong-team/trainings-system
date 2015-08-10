@@ -105,7 +105,7 @@
   "CREATE_TRAINING_EXTERNAL_TRAINER_MAIL_PLACEHOLDER": "Enter trainer e-mail",
   "CREATE_TRAINING_EXTERNAL_TRAINER_PHONE_PLACEHOLDER": "Enter trainer phone number",
 
-  "CALENDAR_DESCRIPTION_SHOW_MORE": "Show more",
+  "CALENDAR_DESCRIPTION_SHOW_MORE": "Show more...",
 
   "DATE_VALIDATION_ERROR": "Date validation error!",
   "DATE_VALIDATION_FIRST_LAST": "First date should be earlier than the last date!",
@@ -117,7 +117,7 @@
   "NEWS_MAIN_TITLE": "News",
   "NEWS_PAGINATION_FIRST": "First",
   "NEWS_PAGINATION_LAST": "Last",
-  "NEWS_HOT_NEWS_TITLE": "Hot news",
+  "NEWS_HOT_NEWS_TITLE": "Unread news",
   "NEWS_READ_NEWS_TITLE": "Read news",
   "NEWS_NO_NEWS_IN_HISTORY": "There are no news in history",
   "NEWS_NO_NEWS_IN_HOT_NEWS": "There are no hot news!",

@@ -6,7 +6,6 @@
         'getTrainingInfo',
         'getSubscribersService',
         'getFeedbacksService',
-        'editTrainingService',
         'openModalService',
         '$route',
         'subscribeService',
@@ -21,7 +20,6 @@
                                getTrainingInfo,
                                getSubscribersService,
                                getFeedbacksService,
-                               editTrainingService,
                                openModalService,
                                $route,
                                subscribeService,
@@ -35,6 +33,7 @@
             subscribers: false,
             addSubscriber: true
         };
+
 
         $scope.show = {
             subscribers: 'TRAINING_PAGE_HIDE',
@@ -96,7 +95,6 @@
         };
 
         $scope.addForeignUser = function () {
-            console.log($scope.foreignUser);
             $http.post('rest/storagetraining//addExternalUser?trainingId=' + $scope.training.id, $scope.foreignUser).then(function () {
                 getSubscribersService($scope.training.id).then(function (data, status, headers, config) {
                     $scope.subscribers = data.data;
@@ -106,7 +104,7 @@
                     $scope.foreignUser.mail=null;
                     $scope.foreignUser.phone=null;
                 }, function (error) {
-                    console.log(error);
+                    console.error(error);
                 });
             },function(error){
                 console.error(error);
@@ -132,7 +130,7 @@
                     absentService.prepare($scope.subscribers, $scope.training);
                     $scope.training.isSubscribe = false;
                 }, function (error) {
-                    console.log(error);
+                    console.error(error);
                 });
             }, function (error) {
                 console.error(error);
@@ -168,7 +166,6 @@
                 }
             });
             modalInstance.result.then(function (response) {
-                console.log(response);
             }, function (error) {
                 console.error(error);
             });
@@ -197,7 +194,7 @@
             return dfd.promise;
 
         },function(error){
-            console.log(error);
+            console.error(error);
         }).then(function (id) {
             getSubscribersService(id).then(function (data, status, headers, config) {
                 $scope.subscribers = data.data;

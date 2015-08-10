@@ -14,20 +14,17 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
                  };
                  element.text(text);
                  storageService.set(clickObj);
-                 console.log(storageService.get());
                  element.attr('title',clickObj.reason);
              }else {
-                 console.log(element.text().valueOf());
                  clickObj={
                      subscribeId:list[0],
                      meetId:list[1],
                      absent:false,
-                     reason:''
+                     reason:null
                  };
                  element.text('');
                  storageService.delete(clickObj);
                  storageService.set(clickObj);
-                 console.log(storageService.get());
                  element.attr('title',clickObj.reason);
              }
          });
@@ -52,7 +49,6 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
                      clickObj.reason=reason;
                      element.attr('title',clickObj.reason);
                      storageService.set(clickObj);
-                     //console.log(storageService.get());
                  });
          });
 
