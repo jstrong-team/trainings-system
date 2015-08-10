@@ -27,8 +27,9 @@
 
   "CALENDAR_MAIN_TITLE": "Trainings calendar",
   "CALENDAR_RECENT_TRAININGS_TITLE": "Recent trainings",
-  "CALENDAR_MODAL_DAY_TITLE": "Trainings in this day",
-  "CALENDAR_MODAL_DAY_NO_RESULTS": "No trainings in this day!",
+  "CALENDAR_MODAL_DAY_TITLE": "Trainings this day",
+  "CALENDAR_MODAL_WEEK_TITLE": "Trainings this week",
+  "CALENDAR_MODAL_DAY_NO_RESULTS": "No trainings this day!",
   "CALENDAR_LEGEND_I_WILL_GO": "I will go to this training",
   "CALENDAR_LEGEND_I_WILL_NOT_GO": "I can go to this training",
   "CALENDAR_LEGEND_I_TRAINER": "I am a trainer in this training",

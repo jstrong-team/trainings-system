@@ -140,7 +140,7 @@
                 <span>{{ 'TRAINING_PAGE_TRAINER' | translate }}:</span>{{training.trainerName}}
             </div>
             <div class="breakText">
-                <span>{{ 'TRAINING_PAGE_TIME' | translate }}:</span>
+                <span>{{ 'TRAINING_PAGE_TIME' | translate }}:</span>{{training.nearest}}
             </div>
             <div class="breakText">
                 <span>{{ 'TRAINING_PAGE_PLACE' | translate }}:</span>{{training.place}}
@@ -249,34 +249,36 @@
                                           }"></span></td>
                             </tr>
                         </table>
-                        <button type="text"
-                                class="btn btn-default buttonBottom"
-                                ng-click="changeCollapse.addSubscriber()">
-                            {{ 'ADMIN_ADD_SUBSCRIBER_OPEN' | translate }}
-                        </button>
-                        <input type="text"
-                               ng-model="foreignUser.name"
-                               placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_NAME' | translate }}"
-                               collapse="isCollapsed.addSubscriber"
-                               class="buttonBottom form-control"/>
-                        <input type="email"
-                               ng-model="foreignUser.email"
-                               placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_EMAIL' | translate }}"
-                               collapse="isCollapsed.addSubscriber"
-                               class="buttonBottom form-control"/>
-                        <input type="tel"
-                               ng-model="foreignUser.phone"
-                               placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_PHONE' | translate }}"
-                               collapse="isCollapsed.addSubscriber"
-                               class="buttonBottom form-control"/>
-                        <button type="text"
-                                ng-click="addForeignUser()"
-                                ng-cloak
-                                collapse="isCollapsed.addSubscriber"
-                                class="btn btn-default buttonBottom">
-                            {{ 'ADMIN_ADD_SUBSCRIBER_SAVE' | translate }}
-                        </button>
                     </div>
+                </div>
+                <div class="col-md-12">
+                    <button type="text"
+                            class="btn btn-default buttonBottom"
+                            ng-click="changeCollapse.addSubscriber()">
+                        {{ 'ADMIN_ADD_SUBSCRIBER_OPEN' | translate }}
+                    </button>
+                    <input type="text"
+                           ng-model="foreignUser.name"
+                           placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_NAME' | translate }}"
+                           collapse="isCollapsed.addSubscriber"
+                           class="buttonBottom form-control"/>
+                    <input type="email"
+                           ng-model="foreignUser.email"
+                           placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_EMAIL' | translate }}"
+                           collapse="isCollapsed.addSubscriber"
+                           class="buttonBottom form-control"/>
+                    <input type="tel"
+                           ng-model="foreignUser.phone"
+                           placeholder="{{ 'ADMIN_ADD_SUBSCRIBER_PHONE' | translate }}"
+                           collapse="isCollapsed.addSubscriber"
+                           class="buttonBottom form-control"/>
+                    <button type="text"
+                            ng-click="addForeignUser()"
+                            ng-cloak
+                            collapse="isCollapsed.addSubscriber"
+                            class="btn btn-default buttonBottom">
+                        {{ 'ADMIN_ADD_SUBSCRIBER_SAVE' | translate }}
+                    </button>
                 </div>
             </div>
         </div>

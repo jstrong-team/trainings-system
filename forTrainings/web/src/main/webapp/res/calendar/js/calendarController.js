@@ -21,7 +21,8 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
                         }
                     });
                     return {
-                        dayTrainings: dayTrainings
+                        dayTrainings: dayTrainings,
+                        title: 'CALENDAR_MODAL_DAY_TITLE'
                     };
                 }
             }
@@ -57,7 +58,8 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
             resolve: {
                 trainingsStr: function () {
                     return {
-                        dayTrainings: data
+                        dayTrainings: data,
+                        title: 'CALENDAR_MODAL_WEEK_TITLE'
                     };
                 }
             }
