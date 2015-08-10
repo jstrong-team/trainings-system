@@ -100,7 +100,7 @@ CREATE TABLE `employee_notice` (
   KEY `fk_notice_employee_notice_idx` (`notice_id`),
   CONSTRAINT `fk_employee_employee_notice` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_notice_employee_notice` FOREIGN KEY (`notice_id`) REFERENCES `notice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,7 +109,7 @@ CREATE TABLE `employee_notice` (
 
 LOCK TABLES `employee_notice` WRITE;
 /*!40000 ALTER TABLE `employee_notice` DISABLE KEYS */;
-INSERT INTO `employee_notice` VALUES (77,1,56,0),(78,7,56,0),(79,45,56,0),(80,1,57,0),(81,1,58,0),(82,7,58,0),(83,45,58,0),(84,1,59,0),(85,7,59,0),(86,45,59,0);
+INSERT INTO `employee_notice` VALUES (77,1,56,0),(78,7,56,0),(79,45,56,0),(80,1,57,0),(81,1,58,0),(82,7,58,0),(83,45,58,0),(84,1,59,0),(85,7,59,0),(86,45,59,0),(87,7,60,0),(88,1,61,0),(89,7,61,0),(90,45,61,0),(91,4,62,0),(92,1,63,0),(93,7,63,0),(94,45,63,0),(95,3,64,0),(96,1,65,0),(97,7,65,0),(98,45,65,0),(99,3,66,0),(100,1,67,0),(101,7,67,0),(102,45,67,0),(103,3,68,0),(104,1,69,0),(105,7,69,0),(106,45,69,0),(107,5,70,0),(108,1,71,0),(109,7,71,0),(110,45,71,0),(111,5,72,0),(112,1,73,0),(113,7,73,0),(114,45,73,0),(115,5,74,0),(116,1,75,0),(117,7,75,0),(118,45,75,0),(119,4,76,0),(120,1,77,0),(121,7,77,0),(122,45,77,0),(123,4,78,0),(124,1,79,0),(125,7,79,0),(126,45,79,0),(127,4,80,0),(128,1,81,0),(129,7,81,0),(130,45,81,0),(131,6,82,0),(132,1,83,0),(133,7,83,0),(134,45,83,0),(135,6,84,0),(136,1,85,0),(137,7,85,0),(138,45,85,0),(139,6,86,0),(140,1,87,0),(141,7,87,0),(142,45,87,0),(143,6,88,0),(144,1,89,0),(145,7,89,0),(146,45,89,0);
 /*!40000 ALTER TABLE `employee_notice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -256,7 +256,7 @@ CREATE TABLE `notice` (
   PRIMARY KEY (`id`),
   KEY `fk_training_notice_idx` (`training_id`),
   CONSTRAINT `fk_training_notice` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -265,7 +265,7 @@ CREATE TABLE `notice` (
 
 LOCK TABLES `notice` WRITE;
 /*!40000 ALTER TABLE `notice` DISABLE KEYS */;
-INSERT INTO `notice` VALUES (56,52,'Approve create training','Need approve of the new training \"1\"','2015-08-07 16:15:08',7,'warning',NULL,1),(57,8,'Addition successfully completed','You was added to the \"JAVA\" participants list with status Wait','2015-08-07 16:15:48',666,'success',NULL,0),(58,8,'Addition successfully completed','User Grigoriev Anton was added to the \"JAVA\" participants list with status Approve','2015-08-07 16:15:48',666,'success',NULL,0),(59,8,'Approve edit training','Need approve changes in training \"JAVA*\"','2015-08-07 16:16:32',7,'warning',1,0);
+INSERT INTO `notice` VALUES (56,52,'Approve create training','Need approve of the new training \"1\"','2015-08-07 16:15:08',7,'warning',NULL,1),(57,8,'Addition successfully completed','You was added to the \"JAVA\" participants list with status Wait','2015-08-07 16:15:48',666,'success',NULL,0),(58,8,'Addition successfully completed','User Grigoriev Anton was added to the \"JAVA\" participants list with status Approve','2015-08-07 16:15:48',666,'success',NULL,0),(59,8,'Approve edit training','Need approve changes in training \"JAVA*\"','2015-08-07 16:16:32',7,'warning',1,0),(60,12,'Addition successfully completed','You was added to the \"C and C++\" participants list with status Wait','2015-08-10 06:40:35',666,'success',NULL,0),(61,12,'Addition successfully completed','User Vasilenko Janna was added to the \"C and C++\" participants list with status Approve','2015-08-10 06:40:35',666,'success',NULL,0),(62,5,'Addition successfully completed','You was added to the \"Hibernate\" participants list with status Wait','2015-08-10 06:41:23',666,'success',NULL,0),(63,5,'Addition successfully completed','User Lebedev Nikolay was added to the \"Hibernate\" participants list with status Approve','2015-08-10 06:41:23',666,'success',NULL,0),(64,12,'Addition successfully completed','You was added to the \"C and C++\" participants list with status Wait','2015-08-10 06:42:13',666,'success',NULL,0),(65,12,'Addition successfully completed','User Petrovich Stanislav was added to the \"C and C++\" participants list with status Approve','2015-08-10 06:42:13',666,'success',NULL,0),(66,12,'Deletion completed','You was deleted from the \"C and C++\" participants list','2015-08-10 06:44:50',666,'success',NULL,0),(67,12,'Deletion completed','User Petrovich Stanislav was deleted from the \"C and C++\" participants list','2015-08-10 06:44:50',666,'success',NULL,0),(68,12,'Addition successfully completed','You was added to the \"C and C++\" participants list with status Wait','2015-08-10 06:45:34',666,'success',NULL,0),(69,12,'Addition successfully completed','User Petrovich Stanislav was added to the \"C and C++\" participants list with status Approve','2015-08-10 06:45:34',666,'success',NULL,0),(70,3,'Addition successfully completed','You was added to the \"Front End: JS\" participants list with status Wait','2015-08-10 06:46:34',666,'success',NULL,0),(71,3,'Addition successfully completed','User Nedelko Dmitriy was added to the \"Front End: JS\" participants list with status Approve','2015-08-10 06:46:34',666,'success',NULL,0),(72,8,'Addition successfully completed','You was added to the \"JAVA\" participants list with status Wait','2015-08-10 06:46:56',666,'success',NULL,0),(73,8,'Addition successfully completed','User Nedelko Dmitriy was added to the \"JAVA\" participants list with status Approve','2015-08-10 06:46:56',666,'success',NULL,0),(74,14,'Addition successfully completed','You was added to the \"Programming Competition\" participants list with status Wait','2015-08-10 06:47:12',666,'success',NULL,0),(75,14,'Addition successfully completed','User Nedelko Dmitriy was added to the \"Programming Competition\" participants list with status Approve','2015-08-10 06:47:12',666,'success',NULL,0),(76,8,'Addition successfully completed','You was added to the \"JAVA\" participants list with status Wait','2015-08-10 06:47:41',666,'success',NULL,0),(77,8,'Addition successfully completed','User Lebedev Nikolay was added to the \"JAVA\" participants list with status Approve','2015-08-10 06:47:41',666,'success',NULL,0),(78,6,'Addition successfully completed','You was added to the \"Spring\" participants list with status Wait','2015-08-10 06:47:49',666,'success',NULL,0),(79,6,'Addition successfully completed','User Lebedev Nikolay was added to the \"Spring\" participants list with status Approve','2015-08-10 06:47:50',666,'success',NULL,0),(80,9,'Addition successfully completed','You was added to the \"Python\" participants list with status Wait','2015-08-10 06:47:56',666,'success',NULL,0),(81,9,'Addition successfully completed','User Lebedev Nikolay was added to the \"Python\" participants list with status Approve','2015-08-10 06:47:56',666,'success',NULL,0),(82,3,'Addition successfully completed','You was added to the \"Front End: JS\" participants list with status Wait','2015-08-10 06:48:37',666,'success',NULL,0),(83,3,'Addition successfully completed','User Skavysh Maksim was added to the \"Front End: JS\" participants list with status Approve','2015-08-10 06:48:37',666,'success',NULL,0),(84,8,'Addition successfully completed','You was added to the \"JAVA\" participants list with status Wait','2015-08-10 06:48:50',666,'success',NULL,0),(85,8,'Addition successfully completed','User Skavysh Maksim was added to the \"JAVA\" participants list with status Approve','2015-08-10 06:48:50',666,'success',NULL,0),(86,12,'Addition successfully completed','You was added to the \"C and C++\" participants list with status Wait','2015-08-10 06:49:04',666,'success',NULL,0),(87,12,'Addition successfully completed','User Skavysh Maksim was added to the \"C and C++\" participants list with status Approve','2015-08-10 06:49:04',666,'success',NULL,0),(88,14,'Addition successfully completed','You was added to the \"Programming Competition\" participants list with status Wait','2015-08-10 06:49:16',666,'success',NULL,0),(89,14,'Addition successfully completed','User Skavysh Maksim was added to the \"Programming Competition\" participants list with status Approve','2015-08-10 06:49:16',666,'success',NULL,0);
 /*!40000 ALTER TABLE `notice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -285,7 +285,7 @@ CREATE TABLE `participant` (
   PRIMARY KEY (`id`),
   KEY `fk_subscribe_participant_idx` (`subscribe_id`),
   CONSTRAINT `fk_subscribe_participant` FOREIGN KEY (`subscribe_id`) REFERENCES `subscribe` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -294,7 +294,7 @@ CREATE TABLE `participant` (
 
 LOCK TABLES `participant` WRITE;
 /*!40000 ALTER TABLE `participant` DISABLE KEYS */;
-INSERT INTO `participant` VALUES (20,27,NULL,NULL,1),(20,28,NULL,NULL,2),(20,29,NULL,NULL,3),(20,30,NULL,NULL,4),(20,31,NULL,NULL,5),(20,32,NULL,NULL,6),(20,33,NULL,NULL,7),(20,34,NULL,NULL,8),(20,35,NULL,NULL,9),(20,36,NULL,NULL,10),(20,37,NULL,NULL,11),(20,38,NULL,NULL,12),(20,39,NULL,NULL,13),(20,40,NULL,NULL,14),(20,41,NULL,NULL,15),(20,42,NULL,NULL,16),(20,43,NULL,NULL,17),(20,44,NULL,NULL,18),(20,45,NULL,NULL,19),(20,46,NULL,NULL,20),(20,47,NULL,NULL,21);
+INSERT INTO `participant` VALUES (20,27,NULL,NULL,1),(20,28,NULL,NULL,2),(20,29,NULL,NULL,3),(20,30,NULL,NULL,4),(20,31,NULL,NULL,5),(20,32,NULL,NULL,6),(20,33,NULL,NULL,7),(20,34,NULL,NULL,8),(20,35,NULL,NULL,9),(20,36,NULL,NULL,10),(20,37,NULL,NULL,11),(20,38,NULL,NULL,12),(20,39,NULL,NULL,13),(20,40,NULL,NULL,14),(20,41,NULL,NULL,15),(20,42,NULL,NULL,16),(20,43,NULL,NULL,17),(20,44,NULL,NULL,18),(20,45,NULL,NULL,19),(20,46,NULL,NULL,20),(20,47,NULL,NULL,21),(21,79,NULL,NULL,22),(22,14,NULL,NULL,23),(22,15,NULL,NULL,24),(22,17,NULL,NULL,25),(23,79,NULL,NULL,27),(24,6,NULL,NULL,28),(24,7,NULL,NULL,29),(25,27,NULL,NULL,30),(25,31,NULL,NULL,31),(25,32,NULL,NULL,32),(25,34,NULL,NULL,33),(25,38,NULL,NULL,34),(25,39,NULL,NULL,35),(25,42,NULL,NULL,36),(25,43,NULL,NULL,37),(26,84,NULL,NULL,38),(27,27,NULL,NULL,39),(27,31,NULL,NULL,40),(27,32,NULL,NULL,41),(27,34,NULL,NULL,42),(27,38,NULL,NULL,43),(27,39,NULL,NULL,44),(27,42,NULL,NULL,45),(27,43,NULL,NULL,46),(28,21,NULL,NULL,47),(28,22,NULL,NULL,48),(28,23,NULL,NULL,49),(29,50,NULL,NULL,50),(29,53,NULL,NULL,51),(29,55,NULL,NULL,52),(29,56,NULL,NULL,53),(30,6,NULL,NULL,54),(30,7,NULL,NULL,55),(31,27,NULL,NULL,56),(31,31,NULL,NULL,57),(31,32,NULL,NULL,58),(31,34,NULL,NULL,59),(31,38,NULL,NULL,60),(31,39,NULL,NULL,61),(31,42,NULL,NULL,62),(31,43,NULL,NULL,63),(32,79,NULL,NULL,64),(33,84,NULL,NULL,65);
 /*!40000 ALTER TABLE `participant` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -384,7 +384,7 @@ CREATE TABLE `subscribe` (
   KEY `fk_training_subscribe_idx` (`training_id`),
   CONSTRAINT `fk_employee_subscribe` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_training_subscribe` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -393,7 +393,7 @@ CREATE TABLE `subscribe` (
 
 LOCK TABLES `subscribe` WRITE;
 /*!40000 ALTER TABLE `subscribe` DISABLE KEYS */;
-INSERT INTO `subscribe` VALUES (20,1,8,'Approve','2015-08-07 16:15:48');
+INSERT INTO `subscribe` VALUES (20,1,8,'Approve','2015-08-07 16:15:48'),(21,7,12,'Approve','2015-08-10 06:40:35'),(22,4,5,'Approve','2015-08-10 06:41:22'),(23,3,12,'Approve','2015-08-10 06:45:34'),(24,5,3,'Approve','2015-08-10 06:46:34'),(25,5,8,'Approve','2015-08-10 06:46:56'),(26,5,14,'Approve','2015-08-10 06:47:12'),(27,4,8,'Approve','2015-08-10 06:47:41'),(28,4,6,'Approve','2015-08-10 06:47:49'),(29,4,9,'Approve','2015-08-10 06:47:56'),(30,6,3,'Approve','2015-08-10 06:48:37'),(31,6,8,'Approve','2015-08-10 06:48:50'),(32,6,12,'Approve','2015-08-10 06:49:04'),(33,6,14,'Approve','2015-08-10 06:49:16');
 /*!40000 ALTER TABLE `subscribe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -446,7 +446,7 @@ CREATE TABLE `token` (
 
 LOCK TABLES `token` WRITE;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
-INSERT INTO `token` VALUES (1,'070815181543327011129',1,'070815181406-1308679184',NULL,NULL),(2,'token',2,NULL,NULL,NULL),(3,'token',3,'050815130324-2137917408',NULL,NULL),(4,'240715155508-2059738913',4,NULL,NULL,NULL),(5,'310715151646-2122411317',5,NULL,NULL,NULL),(6,'token',6,NULL,NULL,NULL),(7,'100815065432-956712087',7,'100815064538-1718799798',NULL,NULL),(8,'token',8,NULL,NULL,NULL),(9,'token',9,NULL,NULL,NULL),(10,'token',10,NULL,NULL,NULL),(11,'token',11,NULL,NULL,NULL),(12,'token',12,NULL,NULL,NULL),(13,'token',13,NULL,NULL,NULL),(14,'token',14,NULL,NULL,NULL),(15,'token',15,NULL,NULL,NULL),(16,'token',16,NULL,NULL,NULL),(17,'token',17,NULL,NULL,NULL),(18,'token',18,NULL,NULL,NULL),(19,'token',19,NULL,NULL,NULL),(20,'token',20,NULL,NULL,NULL),(21,'token',21,NULL,NULL,NULL),(22,'token',22,NULL,NULL,NULL),(23,'token',23,NULL,NULL,NULL),(24,'token',24,NULL,NULL,NULL),(25,'token',25,NULL,NULL,NULL),(26,'token',26,NULL,NULL,NULL),(27,'token',27,NULL,NULL,NULL),(28,'token',28,NULL,NULL,NULL),(29,'token',29,NULL,NULL,NULL),(30,'token',30,NULL,NULL,NULL),(31,'token',31,NULL,NULL,NULL),(32,'token',32,NULL,NULL,NULL),(33,'token',33,NULL,NULL,NULL),(34,'token',34,NULL,NULL,NULL),(35,'token',35,NULL,NULL,NULL),(36,'token',36,NULL,NULL,NULL),(37,'100815065416-812683562',37,NULL,NULL,NULL),(38,'token',38,NULL,NULL,NULL),(39,'token',39,NULL,NULL,NULL),(40,'token',40,NULL,NULL,NULL),(41,'token',41,NULL,NULL,NULL),(42,'token',42,NULL,NULL,NULL),(43,'token',43,NULL,NULL,NULL),(44,'token',44,NULL,NULL,NULL),(45,'token',45,NULL,NULL,NULL),(46,'token',46,NULL,NULL,NULL),(666,'token',666,NULL,NULL,NULL);
+INSERT INTO `token` VALUES (1,'070815181543327011129',1,'070815181406-1308679184',NULL,NULL),(2,'token',2,NULL,NULL,NULL),(3,'1008150942041777912312',3,'050815130324-2137917408',NULL,NULL),(4,'10081509472895805583',4,NULL,NULL,NULL),(5,'100815094629-1892260263',5,NULL,NULL,NULL),(6,'100815094830-125895937',6,NULL,NULL,NULL),(7,'100815065432-956712087',7,'1008150939091306725946',NULL,NULL),(8,'token',8,NULL,NULL,NULL),(9,'token',9,NULL,NULL,NULL),(10,'token',10,NULL,NULL,NULL),(11,'token',11,NULL,NULL,NULL),(12,'token',12,NULL,NULL,NULL),(13,'token',13,NULL,NULL,NULL),(14,'token',14,NULL,NULL,NULL),(15,'token',15,NULL,NULL,NULL),(16,'token',16,NULL,NULL,NULL),(17,'token',17,NULL,NULL,NULL),(18,'token',18,NULL,NULL,NULL),(19,'token',19,NULL,NULL,NULL),(20,'token',20,NULL,NULL,NULL),(21,'token',21,NULL,NULL,NULL),(22,'token',22,NULL,NULL,NULL),(23,'token',23,NULL,NULL,NULL),(24,'token',24,NULL,NULL,NULL),(25,'token',25,NULL,NULL,NULL),(26,'token',26,NULL,NULL,NULL),(27,'token',27,NULL,NULL,NULL),(28,'token',28,NULL,NULL,NULL),(29,'token',29,NULL,NULL,NULL),(30,'token',30,NULL,NULL,NULL),(31,'token',31,NULL,NULL,NULL),(32,'token',32,NULL,NULL,NULL),(33,'token',33,NULL,NULL,NULL),(34,'token',34,NULL,NULL,NULL),(35,'token',35,NULL,NULL,NULL),(36,'token',36,NULL,NULL,NULL),(37,'100815065416-812683562',37,NULL,NULL,NULL),(38,'token',38,NULL,NULL,NULL),(39,'token',39,NULL,NULL,NULL),(40,'token',40,NULL,NULL,NULL),(41,'token',41,NULL,NULL,NULL),(42,'token',42,NULL,NULL,NULL),(43,'token',43,NULL,NULL,NULL),(44,'token',44,NULL,NULL,NULL),(45,'token',45,NULL,NULL,NULL),(46,'token',46,NULL,NULL,NULL),(666,'token',666,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -653,4 +653,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-10  7:20:41
+-- Dump completed on 2015-08-10  9:54:23
