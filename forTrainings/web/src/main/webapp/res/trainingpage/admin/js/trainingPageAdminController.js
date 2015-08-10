@@ -182,7 +182,12 @@
             $scope.training.dateTime = [];
             $scope.training.year = [];
             $scope.training.tableDate = [];
+            $scope.training.nearest=null;
+
             for (var j = 0; j < $scope.training.meets.length; j++) {
+                if ((Date.parse($scope.training.meets[j].date) > Date.parse (new Date()))&&$scope.training.nearest===null) {
+                    $scope.training.nearest=$scope.training.meets[j].date;
+                }
                 $scope.training.time.push(moment($scope.training.meets[j].date).format('HH:mm'));
                 $scope.training.dateTime.push(moment($scope.training.meets[j].date).format('DD MMMM'));
                 $scope.training.tableDate.push(moment($scope.training.meets[j].date).format('DD.MM'));

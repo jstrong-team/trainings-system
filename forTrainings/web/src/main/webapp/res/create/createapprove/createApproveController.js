@@ -20,7 +20,7 @@ angular.module('createApproveModule').controller('createApproveController', ['$s
         };
 
         $scope.dismiss = function () {
-            approveService.dismiss($routeParams.trainingId);
+            approveService.dismissCreate($routeParams.trainingId);
         };
 
         $scope.showInput = 'TRAINING_PAGE_SHOW';

@@ -88,6 +88,16 @@ public class Employee {
         this.role = role;
     }
 
+    public Employee(Employee e){
+        this.id = e.id;
+        this.login = e.login;
+        this.password = e.password;
+        this.name = e.name;
+        this.mail = e.mail;
+        this.phone = e.phone;
+        this.role = e.role;
+    }
+
     public int getId(){
         return id;
     }

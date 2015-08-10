@@ -28,31 +28,48 @@ public class LetterFormService {
     private final static String LINK_CLOSE = "</a>";
     private final static String PAGE_CLOSE = "</div>";
 
+    private final static String TRAINING_URL = "http://localhost:8080/ui/trainingPage/user/";
+    private final static String TRAINING_CREATE_URL = "http://localhost:8080/ui/trainingPage/approveCreate/";
+    private final static String TRANSACTION_URL = "http://localhost:8080/ui/trainingPage/approve/";
+
     public static String getHTMLPage(Notice notice){
         StringBuilder page = new StringBuilder();
         page.append(PAGE_OPEN).append(HAT);
         page.append(THEME_OPEN).append(notice.getTheme()).append(THEME_CLOSE);
         page.append(TEXT_OPEN).append(notice.getText()).append(TEXT_CLOSE);
-        if (notice.getTransactionId() != null){
-            page.append(TEXT_OPEN);
-            page.append(LINK_OPEN).append(getTransactionURL(notice.getTransactionId())).append(LINK_BODY_OPEN);
-            page.append("Link").append(LINK_CLOSE);
+        String link = null;
+        if (notice.getTrainingId() != null){
+            if (notice.isApproveTraining()) {
+                link = getTrainingCreateURL(notice.getTrainingId());
+            } else {
+                link = getTrainingURL(notice.getTrainingId());
+            }
         } else {
-            page.append(TEXT_OPEN);
-            page.append(LINK_OPEN).append(getTrainingURL(notice.getTrainingId())).append(LINK_BODY_OPEN);
-            page.append("Link").append(LINK_CLOSE);
+            if (notice.getTransactionId() != null){
+                link = getTransactionURL(notice.getTransactionId());
+            }
+        }
+        if (link != null){
+            page.append(TEXT_OPEN).append(LINK_OPEN);
+            page.append(link).append(LINK_BODY_OPEN).append(link);
+            page.append(LINK_CLOSE).append(TEXT_CLOSE);
         }
         page.append(PAGE_CLOSE);
         return page.toString();
     }
 
     private static String getTransactionURL(int id){
-        StringBuilder url = new StringBuilder("http://localhost:8080/ui/trainingPage/approve/");
+        StringBuilder url = new StringBuilder(TRANSACTION_URL);
         return url.append(id).toString();
     }
 
     private static String getTrainingURL(int id){
-        StringBuilder url = new StringBuilder("http://localhost:8080/ui/trainingPage/user/");
+        StringBuilder url = new StringBuilder(TRAINING_URL);
+        return url.append(id).toString();
+    }
+
+    private static String getTrainingCreateURL(int id){
+        StringBuilder url = new StringBuilder(TRAINING_CREATE_URL);
         return url.append(id).toString();
     }
 

@@ -27,8 +27,9 @@
 
   "CALENDAR_MAIN_TITLE": "Trainings calendar",
   "CALENDAR_RECENT_TRAININGS_TITLE": "Recent trainings",
-  "CALENDAR_MODAL_DAY_TITLE": "Trainings in this day",
-  "CALENDAR_MODAL_DAY_NO_RESULTS": "No trainings in this day!",
+  "CALENDAR_MODAL_DAY_TITLE": "Trainings this day",
+  "CALENDAR_MODAL_WEEK_TITLE": "Trainings this week",
+  "CALENDAR_MODAL_DAY_NO_RESULTS": "No trainings this day!",
   "CALENDAR_LEGEND_I_WILL_GO": "I will go to this training",
   "CALENDAR_LEGEND_I_WILL_NOT_GO": "I can go to this training",
   "CALENDAR_LEGEND_I_TRAINER": "I am a trainer in this training",
@@ -103,6 +104,8 @@
   "CREATE_TRAINING_EXTERNAL_TRAINER_NAME_PLACEHOLDER": "Enter trainer name",
   "CREATE_TRAINING_EXTERNAL_TRAINER_MAIL_PLACEHOLDER": "Enter trainer e-mail",
   "CREATE_TRAINING_EXTERNAL_TRAINER_PHONE_PLACEHOLDER": "Enter trainer phone number",
+
+  "CALENDAR_DESCRIPTION_SHOW_MORE": "Show more",
 
   "DATE_VALIDATION_ERROR": "Date validation error!",
   "DATE_VALIDATION_FIRST_LAST": "First date should be earlier than the last date!",

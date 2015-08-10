@@ -2,6 +2,7 @@ angular.module('calendarModule').controller('calendarModalCtrl', ['$scope', '$mo
 
     $scope.trainings = trainingsStr.dayTrainings;
 
+    $scope.title=trainingsStr.title;
 
     $scope.modalSubmit = function () {
     };

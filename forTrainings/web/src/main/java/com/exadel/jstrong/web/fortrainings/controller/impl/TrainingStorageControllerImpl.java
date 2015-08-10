@@ -9,7 +9,6 @@ import com.exadel.jstrong.web.fortrainings.model.*;
 import com.exadel.jstrong.web.fortrainings.model.comparator.SubscriberUIComp;
 import com.exadel.jstrong.web.fortrainings.services.ExternalService;
 import com.exadel.jstrong.web.fortrainings.services.TaskExecutor;
-import com.exadel.jstrong.web.fortrainings.services.mailservice.Sender;
 import com.exadel.jstrong.web.fortrainings.services.noticeservice.NoticeFactory;
 import com.exadel.jstrong.web.fortrainings.services.tasks.TaskFactory;
 import com.google.gson.Gson;
@@ -64,8 +63,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
             employee = ExternalService.getExternalTrainer(training);
 
-//            Sender.sendAccountData(employee);
-            taskExecutor.submitTask(taskFactory.createAddExternalTask(employee));
+            taskExecutor.submitTask(taskFactory.createAddExternalTask(new Employee(employee)));
             employee = eDAO.saveEmployee(employee);
             eDAO.setEmployeeRole(employee, "external");
             tokenDAO.addTokenForEmployee(employee.getId());
