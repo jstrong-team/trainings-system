@@ -16,11 +16,9 @@
         $scope.currentPage = 1;
         $scope.maxSize = 5;
 
-        $scope.$watch('currentPage', function(newPage) {
+        function getReadNews (newPage) {
             $http.get('/rest/news/notice?count=' + ITEMS_PER_PAGE + '&page=' + newPage).then(
                 function(data){
-
-                    console.log(data);
 
                     $scope.showPagination = null;
                     $scope.noNewsInHistory = null;
@@ -45,12 +43,17 @@
                 function(error){
                     console.error(error);
                 });
+        }
+
+        $scope.$watch('currentPage', function(newPage) {
+            getReadNews(newPage);
         });
 
         $scope.removeActualItem = function (id) {
             $http.post('/rest/news/complete', {id: id}).then(
                 function(data, status){
                     $rootScope.$broadcast('removeNewsItem');
+                    getReadNews($scope.currentPage);
                     --badgeCount;
 
                     if (badgeCount === 0) {

@@ -14,3 +14,14 @@
     float: right;
     padding-right: 0.6%;
 }
+
+.jumbotron {
+    background-color: lightgray;
+}
+
+@media(max-width: 400px)  {
+    .loginLogo {
+        width: 85%;
+        height: 85%;
+    }
+}
