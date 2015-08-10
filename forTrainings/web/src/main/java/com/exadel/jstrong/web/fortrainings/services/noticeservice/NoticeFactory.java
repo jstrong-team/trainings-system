@@ -52,7 +52,7 @@ public class NoticeFactory {
         }
     }
 
-    public static Notice getTrainingEditNotice(Training training, int transactionId, int editorId){
+    public static Notice getTrainingEditNotice(Training training, int editorId){
         try {
             Notice notice = new Notice();
             notice.setTheme("Training edit");
@@ -63,7 +63,6 @@ public class NoticeFactory {
             notice.setTrainingId(training.getId());
             notice.setIsApproveTraining(false);
             notice.setAddDate(new Date());
-            notice.setTransactionId(transactionId);
             return notice;
         } catch(Throwable e){
             logger.info("Error");

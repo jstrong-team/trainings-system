@@ -33,7 +33,7 @@ public class AddSubscriberTask implements Runnable {
     @Override
     public void run() {
         Notice userNotice = NoticeFactory.getNewParticipantNotice(systemId, tDAO.getTrainingById(tId), status);
-        Notice adminNotice = NoticeFactory.getNewParticipantNotice(systemId, tDAO.getTrainingById(tId), "Approve", employee);
+        Notice adminNotice = NoticeFactory.getNewParticipantNotice(systemId, tDAO.getTrainingById(tId), status, employee);
         noticeService.addNotices(userNotice, employee);
         List<Employee> admins = eDAO.getAdmins();
         noticeService.addNotices(adminNotice, admins);

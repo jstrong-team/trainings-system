@@ -17,7 +17,7 @@ public interface TaskFactory {
     DeleteSubscriberTask createDeleteSubscriberTask(Integer userId, Integer trainigId);
     AddSubscriberTask createAddSubscriberTask(String status, Integer tId, Integer systemId, Employee employee);
     EditTrainingTask createEditTrainingTask(Training training, Integer senderId, Integer transactionId);
-    ApproveEditTask createApproveEditTask(Training data, Integer systemId, Integer transactionId);
+    ApproveEditTask createApproveEditTask(Training data, Integer systemId);
     AddTrainerFeedbackTask createAddTrainerFeedbackTask(Training training, Employee sender, Employee empoyee);
     AddTrainingTask createAddTrainingTask(Training training);
     AddEmpoyeeFeedbackTask createAddEmpoyeeFeedbackTask(Training training, Employee sender);

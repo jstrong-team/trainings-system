@@ -345,7 +345,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
         Employee system = eDAO.getById(NoticeFactory.systemId);
 
-        taskExecutor.submitTask(taskFactory.createApproveEditTask(data, system.getId(), transactionId));
+        taskExecutor.submitTask(taskFactory.createApproveEditTask(data, system.getId()));
         return id;
     }
 

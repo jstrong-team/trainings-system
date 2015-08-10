@@ -20,9 +20,6 @@ public class TaskFactoryImpl implements TaskFactory {
     private EmployeeDAO employeeDAO;
 
     @Autowired
-    private SubscribeDAO subscribeDAO;
-
-    @Autowired
     private TrainingDAO trainingDAO;
 
     @Override
@@ -47,14 +44,13 @@ public class TaskFactoryImpl implements TaskFactory {
     public EditTrainingTask createEditTrainingTask(Training training, Integer senderId, Integer transactionId) {
         EditTrainingTask task = new EditTrainingTask(training, senderId, transactionId);
         task.seteDAO(employeeDAO);
-        task.setSubscribeDAO(subscribeDAO);
         task.setNoticeService(noticeService);
         return task;
     }
 
     @Override
-    public ApproveEditTask createApproveEditTask(Training data, Integer systemId, Integer transactionId) {
-        ApproveEditTask task = new ApproveEditTask(data, systemId, transactionId);
+    public ApproveEditTask createApproveEditTask(Training data, Integer systemId) {
+        ApproveEditTask task = new ApproveEditTask(data, systemId);
         task.seteDAO(employeeDAO);
         task.setNoticeService(noticeService);
         return task;

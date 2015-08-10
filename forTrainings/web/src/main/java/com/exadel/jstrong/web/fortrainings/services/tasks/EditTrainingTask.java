@@ -16,13 +16,11 @@ import java.util.List;
  */
 public class EditTrainingTask implements Runnable {
     private EmployeeDAO eDAO;
-    private SubscribeDAO sDAO;
     private NoticeService noticeService;
 
     private Training training;
     private Integer senderId;
     private Integer transactionId;
-    //private List<Employee>
 
     public EditTrainingTask(Training training, Integer senderId, Integer transactionId) {
         this.senderId = senderId;
@@ -34,17 +32,11 @@ public class EditTrainingTask implements Runnable {
     public void run() {
         Notice notice = NoticeFactory.getNotApprovedEditedTrainingNotice(training, senderId, transactionId);
         List<Employee> admins = eDAO.getAdmins();
-        List<Employee> subscribers = sDAO.getSubscribersAsEmployees(training.getId());
         noticeService.addNotices(notice, admins);
-        noticeService.addNotices(notice, subscribers);
     }
 
     public void seteDAO(EmployeeDAO eDAO) {
         this.eDAO = eDAO;
-    }
-
-    public void setSubscribeDAO(SubscribeDAO sDAO) {
-        this.sDAO = sDAO;
     }
 
     public void setNoticeService(NoticeService noticeService) {
