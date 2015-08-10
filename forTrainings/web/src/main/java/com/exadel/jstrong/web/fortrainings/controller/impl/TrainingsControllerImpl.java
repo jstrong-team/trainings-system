@@ -67,19 +67,23 @@ public class TrainingsControllerImpl implements TrainingsController {
         List<Date> dates;
         int count;
         for (int i=0;i<size;i++){
-            dates = new ArrayList<>();
-            event = new SearchEventUI();
-            training = trainings.get(i);
-            event.setId(training.getId());
-            event.setAnnotation(training.getAnnotation());
-            event.setName(training.getName());
-            count = training.getMeets().size() - 1;
-            dates.add(training.getMeets().get(0).getDate());
-            if (count!=0) {
-                dates.add(training.getMeets().get(count).getDate());
+            Training training1 = trainings.get(i);
+            boolean isApprove = training1.isApprove();
+            if(isApprove) {
+                dates = new ArrayList<>();
+                event = new SearchEventUI();
+                training = trainings.get(i);
+                event.setId(training.getId());
+                event.setAnnotation(training.getAnnotation());
+                event.setName(training.getName());
+                count = training.getMeets().size() - 1;
+                dates.add(training.getMeets().get(0).getDate());
+                if (count != 0) {
+                    dates.add(training.getMeets().get(count).getDate());
+                }
+                event.setDates(dates);
+                events.add(event);
             }
-            event.setDates(dates);
-            events.add(event);
         }
         return events;
     }

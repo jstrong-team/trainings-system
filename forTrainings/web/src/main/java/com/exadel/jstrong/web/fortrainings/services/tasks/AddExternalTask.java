@@ -16,7 +16,6 @@ public class AddExternalTask implements Runnable {
 
     @Override
     public void run() {
-        int a;
         Sender.sendAccountData(employee);
     }
 }

@@ -1,6 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.services.tasks;
 
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
+import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.TrainingDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Training;
@@ -48,8 +49,8 @@ public class TaskFactoryImpl implements TaskFactory {
     }
 
     @Override
-    public ApproveEditTask createApproveEditTask(Training data, Integer systemId, Integer transactionId) {
-        ApproveEditTask task = new ApproveEditTask(data, systemId, transactionId);
+    public ApproveEditTask createApproveEditTask(Training data, Integer systemId) {
+        ApproveEditTask task = new ApproveEditTask(data, systemId);
         task.seteDAO(employeeDAO);
         task.setNoticeService(noticeService);
         return task;

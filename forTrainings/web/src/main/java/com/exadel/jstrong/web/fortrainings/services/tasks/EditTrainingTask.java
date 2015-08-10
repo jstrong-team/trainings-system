@@ -1,6 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.services.tasks;
 
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
+import com.exadel.jstrong.fortrainings.core.dao.SubscribeDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
 import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.fortrainings.core.model.Training;
@@ -20,7 +21,6 @@ public class EditTrainingTask implements Runnable {
     private Training training;
     private Integer senderId;
     private Integer transactionId;
-    //private List<Employee>
 
     public EditTrainingTask(Training training, Integer senderId, Integer transactionId) {
         this.senderId = senderId;
