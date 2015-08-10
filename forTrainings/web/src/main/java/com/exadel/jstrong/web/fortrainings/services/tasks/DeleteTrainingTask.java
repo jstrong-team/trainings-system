@@ -28,8 +28,10 @@ public class DeleteTrainingTask implements Runnable {
     @Override
     public void run() {
         Notice notice = NoticeFactory.getTrainingDeleteNotice(tDAO.getTrainingById(trainingId), system);
+        List<Employee> employees = eDAO.getEmployeesBySubscribe(trainingId);
         List<Employee> admins = eDAO.getAdmins();
-        noticeService.addNotices(notice, admins);
+        employees.addAll(admins);
+        noticeService.addNotices(notice, employees);
     }
 
     public void seteDAO(EmployeeDAO eDAO) {
