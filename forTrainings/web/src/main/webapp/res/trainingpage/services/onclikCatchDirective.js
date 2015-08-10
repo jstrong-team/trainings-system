@@ -22,7 +22,7 @@ angular.module('trainingPageTrainerModule').directive('tableCatchDirective', ['s
                      subscribeId:list[0],
                      meetId:list[1],
                      absent:false,
-                     reason:''
+                     reason:null
                  };
                  element.text('');
                  storageService.delete(clickObj);
