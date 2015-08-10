@@ -139,7 +139,7 @@
 }
 
 .newWell{
-   border: 1px solid #e3e3e3;
+   border: 1px solid lightgrey;
    border-radius: 4px;
 }
 
@@ -180,7 +180,7 @@
 }
 
 .approveTextDiv{
-   border: 1px solid #e3e3e3;
+   border: 1px solid lightgrey;
    border-radius: 4px;
    padding:10px;
    min-height: 42px;
