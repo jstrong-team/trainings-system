@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.6.23, for Win32 (x86)
+CREATE DATABASE  IF NOT EXISTS `for_trainings` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `for_trainings`;
+-- MySQL dump 10.13  Distrib 5.6.17, for osx10.6 (i386)
 --
--- Host: localhost    Database: for_trainings
+-- Host: 127.0.0.1    Database: for_trainings
 -- ------------------------------------------------------
--- Server version	5.6.24-log
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -187,7 +189,7 @@ CREATE TABLE `meet` (
 
 LOCK TABLES `meet` WRITE;
 /*!40000 ALTER TABLE `meet` DISABLE KEYS */;
-INSERT INTO `meet` VALUES (1,1,'2015-07-14 13:30:00'),(2,1,'2015-07-18 13:30:00'),(3,1,'2015-07-22 13:30:00'),(4,1,'2015-07-22 13:30:00'),(5,2,'2015-07-27 10:00:00'),(6,3,'2015-08-14 11:30:00'),(7,3,'2015-08-19 11:30:00'),(8,3,'2015-08-24 12:00:00'),(9,3,'2015-08-29 12:30:00'),(10,4,'2015-08-15 09:00:00'),(11,4,'2015-08-19 10:00:00'),(12,4,'2015-08-23 10:00:00'),(13,5,'2015-08-15 12:00:00'),(14,5,'2015-08-17 13:00:00'),(15,5,'2015-08-19 12:00:00'),(16,5,'2015-08-22 11:30:00'),(17,5,'2015-08-25 12:00:00'),(18,6,'2015-09-01 07:30:00'),(19,6,'2015-09-08 07:30:00'),(20,6,'2015-09-15 07:30:00'),(21,6,'2015-09-22 09:00:00'),(22,6,'2015-09-29 09:00:00'),(23,6,'2015-10-05 08:00:00'),(24,7,'2015-09-01 10:00:00'),(25,7,'2015-09-08 10:00:00'),(26,7,'2015-09-15 10:00:00'),(27,8,'2015-09-02 15:00:00'),(28,8,'2015-09-05 15:00:00'),(29,8,'2015-09-10 15:00:00'),(30,8,'2015-09-13 15:00:00'),(31,8,'2015-09-18 15:00:00'),(32,8,'2015-09-21 15:00:00'),(33,8,'2015-09-26 15:00:00'),(34,8,'2015-09-29 15:00:00'),(35,8,'2015-10-03 15:00:00'),(36,8,'2015-10-06 15:00:00'),(37,8,'2015-10-11 15:00:00'),(38,8,'2015-10-14 15:00:00'),(39,8,'2015-10-19 15:00:00'),(40,8,'2015-10-22 15:00:00'),(41,8,'2015-10-27 15:00:00'),(42,8,'2015-10-30 15:00:00'),(43,8,'2015-10-05 15:00:00'),(44,8,'2015-10-08 15:00:00'),(45,8,'2015-10-13 15:00:00'),(46,8,'2015-10-16 15:00:00'),(47,8,'2015-10-21 15:00:00'),(48,9,'2015-09-03 10:00:00'),(49,9,'2015-09-06 10:00:00'),(50,9,'2015-09-11 10:00:00'),(51,9,'2015-09-14 10:00:00'),(52,9,'2015-09-19 10:00:00'),(53,9,'2015-09-22 10:00:00'),(54,9,'2015-09-27 10:00:00'),(55,9,'2015-09-30 10:00:00'),(56,9,'2015-10-05 10:00:00'),(57,9,'2015-10-08 10:00:00'),(58,9,'2015-10-10 10:00:00'),(59,10,'2015-09-04 13:00:00'),(60,10,'2015-09-11 13:00:00'),(61,10,'2015-09-18 13:00:00'),(62,10,'2015-09-25 13:00:00'),(63,10,'2015-10-02 13:00:00'),(64,10,'2015-10-09 13:00:00'),(65,10,'2015-10-16 13:00:00'),(66,10,'2015-10-23 13:00:00'),(67,10,'2015-10-30 13:00:00'),(68,10,'2015-11-07 13:00:00'),(69,10,'2015-11-14 13:00:00'),(70,11,'2015-08-16 09:00:00'),(71,11,'2015-08-19 09:00:00'),(72,11,'2015-08-22 09:00:00'),(73,11,'2015-08-25 09:00:00'),(74,11,'2015-08-28 09:00:00'),(75,11,'2015-08-30 09:00:00'),(76,12,'2015-09-05 11:30:00'),(77,12,'2015-09-07 11:30:00'),(78,12,'2015-09-09 11:30:00'),(79,12,'2015-09-11 11:30:00'),(80,12,'2015-09-13 11:30:00'),(81,13,'2015-08-15 09:00:00'),(82,13,'2015-08-16 09:00:00'),(83,13,'2015-08-17 09:00:00'),(84,14,'2015-08-20 16:00:00'),(143,52,'2015-08-20 16:50:00');
+INSERT INTO `meet` VALUES (1,1,'2015-07-14 13:30:00'),(2,1,'2015-07-18 13:30:00'),(3,1,'2015-07-22 13:30:00'),(4,1,'2015-07-22 13:30:00'),(5,2,'2015-07-27 10:00:00'),(6,3,'2015-08-14 11:30:00'),(7,3,'2015-08-19 11:30:00'),(11,4,'2015-08-19 10:00:00'),(14,5,'2015-08-17 12:00:00'),(15,5,'2015-08-19 12:00:00'),(17,5,'2015-08-25 12:00:00'),(21,6,'2015-09-22 09:00:00'),(22,6,'2015-09-29 09:00:00'),(23,6,'2015-10-05 08:00:00'),(24,7,'2015-09-01 10:00:00'),(25,7,'2015-09-08 10:00:00'),(26,7,'2015-09-15 10:00:00'),(27,8,'2015-09-02 15:00:00'),(31,8,'2015-09-18 15:00:00'),(32,8,'2015-09-21 15:00:00'),(34,8,'2015-09-29 15:00:00'),(38,8,'2015-10-14 15:00:00'),(39,8,'2015-10-19 15:00:00'),(42,8,'2015-10-30 15:00:00'),(43,8,'2015-10-05 15:00:00'),(50,9,'2015-09-11 10:00:00'),(53,9,'2015-09-22 10:00:00'),(55,9,'2015-09-30 10:00:00'),(56,9,'2015-10-05 10:00:00'),(59,10,'2015-09-04 13:00:00'),(60,10,'2015-09-11 13:00:00'),(61,10,'2015-09-18 13:00:00'),(62,10,'2015-09-25 13:00:00'),(63,10,'2015-10-02 13:00:00'),(64,10,'2015-10-09 13:00:00'),(65,10,'2015-10-16 13:00:00'),(66,10,'2015-10-23 13:00:00'),(67,10,'2015-10-30 13:00:00'),(68,10,'2015-11-07 13:00:00'),(69,10,'2015-11-14 13:00:00'),(71,11,'2015-08-19 09:00:00'),(73,11,'2015-08-25 09:00:00'),(79,12,'2015-09-11 11:30:00'),(81,13,'2015-08-15 09:00:00'),(82,13,'2015-08-16 09:00:00'),(83,13,'2015-08-17 09:00:00'),(84,14,'2015-10-20 16:00:00'),(143,52,'2015-08-20 16:50:00');
 /*!40000 ALTER TABLE `meet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,19 +220,20 @@ LOCK TABLES `meet_version` WRITE;
 UNLOCK TABLES;
 
 --
--- Temporary view structure for view `new_view`
+-- Temporary table structure for view `new_view`
 --
 
 DROP TABLE IF EXISTS `new_view`;
 /*!50001 DROP VIEW IF EXISTS `new_view`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `new_view` AS SELECT 
- 1 AS `id`,
- 1 AS `training_id`,
- 1 AS `name`,
- 1 AS `annotation`,
- 1 AS `date`*/;
+/*!50001 CREATE TABLE `new_view` (
+  `id` tinyint NOT NULL,
+  `training_id` tinyint NOT NULL,
+  `name` tinyint NOT NULL,
+  `annotation` tinyint NOT NULL,
+  `date` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -296,19 +299,20 @@ INSERT INTO `participant` VALUES (20,27,NULL,NULL,1),(20,28,NULL,NULL,2),(20,29,
 UNLOCK TABLES;
 
 --
--- Temporary view structure for view `report`
+-- Temporary table structure for view `report`
 --
 
 DROP TABLE IF EXISTS `report`;
 /*!50001 DROP VIEW IF EXISTS `report`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `report` AS SELECT 
- 1 AS `id`,
- 1 AS `subscribe_id`,
- 1 AS `date`,
- 1 AS `absent`,
- 1 AS `reason`*/;
+/*!50001 CREATE TABLE `report` (
+  `id` tinyint NOT NULL,
+  `subscribe_id` tinyint NOT NULL,
+  `date` tinyint NOT NULL,
+  `absent` tinyint NOT NULL,
+  `reason` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -433,7 +437,7 @@ CREATE TABLE `token` (
   PRIMARY KEY (`id`),
   KEY `fk_employee_token_idx` (`employee_id`),
   CONSTRAINT `fk_employee_token` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=667 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -442,7 +446,7 @@ CREATE TABLE `token` (
 
 LOCK TABLES `token` WRITE;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
-INSERT INTO `token` VALUES (1,'070815181543327011129',1,'070815181406-1308679184',NULL,NULL),(2,'token',2,NULL,NULL,NULL),(3,'token',3,'050815130324-2137917408',NULL,NULL),(4,'240715155508-2059738913',4,NULL,NULL,NULL),(5,'310715151646-2122411317',5,NULL,NULL,NULL),(6,'token',6,NULL,NULL,NULL),(7,'070815181553-1358735787',7,NULL,NULL,NULL);
+INSERT INTO `token` VALUES (1,'070815181543327011129',1,'070815181406-1308679184',NULL,NULL),(2,'token',2,NULL,NULL,NULL),(3,'token',3,'050815130324-2137917408',NULL,NULL),(4,'240715155508-2059738913',4,NULL,NULL,NULL),(5,'310715151646-2122411317',5,NULL,NULL,NULL),(6,'token',6,NULL,NULL,NULL),(7,'100815065432-956712087',7,'100815064538-1718799798',NULL,NULL),(8,'token',8,NULL,NULL,NULL),(9,'token',9,NULL,NULL,NULL),(10,'token',10,NULL,NULL,NULL),(11,'token',11,NULL,NULL,NULL),(12,'token',12,NULL,NULL,NULL),(13,'token',13,NULL,NULL,NULL),(14,'token',14,NULL,NULL,NULL),(15,'token',15,NULL,NULL,NULL),(16,'token',16,NULL,NULL,NULL),(17,'token',17,NULL,NULL,NULL),(18,'token',18,NULL,NULL,NULL),(19,'token',19,NULL,NULL,NULL),(20,'token',20,NULL,NULL,NULL),(21,'token',21,NULL,NULL,NULL),(22,'token',22,NULL,NULL,NULL),(23,'token',23,NULL,NULL,NULL),(24,'token',24,NULL,NULL,NULL),(25,'token',25,NULL,NULL,NULL),(26,'token',26,NULL,NULL,NULL),(27,'token',27,NULL,NULL,NULL),(28,'token',28,NULL,NULL,NULL),(29,'token',29,NULL,NULL,NULL),(30,'token',30,NULL,NULL,NULL),(31,'token',31,NULL,NULL,NULL),(32,'token',32,NULL,NULL,NULL),(33,'token',33,NULL,NULL,NULL),(34,'token',34,NULL,NULL,NULL),(35,'token',35,NULL,NULL,NULL),(36,'token',36,NULL,NULL,NULL),(37,'100815065416-812683562',37,NULL,NULL,NULL),(38,'token',38,NULL,NULL,NULL),(39,'token',39,NULL,NULL,NULL),(40,'token',40,NULL,NULL,NULL),(41,'token',41,NULL,NULL,NULL),(42,'token',42,NULL,NULL,NULL),(43,'token',43,NULL,NULL,NULL),(44,'token',44,NULL,NULL,NULL),(45,'token',45,NULL,NULL,NULL),(46,'token',46,NULL,NULL,NULL),(666,'token',666,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -606,6 +610,7 @@ UNLOCK TABLES;
 -- Final view structure for view `new_view`
 --
 
+/*!50001 DROP TABLE IF EXISTS `new_view`*/;
 /*!50001 DROP VIEW IF EXISTS `new_view`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -624,6 +629,7 @@ UNLOCK TABLES;
 -- Final view structure for view `report`
 --
 
+/*!50001 DROP TABLE IF EXISTS `report`*/;
 /*!50001 DROP VIEW IF EXISTS `report`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -647,4 +653,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-07 18:19:40
+-- Dump completed on 2015-08-10  7:20:41
