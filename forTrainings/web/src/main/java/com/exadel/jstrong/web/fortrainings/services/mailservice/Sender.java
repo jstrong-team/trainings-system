@@ -177,7 +177,7 @@ public class Sender {
             Transport.send(message);
             return true;
         } catch (Throwable e) {
-            logger.warn("Message didn't send");
+            logger.warn("Message didn't send", e);
             return false;
         }
     }

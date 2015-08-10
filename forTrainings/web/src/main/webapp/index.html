@@ -1,36 +1,78 @@
 <!DOCTYPE html>
 <html lang="en-US" ng-app="app" ng-controller="TranslateController">
 
-
-<link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-<script src="/bower_components/jquery/dist/jquery.js"></script>
-<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="/bower_components/angular/angular.js"></script>
-<script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="/bower_components/angular-route/angular-route.js"></script>
-<script src="/bower_components/moment/moment.js"></script>
-
-<!--speener-->
-<script src="/res/libs/spin.js"></script>
-<script src="/bower_components/angular-spinner/angular-spinner.js"></script>
-<script src="/bower_components/angular-loading-spinner/angular-loading-spinner.js"></script>
-
-<!--i18n-->
-<script src="/bower_components/angular-translate/angular-translate.js"></script>
-<script src="/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
-<script src="/res/i18n/module.js"></script>
-<script src="/res/i18n/controller.js"></script>
+<link href="/res/libs/bootstrap.min.css" rel="stylesheet">
 
 <!--login-->
 <link href="/res/login/css/login.css" rel="stylesheet">
-<script src="/res/login/js/module.js"></script>
-<script src="/res/login/js/controller.js"></script>
-<script src="/res/login/js/service.js"></script>
 
 <link href="/res/calendar/css/calendar.css" rel="stylesheet">
 <link href="/res/calendar/css/modal.css" rel="stylesheet">
 <link href="/res/trainingpage/trainingStyle.css" rel="stylesheet">
 <link href="/res/errorpages/error.css" type="text/css" rel="stylesheet">
+
+<link href="/res/navigation/navigation.css" rel="stylesheet">
+
+<link href="/res/create/datetimepicker.css" rel="stylesheet">
+<link href="/res/create/createTrainingForm.css" rel="stylesheet">
+
+<link href="/res/creationResponse/success.css" rel="stylesheet">
+
+<link href="/res/news/news.css" rel="stylesheet">
+
+<link href="/res/reportsForAdmin/reports.css" rel="stylesheet">
+
+<link href="/res/footer/footer.css" rel="stylesheet">
+
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <title>Exadel trainings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="/res/login/img/favicon.png">
+</head>
+
+<body>
+
+<div class="wrapper">
+    <span us-spinner="{radius:20, width:8, length: 10}"></span>
+    <loader key="my-spinner"></loader>
+    <div ng-controller="indexController" ng-cloak>
+        <div ng-include="navigation.url" ng-if="location.path() !== '/ui/'"></div>
+    </div>
+
+    <div ng-hide="inputSearchText">
+        <div ng-view></div>
+    </div>
+
+    <footer>
+        <h5 class="text-center">&copy 2015 jsTrong</h5>
+    </footer>
+
+</div>
+
+<script src="/res/libs/jquery.min.js"></script>
+<script src="/res/libs/bootstrap.min.js"></script>
+<script src="/res/libs/angular.min.js"></script>
+<script src="/res/libs/ui-bootstrap-tpls.min.js"></script>
+<script src="/res/libs/angular-route.min.js"></script>
+<script src="/res/libs/moment.min.js"></script>
+
+<!--speener-->
+<script src="/res/libs/spin.js"></script>
+<script src="/res/libs/angular-spinner.min.js"></script>
+<script src="/res/libs/angular-loading-spinner.js"></script>
+
+<!--i18n-->
+<script src="/res/libs/angular-translate.min.js"></script>
+<script src="/res/libs/angular-translate-loader-static-files.min.js"></script>
+<script src="/res/i18n/module.js"></script>
+<script src="/res/i18n/controller.js"></script>
+
+<!--login-->
+<script src="/res/login/js/module.js"></script>
+<script src="/res/login/js/controller.js"></script>
+<script src="/res/login/js/service.js"></script>
 
 <script src="/res/calendar/js/module.js"></script>
 <script src="/res/calendar/js/calendarController.js"></script>
@@ -39,7 +81,7 @@
 <script src="/res/calendar/js/calendar.js"></script>
 <script src="/res/calendar/js/calendarModalCtrl.js"></script>
 
-<link href="/res/navigation/navigation.css" rel="stylesheet">
+
 <script src="/res/navigation/module.js"></script>
 <script src="/res/navigation/doSearchService.js"></script>
 <script src="/res/navigation/doLogoutService.js"></script>
@@ -82,8 +124,6 @@
 <script src="/res/trainingpage/approvepage/parseService.js"></script>
 <script src="/res/trainingpage/approvepage/approveService.js"></script>
 
-<link href="/res/create/datetimepicker.css" rel="stylesheet">
-<link href="/res/create/createTrainingForm.css" rel="stylesheet">
 <script src="/res/create/module.js"></script>
 <script src="/res/create/service.js"></script>
 <script src="/res/create/multipleDatesService.js"></script>
@@ -93,50 +133,19 @@
 <script src="/res/create/createapprove/createApproveModule.js"></script>
 <script src="/res/create/createapprove/createApproveController.js"></script>
 
-<link href="/res/creationResponse/success.css" rel="stylesheet">
 <script src="/res/creationResponse/module.js"></script>
 
-<link href="/res/news/news.css" rel="stylesheet">
 <script src="/res/news/adminNews/module.js"></script>
 <script src="/res/news/adminNews/controller.js"></script>
 
-<link href="/res/reportsForAdmin/reports.css" rel="stylesheet">
 <script src="/res/reportsForAdmin/module.js"></script>
 <script src="/res/reportsForAdmin/controller.js"></script>
 <script src="/res/reportsForAdmin/service.js"></script>
 <script src="/res/reportsForAdmin/printpage/printPageModule.js"></script>
 
-<link href="/res/footer/footer.css" rel="stylesheet">
 <script src="/res/index.js"></script>
 
 <script src="/res/indexController/controller.js"></script>
-
-<head>
-    <base href="/">
-    <meta charset="utf-8">
-    <title>{{ 'HTML_TITLE' | translate }}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="/res/login/img/favicon.png">
-</head>
-
-<body>
-
-<div class="wrapper">
-    <span us-spinner="{radius:20, width:8, length: 10}"></span>
-    <loader key="my-spinner"></loader>
-    <div ng-controller="indexController" ng-cloak>
-        <div ng-include="navigation.url" ng-if="location.path() !== '/ui/'"></div>
-    </div>
-
-    <div ng-hide="inputSearchText">
-        <div ng-view></div>
-    </div>
-
-    <footer>
-        <h5 class="text-center">&copy 2015 jsTrong</h5>
-    </footer>
-
-</div>
 
 </body>
 </html>

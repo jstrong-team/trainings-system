@@ -46,7 +46,6 @@
             <accordion-group ng-repeat="training in reportInfo.trainings" is-open="status1.open">
                 <accordion-heading>
                     <strong>{{training.name}}</strong>
-                    <span class="glyphicon glyphicon glyphicon-flag"></span>
                     <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status1.open, 'glyphicon-chevron-right': !status1.open}"></i>
                 </accordion-heading>
                 <accordion close-others="false">
