@@ -3,12 +3,27 @@ angular.module('approvePageModule').factory('approveService', ['$rootScope','$ht
 
     service.approveCreate = function(id) {
         console.log({
-            transactionId:id,
+            trainingId:id,
             adminAnswer:'Approve'
         });
-        $http.put('rest/storagetraining/approve',{
-            transactionId:id,
-            adminAnswer:'a'
+        $http.put('rest/storagetraining/approveNew',{
+            trainingId:id,
+            adminAnswer:'Approve'
+        }).then(function(){
+            $location.url('/ui/news');
+        }, function(error){
+            console.log(error);
+        });
+    };
+
+    service.dismissCreate = function(id) {
+        console.log({
+            trainingId:id,
+            adminAnswer:'Approve'
+        });
+        $http.put('rest/storagetraining/approveNew',{
+            trainingId:id,
+            adminAnswer:'Dismiss'
         }).then(function(){
             $location.url('/ui/news');
         }, function(error){
