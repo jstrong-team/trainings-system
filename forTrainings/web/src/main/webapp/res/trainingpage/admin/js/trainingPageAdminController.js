@@ -6,7 +6,6 @@
         'getTrainingInfo',
         'getSubscribersService',
         'getFeedbacksService',
-        'editTrainingService',
         'openModalService',
         '$route',
         'subscribeService',
@@ -21,7 +20,6 @@
                                getTrainingInfo,
                                getSubscribersService,
                                getFeedbacksService,
-                               editTrainingService,
                                openModalService,
                                $route,
                                subscribeService,
@@ -35,6 +33,7 @@
             subscribers: false,
             addSubscriber: true
         };
+
 
         $scope.show = {
             subscribers: 'TRAINING_PAGE_HIDE',
