@@ -1,11 +1,7 @@
 package com.exadel.jstrong.web.fortrainings.services.tasks;
 
 import com.exadel.jstrong.fortrainings.core.model.Employee;
-import com.exadel.jstrong.fortrainings.core.model.Notice;
 import com.exadel.jstrong.web.fortrainings.services.mailservice.Sender;
-import com.exadel.jstrong.web.fortrainings.services.noticeservice.NoticeFactory;
-
-import java.util.List;
 
 /**
  * Created by Администратор on 07.08.2015.
@@ -20,6 +16,7 @@ public class AddExternalTask implements Runnable {
 
     @Override
     public void run() {
+        int a;
         Sender.sendAccountData(employee);
     }
 }

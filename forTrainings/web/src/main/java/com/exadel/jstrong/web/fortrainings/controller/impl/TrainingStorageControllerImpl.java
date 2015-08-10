@@ -63,8 +63,7 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
 
             employee = ExternalService.getExternalTrainer(training);
 
-//            Sender.sendAccountData(employee);
-            taskExecutor.submitTask(taskFactory.createAddExternalTask(employee));
+            taskExecutor.submitTask(taskFactory.createAddExternalTask(new Employee(employee)));
             employee = eDAO.saveEmployee(employee);
             eDAO.setEmployeeRole(employee, "external");
             tokenDAO.addTokenForEmployee(employee.getId());

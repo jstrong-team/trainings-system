@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by Maria on 24.07.2015.
+ * Created by Maria on 24.07.2015.bcfnm
  */
 @Entity
 @Table(name = "trainer_feedback")

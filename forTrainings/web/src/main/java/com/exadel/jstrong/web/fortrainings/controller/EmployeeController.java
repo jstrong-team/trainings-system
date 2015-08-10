@@ -11,4 +11,5 @@ public interface EmployeeController {
     void updateSession(int id, String session);
     boolean checkSession (String session);
     int getIdBySession(String session);
+    boolean isExternal(int userId);
 }
