@@ -4,6 +4,7 @@ import com.exadel.jstrong.fortrainings.core.dao.BaseDAO;
 import com.exadel.jstrong.fortrainings.core.dao.EmployeeDAO;
 import com.exadel.jstrong.fortrainings.core.dao.RoleDAO;
 import com.exadel.jstrong.fortrainings.core.model.Employee;
+import com.exadel.jstrong.fortrainings.core.model.Meet;
 import com.exadel.jstrong.fortrainings.core.model.Role;
 import com.exadel.jstrong.fortrainings.core.model.Subscribe;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
@@ -163,5 +165,19 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
             employees.add(getEmployee(id));
         }
         return employees;
+    }
+
+    @Override
+    public Integer getEmployeeRoleId(int userId) {
+        try {
+            Integer roleId = (Integer)em.createNativeQuery("SELECT role_id FROM employee_role WHERE employee_id = :uId")
+                    .setParameter("uId", userId)
+                    .getSingleResult();
+
+            return roleId;
+        } catch(Throwable e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }
