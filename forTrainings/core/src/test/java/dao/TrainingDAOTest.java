@@ -5,6 +5,7 @@ import com.exadel.jstrong.fortrainings.core.model.Training;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,6 +17,7 @@ public class TrainingDAOTest extends BaseDAOTest {
     @Autowired
     private TrainingDAO trainingDAO;
 
+    @Ignore()
     @Test
     @DatabaseSetup(INITIAL_DATA_LOCATION + "/edit.xml")
     @ExpectedDatabase(value = EXPECTED_DATA_LOCATION + "/edit.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)

@@ -2,4 +2,11 @@
     <employee id="2" login="masha" password="c3cc6e312d2bad42cf535aac3a259abd" name="Maria Grakova" mail="mariagracova96@gmail.com" phone="null"/>
     <employee id="3" login="stas" password="c211c9e7e7689217c0cb99aafe30f3d7" name="Stanislav Petrovich" mail="staspetrovichbsu@gmail.com" phone="null"/>
     <employee id="4" login="kolya" password="ec3da25081aa81b637fe6faa3debe26e" name="Nikolay Lebedev" mail="nickylebedev@gmail.com" phone="null"/>
+
+    <role id="1" name="admin"/>
+    <role id="2" name="external"/>
+    <role id="3" name="trainer"/>
+
+    <employee_role employee_id="2" role_id="1"/>
+    <employee_role employee_id="4" role_id="3"/>
 </dataset>

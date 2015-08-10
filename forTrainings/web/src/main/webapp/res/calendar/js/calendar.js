@@ -153,7 +153,7 @@ function dayDescription(data) {
     var day = getNthDate(j);
 
     for (var i = 0; i < 14; ++i) {
-        var flag = 0;
+
         description[i] = new Array();
 
         if (data.length > indexResponse) {
@@ -161,7 +161,6 @@ function dayDescription(data) {
             Date.parse(moment(day).format('YYYY-MM-DD')) > Date.parse(moment(data[indexResponse].date).format('YYYY-MM-DD'))) {
                 if (data[indexResponse].isSubscribe == true) {
                     description[i].push(data[indexResponse]);
-                    flag = 1;
                 }
 
                 ++indexResponse;

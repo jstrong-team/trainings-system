@@ -27,7 +27,6 @@ public class Sender {
     private static final String SENDER = "jsTrong<antongrigorievd@gmail.com>";
     private static Properties props;
     private static Session session;
-    private static String HTMLPage = "";
 
     static {
         props = new Properties();
@@ -48,7 +47,7 @@ public class Sender {
             message.setFrom(new InternetAddress(SENDER));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
             message.setSubject(notice.getTheme());
-            message.setText(notice.getText());
+            message.setContent(LetterFormService.getHTMLPage(notice), "text/html; charset=utf-8");
             Transport.send(message);
             return true;
         } catch (Throwable e) {
@@ -77,7 +76,7 @@ public class Sender {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(SENDER));
             message.setSubject(notice.getTheme());
-            message.setText(notice.getText());
+            message.setContent(LetterFormService.getHTMLPage(notice), "text/html; charset=utf-8");
             message.setRecipients(Message.RecipientType.TO, addresses);
             Transport.send(message, addresses);
             return true;
@@ -156,7 +155,11 @@ public class Sender {
     }
 
     public static boolean sendAccountData(Employee employee) {
-        String text = "Your login: " + employee.getName() + "\r\nYour password: " + employee.getPassword();
+        StringBuilder text = new StringBuilder("You have been registered in the system.\r\n");
+        text.append("Your login: ");
+        text.append(employee.getName());
+        text.append("\r\nYour password: ");
+        text.append(employee.getPassword());
         try {
             Session session = Session.getInstance(props, new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -167,17 +170,13 @@ public class Sender {
             message.setFrom(new InternetAddress(SENDER));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(employee.getMail()));
             message.setSubject("Registration");
-            message.setText(text);
+            message.setText(text.toString());
             Transport.send(message);
             return true;
         } catch (Throwable e) {
             logger.warn("Message didn't send");
             return false;
         }
-    }
-
-    private static String getHTMLPage(Notice notice){
-        return null;
     }
 
 }

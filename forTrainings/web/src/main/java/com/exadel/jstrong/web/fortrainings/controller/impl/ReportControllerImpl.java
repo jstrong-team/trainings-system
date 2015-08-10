@@ -38,38 +38,46 @@ public class ReportControllerImpl implements ReportController {
         ReportUI report = new ReportUI();
         List<TrainingReportUI> reportTrainings;
         List<Training> trainings = new ArrayList();
-        if (userId != null){
-            if (trainingId != null){
+        if (userId != null) {
+            if (trainingId != null) {
                 trainings.add(trainingDAO.getTrainingIfSubscribedByUser(trainingId, userId));
             } else {
                 trainings = trainingDAO.getTrainingsByUser(userId);
             }
         } else {
-            if (trainingId != null){
+            if (trainingId != null) {
                 trainings.add(trainingDAO.getTrainingIfSubscribed(trainingId));
             } else {
                 trainings = trainingDAO.getSubscribedTrainings();
             }
         }
-        if (trainings.size() == 1 && trainings.get(0) == null){
+        if (trainings.size() == 1 && trainings.get(0) == null) {
             trainings.clear();
         }
         reportTrainings = getReportTrainings(trainings);
         List<Employee> users = new ArrayList<>();
         List<UserReportUI> usersReports;
-        for (TrainingReportUI t: reportTrainings){
-            if (userId != null){
+        for (TrainingReportUI t : reportTrainings) {
+            if (userId != null) {
                 users.add(employeeDAO.getEmployee(userId));
             } else {
                 users = subscribeDAO.getSubscribersAsEmployees(t.getId());
             }
             usersReports = new ArrayList<>();
-            for (Employee e: users){
+            for (Employee e : users) {
                 usersReports.add(getUserReport(e, t, dateFrom, dateTo));
             }
-            t.setUsers(usersReports);
+            if (!usersReports.contains(null)) {
+                t.setUsers(usersReports);
+            }
         }
-        report.setTrainings(reportTrainings);
+        List<TrainingReportUI> resultTrainings = new ArrayList<>();
+        for (TrainingReportUI t : reportTrainings) {
+            if (t.getUsers() != null) {
+                resultTrainings.add(t);
+            }
+        }
+        report.setTrainings(resultTrainings);
         return report;
     }
 
@@ -79,10 +87,10 @@ public class ReportControllerImpl implements ReportController {
         return XLSService.createReportXLSFile(report);
     }
 
-    private List<TrainingReportUI> getReportTrainings (List<Training> trainings){
+    private List<TrainingReportUI> getReportTrainings(List<Training> trainings) {
         List<TrainingReportUI> reportTrainings = new ArrayList<>();
         TrainingReportUI reportTraining;
-        for (Training t: trainings){
+        for (Training t : trainings) {
             reportTraining = new TrainingReportUI();
             reportTraining.setId(t.getId());
             reportTraining.setName(t.getName());
@@ -91,10 +99,10 @@ public class ReportControllerImpl implements ReportController {
         return reportTrainings;
     }
 
-    private List<MeetReportUI> getReportMeets (List<Report> reports){
+    private List<MeetReportUI> getReportMeets(List<Report> reports) {
         List<MeetReportUI> meets = new ArrayList<>();
         MeetReportUI meet;
-        for (Report r : reports){
+        for (Report r : reports) {
             meet = new MeetReportUI();
             meet.setDate(r.getDate());
             meet.setAbsent(r.isAbsent());
@@ -104,10 +112,10 @@ public class ReportControllerImpl implements ReportController {
         return meets;
     }
 
-    private List<FeedbackReportUI> getReportFeedbacks (List<TrainerFeedback> feedbacks){
+    private List<FeedbackReportUI> getReportFeedbacks(List<TrainerFeedback> feedbacks) {
         List<FeedbackReportUI> reportFeedbacks = new ArrayList<>();
         FeedbackReportUI reportFeedback;
-        for (TrainerFeedback f : feedbacks){
+        for (TrainerFeedback f : feedbacks) {
             reportFeedback = new FeedbackReportUI();
             reportFeedback.setDate(f.getAddDate());
             reportFeedback.setText(f.getTextBody());
@@ -116,15 +124,18 @@ public class ReportControllerImpl implements ReportController {
         return reportFeedbacks;
     }
 
-    private UserReportUI getUserReport(Employee employee, TrainingReportUI training, Date dateFrom, Date dateTo){
+    private UserReportUI getUserReport(Employee employee, TrainingReportUI training, Date dateFrom, Date dateTo) {
         UserReportUI userReport = new UserReportUI();
         userReport.setName(employee.getName());
 
         List<Report> dbReports = reportDAO.getReportForEmployee(employee.getId(), training.getId(), dateFrom, dateTo);
+        if (dbReports.isEmpty()) {
+            return null;
+        }
         List<MeetReportUI> meets = getReportMeets(dbReports);
         int count = 0;
-        for (MeetReportUI meet: meets){
-            if (meet.isAbsent() != null && meet.isAbsent()){
+        for (MeetReportUI meet : meets) {
+            if (meet.isAbsent() != null && meet.isAbsent()) {
                 count++;
             }
         }
@@ -134,8 +145,8 @@ public class ReportControllerImpl implements ReportController {
         List<TrainerFeedback> feedbacks = trainerFeedbackDAO.getTrainingFeedbacks(employee.getId(), training.getId());
         List<TrainerFeedback> positiveFeedbacks = new ArrayList<>();
         List<TrainerFeedback> negativeFeedbacks = new ArrayList<>();
-        for (TrainerFeedback f: feedbacks){
-            if (f.getRating() <= 2){
+        for (TrainerFeedback f : feedbacks) {
+            if (f.getRating() <= 2) {
                 positiveFeedbacks.add(f);
             } else {
                 negativeFeedbacks.add(f);

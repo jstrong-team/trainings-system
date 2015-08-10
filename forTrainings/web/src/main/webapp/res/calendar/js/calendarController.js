@@ -1,8 +1,9 @@
-angular.module('calendarModule').controller('calendarController', ['$scope', '$location', 'calendarList', '$modal','trainingRedirectService', function ($scope, $location, calendarList, $modal,trainingRedirectService) {
+angular.module('calendarModule').controller('calendarController', ['$scope', '$location', 'calendarList', '$modal', 'trainingRedirectService', function ($scope, $location, calendarList, $modal, trainingRedirectService) {
     $scope.days = getThreeMonthDays();
     $scope.months = getThreeMonths();
 
     $scope.openModal = function (data) {
+        //console.log(data);
         $modal.open({
             animation: true,
             templateUrl: '/res/calendar/modal.html',
@@ -13,9 +14,15 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
                 trainingsStr: function () {
                     var dateRe = /[0-9]{4}-[0-9]{2}-[0-9]{2}/ig;
                     var date = dateRe.exec(data);
+                    var dayTrainings = [];
+                    $scope.threeMonthTrainings.forEach(function (training) {
+                        if (training.date.indexOf(date[0]) !== -1) {
+                            dayTrainings.push(training);
+                        }
+                    });
                     return {
-                        date: date[0],
-                        threeMonthTrainings: $scope.threeMonthTrainings
+                        dayTrainings: dayTrainings,
+                        title: 'CALENDAR_MODAL_DAY_TITLE'
                     };
                 }
             }
@@ -38,5 +45,24 @@ angular.module('calendarModule').controller('calendarController', ['$scope', '$l
 
     $scope.redirectToTrainingPage = function (id) {
         trainingRedirectService(id);
+    };
+
+    $scope.showMore = function (data) {
+        console.log(data);
+        $modal.open({
+            animation: true,
+            templateUrl: '/res/calendar/modal.html',
+            controller: 'calendarModalCtrl',
+            size: 'md',
+            windowClass: 'modalMain',
+            resolve: {
+                trainingsStr: function () {
+                    return {
+                        dayTrainings: data,
+                        title: 'CALENDAR_MODAL_WEEK_TITLE'
+                    };
+                }
+            }
+        });
     };
 }]);

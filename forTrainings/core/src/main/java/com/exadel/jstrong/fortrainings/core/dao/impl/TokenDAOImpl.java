@@ -113,4 +113,11 @@ public class TokenDAOImpl extends BaseDAO<Token> implements TokenDAO {
             return null;
         }
     }
+
+    @Override
+    public void addTokenForEmployee(int id) {
+        Token token = new Token();
+        token.setEmployee_id(id);
+        addToken(token);
+    }
 }
