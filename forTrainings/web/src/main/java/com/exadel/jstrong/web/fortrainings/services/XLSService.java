@@ -20,7 +20,6 @@ public class XLSService {
     private static Logger logger = Logger.getLogger(XLSService.class.getName());
 
     public static HSSFWorkbook createReportXLSFile(ReportUI report) {
-
         List<TrainingReportUI> trainings = report.getTrainings();
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("Report");

@@ -1,11 +1,16 @@
 package com.exadel.jstrong.web.fortrainings.services.mailservice;
 
 import com.exadel.jstrong.fortrainings.core.model.Notice;
+import org.apache.log4j.Logger;
+
+import java.net.InetAddress;
 
 /**
  * Created by Anton on 09.08.2015.
  */
 public class LetterFormService {
+
+    private static Logger logger = Logger.getLogger(LetterFormService.class);
 
     private final static String PAGE_OPEN = "<div style=\"border: 2px solid #032539; border-radius: 5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;\">";
     private final static String HAT = "<div style=\"color:white;\n" +
@@ -21,23 +26,28 @@ public class LetterFormService {
             "    </div>";
     private final static String THEME_OPEN = "<h2 style=\"padding-left: 25px; padding-right:15px; font-size: 20px\">";
     private final static String THEME_CLOSE = "</h2>";
-    private final static String TEXT_OPEN = "<p style=\"padding-left: 25px; padding-right:15px; font-size: 16px\">";
+    private final static String TEXT_OPEN = "<p style=\"padding-left: 25px; padding-right:15px; font-size: 15px\">";
     private final static String TEXT_CLOSE = "</p>";
     private final static String LINK_OPEN = "<a href=\"";
     private final static String LINK_BODY_OPEN = "\">";
     private final static String LINK_CLOSE = "</a>";
     private final static String PAGE_CLOSE = "</div>";
 
-    private final static String TRAINING_URL = "http://localhost:8080/ui/trainingPage/user/";
-    private final static String TRAINING_CREATE_URL = "http://localhost:8080/ui/trainingPage/approveCreate/";
-    private final static String TRANSACTION_URL = "http://localhost:8080/ui/trainingPage/approve/";
+    private final static String BASE_URL = "http://localhost:8080";
+    private final static String TRAINING_URL = "/ui/trainingPage/user/";
+    private final static String TRAINING_CREATE_URL = "/ui/trainingPage/approveCreate/";
+    private final static String TRANSACTION_URL = "/ui/trainingPage/approve/";
+
+    static {
+
+    }
 
     public static String getHTMLPage(Notice notice){
         StringBuilder page = new StringBuilder();
         page.append(PAGE_OPEN).append(HAT);
         page.append(THEME_OPEN).append(notice.getTheme()).append(THEME_CLOSE);
         page.append(TEXT_OPEN).append(notice.getText()).append(TEXT_CLOSE);
-        String link = null;
+        String link;
         if (notice.getTrainingId() != null){
             if (notice.isApproveTraining()) {
                 link = getTrainingCreateURL(notice.getTrainingId());
@@ -47,6 +57,8 @@ public class LetterFormService {
         } else {
             if (notice.getTransactionId() != null){
                 link = getTransactionURL(notice.getTransactionId());
+            } else {
+                link = getCurrentURL();
             }
         }
         if (link != null){
@@ -59,18 +71,30 @@ public class LetterFormService {
     }
 
     private static String getTransactionURL(int id){
-        StringBuilder url = new StringBuilder(TRANSACTION_URL);
-        return url.append(id).toString();
+        StringBuilder url = new StringBuilder(getCurrentURL());
+        return url.append(TRANSACTION_URL).append(id).toString();
     }
 
     private static String getTrainingURL(int id){
-        StringBuilder url = new StringBuilder(TRAINING_URL);
-        return url.append(id).toString();
+        StringBuilder url = new StringBuilder(getCurrentURL());
+        return url.append(TRAINING_URL).append(id).toString();
     }
 
     private static String getTrainingCreateURL(int id){
-        StringBuilder url = new StringBuilder(TRAINING_CREATE_URL);
-        return url.append(id).toString();
+        StringBuilder url = new StringBuilder(getCurrentURL());
+        return url.append(TRAINING_CREATE_URL).append(id).toString();
+    }
+
+    private static String getCurrentURL(){
+        try{
+            String localHost = InetAddress.getLocalHost().getHostAddress();
+            String url = new String(BASE_URL);
+            url = url.replace("localhost", localHost);
+            return url;
+        } catch(Throwable e){
+            logger.warn("Error");
+            return BASE_URL;
+        }
     }
 
 }
