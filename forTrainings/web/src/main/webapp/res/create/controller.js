@@ -1,12 +1,13 @@
 (function () {
     var services = [
         '$scope',
+        '$http',
         'createService',
         '$location',
         'validationService',
         'multipleDatesService'
     ];
-    var controller = function ($scope, createService, $location, validationService, multipleDatesService) {
+    var controller = function ($scope, $http, createService, $location, validationService, multipleDatesService) {
         $scope.createInfo = {
             name: null, annotation: null, description: null, target: null, paid: true,
             max_participants: null, date: [], place: null, internal: true, externalTrainerName: null,
@@ -36,6 +37,19 @@
         $scope.errorDateValidation = '';
         $scope.firstDate = '';
         $scope.lastDate = '';
+
+        $scope.isAdmin = '';
+
+        (function () {
+            $http.get('rest/storagetraining/isAdmin').then(
+                function(data){
+                    $scope.isAdmin = data.data.role;
+                    console.log(data.data);
+                },
+                function(error){
+                    console.log(error);
+                });
+        })();
 
         $scope.toggleSelection = function toggleSelection(day) {
 
