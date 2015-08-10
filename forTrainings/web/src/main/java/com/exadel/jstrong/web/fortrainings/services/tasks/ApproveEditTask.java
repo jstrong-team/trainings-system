@@ -18,18 +18,18 @@ public class ApproveEditTask implements Runnable {
 
     private Training data;
     private Integer systemId;
-    private Integer transactionId;
 
-    public ApproveEditTask(Training data, Integer senderId, Integer transactionId) {
+    public ApproveEditTask(Training data, Integer senderId) {
         this.systemId = senderId;
         this.data = data;
-        this.transactionId = transactionId;
     }
 
     @Override
     public void run() {
-        Notice notice = NoticeFactory.getTrainingEditNotice(data, transactionId, systemId);
+        Notice notice = NoticeFactory.getTrainingEditNotice(data, systemId);
         List<Employee> employees = eDAO.getEmployeesBySubscribe(data.getId());
+        List<Employee> admins = eDAO.getAdmins();
+        employees.addAll(admins);
         noticeService.addNotices(notice, employees);
     }
 
