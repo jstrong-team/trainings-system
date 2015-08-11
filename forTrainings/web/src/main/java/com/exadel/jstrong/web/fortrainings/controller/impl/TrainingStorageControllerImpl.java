@@ -153,7 +153,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     @Transactional
     public Subscribe buildSubscriber(int uId, int tId) {
         Integer roleId = eDAO.getEmployeeRoleId(uId);
-        if(!sDAO.dateMeetChecker(tId) && roleId != 2) {
+        Integer externalRoleId = roleDAO.getRoleByName("external").getId();
+        if(!sDAO.dateMeetChecker(tId) && roleId != externalRoleId) {
             Subscribe s = new Subscribe();
             s.setEmployeeId(uId);
             s.setTrainingId(tId);

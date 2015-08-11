@@ -174,8 +174,9 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
             rolesId = (List<Integer>)em.createNativeQuery("SELECT role_id FROM employee_role WHERE employee_id = :uId")
                     .setParameter("uId", userId)
                     .getResultList();
-            if (rolesId.contains(2)) {
-                return 2;
+            Integer externalRoleId = roleDAO.getRoleByName("external").getId();
+            if (rolesId.contains(externalRoleId)) {
+                return externalRoleId;
             }
         } catch(Throwable e){
             e.printStackTrace();
