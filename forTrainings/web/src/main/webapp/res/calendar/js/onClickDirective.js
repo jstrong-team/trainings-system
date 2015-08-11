@@ -2,7 +2,6 @@ angular.module('calendarModule').directive('onClickDirective', function () {
     return function (scope, element) {
         element.on('click', function (event) {
             var target = event.target;
-
             while (target !== element) {
 
                 if (target.classList[0] === 'dayItem') {
@@ -12,7 +11,7 @@ angular.module('calendarModule').directive('onClickDirective', function () {
                     break;
                 }
 
-                if (target.tagName !== 'P') {
+                if (target.tagName !== 'P' && target.tagName !== 'SPAN') {
                     event.stopPropagation();
                     break;
                 }
