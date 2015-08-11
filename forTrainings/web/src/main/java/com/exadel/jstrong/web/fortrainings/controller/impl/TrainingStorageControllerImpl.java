@@ -152,7 +152,8 @@ public class TrainingStorageControllerImpl implements TrainingStorageController 
     @Override
     @Transactional
     public Subscribe buildSubscriber(int uId, int tId) {
-        if(!sDAO.dateMeetChecker(tId)) {
+        Integer roleId = eDAO.getEmployeeRoleId(uId);
+        if(!sDAO.dateMeetChecker(tId) && roleId != 2) {
             Subscribe s = new Subscribe();
             s.setEmployeeId(uId);
             s.setTrainingId(tId);

@@ -102,7 +102,7 @@ public class TrainingStorageSpringController {
             int userId = restService.getUserId(request);
             if (!tsci.isTrainer(userId, trainingId)) {
                 if (tsci.addSubscriber(tsci.buildSubscriber(userId, trainingId)) == 0) {
-                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.setStatus(HttpServletResponse.SC_CONFLICT);
                 }
             } else {
                 response.setStatus(HttpServletResponse.SC_CONFLICT);

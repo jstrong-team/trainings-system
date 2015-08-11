@@ -15,6 +15,7 @@ public class LetterFormService {
     private final static String PAGE_OPEN = "<div style=\"border: 2px solid #032539; border-radius: 5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;\">";
     private final static String HAT = "<div style=\"color:white;\n" +
             "    background-color: #032539;\n" +
+            "    padding-top: 15px;\n" +
             "    font-size:34px;\n" +
             "    font-style: italic;\n" +
             "    min-height: 40px;;\n" +

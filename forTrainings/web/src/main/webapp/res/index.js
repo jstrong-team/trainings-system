@@ -18,7 +18,7 @@ moduleApp.service('redirectInterceptor',['$q','$location',function($q,$location)
                     $location.url('/ui/');
                     break;
                 case 409:
-                    $location.url('/ui/404');
+                    $location.url('/ui/409');
                     break;
             }
             return $q.reject(rejection);

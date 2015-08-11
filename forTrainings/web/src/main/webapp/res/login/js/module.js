@@ -6,6 +6,8 @@ loginModule.config(function($routeProvider) {
             controller: 'loginController'
         }).when('/ui/404',{
         templateUrl : '/res/errorpages/404.html'
+        }).when('/ui/409',{
+        templateUrl : '/res/errorpages/409.html'
         }).otherwise({
         redirectTo: '/ui/404'
     });
