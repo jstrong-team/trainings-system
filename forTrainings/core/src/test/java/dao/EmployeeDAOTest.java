@@ -164,4 +164,12 @@ public class EmployeeDAOTest extends BaseDAOTest {
         Employee actualEmployee = employeeDAO.getEmployee(2);
         Assert.assertEquals(expectedEmployee, actualEmployee);
     }
+
+    @Test
+    @DatabaseSetup(INITIAL_DATA_LOCATION + "/get.xml")
+    public void testGetEmployeeRoleId() {
+        Integer expectedRoleID = 3;
+        Integer actualRoleID = employeeDAO.getEmployeeRoleId(4);
+        Assert.assertEquals(expectedRoleID, actualRoleID);
+    }
 }
