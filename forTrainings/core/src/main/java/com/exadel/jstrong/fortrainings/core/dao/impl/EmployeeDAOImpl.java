@@ -170,11 +170,13 @@ public class EmployeeDAOImpl extends BaseDAO<Employee> implements EmployeeDAO {
     @Override
     public Integer getEmployeeRoleId(int userId) {
         try {
-            Integer roleId = (Integer)em.createNativeQuery("SELECT role_id FROM employee_role WHERE employee_id = :uId")
+            List<Integer> rolesId;
+            rolesId = (List<Integer>)em.createNativeQuery("SELECT role_id FROM employee_role WHERE employee_id = :uId")
                     .setParameter("uId", userId)
-                    .getSingleResult();
-
-            return roleId;
+                    .getResultList();
+            if (rolesId.contains(2)) {
+                return 2;
+            }
         } catch(Throwable e){
             e.printStackTrace();
         }

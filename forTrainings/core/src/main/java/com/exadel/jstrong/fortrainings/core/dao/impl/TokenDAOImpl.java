@@ -46,7 +46,7 @@ public class TokenDAOImpl extends BaseDAO<Token> implements TokenDAO {
     @Override
     public int getIdByToken(String value) {
         try {
-            int id = (int) em.createQuery("SELECT t.id FROM Token t WHERE t.value = :value").setParameter("value", value).getSingleResult();
+            int id = (int) em.createQuery("SELECT t.employee_id FROM Token t WHERE t.value = :value").setParameter("value", value).getSingleResult();
             return id;
         } catch (Throwable e) {
             return 0;
@@ -75,7 +75,7 @@ public class TokenDAOImpl extends BaseDAO<Token> implements TokenDAO {
     @Override
     public int getIdBySession(String session) {
         try {
-            int id = (int) em.createQuery("SELECT t.id FROM Token t WHERE t.session = :value").setParameter("value", session).getSingleResult();
+            int id = (int) em.createQuery("SELECT t.employee_id FROM Token t WHERE t.session = :value").setParameter("value", session).getSingleResult();
             return id;
         } catch (Throwable e) {
             return 0;

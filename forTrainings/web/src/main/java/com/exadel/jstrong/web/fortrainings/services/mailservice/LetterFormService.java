@@ -21,7 +21,7 @@ public class LetterFormService {
             "    align-items: center;\n" +
             "    font-weight:900;\">\n" +
             "        <span>\n" +
-            "            Exadel<sup style=\"font-size:18px;\"><sup> &reg</sup></sup>\n" +
+            "            Exadel\n" +
             "        </span>\n" +
             "    </div>";
     private final static String THEME_OPEN = "<h2 style=\"padding-left: 25px; padding-right:15px; font-size: 20px\">";
