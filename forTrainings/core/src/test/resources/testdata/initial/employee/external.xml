@@ -7,7 +7,7 @@
     <role id="2" name="external"/>
     <role id="3" name="trainer"/>
 
-    <employee_role employee_id="2" role_id="1"/>
+    <employee_role employee_id="2" role_id="3"/>
     <employee_role employee_id="3" role_id="1"/>
-    <employee_role employee_id="4" role_id="3"/>
+    <employee_role employee_id="4" role_id="2"/>
 </dataset>
